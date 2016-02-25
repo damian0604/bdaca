@@ -1908,9 +1908,9 @@ However, if you only want to calculate a mean and a standard deviation or even c
 
 
 \section{numpy \& scipy}
-Numpy is a package that provides a lot of mathematical functions. It can, for example, be used to calculate means (ok, that's boring, you could do that yourself), standard deviations, correlations, and much, much more. It also offers some specific data types that are more efficient for some calculations than the build-in lists. 
+Numpy \citep{numpy} is a package that provides a lot of mathematical functions. It can, for example, be used to calculate means (ok, that's boring, you could do that yourself), standard deviations, correlations, and much, much more. It also offers some specific data types that are more efficient for some calculations than the build-in lists. It goes a long with the similar package SciPy \citep{scipy}.
 
-\todo[inline]{verwijzen naar website numpy/scipy en ook citeren! }
+
 
 \begin{lstlisting}
 import numpy as np
@@ -1934,8 +1934,7 @@ from scipy import stats
 
 
 \section{pandas}
-\todo[inline]{naar boek verwijzen}
-Pandas is a framework that allows statistical modelling in Python. Those of you who know R will see a lot of similarities. Within pandas, data are stored in a table, very much like a Stata or SPSS dataset -- and yes, it is indeed called exactly as it is called in R: a \emph{dataframe}.
+Pandas \citep{pandas} is a framework that allows statistical modelling in Python. Those of you who know R will see a lot of similarities. Within pandas, data are stored in a table, very much like a Stata or SPSS dataset -- and yes, it is indeed called exactly as it is called in R: a \emph{dataframe}.
 As you see below, a dataframe basically consists of different columns with a name, which consist of a list of data. Pandas can read directly fromm a CSV file, but as you can see below, you can also construct a dataframe yourself. To run an OLS regression, for example you then only have to specify which columns are the dependent and the independent variables. 
 
 \begin{lstlisting}
@@ -1990,7 +1989,7 @@ A nice extra is that you can get much more than this regression table. You can a
 \end{figure}
 
 
-While there are tools that make fancier graphics (take a look at the Python module \texttt{seaborn}; or use \texttt{ggplot2} in R), \texttt{matplotlib} is really useful if you just want to make a quick histogram, line graph, or scatter plot (Fig.~\ref{fig:matplotlib}).
+While there are tools that make fancier graphics (take a look at the Python module \texttt{seaborn}; or use \texttt{ggplot2} in R), \texttt{matplotlib} \citep{matplotlib} is really useful if you just want to make a quick histogram, line graph, or scatter plot (Fig.~\ref{fig:matplotlib}).
 
 \begin{lstlisting}
 import matplotlib.pyplot as plt
@@ -2016,8 +2015,6 @@ In the last years, some other tutorials, partly similar to this one, have been p
 \item \citealp{Jurgens2016}. Provides examples and code for non-pogrammers to analyze Twitter data using Python and R.
 \end{itemize}
 
-\todo[inline]{ADD MORE RESOURCES}
-\todo[inline]{CHECKEN OF IK HET OP SSRN GA ZETTEN (IVM VERSIONING) OF GITHUB MISSCHIEN -- ja, zeker doen, en dan erop wijzen (``most recent version can be found on github''}
 
 \appendix
 
@@ -2078,6 +2075,6 @@ Ready to go? Let's do some work:
 \backmatter
 
 \bibliographystyle{apacite}
-\bibliography{../bigdata}
+\bibliography{../bdaca}
 
 \end{document}
