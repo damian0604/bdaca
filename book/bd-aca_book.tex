@@ -94,7 +94,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 %\title{Big Data and Automated Content Analysis}
 \title{Doing Computational Social Science with Python: An Introduction}
 \author{Damian Trilling}
-\date{Version 0.2\\ ~ \\  \footnotesize{PDF created \today}}
+\date{Version 0.21\\ ~ \\  \footnotesize{PDF created \today}}
 
 
 \begin{document}
@@ -228,20 +228,33 @@ sudo reboot
 \end{lstlisting}
 it will display in a higher resolution and you can even run it full screen if you want to (by clicking on View/Switch to Full Screen in the VirtualBox menu).
 
-We will now install some other programs we will use with the following commands
-(if you are running the 32bit version, leave away the \texttt{\_64}). Just type them into the LX Terminal, which you already know:
+We will now install some other programs we will use with the following commands. Just type them into the LX Terminal, which you already know:
 
 \begin{lstlisting}
-sudo apt-get install gedit spyder3
+sudo apt-get install gedit spyder3 python3-dev
 \end{lstlisting}
 
-You will be asked for your password and some questions which have to be answered with yes (by typing the letter \texttt{y}) followed by Enter. And another two commands to type for installing additional Python modules:
+You will be asked for your password and some questions which have to be answered with yes (by typing the letter \texttt{y}) followed by Enter. 
+
+Let us also update everything to the latest version:
+
+\begin{lstlisting}
+sudo apt-get update
+sudo apt-get upgrade
+\end{lstlisting}
+
+
+And let us finally install some additional Python modules:
 
 % als we apt-get install python3-pip doen, dan krijgen we een verouderde versie van pi wat later tot problemen leidt
 
 \begin{lstlisting}
 sudo easy_install3 -U pip
 sudo pip3 install nltk
+sudo pip3 install scikit-learn
+sudo pip3 install pandas
+sudo pip3 install jupyter
+sudo pip3 install gensim
 \end{lstlisting}
 
 In the start menu under "Education" you now find a new program, Spyder~3. This is the tool we will be using for doing some Python programming. But of course, you can also start it from the command line by just typing:
@@ -255,7 +268,7 @@ spyder3 &
 
 
 
-\chapter{The command line}
+\chapter{The Linux command line}
 \label{chap:commandline}
 \section{Getting to know it}
 This chapter provides you with some basic knowledge about how to use the command line of your operating system.  Chances are very high that you will need this later, so before diving into Python, I recommend doing this first.
@@ -354,7 +367,7 @@ You will encounter these over and over again, so you should have understood the 
  
  
  
-\chapter{The very, very basics of programming}
+\chapter{The very, very basics of programming in Python}
 \label{chap:basics}
 Before we start writing our first own program, we need to clarify a few concepts. Luckily, they are pretty simple---but nevertheless, it is crucial to completely understand them. 
 
@@ -398,7 +411,7 @@ The second one, height, is a \emph{floating point number}, or, shorter, a \emph{
 
 The third one, a \emph{Boolean value}, or, shorter, a \emph{bool}, can only take two values: True or False. Note that there are no \texttt{" "} around True and that True starts with a capital latter. This is how Python recognizes it is not a \ldots
 
-\ldots \emph{string}, the fourth variable. A string contains some arbitrary text, which is indicated by surrounding \texttt{" "} or \texttt{' '}.
+\ldots \emph{string}, the fourth data type. A string contains some arbitrary text, which is indicated by surrounding \texttt{" "} or \texttt{' '}.
 
 \subsection{Type conversion} 
 Python automatically converts some types for you (for example, luckily, you can divide a float by an int without thinking about their types). But still, you have to be very careful in using the right datatype. For example, you cannot write code like this:
@@ -530,6 +543,12 @@ sum(ages)/len(ages)
 \end{lstlisting}
 directly. But if the calculation is more complicated and if we have to do it repeatedly, this can save us a lot of copy-pasting and makes our code more readable.
 
+
+\begin{quote}
+	Once I was teaching this course, a student had the great idea of writing a function she named \texttt{translatetoenglish()}. It took a Dutch string as argument, passed that one to to Google Translate, and returned the English translation. So, once the function was defined, you could write something like \texttt{print(translatetoenglish("Wat een mooie dag!"))}, which would produce the following output: \texttt{What a beautiful day!}. She used it for more serious business, namely to loop over a dataset of multilingual tweets to produce a new dataset in English. What a loop is, is explained in the next section.
+\end{quote}
+
+
 \section{Methods}
 We have learned that a function is called\footnote{To 'call a function' means to execute it.} by simply writing its name and passing some variables as an argument between \texttt{()}. Another way of doing something with variables is using a \emph{method}\footnote{Strictly speaking, a method is also a function, but hey, this is no computer science course, so we'll allow ourselves to be a bit sloppy (and it relieves me from the burden to explain to you what a \emph{class} is, what I would have to do to tell you the complete story).}. In contrast to a function, a method is directly associated with a variable. For example, each string has a built-in method with the name \texttt{.lower()}. If you want to change all Capital Letters to lowercase, you can simply call the method by attaching it to the string. See these examples:
 \begin{lstlisting}
@@ -539,13 +558,13 @@ print("TESTtttt".lower())
 \end{lstlisting}
 As you see, methods are very similar to functions, but the way they are called is different. If \texttt{lower()} was a function, you would write \texttt{lower("TEST")} --- but it is a built-in method of each string rather than a function, so you have to call it by writing \texttt{"TEST".lower()} instead. Obviously, \texttt{.lower()} does not need an additional argument to convert the string to lowercase, as it a method \emph{of the very string it is supposed to work on}, so there is simply nothing between the \texttt{()}. Nevertheless, you cannot leave away the\texttt{()}, because every function and every method has to end with \texttt{()}, otherwise, it would not be recognized as such.
 
-For now, it is not important to know why some things are a method and some are a function.\footnote{In fact, sometimes this is kind of an arbitrary choice made by those who invented Python. Some operations have even been implemented as both function and method.} It is important to know, however, that both ways of doing something with your variables exist and how you use them. One can actually also write ones own function, something that we might do later on as well. 
+For now, it is not important to know why some things are a method and some are a function.\footnote{In fact, sometimes this is kind of an arbitrary choice made by those who invented Python. Some operations have even been implemented as both function and method.} It is important to know, however, that both ways of doing something with your variables exist and how you use them.
+
 \begin{quote}
-Once I was teaching this course, a student had the great idea of writing a function she named \texttt{translatetoenglish()}. It took a Dutch string as argument, passed that one to to Google Translate, and returned the English translation. So, once the function was defined, you could write something like \texttt{print(translatetoenglish("Wat een mooie dag!"))}, which would produce the following output: \texttt{What a beautiful day!}. She used it for more serious business, namely to loop over a dataset of multilingual tweets to produce a new dataset in English. What a loop is, is explained in the next section.
+	Note that function and methods usually do not change the value of an argument itself but rather return a new object as result. So, if you have a string \texttt{mystring = 'HELLO'}, then calling \texttt{mystring.lower()} does \emph{not} change mystring itself -- it only \emph{returns} the lowercased version of it. You therefore have to assign the result to a new variable (\texttt{mylowerstring = mystring.lower()}) or to the old one (\texttt{mystring = mystring.lower()}).
 \end{quote}
 
-
-\section{Loops}
+\section{For loops}
 All these functions and methods are mainly interesting if you do not apply them one time, to one string, but hundreds, thousands, or millions of times. In fact, this is the very essence of what we are doing in this course: Splitting up a task in small functions or methods that we then apply repeatedly. 
 
 To tell the computer to repeat something, we use a construction called a loop, or more specifically, a \emph{for-loop}. Lets start with an example (when typing it over, start line 3 by pressing SPACE four times):
@@ -584,7 +603,7 @@ Can you write your own loop based on the functions and data structures you learn
 \end{question}
 
 
-\section{If}
+\section{If statements}
 Another important way of structuring your code is to define that it only has to be executed under specific conditions. Again, the block of code that has to be executed under a condition is indented and introduced by a colon.
 
 \begin{lstlisting}
@@ -625,7 +644,10 @@ You should have no problems explaining what the following datatypes are:
 
 You should know what functions and methods are and how to use some basic ones like \texttt{print()}, \texttt{len()} or \texttt{.lower()}.
 
+You should have understood that you can write such functions yourself.
+
 And, very importantly, you have to understand for-loops and if-conditions, including the role of indentation to structure your code.
+
 
 \chapter{Basic ways to retrieve and store data}
 We already learned in section \ref{datatypes} (\nameref{datatypes}) how we can internally create some data structures that we can use to further do some analyses. For example, if we wanted to do some analyses with names, ages, and height, we could create three lists like this:
@@ -696,7 +718,7 @@ print(name[i],'is',age[i],'years old and',height[i],'meter tall')
 \end{lstlisting}
 Great! 
 
-Let's now save these columns in to a new file, \texttt{test.csv}, but in a different order. To this end, we use the \texttt{zip} command that basically clues several lists together. It goes like this:
+Let's now save these columns in to a new file, \texttt{test.csv}, but in a different order. To this end, we use the \texttt{zip} command that basically glues several lists together. It goes like this:
 
 \begin{lstlisting}
 output=zip(age,height,name)
@@ -713,7 +735,7 @@ OK, let's do this quickly, because what we will do in the next section is way co
 
 Because a JSON file has the same data structure, we can open a JSON file and directly import it into a dict. This is really handy, as a lot of online data is available in that format.
 
-Lets again with an editor like gedit and create a file with the following content and call it \texttt{/home/damian/mensen.json}.
+Lets again (with an editor like gedit) create a file with the following content and call it \texttt{/home/damian/mensen.json}.
 \begin{lstlisting}
 {"Sheila": 28, "Anne": 23, "John": 22, "Bas": 25, "Mark": 26}
 \end{lstlisting}
@@ -815,6 +837,10 @@ Now we're there! The dict \texttt{data['items'][i]['volumeInfo']} consists of se
  \texttt{data['items'][2]['volumeInfo']['language']}
 (remember, we start counting at 0).
 
+\begin{quote}
+	If you want to see all keys of a given dictionary \texttt{mydict} without having to wade through all the output, then you can get them by calling the method \texttt{mydict.keys()}.
+\end{quote}
+
 Let's put all this into practice and write a small program that gives us some information on books written by a specific author. What about some information on books written by Niklas Luhmann, one of the most important social theorists of the 20\textsuperscript{th} century\footnote{Accoring to Wikipedia. Actually, we could also access Wikipedia's API as well to directly retrieve this information. But, to be honest, I just used their web interface. But if I were to collect biographical information on more than 20 sociologists, it would probably already worth learning how to use Wikipedia's API.}? We just saw how to access the data we retrieve from the API, but we still have to see how we can transmit a more complicated search string (namely, one specifying that we are interested in one author only).
  
 Let's do some reverse engineering. By playing around with the GoogleBooks web interface and paying attention to the URLs that appear in your browser's address bar, you can actually infer how the part after \texttt{?q=} is constructed for more complicated search strings. I basically surfed to \url{http://books.google.com}, entered Luhmann as search string, got some results, clicked on the link of one of the results that were actually indeed written by Luhmann, which then gave me the page showed in Figure~\ref{fig:luhmann}. In fact, I saw that entering \texttt{inauthor:"Niklas Luhmann"} would have been the correct search string for what I intended, and I also saw that this indeed becomes part of the URL.
@@ -910,17 +936,19 @@ with open("/home/damian/someone.json", mode="w", encoding="utf-8") as fo:
 \end{lstlisting}
 
 We could also think of writing a CSV table, in which we store only the relevant information. This is especially useful if we want to further anayze the data using a different program later on. To this end, we could first store all relevant information in lists and then save these lists to a CSV file.
+
+
 \begin{lstlisting}
 import csv
 tweets=[]
 dates=[]
-for i in posts:
-    tweets.append(posts[i]["text"])
-    dates.append(posts[i]["created_at"])
+for p in posts:
+	tweets.append(p["text"])
+	dates.append(p["created_at"])
 output=zip(dates,tweets)
 with open("tweetswithdate.csv",mode="w",encoding="utf-8") as fo:
-    writer=csv.writer(fo)
-    writer.writerows(output) 
+	writer=csv.writer(fo)
+	writer.writerows(output) 
 \end{lstlisting}
 
 
@@ -976,7 +1004,7 @@ You should have understood
 \end{itemize}
 
 
-\chapter{Sentiment Analysis}
+\chapter{Sentiment analysis}
 \label{goodies}
 \section{Preparation}
 In this chapter, we are going to conduct a sentiment analysis. You can use your own data for this, you only have to modify the proposed code accordingly. For instance, you can use the examples from earlier chapters about how to use CSV files, JSON files, or APIs and add the sentiment analysis code from the examples below to them.
@@ -1136,7 +1164,7 @@ with open("/home/damian/week4/hillary-analyzed.csv",mode="w",encoding="utf-8", n
 \section{Sentistrength}
 There are several nice things to the simple approach demonstrated above: First, it is insightful from a didactical point of view, as it illustrates the basic principles of bag-of-words analyses. Second, it is very flexible in that it can be modified to measure a lot of other things, not only positivity or negativity. Third, it is transparent---everyone can understand the basic algorithm.
 
-However, in a real-world setting, it might be too simplistic. Instead of writing a sentiment analysis algorithm yourself, you can therefore invoke some third-party algorithm like SentiStrength \cite{Thelwall2012}. SentiStrength is free for academic use, but you have to pay for it if you want to use it commercially. To link it to Python, I wrote a module called \texttt{sentipy}, which you already installed. You can test wether everything works:
+However, in a real-world setting, it might be too simplistic. Instead of writing a sentiment analysis algorithm yourself, you can therefore invoke some third-party algorithm like SentiStrength \citep{Thelwall2012}. SentiStrength is free for academic use, but you have to pay for it if you want to use it commercially. To link it to Python, I wrote a module called \texttt{sentipy}, which you already installed. You can test wether everything works:
 
 
 \begin{lstlisting}
@@ -1201,14 +1229,14 @@ with open("scoreswithtext.csv",mode="w",encoding="utf-8") as fo:
 
 
 
-\chapter{Automated Content Analysis}
+\chapter{Automated content analysis}
 Automated content analysis covers a wide range of techiques, and not all of them can be covered within this tutorial (for an overview and more background information, see \cite{Boumans2016}). We will start with a first, powerful yet easy deductive approach, in which we basically count how often a pre-defined pattern (a search string, for example) occurs. This technique is known as using \emph{regular expressions}. We will then learn how to take characteristics of human language into account to get closer to the real meaning. The technique we use for this is called \emph{Natural Language Processing (NLP)}.
 The other approaches to automated content analysis mentioned by \cite{Boumans2016} are discussed in Chapters \ref{chap:network} and \ref{chap:ml}.
 
 
 \section{Regular expressions}
 
-A regular expression is a \emph{very} widespread way to describe patterns in strings. You probably know wildcats like {\tt{*}} or operators like {\tt{OR}}, {\tt{AND}} or {\tt{NOT}} that you can use in search strings in a lot of applications. But of course this is rather limited: Maybe you want to say somethhing like ``I want all words starting with a letter or a number (but no special character), then a \@-sign, then again some letters, and after the last dot two or three letters (but not more!) letters. You probably saw that this would be some way of describing an email-adress. 
+A regular expression is a \emph{very} widespread way to describe patterns in strings. You probably know wildcards like {\tt{*}} or operators like {\tt{OR}}, {\tt{AND}} or {\tt{NOT}} that you can use in search strings in a lot of applications. But of course this is rather limited: Maybe you want to say somethhing like ``I want all words starting with a letter or a number (but no special character), then a \@-sign, then again some letters, and after the last dot two or three letters (but not more!) letters. You probably saw that this would be some way of describing an email-adress. 
 
 A universal language to formulate such patterns is \emph{regular expressions}. There are some dialects (but the differences are minimal), and you can use them in many editors (!), in the Terminal, in STATA \ldots and in Python.
 
@@ -1237,7 +1265,6 @@ The item \emph{before} has to occur
 \item \texttt{?} 0 or 1 times
 \item \texttt{*} 0 or more times
 \item \texttt{+} 1 or more times
-\item \texttt{?} 0 or 1 times
 \end{itemize}
 For example,
 \begin{lstlisting}
@@ -1316,7 +1343,7 @@ Natural language processing is a term that is used to describe a set of techniqu
 
 To find out all the possibilities, have a look at \url{nltk.org}, but here are some examples.
 
-Let us first consider stopword removal. These are words without a meaning that is specific to a text, such as ``a", ``the", \ldots. They are usually more disturbing than useful, because they hinder us from seeing the really interesting words. Keeping them in can lead to misleading results if we want to identify key terms (e.g., by means of a word count), if we want to calculate document similarities, or if we want to make a word co-occurance graphs. A very straightforward way to do so would be the following algorithm, which you -- with the knowledge you gained so far -- actually could have written yoursefl:
+Let us first consider stopword removal. These are words without a meaning that is specific to a text, such as ``a", ``the", \ldots. They are usually more disturbing than useful, because they hinder us from seeing the really interesting words. Keeping them in can lead to misleading results if we want to identify key terms (e.g., by means of a word count), if we want to calculate document similarities, or if we want to make a word co-occurance graphs. A very straightforward way to do so would be the following algorithm, which you -- with the knowledge you gained so far -- actually could have written yourself:
 
 \begin{lstlisting}
 t = 'let us clean this up for her'
@@ -1344,6 +1371,11 @@ stopwords=[w.strip() for w in open("stopwords.txt",encoding="utf-8").readlines()
 \end{lstlisting}
 
 Especially if we have a very long list, this makes our code much easier to read and to maintain. We could also use one of the pre-defined lists provided by \texttt{nltk}, but often, we might want to tweak it to our research interests anyway.
+
+\begin{lstlisting}
+from nltk.corpus import stopwords
+stopwords=stopwords.words('dutch')
+\end{lstlisting}
 
 \subsection{Stemming}
 Another interesting step is \emph{stemming}. When interpreting text, we usually do not want to distinguish between smoke, smoked, smoking. Stemming reduces all of these forms to their stem \texttt{smoke}. Therefore, it is a typical preprocessing step (like stopword removal).
@@ -1410,10 +1442,10 @@ You should have understood
 \section{Overview}
 When scraping data from the web, we can distinguish two different stages:
 \begin{enumerate}
-\item Downloading a large number of webpages 
+\item Downloading a (possibly large) number of webpages 
 \item Parsing the content of the webpages
 \end{enumerate}
-Let us start with the first point. Sometimes, we have a list with all URLs of all Dutch news items of the last year, for example, from because we retrieved them from a RSS feed. In this case, downloading the data is trivial. We could for exampe use a for-loop in Python, or use the command \texttt{wget} from the bash command line. If we have a file \texttt{urls.txt} that contains one URL per row, we can download all urls with the command
+Let us start with the first point. Sometimes, we have a list with all URLs of all Dutch news items of the last year, for example, because we retrieved them from a RSS feed. In this case, downloading the data is trivial. We could for exampe use a for-loop in Python, or use the command \texttt{wget} from the bash command line. If we have a file \texttt{urls.txt} that contains one URL per row, we can download all urls with the command
 \begin{lstlisting}
 wget -i urls.txt
 \end{lstlisting}
@@ -1434,7 +1466,7 @@ In the next section, we will do so with an approach you are already familiar wit
 
 \section{A simple regular-expression based approach}
 
-FIrst of all, have a look again at the materials about regular expressions. In particular, have another loot at how the \texttt{re.findall()} function can be used to get a list of all strings that match a regular expression within another string. 
+First of all, have a look again at the materials about regular expressions. In particular, have another loot at how the \texttt{re.findall()} function can be used to get a list of all strings that match a regular expression within another string. 
 
 Then, open Firefox and go to \url{http://www.geenstijl.nl/mt/archieven/2014/05/das_toch_niet_normaal.html}. Even if you do not understand a word (which actually might help you to look at the structure rather than the content!), you will see that the article is followed by a whole bunch of comments. Already think about a way how one could identify the comments
 
@@ -1454,7 +1486,7 @@ This looks like a regular pattern, therefore, we can match it with a regular exp
 commentsection=re.findall(r'<div class="commentlist">.*?</div>',tekst)
 \end{lstlisting}
 \label{greedy}
-Pay attention that we write \texttt{.*?} instead of \texttt{.*} only. The \texttt{.} matches every character, and \texttt{*} means an arbitrary number of times, therefore \texttt{.*} \emph{also} matches \texttt{</div>}. This means that our regular expression would never stop, and we would get the whole rest of \texttt{tekst} --- rather the part \emph{until \texttt{</div>} is reached}. This is referred to as \emph{greedy matching}. Using \texttt{.*?} instead of \texttt{.*} means that we want to perform \emph{lazy matching} instead, where we do stop as soon as the next part of the regular expression is matched.
+Pay attention that we write \texttt{.*?} instead of \texttt{.*} only. The \texttt{.} matches every character, and \texttt{*} means an arbitrary number of times, therefore \texttt{.*} \emph{also} matches \texttt{</div>}. This means that our regular expression would only stop at the \emph{last} occurrence of \texttt{</div>} if there are several ones instead of the \emph{first} one. This is referred to as \emph{greedy matching}. Using \texttt{.*?} instead of \texttt{.*} means that we want to perform \emph{lazy matching} instead, where we do stop as soon as the next part of the regular expression is matched.
 
 
 As \texttt{re.findall()} returns a list of all matches, \texttt{commentssection} is a list of all commentssections. As there is only one comment section (which we can verify by calculating \texttt{len(commentssection)}, we can get the whole chunk of HTML-code of the comment section by accessing the first and only element of the list, \texttt{commentssection[0]}. 
@@ -1505,7 +1537,7 @@ What happens exactly in line 8 to 10? In line 8, we form a HTTP-request to speci
 Now, you should be ready to write your own parser for some content you are interested in!
 
 \section{XPath-parsing with lxml}
-One does not always have  to reinvent the weel, though. It is incredibly useful to understand how parsing with regular expression works, and it is very likely to come into a situation where this knowledge can be applied. Especially in the case of HTML pages, though, several parsers exist that can make life easier. 
+One does not always have  to reinvent the weel, though. It is useful to understand how parsing would work with regular expressions, and it is very likely to come into a situation where this knowledge can be applied. Especially in the case of HTML pages, though, several parsers exist that can make life easier. 
 
 In the example in the last section, we saw that an element in a HTML page can be nested in another element. In other words, a HTML page can be represented as a tree: For example, the page branches into an article, a navigation section, and a comment sections; the latter than branches into several comments. Each element in this tree can be identified by a so-called XPath. You can compare it with the path of a given file (\texttt{/home/damian/week6/slides.pdf}), where the leftmost element is the "highest" level, and where after each \texttt{/}, it indicates to which lower level one has to turn before finally arriving at the file (\texttt{slides.pdf}).  
 
@@ -1527,9 +1559,9 @@ Often, you do not only want that \emph{one} comment you selected, but \emph{all}
 \item Let the XPath end with \texttt{/text()} to get all text
 \end{itemize}
 
-In addition, you can also have a look at alternative XPath specifications. Again, select the text you are interested in, right-click, and choose "Inspect element".\footnote{If you use the Chrome browser, you can directly copy an XPath from the "Inspect element" window, but you have no way of interactively checking the XPath like with XPath Checker} You can now see how the HTML tags referring to that element are nested, which should correspond to the construction of your XPath. In particular,
+In addition, you can also have a look at alternative XPath specifications. Again, select the text you are interested in, right-click, and choose "Inspect element".\footnote{If you use the Chrome browser, you can directly copy an XPath from the "Inspect element" window, but you have no way of interactively checking the XPath like with the Firefox XPath Checker.} You can now see how the HTML tags referring to that element are nested, which should correspond to the construction of your XPath. In particular,
 \begin{itemize}
-\item If you want to refer to a specific attribute of a HTML tag, you can use \texttt{@}. For example, every \texttt{*[@id="reviews-container"]} in an XPath would grap what is within a tag like \texttt{<div id="reviews-container" class="user-content">}
+\item If you want to refer to a specific attribute of a HTML tag, you can use \texttt{@}. For example, every \texttt{*[@id="reviews-container"]} in an XPath would grab what is within a tag like \texttt{<div id="reviews-container" class="user-content">}
 \end{itemize}
 
 An example that scrapes all reviews of a specific telephone using one single XPath expression:
@@ -1565,9 +1597,9 @@ Now it's your turn!
 
 
 \section{Alternatives}
-You can get very far with the approaches sketched in this paper: regular expressions, the lxml-package, and wget for automated downloading tasks. BeautifulSoup is a python package that lies somewhere in between, as it resembles lxml, but internally uses regular expressions rather than an XPath to parse the HTML. 
+You can get very far with the approaches sketched in this chapter: regular expressions, the lxml-package, and wget for automated downloading tasks. BeautifulSoup is a python package that lies somewhere in between, as it resembles lxml, but internally uses regular expressions rather than an XPath to parse the HTML. 
 
-If you want to write an implication that integrates crawling and parsing, you might have a look at the scrapy framework (\url{http://scrapy.org/})
+If you want to write an application that integrates crawling and parsing, you might have a look at the scrapy framework (\url{http://scrapy.org/})
 
 
 \chapter{Network visualization}
@@ -1700,8 +1732,7 @@ You know have all building blocks you need to write a program that produces a GD
 \item something to write the output to a file rather than printing to the screen.
 \end{itemize}
 
-The GDF file your program produces can be opened in Gephi (or some other network visualization or analysis tool). I will provide you with one solution, but of course you can also try yourself!
-
+The GDF file your program produces can be opened in Gephi (or some other network visualization or analysis tool). I made a screencast where I quickly show how to use Gephi. You can watch it here: \url{https://streamingmedia.uva.nl/asset/detail/t2KWKVZtQWZIe2Cj8qXcW5KF}.
 \begin{quote}
 Rather than producing a GDF file and opening it in Gephi, you can also do network analysis in Python itself, for example with the module \texttt{networkx}. This can be very interesting, especially for really large networks (which you maybe cannot open with a graphical tool like Gephi).
 \end{quote}
@@ -1711,11 +1742,11 @@ Rather than producing a GDF file and opening it in Gephi, you can also do networ
 
 
 
-\chapter{Machine Learning and Topic Modelling}
+\chapter{Machine learning and topic modelling}
 \label{chap:ml}
 The vastness of the topic makes it impossible to cover it extensively in this course. Nevertheless, as last part, we will take a very small and superficial glimpse in the world of supervised and unsupervised machine learning. The lecture slides should give you a bit more context, but here you find two examples to illustrate the general principle --- and to give you a starting point for your own investigations.
 
-\section{Supervised Machine Learning}
+\section{Supervised machine learning}
 For this demonstration, we use a dataset from the Internet Movie Database \citep{Maas2011}. It contains in total $50 000$ reviews, separated into a test dataset and a training datasset ($25 000$ each), half of them positive, half of them negative.
 
 Download and unpack the dataset:
@@ -1834,7 +1865,7 @@ print(predictions)
 \section{Latent Dirichlet Allocation (LDA)}
 Topic Modelling is one form of unsupervised machine learning.
 
-You can use gensim \cite{Rehurek2010} for this. Install the module from the bash terminal:
+You can use gensim \citep{Rehurek2010} for this. Install the module from the bash terminal:
 
 \begin{lstlisting}
 sudo pip3 install gensim
@@ -1900,7 +1931,10 @@ with open("topicscores.tsv","w",encoding="utf-8") as fo:
 
 This is the general principle, but of course, there are a lot of ways of tuning it. To start with, some stopword removal would be advisable - and we did not even remove punctuation or all the weird HTML tags, or bother about converting it to lower case. However, you already learned all this and should be able to write a good script by integrating the structure from above with other techniques.
 
-For some suggestions, see the documentation of gensim and also the example script I send you.
+For some suggestions, see the documentation of gensim.% and also the example script I send you.
+
+
+
 
 \chapter{Statistics with Python}
 One of the things you have learned so far is how to output data in a format that suits your needs. For example, no matter what your input data are, you can always save the results of your program in a CSV file that you can open with R, Stata or SPSS for further analysis. And indeed, often it makes sense to use different tools in different stages of a project.
@@ -1925,7 +1959,7 @@ import numpy as np
 array([[ 1.        ,  0.67883359],
        [ 0.67883359,  1.        ]])
 
-from scipy import stats
+>>> from scipy import stats
 >>> stats.skew(x)
 0.0
 >>> stats.kurtosis(x)
@@ -2003,10 +2037,10 @@ plt.scatter(x,y)
 
 
 \chapter{Further reading}
-The following books provide the interested student with more and deeper information. They are intended for the advanced reader and might be useful for individual projects:
+The following books provide the interested student with more and deeper information. They are intended for the advanced reader and might be useful for your individual projects (or, maybe, a thesis):
 
 \begin{itemize}
-\item \citealp{Russel2013}. Gives a lot of examples about how to analyze a variety of online data, including Facebook and Twitter, but going much beyond that.
+\item \citealp{Russel2013}. Gives a lot of examples about how to analyze a variety of online data, including Facebook and Twitter, but going much beyond that. Because social media APIs have undergone multiple changes in the last years, the examples might be slightly outdated.
 \item \citealp{Bird2009}. This is the official documentation of the NLTK package that we are using. A newer version of the book can be read for free at \url{http://nltk.org}
 \item \citealp{McKinney2012}: Another book with a lot of examples. A PDF of the book can be downloaded for free on \url{http://it-ebooks.info/book/1041/}.
 \end{itemize}
