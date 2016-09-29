@@ -56,6 +56,24 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 }
 
 
+\lstnewenvironment{lstlistingbash}{\lstset{basicstyle=\footnotesize\ttfamily,
+		columns=flexible,
+		breaklines=true,
+		numbers=left,
+		%stepsize=1,
+		numberstyle=\tiny,
+		backgroundcolor=\color[rgb]{1,0,.4}}}{}
+
+
+\lstnewenvironment{lstlistingoutput}{\lstset{basicstyle=\footnotesize\ttfamily,
+		columns=flexible,
+		breaklines=true,
+		numbers=left,
+		%stepsize=1,
+		numberstyle=\tiny,
+		backgroundcolor=\color[rgb]{.9,.9,.9}}}{}
+
+
 %\let\oldquote\quote
 %\let\endoldquote\endquote
 
@@ -172,6 +190,19 @@ This chapter describes how to prepare your computer for use within the course Bi
 
 Specifically, we are using Oracle VirtualBox, within which we will install Lubuntu (a lightweight version of Ubuntu, a user-friendly Linux distribution). Before you start, make sure that you have plenty of space available on your laptop, preferably more than 10 GB. (You'd better put your music and photos on an external drive for the duration of this course...)
 
+Before we start, let me introduce three conventions that I'll use in this book. Python-code, which you will type into the Python interpreter or use in the programs you'll write, is represented in blue:
+\begin{lstlisting}
+print("Hello world"!)
+\end{lstlisting}
+Commands that you have to type into the Linux command line (also referred to as shell, terminal, or bash) looks like this:
+\begin{lstlistingbash}
+echo Hello world!
+\end{lstlistingbash}
+And any output or data file is represented in gray:
+\begin{lstlistingoutput}
+Hello world!
+\end{lstlistingoutput}
+
 Ready to go?
 
 
@@ -218,50 +249,64 @@ After finishing the installation, your virtual machine will reboot. After clicki
 
 \section{Install necessary packages}
 Once you have installed and rebooted your virtual machine, you will have to install a couple of packages. It might be that your system is running now in a very low resulution, but that will change after the following step.  Click on the button on the bottom left (where the Windows start button would be), then on System Tools/LXTerminal. Enter the following command:
-\begin{lstlisting}
+\begin{lstlistingbash}
 sudo apt-get install virtualbox-guest-dkms
-\end{lstlisting}
+\end{lstlistingbash}
 You will be asked for your password (the one you defined during the install process). Just type it and confirm with Enter (no, you do not see anything while you type, that's correct). 
 If you reboot your virtual machine (by clicking on the Start button/logout/reboot or by typing
-\begin{lstlisting}
+\begin{lstlistingbash}
 sudo reboot
-\end{lstlisting}
+\end{lstlistingbash}
 it will display in a higher resolution and you can even run it full screen if you want to (by clicking on View/Switch to Full Screen in the VirtualBox menu).
 
 We will now install some other programs we will use with the following commands. Just type them into the LX Terminal, which you already know:
 
-\begin{lstlisting}
+\begin{lstlistingbash}
 sudo apt-get install gedit spyder3 python3-dev
-\end{lstlisting}
+\end{lstlistingbash}
 
 You will be asked for your password and some questions which have to be answered with yes (by typing the letter \texttt{y}) followed by Enter. 
 
 Let us also update everything to the latest version:
 
-\begin{lstlisting}
+\begin{lstlistingbash}
 sudo apt-get update
 sudo apt-get upgrade
-\end{lstlisting}
+\end{lstlistingbash}
 
 
 And let us finally install some additional Python modules:
 
 % als we apt-get install python3-pip doen, dan krijgen we een verouderde versie van pi wat later tot problemen leidt
 
-\begin{lstlisting}
+\begin{lstlistingbash}
 sudo easy_install3 -U pip
 sudo pip3 install nltk
 sudo pip3 install scikit-learn
 sudo pip3 install pandas
 sudo pip3 install jupyter
 sudo pip3 install gensim
-\end{lstlisting}
+\end{lstlistingbash}
 
 In the start menu under "Education" you now find a new program, Spyder~3. This is the tool we will be using for doing some Python programming. But of course, you can also start it from the command line by just typing:
 
-\begin{lstlisting}
+\begin{lstlistingbash}
 spyder3 &
-\end{lstlisting}
+\end{lstlistingbash}
+
+
+\begin{quote}
+	While working in the VM, you realize that you made a mistake while configuring your keyboard so that some keys don't work as expected? No worries, you can re-configure your keyboard at any time with the following command:\\
+	\texttt{sudo dpkg-reconfigure keyboard-configuration}\\
+	If you have a standard laptop purchased in the Netherlands, it is very likely that you have a US keyboard. In that case, the following configuration is correct:\\ 
+	Model: 'Algemeen 105 toetsen internationaal\\
+	Oorsprong van het toetsenbord (Engels VS)\\
+	Indeling: Engels (VS)\\
+	standaard\\
+	geen samenstelling\\
+	X-server: nee	
+\end{quote}
+
 
 %\section{Done!}
 %You can also have a closer look at all the options VirtualBox has to offer, for example about sharing folders or the clipboard between the host system (your ``real'' system) and the virtual system (Ubuntu, in this case). That's all not strictly necessary for this course, but as it is \emph{your} working environment for the next time, you might as well make it suit your needs as closely as possible.
@@ -281,7 +326,7 @@ This chapter provides you with some basic knowledge about how to use the command
  Let’s get started with a generational divide. It greatly helps if you are of the age of the author (32) or older, as you probably remember the thing in Figure~\ref{fig:msdos}. The Linux command line (which is basically the same as what you get when you start the Terminal on MacOS, so Mac users, you can use this on your own computer as well!), however, is much, much, much, much, much more powerful than the old MS-DOS thing. If you look on YouTube for ``bash'' (that's the specific one we are using) or ``linux command line'', you'll probably get some good tutorials, but let's explore the most basic things together.
  \begin{itemize}
  \item Open a Terminal by clicking on the Start button/System Tools/LXTerminal.
- \item Type the following commands and watch what is happening: \begin{lstlisting}
+ \item Type the following commands and watch what is happening: \begin{lstlistingbash}
 pwd
 mkdir test
 cd test
@@ -292,7 +337,7 @@ ls
 cat test.txt
 rm test.txt
 cd ..
- \end{lstlisting}
+ \end{lstlistingbash}
 \end{itemize}
 What happend? Let's discuss it line by line:
 \begin{enumerate}
@@ -315,11 +360,11 @@ What happend? Let's discuss it line by line:
 You now already learned how to create and change directories, list the files in a given directory, and how to delete them again. And, of course, in Chapter~\ref{chap:prepare}, you used it to install and start programs. One of the really useful things you can do in the command line is inspecting (also very large) files. Imagine you have millions of tweets, then you do not want to load all of them in a program, but maybe only see the first few to get a general idea. 
 
 Let's do a small exercise. Lets create a new directory for this exercise, download a training dataset, and have a look at it. I assume that you are in your home directory, you can check that with \texttt{pwd}.
-\begin{lstlisting}
+\begin{lstlistingbash}
 mkdir exercise1
 cd exercise1
 wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/mytweets.csv --user=USERNAME --password=PASSWORD
-\end{lstlisting}
+\end{lstlistingbash}
 (Of course, you replace USERNAME and PASSWORD by the username and password you received from your instructor to access all class materials. Also note that they are entered in the same line as the rest of the \texttt{wget}-command. \textbf{And note the space before the \texttt{--}!}).
 
 You could as well just have downloaded this file by typing exactly the same URL in your browser, but \texttt{wget} allows you to do the same trick from the command line. If you have a really huge file, you'll appreciate this! Later on, you will learn some really cool stuff you can do with wget. 
@@ -330,23 +375,23 @@ You have four tools at your disposal: \texttt{head} (which gives you the first l
 By default, \texttt{head} and \texttt{tail} give you 10 lines, but you can specify a different number, thus, you can produce the output below with \texttt{head -3 mytweets.csv}. 
 
 \label{firstcsvfile}
-\begin{lstlisting}
+\begin{lstlistingoutput}
 text,to_user_id,from_user,id,from_user_id,iso_language_code,source,profile_image_url,geo_type,geo_coordinates_0,geo_coordinates_1,created_at,time
 :-) #Lectrr #wereldleiders #uitspraken #Wikileaks #klimaattop http://t.co/Udjpk48EIB,,henklbr,407085917011079169,118374840,nl,web,http://pbs.twimg.com/profile_images/378800000673845195/b47785b1595e6a1c63b93e463f3d0ccc_normal.jpeg,,0,0,Sun Dec 01 09:57:00 +0000 2013,1385891820
 Wat zijn de resulaten vd #klimaattop in #Warschau waard? @EP_Environment ontmoet voorzitter klimaattop @MarcinKorolec http://t.co/4Lmiaopf60,,Europarl_NL,406058792573730816,37623918,en,<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>,http://pbs.twimg.com/profile_images/2943831271/b6631b23a86502fae808ca3efde23d0d_normal.png,,0,0,Thu Nov 28 13:55:35 +0000 2013,1385646935
 
-\end{lstlisting}
+\end{lstlistingoutput}
 
 This is a so-called CSV file, a table in which each column is separated by a comma. The first column contains the tweet, the second the user that the tweet  is directed at (which obviously can be empty), the third the sender and so on.
 
 But it gets even cooler: You can also just display a specific column (e.g., only the tweets): \texttt{cut -f1 -d, mytweets.csv}. See man cut for more details. And you can combine these kind of commands through a technique called ``pipe'', indicated by the \texttt{\textbar}-sign. The command
-\begin{lstlisting}
+\begin{lstlistingbash}
 cut -f1 -d, mytweets.csv | tail -5 
-\end{lstlisting}
+\end{lstlistingbash}
 for example sends the output of the cut-command to the tail-command. If you want to send output to a file instead of the screen, this is done with the \texttt{\textgreater}-sign (remember?). For example, try this cool pipe: 
-\begin{lstlisting}
+\begin{lstlistingbash}
 cut -f1 -d, mytweets.csv > mytweetsonlyfirstcolumn.csv 
-\end{lstlisting}
+\end{lstlistingbash}
 Now, play a bit around with the commands you learned!
 
 \section{Recap}
@@ -668,13 +713,13 @@ In the easiest secenario, we already have a \emph{table} in which each row conta
 You actually already saw a CSV file on page \pageref{firstcsvfile}. Have a look back there if you forgot. Virtually all programs (including SPSS, Stata, Excel, \ldots) can read and write CSV files, that's why we will use them very frequently. When creating data with such a program, make sure that you know how they are formatted exactly (e.g., are columns separated by \texttt{,} or \texttt{;}, are strings encapsulated by \texttt{""} or not, \ldots. You can use the tools described on \pageref{firstcsvfile} to inspect the files.
 
 Lets create a text file with the following content:
-\begin{lstlisting}
+\begin{lstlistingoutput}
 John,22,1.83
 Bas,25,1.77
 Anne,23,1.55
 Sheila,28,1.76
 Mark,26,1.74
-\end{lstlisting}
+\end{lstlistingoutput}
 
 You can use gedit for this, an editor you find somewhere in the menu, but which you can---surprise, surprise!---also start from the command line with \texttt{gedit~\&}. Let's assume we saved this file as \texttt{/home/damian/mensen.csv}.
 
@@ -736,9 +781,9 @@ OK, let's do this quickly, because what we will do in the next section is way co
 Because a JSON file has the same data structure, we can open a JSON file and directly import it into a dict. This is really handy, as a lot of online data is available in that format.
 
 Lets again (with an editor like gedit) create a file with the following content and call it \texttt{/home/damian/mensen.json}.
-\begin{lstlisting}
+\begin{lstlistingoutput}
 {"Sheila": 28, "Anne": 23, "John": 22, "Bas": 25, "Mark": 26}
-\end{lstlisting}
+\end{lstlistingoutput}
 
 To read this file into a Python dict, we only need to do the following:
 \begin{lstlisting}
@@ -802,7 +847,7 @@ Why \texttt{json.loads()} in line 5 and not \texttt{json.load()}, as we did in S
  	
 Let's have a look at the output \texttt{pprint(data)} produced to see what is actually stored in our dict \texttt{data}. As you can see, it is a lot, which is why I removed some lines from the following listing to make the picture clearer.
  
-\begin{lstlisting}
+\begin{lstlistingoutput}
 {'items': [{'accessInfo': {'accessViewStatus': 'SAMPLE',
 
 <<I REMOVED SOME LINES HERE>>
@@ -825,7 +870,7 @@ Let's have a look at the output \texttt{pprint(data)} produced to see what is ac
          'subtitle': 'A Sketch',
          'title': 'Love'}},
 
-\end{lstlisting}
+\end{lstlistingoutput}
  
 First of all, we see at the very beginning that \texttt{data} contains an entry  \texttt{items}, which is is probably what we need. We could access this part of the dict by typing  \texttt{data["items"]}. 
 
@@ -891,9 +936,9 @@ print ("The average length of a book by Luhmann is", sum(pagelist)/len(pagelist)
 \subsection{The Twitter API}
 
 For this exercise, we need to import a module named \texttt{twitter}. You can easily install it from the command line with
-\begin{lstlisting}
+\begin{lstlistingbash}
 sudo pip3 install twitter
-\end{lstlisting}
+\end{lstlistingbash}
 Do this before you read any further.
 
 There is a lot of information on the Web, an extensive documentation on \url{https://dev.twitter.com/}, and we will have a number of exercises on the Twitter API in class, so there is no need to go too much into detail here. There are two main differences with the GoogleBooks-example: (1) You do not have to access the API directly via \texttt{urlopen()}, but some nice person already wrote a so-called wrapper which does that for you; and (2) you need an account and log on.
@@ -1005,23 +1050,23 @@ You should have understood
 
 
 \chapter{Sentiment analysis}
-\label{goodies}
 \section{Preparation}
+\label{goodies}
 In this chapter, we are going to conduct a sentiment analysis. You can use your own data for this, you only have to modify the proposed code accordingly. For instance, you can use the examples from earlier chapters about how to use CSV files, JSON files, or APIs and add the sentiment analysis code from the examples below to them.
 
 Before you start, however, make sure you have all the necessary modules and data we need for this. To save you some work, I put a file together which contains an advanced sentiment analysis algorithm, but also two simple lists with positive and negative words. Download it using the following bash-commands:
 
-\begin{lstlisting}
+\begin{lstlistingbash}
 cd /home/damian
 wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/goodies.tar.gz --user=USERNAME --password=PASSWORD
 tar -xzf goodies.tar.gz
 rm goodies.tar.gz
-\end{lstlisting}
+\end{lstlistingbash}
 
 In addition, you have to install Java:
-\begin{lstlisting}
+\begin{lstlistingbash}
 sudo apt-get install default-jre
-\end{lstlisting}
+\end{lstlistingbash}
 
 When finished, you have to tell Spyder where to find the new modules. You can do this via the menu Tools/PYTHONPATH Manager (see Figure~\ref{fig:pythonpath} for the two necessary entries). After that, you have to select ``Update module names list'' from the same menu, and close the Python consoles that are still open (or restart Spyder).
 
@@ -1033,22 +1078,22 @@ When finished, you have to tell Spyder where to find the new modules. You can do
 
 Now you only need data to play with. You can download the following datasets for doing the exercises, but you are also free to use other datasets.
 
-\begin{lstlisting}
+\begin{lstlistingbash}
 cd /home/damian
 mkdir week4
 cd week4
 wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/hillary.csv --user=USERNAME --password=PASSWORD
 wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/stateoftheunion.json --user=USERNAME --password=PASSWORD
-\end{lstlisting}
+\end{lstlistingbash}
 
 You can also download the solutions for the following exercises:
 
-\begin{lstlisting}
+\begin{lstlistingbash}
 wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/ex-senti-simple.py --user=USERNAME --password=PASSWORD
 wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/ex-senti-sentistrength.py --user=USERNAME --password=PASSWORD
 wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/ex-senti-sentistrength-file.py --user=USERNAME --password=PASSWORD
 
-\end{lstlisting}
+\end{lstlistingbash}
 
 
 
@@ -1164,7 +1209,7 @@ with open("/home/damian/week4/hillary-analyzed.csv",mode="w",encoding="utf-8", n
 \section{Sentistrength}
 There are several nice things to the simple approach demonstrated above: First, it is insightful from a didactical point of view, as it illustrates the basic principles of bag-of-words analyses. Second, it is very flexible in that it can be modified to measure a lot of other things, not only positivity or negativity. Third, it is transparent---everyone can understand the basic algorithm.
 
-However, in a real-world setting, it might be too simplistic. Instead of writing a sentiment analysis algorithm yourself, you can therefore invoke some third-party algorithm like SentiStrength \citep{Thelwall2012}. SentiStrength is free for academic use, but you have to pay for it if you want to use it commercially. To link it to Python, I wrote a module called \texttt{sentipy}, which you already installed. You can test wether everything works:
+However, in a real-world setting, it might be too simplistic. Instead of writing a sentiment analysis algorithm yourself, you can therefore invoke some third-party algorithm like SentiStrength \citep{Thelwall2012}. SentiStrength is free for academic use, but you have to pay for it if you want to use it commercially. To link it to Python, I wrote a module called \texttt{sentipy}, which you already installed (see Chapter~\ref{goodies}). You can test wether everything works:
 
 
 \begin{lstlisting}
@@ -1303,10 +1348,10 @@ if result:
    print ("Maximum points:",result.group(2))
 \end{lstlisting}
 would produce the following output:
-\begin{lstlisting}
+\begin{lstlistingoutput}
 Your points: 2
 Maximum points: 25
-\end{lstlisting}
+\end{lstlistingoutput}
 This is cool, isn't it? We now know how to extract information from a semi-structured string so that we can store it in variables for further analysis!
 
 On page~\pageref{greedy}, you can find some additional information about some regular expression features, especially about the difference between lazy matching and greedy matching, which basically specifies where to ``stop" when a regular expression contains something like \texttt{.*} (thus, matching an arbitrary number of arbitrary characters, which is in fact much more useful than it sounds).
@@ -1356,13 +1401,13 @@ for w in t.split():
 
 Instead of defining the list in the script itself, we could also read them from a file. Imagine we have a file called \texttt{stopwords.txt} in which we put one stopword per line (we could easily create such a file in \texttt{gedit} or Leafpad or any other text editor):
 
-\begin{lstlisting}
+\begin{lstlistingoutput}
 he
 she
 it
 we
 they
-\end{lstlisting}
+\end{lstlistingoutput}
 
 We could read this file to a list with
 
@@ -1417,9 +1462,9 @@ print(tagged)
 \end{lstlisting}
 
 We see that we get a list of tuples (pairs of two values): 
-\begin{lstlisting}
+\begin{lstlistingoutput}
 [('At', 'IN'), ('eight', 'CD'), ("o'clock", 'JJ'), ('on', 'IN'), ('Thursday', 'NNP'), ('morning', 'NN')]
-\end{lstlisting}
+\end{lstlistingoutput}
 
 This is pretty useful, because we can address the items with \emph{slicing}. For example, to get the fifth tuple, we can write \texttt{tagged[5]}. Of course, we can also slice the tuple. So, to get only the grammatical function of the word ``morning'', we can use  \texttt{tagged[5][1]}.
 
@@ -1446,15 +1491,15 @@ When scraping data from the web, we can distinguish two different stages:
 \item Parsing the content of the webpages
 \end{enumerate}
 Let us start with the first point. Sometimes, we have a list with all URLs of all Dutch news items of the last year, for example, because we retrieved them from a RSS feed. In this case, downloading the data is trivial. We could for exampe use a for-loop in Python, or use the command \texttt{wget} from the bash command line. If we have a file \texttt{urls.txt} that contains one URL per row, we can download all urls with the command
-\begin{lstlisting}
+\begin{lstlistingbash}
 wget -i urls.txt
-\end{lstlisting}
+\end{lstlistingbash}
 We could use a number of additional options, in particular waiting between the URLs to avoid gettig blocked, or pretend that we use a specific web browser. \texttt{wget --help} or Google give you more information.
 
 If we do not have such a list, but rather want to start from one page (e.g., the homepage of a specific website) and simply follow all links that we find on that page, we have to resort to a technique called \emph{crawling}. If we for example want to download the page \url{http://gsc.uva.nl/}, including all links, plus all links encountered on the pages linked to (but stop after this second level of recursion), we can simply type
-\begin{lstlisting}
+\begin{lstlistingbash}
 wget -l2 http://gsc.uva.nl/
-\end{lstlisting}
+\end{lstlistingbash}
 The internet is full of examples (like here: \url{http://www.thegeekstuff.com/2009/09/the-ultimate-wget-download-guide-with-15-awesome-examples/})
 
 At the end of this chapter, I will point you to a framework that allows crawling with Python.
@@ -1559,10 +1604,30 @@ Often, you do not only want that \emph{one} comment you selected, but \emph{all}
 \item Let the XPath end with \texttt{/text()} to get all text
 \end{itemize}
 
-In addition, you can also have a look at alternative XPath specifications. Again, select the text you are interested in, right-click, and choose "Inspect element".\footnote{If you use the Chrome browser, you can directly copy an XPath from the "Inspect element" window, but you have no way of interactively checking the XPath like with the Firefox XPath Checker.} You can now see how the HTML tags referring to that element are nested, which should correspond to the construction of your XPath. In particular,
+\begin{quote}
+	When there is a line or paragraph break within the results of an XPATH, the \texttt{/text()} function might not function properly, as it sees each part as a separate element. This can be fixed by leaving away the \texttt{/text()} in the XPATH itself and instead using the \texttt{.text\_content()} method later on, as this example illustrates:
+	\begin{lstlisting}
+reviews = tree.xpath('//div/div/div[2]/div[*]/div[2]/p[1]')
+i=0
+for review in reviews:
+	print("Review",i,":",review.text_content())
+	i+=1
+\end{lstlisting}	
+\end{quote}
+
+
+In addition, you can also have a look at alternative XPath specifications. Again, select the text you are interested in, right-click, and choose ``Inspect element''.\footnote{If you use the Chrome browser, you can directly copy an XPath from the ``Inspect element'' window, but you have no way of interactively checking the XPath like with the Firefox XPath Checker.} You can now see how the HTML tags referring to that element are nested, which should correspond to the construction of your XPath (Figure~\ref{fig:inspectelement}). In particular,
 \begin{itemize}
 \item If you want to refer to a specific attribute of a HTML tag, you can use \texttt{@}. For example, every \texttt{*[@id="reviews-container"]} in an XPath would grab what is within a tag like \texttt{<div id="reviews-container" class="user-content">}
 \end{itemize}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth,keepaspectratio]{../pictures/inspectelementcrop}
+	\caption{\label{fig:inspectelement}Gathering information for constructing an alternative XPATH specification, using the ``inspect element'' function.}
+\end{figure}
+
 
 An example that scrapes all reviews of a specific telephone using one single XPath expression:
 
@@ -1585,13 +1650,13 @@ for review in reviews:
 
 This produces the following output:
 
-\begin{lstlisting}
+\begin{lstlistingoutput}
 34 reviews scraped. Showing the first 60 characters of each:
 Review 0 : Ideaal in combinatie met onze Samsung curved tv en onze mobi
 Review 1 : Gewoon een goed ding!!!!Ligt goed in de hand. Is duidelijk e
 Review 2 : Prachtig mooi levendig beeld, hoever of kort bij zit maakt n
 Review 3 :  Opstartsnelheid is zeer snel.
-\end{lstlisting}
+\end{lstlistingoutput}
 
 Now it's your turn!
 
@@ -1632,7 +1697,7 @@ In line 12, it is defined that the following lines contain the edge definitions:
 For example, we see that the words ``coffee'' occurs three times in total (line 2), and one time together with the word ``beer'' (line 13).
 
 
-\begin{lstlisting}
+\begin{lstlistingoutput}
 nodedef>name VARCHAR, width DOUBLE
 coffee,3
 beer,2
@@ -1675,7 +1740,7 @@ having,my,1
 am,my,1
 coffee,my,1
 my,friend,1
-\end{lstlisting}
+\end{lstlistingoutput}
 
 As the format is so simple, we can write a program that produces such a file. In fact, we have already done so for the first part: it is in fact nothing else than a CSV file with frequency counts. 
 
@@ -1688,9 +1753,9 @@ print ([e for e in combinations(words,2)])
 \end{lstlisting}
 produces:
 
-\begin{lstlisting}
+\begin{lstlistingoutput}
 [("Let's", 'combine'), ("Let's", 'stuff!'), ('combine', 'stuff!')]
-\end{lstlisting}
+\end{lstlistingoutput}
 
 We already see that it is probably wise to do some preprocessing (to remove the punctuation for example, but you can also think of stopword removal, stemming, or converting to lowercase. We will leave that for know, you already know how to do this and can add that yourself.
 
@@ -1751,12 +1816,12 @@ For this demonstration, we use a dataset from the Internet Movie Database \citep
 
 Download and unpack the dataset:
 
-\begin{lstlisting}
+\begin{lstlistingbash}
 cd /home/damian
 wget http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
 tar -xzf aclImdb_v1.tar.gz
 rm aclImdb_v1.tar.gz
-\end{lstlisting}
+\end{lstlistingbash}
 
 You now have a folder \texttt{aclImdb} in your home directory. Take a look at the structure of the dataset, maybe read the documentation that is included.
 
@@ -1867,9 +1932,9 @@ Topic Modelling is one form of unsupervised machine learning.
 
 You can use gensim \citep{Rehurek2010} for this. Install the module from the bash terminal:
 
-\begin{lstlisting}
+\begin{lstlistingbash}
 sudo pip3 install gensim
-\end{lstlisting}
+\end{lstlistingbash}
 
 You might need to restart the Python console you are using (or just restart Spyder).
 	
@@ -1880,9 +1945,9 @@ articles=['The tax deficit is higher than expected. This said xxx ...', 'Germany
 texts=[art.split() for art in articles]
 \end{lstlisting}
 which looks like this:
-\begin{lstlisting}
+\begin{lstlistingoutput}
 [['The', 'tax', 'deficit', 'is', 'higher', 'than', 'expected.', 'This', 'said', 'xxx', '...'], ['Germany', 'won', 'the', 'World', 'Cup.', 'After', 'a']]
-\end{lstlisting}
+\end{lstlistingoutput}
 
 
 I'll take the movie reviews from the last section as a test case (without the ratings, which are irrelevant now), but of course you can use any collection of text files.
@@ -1981,7 +2046,7 @@ print(result)
 \end{lstlisting}
 prints a regression table like you would expect from any statistics program:
 
-\begin{lstlisting}
+\begin{lstlistingoutput}
 Formula: Y ~ <x1> + <x2> + <intercept>
 
 Number of Observations:         5
@@ -2003,7 +2068,7 @@ Degrees of Freedom: model 2, resid 2
              x2     0.0004     0.0005       0.65     0.5826    -0.0007     0.0014
      intercept    14.9525    17.7643       0.84     0.4886   -19.8655    49.7705
 ---------------------------------End of Summary---------------------------
-\end{lstlisting}
+\end{lstlistingoutput}
 
 Of course, you might want to give your variables more meaningful names than \texttt{x1} and \texttt{x2}.
 
@@ -2064,29 +2129,29 @@ In this exercise, you will do some basic descriptive analyses of an existing dat
 \end{figure}
 
 We do the exercise together in class, but make sure you have downloaded the dataset before class. You can do so as follows (but, of course, replace ``damian'' with your own user name):
-\begin{lstlisting}
+\begin{lstlistingbash}
 cd /home/damian
 mkdir pornexercise
 cd pornexercise
 wget pornstudies.sexualitics.org/data/xhamster.json.tar.gz
 tar -xzf xhamster.json.tar.gz
-\end{lstlisting}
+\end{lstlistingbash}
 The \texttt{wget} command downloads the dataset. It is compressed, so we have to uncompress it, which is done by the \texttt{tar} command (most of you probably are used to having \texttt{.zip} files for compressed or archived data, which is essentially the same; \texttt{.tar.gz} is more common among the nerdier part of the population).
 Lets check if everything went right:
-\begin{lstlisting}
+\begin{lstlistingbash}
 ls -lh
-\end{lstlisting}
+\end{lstlistingbash}
 should give you an output like this:
-\begin{lstlisting}
+\begin{lstlistingoutput}
 damian@damian-VirtualBox:~/pornexercise$ ls -lh
 total 284M
 -rw-r--r-- 1 damian damian 229M feb  8  2014 xhamster.json
 -rw-rw-r-- 1 damian damian  55M feb  8  2014 xhamster.json.tar.gz
-\end{lstlisting}
+\end{lstlistingoutput}
 You see that the compressed file is 55MB large, but the uncompressed one is more than four times as large. Let's delete the compressed one, we don't need it any more:
-\begin{lstlisting}
+\begin{lstlistingbash}
 rm xhamster.json.tar.gz
-\end{lstlisting}
+\end{lstlistingbash}
 
 \section{The tasks}
 Start with having a look at Figure~\ref{fig:sexualitics}. It is important to understand the structure of the data: Which fields are there, how are they named, and what do they contain? For example, we see that the field ``channels'' contains a \emph{list} of different tags, while ``nb\_votes'' seems to contain an \emph{integer}.
