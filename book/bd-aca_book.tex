@@ -284,6 +284,7 @@ sudo easy_install3 -U pip
 sudo pip3 install nltk
 sudo pip3 install scikit-learn
 sudo pip3 install pandas
+sudo pip3 install statsmodels
 sudo pip3 install jupyter
 sudo pip3 install gensim
 \end{lstlistingbash}
@@ -308,8 +309,8 @@ spyder3 &
 \end{quote}
 
 
-%\section{Done!}
-%You can also have a closer look at all the options VirtualBox has to offer, for example about sharing folders or the clipboard between the host system (your ``real'' system) and the virtual system (Ubuntu, in this case). That's all not strictly necessary for this course, but as it is \emph{your} working environment for the next time, you might as well make it suit your needs as closely as possible.
+\section{Recap}
+Make sure you installed \emph{everything} correctly. If you got any error messages, try to find out what went wrong or ask your instructor. In particular, make sure you write down \emph{what} went wrong.
 
 
 
@@ -412,6 +413,133 @@ You will encounter these over and over again, so you should have understood the 
  
  
  
+\chapter{A language, not a program}
+\label{chap:waystorunpython}
+
+If you come from the SPSS or Stata world, you probably expect to \emph{open SPSS} or \emph{open STATA} and then work within it. There is \emph{one} SPSS, with an icon you can click on. 
+
+In contrast, there are many ways to issue Python commands, which is actually a first important lesson: Python is not a program (like SPSS, or Word or Excel are programs), but a language --- and there are a bunch of programs one can talk to in this language. Because of this, it is so flexible and can be used in so many contexts.
+
+Therefore, there is no such thing as \emph{opening Python}. Instead, there are several programs in which you can write code in Python and/or execute it. You probably will have your own favorite after a while, but you should be aware of the alternatives, as it is not only partly a matter of taste which one to choose. Especially if you later on want to run a script not on your own computer but, for instance, on a university server, you want to be able to deal with different ways of running Python code.
+
+
+
+\section{The interactive shell}
+
+This is the most simple and most straightforward way to just issue some Python commands. Go to the command line and just enter 
+
+
+\begin{lstlistingbash}
+python3
+\end{lstlistingbash}
+
+You just started a so-called python interpreter (or shell), and you can type Python commands, for example
+\begin{lstlisting}
+print("Hello world!")
+\end{lstlisting}
+
+When you are done and want to go back to your normal Linux command line, just type
+\begin{lstlisting}
+quit()
+\end{lstlisting}
+
+You also also installed \texttt{ipython3}, which is some kind of luxury version of \texttt{python3}. Meaning it offers some more help and interactive features. It is, for example, better with graphics, and it is easier to copy-paste code. 
+
+For a quick look into a dataset or if you just need a calculator (yes, you can simply type \texttt{5+2} and stuff like that), starting an interactive shell can be very useful. But it comes with a big disadvantage: you cannot save your code. 
+
+In most cases, this is therefore, you probably want to do something else.
+
+\section{A text editor plus the command line}
+You could also write your code in an arbitrary text editor. For example, you could start 
+\begin{lstlistingbash}
+gedit &
+\end{lstlistingbash}
+(or any other text editor you like)
+and write the following code:
+\begin{lstlisting}
+#!/usr/bin/env python3
+print("Hello world!")
+\end{lstlisting}
+Save it as \texttt{/home/damian/hello.py} and go back to your linux shell. The first line is a so-called shebang, it tells your computer how to run the program later on.
+
+Go to your home directory and tell the shell that the file you just wrote is a program and that you are allowed to run it (you just have to do  once).
+\begin{lstlistingbash}
+cd /home/damian
+chmod u+x hello.py
+\end{lstlistingbash}
+You can now run the program by typing
+\begin{lstlistingbash}
+./hello.py
+\end{lstlistingbash}
+
+\begin{quote}
+	The advantage of this approach is that on \emph{every} system, there is some form of text editor. You do not even need a graphical interface for it. Imagine a really ressource-consuming program you wrote: the great advantage of being able to run it from the command line like this is that you do not have to open any other program next to it. In addition, if you can start your program with a single command like this, it means that you can use a huge variety of Linux tools to actually run it -- for example once a day or every hour.
+\end{quote}
+
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.6\paperwidth,,keepaspectratio]{../pictures/screenshot-terminal} 
+	\includegraphics[width=.6\paperwidth,,keepaspectratio]{../pictures/screenshot-spyder}
+	\caption{\label{fig:spyder}Different ways to issue Python commands: By starting the interpreter \texttt{python3} in the terminal (top) or by using an integrated development environment (IDE) like spyder (bottom).}
+\end{figure}
+
+
+
+\section{Integrated development environments (IDE)}
+
+For daily work, though, there are more helpful ways of developing Python code, so called IDE's. We will use Spyder, which is very similar to programs you are familiar with. It looks very much like RStudio and a bit like STATA, so you probably feel a bit at home here.
+
+Just start it like this:
+
+\begin{lstlistingbash}
+spyder3 &
+\end{lstlistingbash}
+
+It is a good environment to work in, and you will probably do a lot of your work in there. There are other IDEs, most notably one called PyCharm, which I use a lot. It is, however, much more geared towards professional programming and less towards data analysis, so you probably do not want to use it at the start of your Python journey.
+
+ 
+\section{Jupyter Notebook}
+\label{sec:jupyter}
+Especially for data \emph{analysis}, there is a fourth form of issuing Python commands: Jupyter Notebook, formerly known as iPython notebook. It uses the aforementioned iPython, but lets you run it in your web browser. The great advantage is that you can interactively play with the data, and save code \emph{and} output as well as own annotations in one place. 
+
+You can start it from the command line:
+
+\begin{lstlistingbash}
+	jupyter-notebook 
+\end{lstlistingbash}
+
+It should automatically open a web browser, and lets you do everything from there. For example, in Figure~\ref{fig:jupyter}, you see part of a VAR time-series model conducted in Jupyter notebook.
+
+While this is great for \emph{interactively analyzing} data and keeping track of the output, you might already guess that using Jupyter Notebook is not such a smart way for running programs that take a while to run. For example, if you write a program that downloads a lot of data from websites, maybe running for half an hour or so (as we will do in Chapter~\ref{chap:scraping}), you don't want to do that in your browser.
+
+For more information, have a look at the books by \cite{McKinney2012} and \cite{Russel2013}. We will also cover it more in detail in Chapter~\ref{chap:statistics}.
+
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.65\paperwidth,,keepaspectratio]{../pictures/jupyternotebook} 
+	\caption{\label{fig:jupyter}Jupyter Notebook lets you run Python code from within your web browser and lets you save it together with the output and your own comments.}
+\end{figure}
+
+
+\section{Recap}
+You should have understand why there is no \emph{one} way of ``running Python'' and know what the pros and cons of different ways of running Python code are. 
+
+For you, the most important ones are:
+
+\begin{itemize}
+	\item Spyder as an allround solution for daily work
+	\item Jupyter Notebook as a useful tool specialized in data \emph{analysis}
+\end{itemize}
+ 
+And next to that, you should keep in mind that one can also run programs from the command line or starting an interactive Python interpreter on the command line. There will be a point in time when you want to do that.
+
+ 
+ 
+ 
 \chapter{The very, very basics of programming in Python}
 \label{chap:basics}
 Before we start writing our first own program, we need to clarify a few concepts. Luckily, they are pretty simple---but nevertheless, it is crucial to completely understand them. 
@@ -420,20 +548,7 @@ Before we start writing our first own program, we need to clarify a few concepts
 Of course, what I present here is far from complete. I'll mention only the most essential parts that you need to understand to get started. Everything that is not strictly necessary right now or that is pretty intuitive (I guess I don't have to say that mathematical operators like $+$, $-$, $*$, or $/$ work exactly as you'd expect?) will be left out, and a lot is pretty much simplified. That's because our main objective is to get started as soon as possible with some real life data, not to get every detail right as you would do in a computer science course. After all, we are no computer scientists.  
 \end{quote}
 
-
-If you just type \texttt{python3} somewhere in the command line, you can actually also do the following examples (otherwise, you have to trust me that this is how it works). When you are finished with the exercises, just type \texttt{quit()}.
-
-Alternatively, and to enjoy more comfort, you can use a graphical interface called: just type \texttt{spyder3} instead of \texttt{python3}. You also also installed \texttt{ipython3}, which is some kind of luxury version of \texttt{python3}, meaning it offers some more help and interactive features.
-
-Another way that is often used is to write a Python program in an arbitrary text editor, save it, and then start the program you wrote from the command line. The fact that there are so many ways to issue Python commands is actually a first important lesson: Python is not a program (like SPSS, or Word or Excel are programs), but a language --- and there are a bunch of programs one can talk to in this language. Because of this, it is so flexible and can be used in so many contexts.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=.6\paperwidth,,keepaspectratio]{../pictures/screenshot-terminal} 
-\includegraphics[width=.6\paperwidth,,keepaspectratio]{../pictures/screenshot-spyder}
-\caption{\label{fig:spyder}Different ways to issue Python commands: By starting the interpreter \texttt{python3} in the terminal (top) or by using an integrated development environment (IDE) like spyder (bottom).}
-\end{figure}
-
+So, start an environment of your choice (see \ref{chap:waystorunpython}) and follow me along with a bunch of examples.
 
 
 \section{Datatypes}
@@ -1272,7 +1387,12 @@ with open("scoreswithtext.csv",mode="w",encoding="utf-8") as fo:
         writer.writerow([s[2],s[0],s[1]]) 
 \end{lstlisting}
 
-
+\section{Recap}
+You should have understood the general working of different approaches to sentiment analysis. You should know about their pros and cons. Practically speaking, you should be able to
+\begin{itemize}
+	\item implement a simple, dictionary-based sentiment analysis tool yourself
+	\item integrate SentiStrength in your own analyses.
+\end{itemize}
 
 \chapter{Automated content analysis}
 Automated content analysis covers a wide range of techiques, and not all of them can be covered within this tutorial (for an overview and more background information, see \cite{Boumans2016}). We will start with a first, powerful yet easy deductive approach, in which we basically count how often a pre-defined pattern (a search string, for example) occurs. This technique is known as using \emph{regular expressions}. We will then learn how to take characteristics of human language into account to get closer to the real meaning. The technique we use for this is called \emph{Natural Language Processing (NLP)}.
@@ -1483,6 +1603,7 @@ You should have understood
 
 
 \chapter{Web scraping}
+\label{sec:scraping}
 \label{parsing}
 \section{Overview}
 When scraping data from the web, we can distinguish two different stages:
@@ -1666,6 +1787,14 @@ You can get very far with the approaches sketched in this chapter: regular expre
 
 If you want to write an application that integrates crawling and parsing, you might have a look at the scrapy framework (\url{http://scrapy.org/})
 
+\section{Recap}
+You should be able to write your own web scraper. This entails that you
+\begin{itemize}
+	\item have a global understanding of how a HTML page looks like, so that you can use this information to build your scraper
+	\item understand that there are several ways to parse a specific piece of information from a page
+	\item know not only regular expressions, but also how to use packages like lxml.
+\end{itemize}
+
 
 \chapter{Network visualization}
 We are often used to representation of data in forms of two-dimensional tables (an Excel or SPSS file, a CSV file). We have already seen that this is not always the most appropriate way to conceptualize data: Hierarchical data, for example, can often be much better represented in JSON format. Another way of representing data is in form of a \emph{network} (Figure~\ref{fig:networkwords}).
@@ -1804,6 +1933,9 @@ Rather than producing a GDF file and opening it in Gephi, you can also do networ
 
 
 
+\section{Recap}
+This chapter taught you how to deal with co-occurrences and similar structures from a network point of view and how to visualize them using Gephi. More in general, you also should have seen how one can write own programs to create specific file formats, even if they are not natively supported.
+
 
 
 
@@ -1922,6 +2054,205 @@ print(predictions)
 
 
 
+\subsection{Comparing different classifiers and vectorizers}
+Usually, when we de supervised machine larning, we want to compare different classifiers. For example, in the last section, we used a Naïve Bayes classifier. But we could use a logistic regression as well, or a so-called support vector machine. It is common to run several of these models and then compare their \emph{precision} and \emph{recall}. 
+
+Let us assume that the goal of training above-mentioned classifier is to build an app that shows the user only positively rated films. There are two things that we want to achieve: We want to find as many as possible positive films (recall), but we also want that the selection we found \emph{only} contains positive films (precision).
+
+Precision is calculated as $\frac{TP}{TP+FP}$, where TP are true postivies and FP are false positives. For example, if our classifier retrieves 200 articles that it classifies as positive films, but only 150 of them indeed are positive films, then the precision is $\frac{150}{150+50} = \frac{150}{200} = 0.75$.
+
+Recall is calculated as $\frac{TP}{TP+FN}$, where TP are true postivies and FN are false negatives. If we know that the classifier from the previous paragraph missed 20 positive films, then the recall is $\frac{150}{150+20} = \frac{150}{170}= 0.88$.
+
+In other words: Recall measures how many of the cases we wanted to find we actually found. Precision measures how much of what we have found actually is correct.
+
+Often, we have to make a trade-off between precision and recall. For example, just retrieving \emph{every} film would give us a recall of 1.0 (after all, we didn't miss a single positive film). But on the other hand, we retrieved all the negative films as well, so precision will be extremely low. It can depend on the task at hand whether precision or recall is more important.
+
+Another thing we can vary in our classifier is the vectorizer we used. In our example, we used a count vectorizer, which simply means that our \emph{features} (which is just a fancy word for independent variables) are simply the frequency counts of the words. This approach has the disadvantage that some words will be very frequent in almost all articles, while others occur in only a few articles. Arguably, such words are more informative and therefore, their occurrence should weigh more heavily. The tf$\cdot$idf scheme does exactly that: it weighs the term frequency (TF) by the inverse document frequency (IDF), i.e. the number of texts (``documents'') in which the word (``term'') occurs at least once.
+
+Gensim allows us to use tf$\cdot$idf scores instead of simple counts by using another vectorizer:
+
+\begin{lstlisting}
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+# instead of:
+myfirstvectorizer=CountVectorizer(stop_words='english')
+# we could do:
+mysecondvectorizer=TfidfVectorizer(stop_words='english')
+\end{lstlisting}
+
+Below, you find an example script that combines everything that we discussed in these sections. There are more elegant ways of doing this, for example by writing functions instead of repeating the code that calculates the evaluations, but for illustration purposes, I decided to leave it as it is:
+
+\begin{lstlisting}
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+from glob import glob
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn import metrics
+
+reviews=[]
+test=[]
+
+print("Constructing training dataset")
+
+# glob gives you a list of filenames that match a specific criterion
+# in this case, all .txt-files in the postivie training folder
+
+for file in glob ("/home/damian/aclImdb/train/pos/*.txt"):
+    with open(file) as fi:
+        reviews.append((fi.read(),1))
+nopostr=len(reviews)
+
+print ("Added",nopostr,"positive reviews")  
+
+for file in glob ("/home/damian/aclImdb/train/neg/*.txt"):
+    with open(file) as fi:
+        reviews.append((fi.read(),-1))
+nonegtr=len(reviews)-nopostr
+print ("Added",nonegtr,"negative reviews")  
+   
+print("Constructing test dataset")
+
+for file in glob ("/home/damian/aclImdb/test/pos/*.txt"):
+    with open(file) as fi:
+        test.append((fi.read(),1))
+noposte=len(test)
+print ("Added",noposte,"positive reviews")  
+
+for file in glob ("/home/damian/aclImdb/test/neg/*.txt"):
+    with open(file) as fi:
+        test.append((fi.read(),-1))
+nonegte=len(test)-noposte
+print ("Added",nonegte,"negative reviews")  
+
+#%% Checking the data
+# Thus, we got two lists, reviews and test.
+# Both contain tuples (pairs of two values: The first is the review, 
+# the second the classification: 1 or -1)
+    
+# We can easiliy verify this by looking at a random entry:
+print(reviews[244])
+# or
+print('The following review\n\n\n',reviews[244][0],"\n\n\nis evaluated as",reviews[244][1])
+    
+#%% Training the classifier                
+
+print("Training classifier...")        
+
+# Generate BOW representation of word counts
+vectorizer = CountVectorizer(stop_words='english')   #alternatively, you could provide a list of stop words
+train_features = vectorizer.fit_transform([r[0] for r in reviews])
+test_features = vectorizer.transform([r[0] for r in test])
+
+# Fit a naive bayes model to the training data.
+nb = MultinomialNB()
+nb.fit(train_features, [r[1] for r in reviews])
+
+#%% testing the classifier
+# Now we can use the model to predict classifications for our test features.
+predictions = nb.predict(test_features)
+# and also put the 'true' results from the test dataset in a list
+actual=[r[1] for r in test]
+
+# now we can compare whether the predicted values and the actual values match.
+# We could write the output to a tab seperated file to see what matches:
+with open("/home/damian/agreement.tab", mode='w') as fo:
+    fo.write("actual\tpredicted\tfirst words\n")
+    for i in range(len(predictions)):
+        fo.write(str(actual[i])+"\t"+str(predictions[i])+"\t"+test[i][0][:50]+"\n")
+
+# That can be helpful for inspecting where sth goes wrong, but we can better 
+# just calculate some measures of performance immediately here:
+
+# lets start with the AUC:
+
+fpr, tpr, thresholds = metrics.roc_curve(actual, predictions, pos_label=1)
+print("Multinomal naive bayes AUC: {0}".format(metrics.auc(fpr, tpr)))
+
+# %% Some more metrics to evaluate the performance
+
+print('Accuracy:')
+print(metrics.accuracy_score(actual,predictions,normalize=True))
+
+print('Precision:')
+print(metrics.precision_score(actual,predictions,pos_label='1', labels = ['-1','1']))
+print('Recall:')
+print(metrics.recall_score(actual,predictions,pos_label='1', labels = ['-1','1']))
+
+# note that Precision is not a symmetric measure (look back at the slides!), if we want
+# the precision for retrieving a NEGATIVE review instead of a positive we get a different value:
+
+print('\t side note: Precision if we are interested in retrieving negative reviews:')
+print('\t',metrics.precision_score(actual,predictions,pos_label='-1', labels = ['-1','1']))
+print('\t side note: Recall if we are interested in retrieving negative reviews:')
+print('\t',metrics.recall_score(actual,predictions,pos_label='-1', labels = ['-1','1']))
+
+# back to normal
+
+print('F1-score:')
+print(metrics.f1_score(actual,predictions,pos_label='1', labels = ['-1','1']))
+print('Confusion matrix:')
+print(metrics.confusion_matrix(actual,predictions))
+
+
+#%% Now, let's play around and see how well it would work on new unseen data:
+newreviews=["What a crappy movie! It sucks!",
+            "This is awsome. I liked this movie a lot, fantastic actors",
+            "I would not recomment it to anyone.",
+            "Enjoyed it a lot"]
+newdata=vectorizer.transform(newreviews)
+predictions = nb.predict(newdata)
+print(predictions)
+for i in range(len(predictions)):
+    if predictions[i]==1:
+        print(newreviews[i],'\nis probably about a GOOD movie\n')
+    elif predictions[i]==-1:
+        print(newreviews[i],'\nis probably about a BAD movie\n')
+
+# COOL, ISN'T IT???
+   
+#%% We started with a Naive Bayes classifier, but there are others
+# let's see if another one works better, for example logistic regression or 
+# a support vector machine.
+# about the difference between NB en Logistic regression:
+# https://www.quora.com/What-is-the-difference-between-logistic-regression-and-Naive-Bayes?share=1
+# (basically, in NB all IV's are assumed to be uncorrelated)
+# LR 
+
+# logistic regression:
+from sklearn.linear_model import LogisticRegression
+logreg = LogisticRegression()
+logreg.fit(train_features, [r[1] for r in reviews])
+predictions = logreg.predict(test_features)
+# we could get more info, see http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
+#predictionsproba = logreg.predict_proba(test_features)
+#print([j for i in logreg.coef_ for j in i])
+
+# It's always a good idea to compare several classifiers and take the one
+# that performs best!
+
+#%% SVM (took to long for practical use on my machine):
+# for more info, see http://scikit-learn.org/stable/modules/svm.html#
+
+#from sklearn import svm
+#clf = svm.SVC()
+#clf.fit(train_features, [r[1] for r in reviews])
+#predictions = clf.predict(test_features)
+
+
+#%% Other BOW-representatons
+# We used a BOW representation of word frequency counts
+# But maybe our classifier can be improved by using a TfIdf-Vectoryizer
+# for details see http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+vectorizer=TfidfVectorizer(stop_words='english')
+train_features = vectorizer.fit_transform([r[0] for r in reviews])
+test_features = vectorizer.transform([r[0] for r in test])
+logreg = LogisticRegression()
+logreg.fit(train_features, [r[1] for r in reviews])
+predictions = logreg.predict(test_features)
+
+\end{lstlisting}
 
 
 
@@ -1998,10 +2329,18 @@ This is the general principle, but of course, there are a lot of ways of tuning 
 
 For some suggestions, see the documentation of gensim.% and also the example script I send you.
 
+\section{Recap}
+You should be able to explain what supervised and unsupervised machine learning are and give some examples. More practically, you should be able to use the following widely used packages to conduct such analysis:
+\begin{itemize}
+	\item scikit-learn
+	\item gensim
+\end{itemize}
+In particular, you should be able to not only train models and apply them to new, unseen data, but you should also know how to do a basic evaluation of the performance of the model.
 
 
 
 \chapter{Statistics with Python}
+\label{chap:statistics}
 One of the things you have learned so far is how to output data in a format that suits your needs. For example, no matter what your input data are, you can always save the results of your program in a CSV file that you can open with R, Stata or SPSS for further analysis. And indeed, often it makes sense to use different tools in different stages of a project.
 
 However, if you only want to calculate a mean and a standard deviation or even conduct a regression, this is actually not neccessary -- and, let's face it, is pretty cool if your program just does \emph{everything} in a single run. In this chapter, I'll briefly mention some modules that are useful for this, so that you know where to look further.
@@ -2033,49 +2372,6 @@ array([[ 1.        ,  0.67883359],
 
 
 
-\section{pandas}
-Pandas \citep{pandas} is a framework that allows statistical modelling in Python. Those of you who know R will see a lot of similarities. Within pandas, data are stored in a table, very much like a Stata or SPSS dataset -- and yes, it is indeed called exactly as it is called in R: a \emph{dataframe}.
-As you see below, a dataframe basically consists of different columns with a name, which consist of a list of data. Pandas can read directly fromm a CSV file, but as you can see below, you can also construct a dataframe yourself. To run an OLS regression, for example you then only have to specify which columns are the dependent and the independent variables. 
-
-\begin{lstlisting}
-import pandas as pd
-from pandas.stats.api import ols
-df = pd.DataFrame({"y": [10,20,30,40,50], "x1": [20, 30, 10, 40, 50], "x2": [32, 234, 23, 23, 42523]})
-result = ols(y=df['y'], x=df[['x1','x2']])
-print(result)
-\end{lstlisting}
-prints a regression table like you would expect from any statistics program:
-
-\begin{lstlistingoutput}
-Formula: Y ~ <x1> + <x2> + <intercept>
-
-Number of Observations:         5
-Number of Degrees of Freedom:   3
-
-R-squared:         0.5789
-Adj R-squared:     0.1577
-
-Rmse:             14.5108
-
-F-stat (2, 2):     1.3746, p-value:     0.4211
-
-Degrees of Freedom: model 2, resid 2
-
------------------------Summary of Estimated Coefficients------------------
-      Variable       Coef    Std Err     t-stat    p-value    CI 2.5%   CI 97.5%
---------------------------------------------------------------------------
-             x1     0.4012     0.6497       0.62     0.5999    -0.8723     1.6746
-             x2     0.0004     0.0005       0.65     0.5826    -0.0007     0.0014
-     intercept    14.9525    17.7643       0.84     0.4886   -19.8655    49.7705
----------------------------------End of Summary---------------------------
-\end{lstlistingoutput}
-
-Of course, you might want to give your variables more meaningful names than \texttt{x1} and \texttt{x2}.
-
-A nice extra is that you can get much more than this regression table. You can access the estimates directly to do further calculations on them. Or, pretty cool, you easily get a list of predicted values with (\texttt{result.y\_predict}).
-
-
-
 
 \section{matplotlib}
 
@@ -2099,6 +2395,68 @@ plt.hist(x)
 plt.plot(x,y)
 plt.scatter(x,y)
 \end{lstlisting}
+
+
+\section{pandas}
+Pandas \citep{pandas} is a framework that allows statistical modelling in Python. Those of you who know R will see a lot of similarities. Within pandas, data are stored in a table, very much like a Stata or SPSS dataset -- and yes, it is indeed called exactly as it is called in R: a \emph{dataframe}.
+As you see below, a dataframe basically consists of different columns with a name, which consist of a list of data. Pandas can read directly fromm a CSV file, but as you can see below, you can also construct a dataframe yourself. To run an OLS regression, for example you then only have to specify which columns are the dependent and the independent variables. 
+
+\begin{lstlisting}
+import pandas as pd
+from statsmodels.formula.api import ols
+df = pd.DataFrame({"income": [10,20,30,40,50], "age": [20, 30, 10, 40, 50], "facebooklikes": [32, 234, 23, 23, 42523]}
+# alternative: read from CSV file:
+# df = pd.read_csv('mydata.csv')
+
+myfittedregression = ols(formula='income ~ age + facebooklikes', data=df).fit()
+print(myfittedregression.summary())
+
+\end{lstlisting}
+prints a regression table like you would expect from any statistics program:
+
+\begin{lstlistingoutput}
+OLS Regression Results                            
+==========================================================================
+Dep. Variable:                 income   R-squared:                       0.579
+Model:                            OLS   Adj. R-squared:                  0.158
+Method:                 Least Squares   F-statistic:                     1.375
+Date:                Mon, 31 Oct 2016   Prob (F-statistic):              0.421
+Time:                        18:11:40   Log-Likelihood:                -18.178
+No. Observations:                   5   AIC:                             42.36
+Df Residuals:                       2   BIC:                             41.19
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==========================================================================
+coef    std err          t      P>|t|      [95.0% Conf. Int.]
+--------------------------------------------------------------------------
+Intercept        14.9525     17.764      0.842      0.489       -61.481    91.386
+age               0.4012      0.650      0.617      0.600        -2.394     3.197
+facebooklikes     0.0004      0.001      0.650      0.583        -0.002     0.003
+===========================================================================
+Omnibus:                          nan   Durbin-Watson:                   1.061
+Prob(Omnibus):                    nan   Jarque-Bera (JB):                0.498
+Skew:                          -0.123   Prob(JB):                        0.780
+Kurtosis:                       1.474   Cond. No.                     5.21e+04
+==========================================================================
+\end{lstlistingoutput}
+
+Pandas is a \emph{huge} framework, especially in combination with Jupyter Notebook (Section~\ref{sec:jupyter}). It is extremely popular in the world of data science, but also in areas like finance. 
+
+However, it would be kind of useless to cover it extensively in this intro, as others have already done so. You can have a look at the books by \cite{McKinney2012} and  \cite{Russel2013}. 
+
+We are also building a online ressource with many examples for typical analyses with pandas, ranging from correlations and t-tests to regression models and time-series analysis. Please have a look at:
+\todo[inline]{insert URL once everything is up}
+
+
+
+\section{Recap}
+Things you should remember:
+\begin{itemize}
+	\item There are multiple packages for doing statistical analysis like you know them from programs like SPSS, Stata, or R
+	\item pandas offers you R-like data structures
+	\item There are online ressources with a lot of examples
+\end{itemize}
+In particular, once you arrived at this part of this book, you can run \emph{your whole workflow} in Python --- from collecting the data until the final analysis. This obviously has major advantages compared to switching between environments.
 
 
 \chapter{Further reading}
@@ -2170,6 +2528,33 @@ Ready to go? Let's do some work:
 \end{enumerate}
 
 
+\chapter[Hint 1: Exchanging files]{Hint 1: Exchanging files by mounting your host system}
+
+One of the nice things of using a Virtual Machine is that you cannot break anything on your own computer. The obvious downside is that you also cannot access files on it. Of course, you can always mail stuff to yourself or use some other workaround. 
+
+But if you \emph{really} want to break the isolation and have access to folders on your computer, here is how it works.
+
+The process of connecting a device (a USB stick, a harddisk, \ldots) and assigning it a name is called ``mounting''. For example, when you insert a USB stick in a Mac  or Linux computer, it might be (nowadays, usually automatically) mounted on \texttt{/media/mystick} or something similar. 
+
+What you want to do, is mounting a directory from your ``real'' computer, the so-called host, in the file system of the VM. Select the folder you want to share in Virtual Box (see Figure~\ref{fig:mount}). Select permanent, but NOT auto-mounting (screenshot). Remember the name of the share (in my example, Desktop)
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.75\paperwidth,keepaspectratio]{../pictures/virtualbox-mount.png}
+\caption{\label{fig:mount}Configuring VirtualBox to make it possible to mount folders from the host system}
+\end{figure}
+
+Within the VM, now create a folder where you want the content of your host folder to appear. For example, this could be:
+
+mkdir /home/damian/myrealcomputer
+
+Now, use the following line to mount the share (in my example, it is called Desktop) to that folder:
+
+\begin{lstlistingbash}
+sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) Desktop /home/damian/myrealcomputer/
+\end{lstlistingbash}
+
+Voil\`a!
 
 
 \backmatter
