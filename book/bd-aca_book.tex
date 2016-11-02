@@ -8,6 +8,7 @@
 %\documentclass[book,a4paper,12pt,natbib]{apa6}
 \documentclass[a4paper,12pt]{book}
 
+\usepackage[titletoc]{appendix}
 
 \newcounter{lijst}
 
@@ -246,6 +247,7 @@ After finishing the installation, your virtual machine will reboot. After clicki
 
 
 \section{Install necessary packages}
+\label{sec:installpackages}
 Once you have installed and rebooted your virtual machine, you will have to install a couple of packages. It might be that your system is running now in a very low resulution, but that will change after the following step.  Click on the button on the bottom left (where the traditional Windows start button would be), then on System Tools/LXTerminal. Enter the following command:
 \begin{lstlistingbash}
 sudo apt-get install virtualbox-guest-dkms
@@ -2515,7 +2517,8 @@ In the last years, some other tutorials, partly similar to this one, have been p
 \end{itemize}
 
 
-\appendix
+\begin{appendices}
+	\appendix
 
 \chapter[Exercise 1]{Exercise 1: Describing an existing structured dataset}
 \section{Downloading the data}
@@ -2569,7 +2572,7 @@ Ready to go? Let's do some work:
 \end{enumerate}
 
 
-\chapter[Hint 1: Exchanging files]{Exchanging files by mounting your host system}
+\chapter[Exchanging files]{Exchanging files by mounting your host system}
 
 One of the nice things of using a Virtual Machine is that you cannot break anything on your own computer. The obvious downside is that you also cannot access files on it. Of course, you can always mail stuff to yourself or use some other workaround. 
 
@@ -2598,7 +2601,42 @@ sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) Desktop /home/damian/myrealcompute
 Voil\`a!
 
 
+\chapter{Installing Python on other systems}
+
+\textbf{Before you install Python outside of the virtual machine, read this so that you know what you are doing.} While you could just go to \url{http://python.org} and download Python for your operating system, this may or may not be a good choice. First, Python might already be installed (which you could find out by typing \texttt{python} or  \texttt{python3} in your Terminal). Second, even if it is not, if you prefer one-stop-shopping above dealing with packages, you might like Anaconda (see below).
+
+Keep in mind that one can have multiple versions of Python on one computer, and you don't want to litter your system with a lot of different versions that you then mix up accidentally. 
+
+In this book, we use a virtual machine with Linux as operating system. However, if you want to install Python somewhere else, chances are high that it isn't Linux. Within Linux, we used the system's package manager \texttt{apt-get} to install Python itself (and maybe some other programs). We then used \texttt{pip} to install specific Python packages. This requires you to know which packages you want (that's why we installed a bunch of them on page~\pageref{sec:installpackages}), but on the other hand, if you forgot one, it doesn't really matter because you can easily just install it later on.
+
+All very easy, it seems, but to install some (few) packages via pip one needs specific programs like, for instance, a C compiler. You probably didn't even realize this, because on Linux, this stuff is usually present, and if not, it can be easiliy installed via \texttt{apt-get}. MacOS \emph{sometimes} has the necessary stuff installed (usually if you have installed XCode via the App Store). But on a common Windows installation, things can quickly become complicated (unless you know exactly what you are doing).
+
+Because people do not really like dealing with all this stuff, there is an easier solution: Anaconda \url{https://www.continuum.io/downloads}.
+
+Anaconda is a platform that includes Python together with a lot of commonly used scientific Python packages preinstalled. In addition, it has its own package manager, \texttt{conda}, which can solve some dependencies \texttt{pip} cannot resolve. 
+
+So, if you want to use Python outside of the virtual machine that we used in this book, you might want to give Anaconda a try.
+
+One important characteristic of anaconda is that it installs an own Python installation in your home directory. To quote from their documentation:
+
+\begin{lstlistingoutput}
+On Windows this might be a path such as C:\Users\Jane Smith\anaconda\bin\python.
+On macOS this might be a path such as /Users/jsmith/anaconda/bin/python.
+On Linux this might be a path such as /home/jsmith/anaconda/bin/python.
+As well as anaconda, the folder in your home directory might be named anaconda2 or anaconda3.
+\end{lstlistingoutput}
+
+Because you might \emph{also} have a version of Python already installed on your system (at least on Linux and MacOS, this is generally the case), you have to make sure that you actually run the correct version: If you just type
+\begin{lstlisting}
+python
+\end{lstlisting}
+in your Terminal, then you probably will \emph{not} start the anaconda version -- and thus be unable to use the packages installed with anaconda. You would have to explicitly refer to the location where anaconda is installed.
+
+\end{appendices}
+
 \backmatter
+
+
 
 \bibliographystyle{apacite}
 \bibliography{../bdaca}
