@@ -15,7 +15,7 @@
 
 
 
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 %\usepackage{wrapfig}
 %\usepackage{xparse}
@@ -71,7 +71,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 		numbers=left,
 		%stepsize=1,
 		numberstyle=\tiny,
-		backgroundcolor=\color[rgb]{.9,.9,.9}}}{}
+		backgroundcolor=\color[rgb]{.7,.7,.7}}}{}
 
 
 %\let\oldquote\quote
@@ -146,9 +146,9 @@ This document can be obtained from \url{http://papers.ssrn.com/abstract=2737682}
 
 \chapter{Introduction: What and why?}
 
-Social scientists are more and more confronted with the analysis of large-scale datasets. Often, these are data from online sources, and often, they contain some form of textual data. Think of data from social media, but also large archives. Often, this development if referred to as a move towards ``computational social science'' \cite{Lazer2009,Kitchin2014}.
+Social scientists are more and more confronted with the analysis of large-scale datasets. Often, these are data from online sources, and often, they contain some form of textual data. Think of data from social media, but also large archives. Often, this development if referred to as a move towards ``computational social science'' \citep{Lazer2009,Kitchin2014}.
 
-While there is a certain overlap with the term ``Big Data''. But although the latter sounds sexy, it is a somewhat problematic term, because people use it for all kind of data. As scientists, we want a clear definition, but it is hard to tell what the term Big Data actually entails. This document is not about \emph{really} Big Data requiring a whole server farm, but it is about data that is too big to handle manually---think of one million tweets for example. It is about data sets that are small enough to be handled by an ordinary desktop computer, but too big to be processed by ordinary programs. Excel does not have an unlimited number of rows, and SPSS and STATA start complaining (or simply stop working) once you have too many cases and variables. If you know R, you are better off, but for some of the tasks we will discuss in this document, Python has much more to offer.\footnote{I do not want to go into the R-vs-Python-for-data-analysis debate here, I use both tools a lot, but for completely different tasks. Google for it if you want some comparison.}  
+There is a certain overlap with the term ``Big Data''. But although the latter sounds sexy, it is a somewhat problematic term, because people use it for all kind of data. As scientists, we want a clear definition, but it is hard to tell what the term Big Data actually entails. This document is not about \emph{really} Big Data requiring a whole server farm, but it is about data that is too big to handle manually---think of one million tweets for example. It is about data sets that are small enough to be handled by an ordinary desktop computer, but too big to be processed by ordinary programs. Excel does not have an unlimited number of rows, and SPSS and STATA start complaining (or simply stop working) once you have too many cases and variables. If you know R, you are better off, but for some of the tasks we will discuss in this document, Python has much more to offer.\footnote{I do not want to go into the R-vs-Python-for-data-analysis debate here, I use both tools a lot, but for completely different tasks. Google for it if you want some comparison.}  
 
 This document introduces you to automated content analysis of data that typically comes in amounts that are too voluminous for traditional point-and-click applications: Tweets, blogposts, articles from RSS-feeds, etc. We will use the programming language Python, which is very flexible and highly suitable for this end. It also scales very nicely---meaning that you can use it now for some smaller projects, but it can also be used on immense data sets. So, if you will find yourself working on some really Big Data that cannot be handled on a single computer any more, the principles are not too different from what we do in this document (yes, I'm simplifying a bit).
 
@@ -162,7 +162,7 @@ Have fun! And, join me in thanking those who contributed with great ideas or ser
 
 \begin{flushright}
 Amsterdam, March 2015 (version 0.1)\\
-Amsterdam, February 2016 (version 0.2)
+Amsterdam, February 2016 (version 0.2)\\
 Amsterdam, November 2016 (version 1.0)
 \end{flushright}
 
@@ -184,7 +184,7 @@ www.damiantrilling.net\\
 \chapter{Preparing your computer}
 \label{chap:prepare}
 
-This chapter describes how to prepare your computer for use within the course Big Data and Automated Content Analysis. We work with so-called virtual machines, which means that we install a program within which you can install an own operating system. This means that
+This chapter describes how to prepare your computer for use in this course. We work with so-called virtual machines, which means that we install a program within which you can install an own operating system. This means that
 \begin{enumerate}[(a)] 
 \item you can play around without the danger of damaging your own system;
 \item you can make use of a lot of cool tools that might not be available for your own system;
@@ -197,7 +197,7 @@ Before we start, let me introduce three conventions that I'll use in this book. 
 \begin{lstlisting}
 print("Hello world"!)
 \end{lstlisting}
-Commands that you have to type into the Linux command line (also referred to as shell, terminal, or bash) looks like this:
+Commands that you have to type into the Linux command line (also referred to as shell, terminal, or bash) are pink:
 \begin{lstlistingbash}
 echo Hello world!
 \end{lstlistingbash}
@@ -216,14 +216,9 @@ Download and install VirtualBox from \url{https://www.virtualbox.org/}. Dependin
 \section{Download a Lubuntu-image}
 Download the Lubuntu image from \url{http://lubuntu.net}. If you have a relatively new computer, download \texttt{lubuntu 64-bit (AMD64) desktop CD}, only if you encounter problems later on or have an old computer (up to around 2007), download \texttt{lubuntu (Intel x86) desktop CD}. So, in most cases, select the 64-bit version. 
 Save it at a place of your convenience.
-\begin{quote}
-At the time of writing, the most recent version is 15.10, and that’s what you download. If you should be using an older Apple computer that still has a PowerPC rather than an Intel processor  (the white iBooks, for example, produced until 2006), than you will have to use version 12.04 instead (\url{http://cdimages.ubuntu.com/lubuntu/releases/precise/release/lubuntu-12.04-desktop-powerpc.iso}). Note that in that case, all following steps might be slightly different.
-
-\end{quote}
-
 
 \section{Create a virtual machine}
-Open VirtualBox, click on ``New'', give your image a name, and select first Linux, then Ubuntu~64bit from the list (or 32 bit, if that's what you downloaded). On the following screens, just leave the default settings and agree to everything---with one exception: When you are asked how much ``base memory'' you want to allocate to your machine, you should choose a value of at least around 1000 MB. More is better, if you you have 4,096 MB of RAM in total, you can safely choose 2,048 MB. The examples in this tutorial are tested on a VM with 2,048 MB RAM. 
+Open VirtualBox, click on ``New'', give your image a name, and select first Linux, then Ubuntu~64bit from the list (or 32 bit, if that's what you downloaded). On the following screens, just leave the default settings and agree to everything---with one exception: When you are asked how much ``base memory'' you want to allocate to your machine, you should choose a value of at the \emph{very} least around 1000 MB. More is better, if you you have 4,096 MB of RAM in total, you can safely choose 2,048 MB. The examples in this tutorial are tested on a VM with 2,048 MB RAM. 
 
 On the next screens, you are asked about a virtual hard disk to create. You can basically accept the suggested settings, but I strongly recommend you to use a bit more than the 8~GB that are suggested. If you choose more (say, 12~GB or so), chances are lower that you will run out of space later during the course.
 
@@ -238,20 +233,20 @@ The virtual machine you just created should show up in the main window now. If i
 \caption{\label{fig:enablepaenx}Enabling PAE/NX in the settings dialogue}
 \end{figure}
 
-Now click on the name of the virtual machine and on "Settings" (Figure~\ref{fig:enablepaenx}. Under "System"/"Processors", you should see a check box "Enable PAE/NX". If you can enable this, enable it. Confirm with OK.
+Now click on the name of the virtual machine and on "Settings" (Figure~\ref{fig:enablepaenx}. Under "System"/"Processors", you should see a check box "Enable PAE/NX". If you can enable this, enable it.\footnote{In rare cases, you might just to have to disable it. So, if you cannot start your VM, you know what to try.} Confirm with OK.
 
 When you are done, start the virtual machine by clicking on the green arrow in the main window. You will be asked for a location from which to boot. Click on the icon to select a file and select the Lubuntu-image you downloaded.
 
 
 \section{Install Lubuntu on your virtual machine}
 Once your virtual machine is running, you can select whether you want to try out Lubuntu without installing or install it. If you feel like, you can now just play around a bit in the try-out mode, but eventually, you'll need to go for installing as we need some specific tools for our course. So you can as well just select Install now, using the arrow keys.
-When you select "install", just follow the instructions. At one point in time, you will be asked whether you want to erase all data from your hard drive (yes, seriously). You can safely agree (remember, that's just the point of the VirtualBox, you have a fenced room in which you cannot damage anything. Only your \emph{virtual} hard drive will be erased, not your real one).
+When you select "Install", just follow the instructions. At one point in time, you will be asked whether you want to erase all data from your hard drive (yes, seriously). You can safely agree (remember, that's just the point of the VirtualBox, you have a fenced room in which you cannot damage anything. Only your \emph{virtual} hard drive will be erased, not your real one).
 After finishing the installation, your virtual machine will reboot. After clicking on reboot, it might happen that you see only some lines of text saying something like ``Unmounting crypto disks''. If this takes longer than a minute or so, try pressing Enter twice. 
 
 
 
 \section{Install necessary packages}
-Once you have installed and rebooted your virtual machine, you will have to install a couple of packages. It might be that your system is running now in a very low resulution, but that will change after the following step.  Click on the button on the bottom left (where the Windows start button would be), then on System Tools/LXTerminal. Enter the following command:
+Once you have installed and rebooted your virtual machine, you will have to install a couple of packages. It might be that your system is running now in a very low resulution, but that will change after the following step.  Click on the button on the bottom left (where the traditional Windows start button would be), then on System Tools/LXTerminal. Enter the following command:
 \begin{lstlistingbash}
 sudo apt-get install virtualbox-guest-dkms
 \end{lstlistingbash}
@@ -303,7 +298,7 @@ spyder3 &
 	While working in the VM, you realize that you made a mistake while configuring your keyboard so that some keys don't work as expected? No worries, you can re-configure your keyboard at any time with the following command:\\
 	\texttt{sudo dpkg-reconfigure keyboard-configuration}\\
 	If you have a standard laptop purchased in the Netherlands, it is very likely that you have a US keyboard. In that case, the following configuration is correct:\\ 
-	Model: 'Algemeen 105 toetsen internationaal\\
+	Model: Algemeen 105 toetsen internationaal\\
 	Oorsprong van het toetsenbord (Engels VS)\\
 	Indeling: Engels (VS)\\
 	standaard\\
@@ -314,6 +309,8 @@ spyder3 &
 
 \section{Recap}
 Make sure you installed \emph{everything} correctly. If you got any error messages, try to find out what went wrong or ask your instructor. In particular, make sure you write down \emph{what} went wrong.
+
+There are so many different system types (and believe me, I never expected \emph{how} many slightly different systems there are until I had dozens of students in these methods courses!), that we cannot cover every eventuality. But once you got your VM is up and running, everything should be the same for everyone in the course.
 
 
 
@@ -327,7 +324,7 @@ This chapter provides you with some basic knowledge about how to use the command
 \caption{\label{fig:msdos}The old MS-DOS command line prompt}
 \end{figure}
 
- Let’s get started with a generational divide. It greatly helps if you are of the age of the author (32) or older, as you probably remember the thing in Figure~\ref{fig:msdos}. The Linux command line (which is basically the same as what you get when you start the Terminal on MacOS, so Mac users, you can use this on your own computer as well!), however, is much, much, much, much, much more powerful than the old MS-DOS thing. If you look on YouTube for ``bash'' (that's the specific one we are using) or ``linux command line'', you'll probably get some good tutorials, but let's explore the most basic things together.
+ Let’s get started with a generational divide. It greatly helps if you are of the age of the author (I'm born in 1983) or older, as you probably remember the thing in Figure~\ref{fig:msdos}. The Linux command line (which is basically the same as what you get when you start the Terminal on MacOS, so Mac users, you can use this on your own computer as well!), however, is much, much, much, much, much more powerful than the old MS-DOS thing. If you look on YouTube for ``bash'' (that's the specific one we are using) or ``linux command line'', you'll probably get some good tutorials, but let's explore the most basic things together.
  \begin{itemize}
  \item Open a Terminal by clicking on the Start button/System Tools/LXTerminal.
  \item Type the following commands and watch what is happening: \begin{lstlistingbash}
@@ -369,7 +366,7 @@ mkdir exercise1
 cd exercise1
 wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/mytweets.csv --user=USERNAME --password=PASSWORD
 \end{lstlistingbash}
-(Of course, you replace USERNAME and PASSWORD by the username and password you received from your instructor to access all class materials. Also note that they are entered in the same line as the rest of the \texttt{wget}-command. \textbf{And note the space before the \texttt{--}!}).
+(Of course, you replace USERNAME and PASSWORD by the username and password you received from your instructor to access all class materials.\footnote{Unfortunately, Twitter does not allow to publish datasets with tweets. Therefore, I cannot make the dataset publicly available to all readers of this book (which luckily \emph{is} available to every interested reader).} Also note that they are entered in the same line as the rest of the \texttt{wget}-command. \textbf{And note the space before the \texttt{--}!}).
 
 You could as well just have downloaded this file by typing exactly the same URL in your browser, but \texttt{wget} allows you to do the same trick from the command line. If you have a really huge file, you'll appreciate this! Later on, you will learn some really cool stuff you can do with wget. 
 
@@ -425,6 +422,19 @@ In contrast, there are many ways to issue Python commands, which is actually a f
 
 Therefore, there is no such thing as \emph{opening Python}. Instead, there are several programs in which you can write code in Python and/or execute it. You probably will have your own favorite after a while, but you should be aware of the alternatives, as it is not only partly a matter of taste which one to choose. Especially if you later on want to run a script not on your own computer but, for instance, on a university server, you want to be able to deal with different ways of running Python code.
 
+\section{A note on different versions}
+In all examples in this book, we use Python 3. Most likely, it won't matter which exact version you have. The differences between, say, 3.4 and 3.5 are so minor that you are very unlikely to notice. 
+
+However, this is \emph{not} true for versions starting with a 2. Python 2 is \emph{not} just an old version of Python 3, and the latest version of Python 2, Python 2.7, is still widely used. This is important to know, because if you look on Google or StackOverflow for help, or if you read some of the books and tutorials I cite, then chances are high you come across code written in Python 2.
+
+The differences are not very big. Most notably, in Python 2, you can write \texttt{print "Hello"}, while in Python 3, you need to write \texttt{print("Hello")}; and in Python 2, it is a bit more complicated to deal with Unicode (i.e., with special characters like umlauts, emoticons and the like).
+
+\begin{quote}
+	So, if you see some code and think ``hey, they forgot the brackets after print'', then it's Python 2 code. Very often, you can just change such little things to make it work with Python 3. There is even a tool for the command line that does this automatically. It's called, not very surprisingly, \texttt{2to3}.
+\end{quote}
+
+A last thing to know is that it is possible (and also common!) to have different versions of Python installed on one and the same computer. For example, it might very well be the case that someone works with both Python 2 and Python 3.
+For example, MacOS and most Linux distributions already \emph{have} some version of Python installed by default, because they need it for internal workings. Make sure that you don't accidentally use the wrong one.
 
 
 \section{The interactive shell}
@@ -446,9 +456,9 @@ When you are done and want to go back to your normal Linux command line, just ty
 quit()
 \end{lstlisting}
 
-You also also installed \texttt{ipython3}, which is some kind of luxury version of \texttt{python3}. Meaning it offers some more help and interactive features. It is, for example, better with graphics, and it is easier to copy-paste code. 
+You also installed \texttt{ipython3}, which is some kind of luxury version of \texttt{python3}. It offers some more help and interactive features. It is, for example, better with graphics, and it is easier to copy-paste code. 
 
-For a quick look into a dataset or if you just need a calculator (yes, you can simply type \texttt{5+2} and stuff like that), starting an interactive shell can be very useful. But it comes with a big disadvantage: you cannot save your code. 
+For a quick look into a dataset or if you just need a calculator (yes, you can simply type \texttt{5+2} and stuff like that), starting an interactive shell can be very useful. But it comes with a big disadvantage: You cannot save your code. 
 
 In most cases, this is therefore, you probably want to do something else.
 
@@ -463,9 +473,9 @@ and write the following code:
 #!/usr/bin/env python3
 print("Hello world!")
 \end{lstlisting}
-Save it as \texttt{/home/damian/hello.py} and go back to your linux shell. The first line is a so-called shebang, it tells your computer how to run the program later on.
+Save it as \texttt{/home/damian/hello.py} and go back to your linux shell. The first line is a so-called shebang, it tells your computer how to run the program.
 
-Go to your home directory and tell the shell that the file you just wrote is a program and that you are allowed to run it (you just have to do  once).
+Go to your home directory and tell the shell that the file you just wrote is a program and that you are allowed to run it: You tell it that the (u)ser should get the right to e(x)ecute it. Of course, you don't have to do that again if you want to run the program again next time.
 \begin{lstlistingbash}
 cd /home/damian
 chmod u+x hello.py
@@ -492,9 +502,9 @@ You can now run the program by typing
 
 \section{Integrated development environments (IDE)}
 
-For daily work, though, there are more helpful ways of developing Python code, so called IDE's. We will use Spyder, which is very similar to programs you are familiar with. It looks very much like RStudio and a bit like STATA, so you probably feel a bit at home here.
+For daily work, though, there are more helpful ways of developing Python code, so called integrated development environments, or IDEs. We will use Spyder, which is very similar to programs you are familiar with. It looks very much like RStudio and a bit like STATA, so you probably feel a bit at home here.
 
-Just start it like this:
+Just start it like this (or by clicking on it in the menu):
 
 \begin{lstlistingbash}
 spyder3 &
@@ -505,19 +515,17 @@ It is a good environment to work in, and you will probably do a lot of your work
  
 \section{Jupyter Notebook}
 \label{sec:jupyter}
-Especially for data \emph{analysis}, there is a fourth form of issuing Python commands: Jupyter Notebook, formerly known as iPython notebook. It uses the aforementioned iPython, but lets you run it in your web browser. The great advantage is that you can interactively play with the data, and save code \emph{and} output as well as own annotations in one place. 
+Especially for data \emph{analysis}, there is a fourth form of issuing Python commands: Jupyter Notebook, formerly known as iPython notebook. It uses the aforementioned iPython, but lets you run it in your web browser. The great advantage is that you can interactively play with the data, and save code \emph{and} output as well as own annotations in one place. You can find some examples for such notebooks here: \url{https://github.com/damian0604/bdaca/} 
 
-You can start it from the command line:
+You can start Jupyter Notebook from the command line:
 
 \begin{lstlistingbash}
-	jupyter-notebook 
+jupyter-notebook 
 \end{lstlistingbash}
 
 It should automatically open a web browser, and lets you do everything from there. For example, in Figure~\ref{fig:jupyter}, you see part of a VAR time-series model conducted in Jupyter notebook.
 
-While this is great for \emph{interactively analyzing} data and keeping track of the output, you might already guess that using Jupyter Notebook is not such a smart way for running programs that take a while to run. For example, if you write a program that downloads a lot of data from websites, maybe running for half an hour or so (as we will do in Chapter~\ref{chap:scraping}), you don't want to do that in your browser.
-
-For more information, have a look at the books by \cite{McKinney2012} and \cite{Russel2013}. We will also cover it more in detail in Chapter~\ref{chap:statistics}.
+While this is great for \emph{interactively analyzing} data and keeping track of the output, you might already guess that using Jupyter Notebook is not such a smart way for running programs that take a while to run. For example, if you write a program that downloads a lot of data from websites, maybe running for half an hour or so (as we will do in Chapter~\ref{chap:scraping}), you don't want to do that in your browser. But for statistics stuff like we'll discuss in Chapter~\ref{chap:statistics}, it is really great. For more examples, have a look at the books by \cite{McKinney2012} and \cite{Russel2013}. 
 
 
 
@@ -535,7 +543,7 @@ For you, the most important ones are:
 
 \begin{itemize}
 	\item Spyder as an allround solution for daily work
-	\item Jupyter Notebook as a useful tool specialized in data \emph{analysis}
+	\item Jupyter Notebook as a useful tool specialized in interactive exploration and analysis of data
 \end{itemize}
  
 And next to that, you should keep in mind that one can also run programs from the command line or starting an interactive Python interpreter on the command line. There will be a point in time when you want to do that.
@@ -551,18 +559,18 @@ Before we start writing our first own program, we need to clarify a few concepts
 Of course, what I present here is far from complete. I'll mention only the most essential parts that you need to understand to get started. Everything that is not strictly necessary right now or that is pretty intuitive (I guess I don't have to say that mathematical operators like $+$, $-$, $*$, or $/$ work exactly as you'd expect?) will be left out, and a lot is pretty much simplified. That's because our main objective is to get started as soon as possible with some real life data, not to get every detail right as you would do in a computer science course. After all, we are no computer scientists.  
 \end{quote}
 
-So, start an environment of your choice (see \ref{chap:waystorunpython}) and follow me along with a bunch of examples.
+So, start an environment of your choice (see Chapter~\ref{chap:waystorunpython}) and follow me along with some examples.
 
 
 \section{Datatypes}
 \label{datatypes}
 \subsection{Basic types}
-When thinking of a \emph{variable}, most social scientists immediately think along the lines of how the term `variable' is understood in SPSS or STATA datasets (or in methods sections in social science papers, for that matter): Something like age that has one value for each case (each person, each newspaper article, each unit of analysis). That's \emph{not} how we define a variable here. (R users probably don't suffer from this misunderstanding.)
+When thinking of a \emph{variable}, most social scientists immediately think along the lines of how the term `variable' is understood in SPSS or STATA datasets (or in methods sections in social science papers, for that matter): Something like age that has one value for each case (each person, each newspaper article, each unit of analysis). That's \emph{not} how we define a variable here. (R users might suffer less from this misunderstanding.)
 
 Instead, we distinguish several types of variables (datatypes), and the basic ones take–––in contrast to what you might expect from the SPSS/STATA world---\emph{one and only one} value:
 
 \begin{lstlisting}
-age = 32
+age = 33
 height = 1.75
 male = True
 name = "Damian"
@@ -708,7 +716,7 @@ directly. But if the calculation is more complicated and if we have to do it rep
 
 
 \begin{quote}
-	Once I was teaching this course, a student had the great idea of writing a function she named \texttt{translatetoenglish()}. It took a Dutch string as argument, passed that one to to Google Translate, and returned the English translation. So, once the function was defined, you could write something like \texttt{print(translatetoenglish("Wat een mooie dag!"))}, which would produce the following output: \texttt{What a beautiful day!}. She used it for more serious business, namely to loop over a dataset of multilingual tweets to produce a new dataset in English. What a loop is, is explained in the next section.
+	Once I was teaching this course, a student had the great idea of writing a function she named \texttt{translatetoenglish()}. It took a Dutch string as argument, passed that one to to Google Translate, and returned the English translation. So, once the function was defined, you could write something like \texttt{print(translatetoenglish("Wat een mooie dag!"))}, which would produce the following output: \texttt{What a beautiful day!}. She used it for more serious business, namely to loop over a dataset of multilingual tweets to produce a new dataset in English. What a loop is, is explained in Section~\ref{sec:forloops}.
 \end{quote}
 
 
@@ -719,18 +727,19 @@ hi="Hello world OUT THERE"
 print(hi.lower())
 print("TESTtttt".lower())
 \end{lstlisting}
-As you see, methods are very similar to functions, but the way they are called is different. If \texttt{lower()} was a function, you would write \texttt{lower("TEST")} --- but it is a built-in method of each string rather than a function, so you have to call it by writing \texttt{"TEST".lower()} instead. Obviously, \texttt{.lower()} does not need an additional argument to convert the string to lowercase, as it a method \emph{of the very string it is supposed to work on}, so there is simply nothing between the \texttt{()}. Nevertheless, you cannot leave away the\texttt{()}, because every function and every method has to end with \texttt{()}, otherwise, it would not be recognized as such.
+As you see, methods are very similar to functions, but the way they are called is different. If \texttt{lower()} was a function, you would write \texttt{lower("TEST")} --- but it is a built-in method of each string rather than a function, so you have to call it by writing \texttt{"TEST".lower()} instead. Obviously, \texttt{.lower()} does not need an additional argument to convert the string to lowercase, as it a method \emph{of the very string it is supposed to work on}, so there is simply nothing between the \texttt{()}. Nevertheless, you cannot leave away the\texttt{()}, because every function and every method has to end with \texttt{()}, otherwise, it would not be executed.
 
 For now, it is not important to know why some things are a method and some are a function.\footnote{In fact, sometimes this is kind of an arbitrary choice made by those who invented Python. Some operations have even been implemented as both function and method.} It is important to know, however, that both ways of doing something with your variables exist and how you use them.
 
 \begin{quote}
-	Note that function and methods usually do not change the value of an argument itself but rather return a new object as result. So, if you have a string \texttt{mystring = 'HELLO'}, then calling \texttt{mystring.lower()} does \emph{not} change mystring itself -- it only \emph{returns} the lowercased version of it. You therefore have to assign the result to a new variable (\texttt{mylowerstring = mystring.lower()}) or to the old one (\texttt{mystring = mystring.lower()}).
+	Note that functions and methods usually do not change the value of an argument itself but rather return a new object as result. So, if you have a string \texttt{mystring = 'HELLO'}, then calling \texttt{mystring.lower()} does \emph{not} change mystring itself -- it only \emph{returns} the lowercased version of it. You therefore have to assign the result to a new variable (\texttt{mylowerstring = mystring.lower()}) or to the old one (\texttt{mystring = mystring.lower()}).
 \end{quote}
 
 \section{For loops}
+\label{sec:forloops}
 All these functions and methods are mainly interesting if you do not apply them one time, to one string, but hundreds, thousands, or millions of times. In fact, this is the very essence of what we are doing in this course: Splitting up a task in small functions or methods that we then apply repeatedly. 
 
-To tell the computer to repeat something, we use a construction called a loop, or more specifically, a \emph{for-loop}. Lets start with an example (when typing it over, start line 3 by pressing SPACE four times):
+To tell the computer to repeat something, we use a construction called a loop, or more specifically, a \emph{for-loop}. Let's start with an example (when typing it over, start line 3 by pressing SPACE four times):
 
 \begin{lstlisting}
 alltweets = ["Great lecture at the UvA", "I HATE YOU!", "I want BEER"]
@@ -739,7 +748,7 @@ for tweet in alltweets:
 \end{lstlisting}
 
 \begin{quote}
-After a line ending with a colon, Python expects an indented block. If you do not do this in a consequent way (for example, you sometimes press TAB, sometimes use 4 spaces, sometimes 3, or none at all, Python will complain and give you an ``indention error''.
+After a line ending with a colon, Python expects an indented block. If you do not do this in a consequent way (for example, you sometimes press TAB, sometimes use 4 spaces, sometimes 3, or none at all, Python will complain and give you an ``indention error''. Some IDEs and some editors automatically convert TABs to spaces, but to avoid any confusion, the best convention is to simply never press TAB and always use spaces.
 \end{quote}
 What happens? In line 1, we define the list \texttt{alltweets}. In line 2, we instruct the computer to take the first element of the list \texttt{alltweets} and give that element the name \texttt{tweet}. This is done by using the \texttt{for}-command. In human language, it might read as ``Please repeat the task I will explain in the following indented lines \texttt{for} each element \texttt{in} the given list. In the task description given in the following block of indented lines, I will refer to the element that you are working on at that time as \texttt{tweet}''.  
 
@@ -828,7 +837,7 @@ But of course, if we had such a limited amount of data, we wouldn't need to writ
 
 In the easiest secenario, we already have a \emph{table} in which each row contains a case and each column the value for age, name, and height, respectively. The universally acceptable format for such a table are CSV files: Text files in which columns are seperated by commas. Sometimes, a semicolon is used instead,  conventions differ. Others use a TAB character instead, which is essentially the same, although one usually calls it a TAB-seperated file then.
 
-You actually already saw a CSV file on page \pageref{firstcsvfile}. Have a look back there if you forgot. Virtually all programs (including SPSS, Stata, Excel, \ldots) can read and write CSV files, that's why we will use them very frequently. When creating data with such a program, make sure that you know how they are formatted exactly (e.g., are columns separated by \texttt{,} or \texttt{;}, are strings encapsulated by \texttt{""} or not, \ldots. You can use the tools described on \pageref{firstcsvfile} to inspect the files.
+You actually already saw a CSV file on page \pageref{firstcsvfile}. Have a look back there if you forgot. Virtually all programs (including SPSS, Stata, Excel, \ldots) can read and write CSV files, that's why we will use them very frequently. When creating data with such a program, make sure that you know how they are formatted exactly (e.g., are columns separated by \texttt{,} or \texttt{;}, are strings encapsulated by \texttt{""} or not, \ldots. You can use the tools described on page~\pageref{firstcsvfile} to inspect the files.
 
 Lets create a text file with the following content:
 \begin{lstlistingoutput}
@@ -859,7 +868,7 @@ We see a lot of familiar structures: for example, the construction of (empty) li
 \begin{itemize}
 \item The \texttt{import} statement. It simply says that we want to load an external module, in this case one that knows how to read csv files. Import statements are usually written in the very first lines of a python scripts.
 \item The \texttt{with open(\ldots) as:} construction. It indicates that we want to open a file and assigns a name to that so-called \emph{file object}, indicated by \texttt{as} (in this case, we decided to call it \texttt{csvfile}, which is a completely arbitrary name). The statement ends with a colon, so an indented block has to follow (remember?). When the indented block is over (thus, after line 10), the file is automatically closed again. That's exactly what we want, because by then, we have read all the information and stored it in lists; we don't need the file any more. The arguments passed to the \texttt{open()} function specify the file name, but also some other details of how to open it. We'll skip the details for now.
-\item The \texttt{csv.reader()} function. It returns an object (which I decided to call, not very creatively, \texttt{reader}) that we can use to actually read the file. Note that in line 5, we only \emph{opened} the file, we have not \emph{read} a single byte from it yet. In line 5, we actually could have opened any arbitrary file---the \texttt{open()} command does not imply a specific data structure. Therefore now, in line 6, we define how to read from the file: Namely, by using the \texttt{csv} module. As an argument, we can give more specific information, for example, as done here, that the columns are separated by a \texttt{,}.
+\item The \texttt{csv.reader()} function. It returns an object\footnote{For those who are interested: More specifically, it returns a so-called generator. You can loop over a generator, but you can do so only once. In every iteration of the loop, it gives you one next element (one more row from the file in our case), and once there are no elements left, it stops. The great advantage of this, especially when dealing with large files, is that you don't have to load the whole file into memory at once.} (which I decided to call, not very creatively, \texttt{reader}) that we can use to actually read the file. Note that in line 5, we only \emph{opened} the file, we have not \emph{read} a single byte from it yet. In line 5, we actually could have opened any arbitrary file---the \texttt{open()} command does not imply a specific data structure. Therefore now, in line 6, we define how to read from the file: Namely, by using the \texttt{csv} module. As an argument, we can give more specific information, for example, as done here, that the columns are separated by a \texttt{,}.
 \item The \texttt{.append()} method. It adds a new element to a list.
 \end{itemize}
 
@@ -913,7 +922,7 @@ print("Sheila is",mydict["Sheila"])
 \end{lstlisting}
 Note that  both the dictionary name \texttt{mydict} and the name of the file object \texttt{fi} are completely arbitrary. I often use \texttt{fi} (file in) for files I read from and \texttt{fo} (file out) for files I want to write to, so that I don't confuse the two.
 
-As you might expect, saving is as easy as opening: we only need to do call the function \texttt{json.dump()}, which takes two arguments: the dictionary that we want to save and a file object:
+As you might expect, saving is as easy as opening. We only need to do call the function \texttt{json.dump()}, which takes two arguments: the dictionary that we want to save and a file object:
 \begin{lstlisting}
 import json
 ages = {"Sheila": 28, "Anne": 23, "John": 22, "Bas": 25, "Mark": 26}
@@ -1053,7 +1062,7 @@ print ("The average length of a book by Luhmann is", sum(pagelist)/len(pagelist)
 
 \subsection{The Twitter API}
 
-For this exercise, we need to import a module named \texttt{twitter}. You can easily install it from the command line with
+For this exercise, we need to import a module named \texttt{twitter}.\footnote{Another popular module for accessing the Twitter API is called \texttt{tweepy}. If you want to dig deeper into using the Twitter API, you might want to check that one out as well and find out which one fits your purposes best.} You can easily install it from the command line with
 \begin{lstlistingbash}
 sudo pip3 install twitter
 \end{lstlistingbash}
@@ -1506,7 +1515,7 @@ Do \emph{not} download all packages, that will take too much space and you do no
 
 \subsection{Stopword removal}
 
-Natural language processing is a term that is used to describe a set of techniques used to analyze language written by humans. This comprises simple tasks like the removal of stopwords in order to identify ``relevant'' words, but also much more complicated things like parsing of a sentence -- which means to automatically identify, for instance, subject, verb and object in a sentence. The book by \cite{Bird2009} gives a comprehensive introduction into NLP with Python. The author also probide the Python package \texttt{nltk}, which we will use as well. 
+Natural language processing is a term that is used to describe a set of techniques used to analyze language written by humans. This comprises simple tasks like the removal of stopwords in order to identify ``relevant'' words, but also much more complicated things like parsing of a sentence -- which means to automatically identify, for instance, subject, verb and object in a sentence. The book by \cite{Bird2009} gives a comprehensive introduction into NLP with Python. The author also provide the Python package \texttt{nltk}, which we use here.
 
 
 To find out all the possibilities, have a look at \url{nltk.org}, but here are some examples.
@@ -1571,9 +1580,9 @@ The technique used for it is called \emph{list comprehension} and a really cool 
 In doing so, we can create a new string \texttt{s2} with one single line of Python code in which we first split s into a list of words, then make a new list out of these words in which only those words are included that are not in the stopword list, and finally join this list into a single string seperated by spaces.
 \end{quote}
 
-\subsection{Parsing}
+\subsection{Part-of-speech tagging}
 
-With parsing, we can find out what grammatical function words have. To this end, NLTK splits a word into sentences (it is called \emph{tokenizing}). But, in contrast to what we have done before with the \texttt{.split()} method, it attaches a label to each token that identifies the grammatical characteristics of each token.
+By parsing sentences, we can find out what grammatical function the words within each sentence has. To this end, NLTK first splits sentences into words (it is called \emph{tokenizing}). But, in addition to what we have done before with the \texttt{.split()} method, it attaches a label to each token that identifies the grammatical characteristics of each token.
 
 \begin{lstlisting}
 import nltk
@@ -1589,7 +1598,7 @@ We see that we get a list of tuples (pairs of two values):
 [('At', 'IN'), ('eight', 'CD'), ("o'clock", 'JJ'), ('on', 'IN'), ('Thursday', 'NNP'), ('morning', 'NN')]
 \end{lstlistingoutput}
 
-This is pretty useful, because we can address the items with \emph{slicing}. For example, to get the fifth tuple, we can write \texttt{tagged[5]}. Of course, we can also slice the tuple. So, to get only the grammatical function of the word ``morning'', we can use  \texttt{tagged[5][1]}.
+This is pretty useful, because we can address the items with \emph{slicing}. For example, to get the fifth tuple, we can write \texttt{tagged[5]}. Of course, we can also slice the tuple. So, to get only the grammatical function of the word ``morning'', we can use  \texttt{tagged[5][1]}. Look up the meaning of the abbreviations like 'NN' up in the documentation. Chapter~5 in \cite{Russel2013} also provides a lot of examples.
 
 
 
@@ -1598,7 +1607,7 @@ You should have understood
 \begin{itemize}
 \item How to remove stopwords
 \item How to stem a sentence
-\item How to parse a sentence
+\item How to parse a sentence and employ POS tagging
 \item How to use NLTK
 \end{itemize}
 
@@ -1606,7 +1615,7 @@ You should have understood
 
 
 \chapter{Web scraping}
-\label{sec:scraping}
+\label{chap:scraping}
 \label{parsing}
 \section{Overview}
 When scraping data from the web, we can distinguish two different stages:
@@ -1759,10 +1768,13 @@ An example that scrapes all reviews of a specific telephone using one single XPa
 from lxml import html
 from urllib import request
 
-req=request.Request("http://www.kieskeurig.nl/tablet/samsung/galaxy_tab_3_101_wifi_16gb/reviews/1344691")
+req=request.Request("http://www.kieskeurig.nl/smartphone/product/2334455-apple-iphone-6/reviews")
 tree = html.fromstring(request.urlopen(req).read().decode(encoding="utf-8",errors="ignore"))        
 
-reviews = tree.xpath('//*[@id="reviews-container"]//*[@class="text margin-mobile-bottom-large"]/text()')
+reviews = tree.xpath('//*[@class="reviews-single__text"]/text()')
+
+# remove empty reviews and remove leadint/trailing whitespace
+reviews = [r.strip() for r in reviews if r.strip()!=""]
 
 print (len(reviews),"reviews scraped. Showing the first 60 characters of each:")
 i=0
@@ -1775,20 +1787,22 @@ for review in reviews:
 This produces the following output:
 
 \begin{lstlistingoutput}
-34 reviews scraped. Showing the first 60 characters of each:
-Review 0 : Ideaal in combinatie met onze Samsung curved tv en onze mobi
-Review 1 : Gewoon een goed ding!!!!Ligt goed in de hand. Is duidelijk e
-Review 2 : Prachtig mooi levendig beeld, hoever of kort bij zit maakt n
-Review 3 :  Opstartsnelheid is zeer snel.
+67 reviews scraped. Showing the first 60 characters of each:
+Review 0 : De Apple Iphone 6 Zilver/16GB het is een heel fijn apparaat 
+Review 1 : Apple maakt mooie toestellen met hard- en software uitsteken
+Review 2 : Vanaf de iPhone 4 ben ik erg te spreken over de intuitieve i
+Review 3 : Helaas ontbreekt het Apple toestellen aan een noodzakelijk i
 \end{lstlistingoutput}
 
 Now it's your turn!
 
 
 \section{Alternatives}
-You can get very far with the approaches sketched in this chapter: regular expressions, the lxml-package, and wget for automated downloading tasks. BeautifulSoup is a python package that lies somewhere in between, as it resembles lxml, but internally uses regular expressions rather than an XPath to parse the HTML. 
+You can get very far with the approaches sketched in this chapter: regular expressions, the lxml-package, and wget for automated downloading tasks. BeautifulSoup is a python package that lies somewhere in between, as it resembles lxml, but internally uses regular expressions rather than an XPath to parse the HTML. Within lxml, you can also use so-called CSS selectors instead of XPATHs.
 
-If you want to write an application that integrates crawling and parsing, you might have a look at the scrapy framework (\url{http://scrapy.org/})
+If you want to write an application that integrates crawling and parsing, you might have a look at the scrapy framework (\url{http://scrapy.org/}), although it might be a bit of an overkill.
+
+One approach that we haven't covered is how to scrape content from sites that do complicated stuff like interactively loading data while they are visited. For example, think of a news site that uses a JavaScript to display comments: these comments may not be present in the HTML code of the site, but might be dynamically loaded while the user is reading the article. In such a case, one can make use of a framework like Selenium (google "selenium python" or ask your instructor for some examples). Selenium allows you to start a browser, click somewhere, and so on (in essence, it just automates what a human would do), and then parse what is displayed in the browser. 
 
 \section{Recap}
 You should be able to write your own web scraper. This entails that you
@@ -1944,7 +1958,7 @@ This chapter taught you how to deal with co-occurrences and similar structures f
 
 \chapter{Machine learning and topic modelling}
 \label{chap:ml}
-The vastness of the topic makes it impossible to cover it extensively in this course. Nevertheless, as last part, we will take a very small and superficial glimpse in the world of supervised and unsupervised machine learning. The lecture slides should give you a bit more context, but here you find two examples to illustrate the general principle --- and to give you a starting point for your own investigations.
+The vastness of the topic makes it impossible to cover it extensively in this course. Nevertheless, as last part, we will take a very small and superficial glimpse in the world of supervised and unsupervised machine learning. The lecture slides should give you a bit more context, but here you find two examples to illustrate the general principle --- and to give you a starting point for your own investigations. We will use scikit-learn \citep{scikit-learn} and gensim \citep{Rehurek2010}, two packages that are very widely used and for which you will find a lot of tutorials and usage examples on the web.
 
 \section{Supervised machine learning}
 For this demonstration, we use a dataset from the Internet Movie Database \citep{Maas2011}. It contains in total $50 000$ reviews, separated into a test dataset and a training datasset ($25 000$ each), half of them positive, half of them negative.
@@ -2032,10 +2046,8 @@ actual=[r[1] for r in test]
 
 We could compare the two lists \texttt{predictions} and \texttt{actual} by hand to find out in where our classifier is right or wrong. But we can also just calculate the AUC, a measure of accuracy:
 
-
 \begin{lstlisting}
-fpr, tpr, thresholds = metrics.roc_curve(actual, predictions, pos_label=1)
-print("Multinomal naive bayes AUC: {0}".format(metrics.auc(fpr, tpr)))
+print(metrics.accuracy_score(actual,predictions,normalize=True))
 \end{lstlisting}
 
 We can now play around and see how the classifier classifiers some new data:
@@ -2060,7 +2072,7 @@ print(predictions)
 \subsection{Comparing different classifiers and vectorizers}
 Usually, when we de supervised machine larning, we want to compare different classifiers. For example, in the last section, we used a Naïve Bayes classifier. But we could use a logistic regression as well, or a so-called support vector machine. It is common to run several of these models and then compare their \emph{precision} and \emph{recall}. 
 
-Let us assume that the goal of training above-mentioned classifier is to build an app that shows the user only positively rated films. There are two things that we want to achieve: We want to find as many as possible positive films (recall), but we also want that the selection we found \emph{only} contains positive films (precision).
+Let us assume that the goal of training above-mentioned classifier is to build an app that shows the user only films we can expect to receive positive ratings. There are two things that we want to achieve: We want to find as many as possible positive films (recall), but we also want that the selection we found \emph{only} contains positive films (precision).
 
 Precision is calculated as $\frac{TP}{TP+FP}$, where TP are true postivies and FP are false positives. For example, if our classifier retrieves 200 articles that it classifies as positive films, but only 150 of them indeed are positive films, then the precision is $\frac{150}{150+50} = \frac{150}{200} = 0.75$.
 
@@ -2072,7 +2084,7 @@ Often, we have to make a trade-off between precision and recall. For example, ju
 
 Another thing we can vary in our classifier is the vectorizer we used. In our example, we used a count vectorizer, which simply means that our \emph{features} (which is just a fancy word for independent variables) are simply the frequency counts of the words. This approach has the disadvantage that some words will be very frequent in almost all articles, while others occur in only a few articles. Arguably, such words are more informative and therefore, their occurrence should weigh more heavily. The tf$\cdot$idf scheme does exactly that: it weighs the term frequency (TF) by the inverse document frequency (IDF), i.e. the number of texts (``documents'') in which the word (``term'') occurs at least once.
 
-Gensim allows us to use tf$\cdot$idf scores instead of simple counts by using another vectorizer:
+Scikit-learn allows us to use tf$\cdot$idf scores instead of simple counts by using another vectorizer\footnote{For details, see \url{http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html}}:
 
 \begin{lstlisting}
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
@@ -2084,7 +2096,6 @@ mysecondvectorizer=TfidfVectorizer(stop_words='english')
 
 Below, you find an example script that combines everything that we discussed in these sections. There are more elegant ways of doing this, for example by writing functions instead of repeating the code that calculates the evaluations, but for illustration purposes, I decided to leave it as it is:
 
-\todo[inline]{INKORTEN, COMMENTS ANDERS OPMAKEN}
 
 
 
@@ -2146,7 +2157,8 @@ print('The following review\n\n\n',reviews[244][0],"\n\n\nis evaluated as",revie
 print("Training classifier...")        
 
 # Generate BOW representation of word counts
-vectorizer = CountVectorizer(stop_words='english')   #alternatively, you could provide a list of stop words
+vectorizer = CountVectorizer(stop_words='english')   
+#alternatively, you could provide a list of stop words yourself
 train_features = vectorizer.fit_transform([r[0] for r in reviews])
 test_features = vectorizer.transform([r[0] for r in test])
 
@@ -2167,15 +2179,8 @@ with open("/home/damian/agreement.tab", mode='w') as fo:
     for i in range(len(predictions)):
         fo.write(str(actual[i])+"\t"+str(predictions[i])+"\t"+test[i][0][:50]+"\n")
 
-# That can be helpful for inspecting where sth goes wrong, but we can better 
-# just calculate some measures of performance immediately here:
-
-# lets start with the AUC:
-
-fpr, tpr, thresholds = metrics.roc_curve(actual, predictions, pos_label=1)
-print("Multinomal naive bayes AUC: {0}".format(metrics.auc(fpr, tpr)))
-
-# %% Some more metrics to evaluate the performance
+# That can be helpful for inspecting where sth goes wrong, but we can  
+# also calculate some measures of performance immediately:
 
 print('Accuracy:')
 print(metrics.accuracy_score(actual,predictions,normalize=True))
@@ -2185,8 +2190,8 @@ print(metrics.precision_score(actual,predictions,pos_label='1', labels = ['-1','
 print('Recall:')
 print(metrics.recall_score(actual,predictions,pos_label='1', labels = ['-1','1']))
 
-# note that Precision is not a symmetric measure (look back at the slides!), if we want
-# the precision for retrieving a NEGATIVE review instead of a positive we get a different value:
+# Note that Precision is not a symmetric measure.
+# If we want the precision for retrieving a NEGATIVE review # instead of a positive we get a different value:
 
 print('\t side note: Precision if we are interested in retrieving negative reviews:')
 print('\t',metrics.precision_score(actual,predictions,pos_label='-1', labels = ['-1','1']))
@@ -2201,7 +2206,8 @@ print('Confusion matrix:')
 print(metrics.confusion_matrix(actual,predictions))
 
 
-#%% Now, let's play around and see how well it would work on new unseen data:
+#%% Now, let's play around and see how well it would work on 
+# new unseen data:
 newreviews=["What a crappy movie! It sucks!",
             "This is awsome. I liked this movie a lot, fantastic actors",
             "I would not recomment it to anyone.",
@@ -2215,58 +2221,40 @@ for i in range(len(predictions)):
     elif predictions[i]==-1:
         print(newreviews[i],'\nis probably about a BAD movie\n')
 
-# COOL, ISN'T IT???
-   
-#%% We started with a Naive Bayes classifier, but there are others
-# let's see if another one works better, for example logistic regression or 
-# a support vector machine.
-# about the difference between NB en Logistic regression:
-# https://www.quora.com/What-is-the-difference-between-logistic-regression-and-Naive-Bayes?share=1
-# (basically, in NB all IV's are assumed to be uncorrelated)
-# LR 
+\end{lstlisting}
 
-# logistic regression:
+
+We used a Na\"ive Bayes classifier, but we could as well use a different one, for example a logistic regression\footnote{You can find one explanation of the difference here: \url{https://www.quora.com/What-is-the-difference-between-logistic-regression-and-Naive-Bayes?share=1}. Basically, in contrast to a logistic regression, in a Na\"ive Bayes classifier, all features are assumed to be uncorrelated.}
+
+You can run a logistic regression classifier just as you would run a NB classifier\footnote{We could get more info, see \url{http://scikit-learn.org/stable/modules/generated/sklearn.linear\_model.LogisticRegression.html}. For example, if you are interested in coefficients: \\
+	\texttt{predictionsproba = logreg.predict\_proba(test\_features)}\\
+	\texttt{print([j for i in logreg.coef\_ for j in i])}}:
+
+\begin{lstlisting}
 from sklearn.linear_model import LogisticRegression
 logreg = LogisticRegression()
 logreg.fit(train_features, [r[1] for r in reviews])
 predictions = logreg.predict(test_features)
-# we could get more info, see http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
-#predictionsproba = logreg.predict_proba(test_features)
-#print([j for i in logreg.coef_ for j in i])
-
-# It's always a good idea to compare several classifiers and take the one
-# that performs best!
-
-#%% SVM (took to long for practical use on my machine):
-# for more info, see http://scikit-learn.org/stable/modules/svm.html#
-
-#from sklearn import svm
-#clf = svm.SVC()
-#clf.fit(train_features, [r[1] for r in reviews])
-#predictions = clf.predict(test_features)
-
-
-#%% Other BOW-representatons
-# We used a BOW representation of word frequency counts
-# But maybe our classifier can be improved by using a TfIdf-Vectoryizer
-# for details see http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
-
-from sklearn.feature_extraction.text import TfidfVectorizer
-vectorizer=TfidfVectorizer(stop_words='english')
-train_features = vectorizer.fit_transform([r[0] for r in reviews])
-test_features = vectorizer.transform([r[0] for r in test])
-logreg = LogisticRegression()
-logreg.fit(train_features, [r[1] for r in reviews])
-predictions = logreg.predict(test_features)
-
 \end{lstlisting}
+
+A last one would be a support vector macine (SVM) (for more info, see \url{http://scikit-learn.org/stable/modules/svm.html})
+
+\begin{lstlisting}
+from sklearn import svm
+mysvm = svm.SVC()
+mysvm.fit(train_features, [r[1] for r in reviews])
+predictions = mysvm.predict(test_features)
+\end{lstlisting}
+
+Note that the names I assigned to each classifier (\texttt{nb}, \texttt{logreg}, \texttt{mysvm}) are completely arbitrary.
+
 
 
 \subsection{Saving the trained model}
 
 In theory, you could just train the model everytime you want to use it. However, that does not only take unnecessary time and ressources, but it also requires you to have the training data at hand. Therefore, it can be useful to save your vectorizers and classifiers. It is important to realize that you need to save both: After all, the vectorizer determines which word is mapped to which internal numeric representation, that is used by the classifier. 
 
-Once you have fitted both vectorizer and classifier, you can save them as follows (assuming you have called your instance of the vectorizer \texttt{vectorizer} and your classifier \texttt{nb}):
+Once you have fitted both vectorizer and classifier, you can save them as follows (assuming you have called your instance of the vectorizer \texttt{vectorizer} and your instance of the classifier \texttt{nb}):
 
 \begin{lstlisting}
 import pickle
@@ -2301,15 +2289,9 @@ predictions = nb.predict(new_features)
 
 
 \section{Latent Dirichlet Allocation (LDA)}
-Topic Modelling is one form of unsupervised machine learning.
+In the previous chapter, we were had \emph{labeled} data, i.e. we had an outcome which we could predict. In other words, we applied supervised machine learning. But sometimes, we do not have an outcome to predict.For instance, we want to group the films into topics, but we have no idea which topics exist to begin with. 
 
-You can use gensim \citep{Rehurek2010} for this. Install the module from the bash terminal:
-
-\begin{lstlistingbash}
-sudo pip3 install gensim
-\end{lstlistingbash}
-
-You might need to restart the Python console you are using (or just restart Spyder).
+Topic Modelling therefore is a form of \emph{unsupervised} machine learning. To get to know it, we will use the gensim package \citep{Rehurek2010}. 
 	
 Furthermore, let us assume you have a list of lists of words (!) called \texttt{texts}:
 
@@ -2371,7 +2353,7 @@ This is the general principle, but of course, there are a lot of ways of tuning 
 
 For some suggestions, see the documentation of gensim.% and also the example script I send you.
 
-One particular thing you might want to try, though: Just as in the case of supervised machine learning, also for unsupervised machine learning, you might want to try to use a tf-idf vectorizer instead of the default count vectorize. In gensim, you can do so by slightly modifying the script presented above:
+One particular thing you might want to try, though: Just as in the case of supervised machine learning, also for unsupervised machine learning, you might want to try to use a tf$\cdot$idf vectorizer instead of the default count vectorize. In gensim, you can do so by slightly modifying the script presented above:
 
 
 \begin{lstlisting}
@@ -2401,9 +2383,9 @@ In particular, you should be able to not only train models and apply them to new
 
 \chapter{Statistics with Python}
 \label{chap:statistics}
-One of the things you have learned so far is how to output data in a format that suits your needs. For example, no matter what your input data are, you can always save the results of your program in a CSV file that you can open with R, Stata or SPSS for further analysis. And indeed, often it makes sense to use different tools in different stages of a project.
+One of the things you have learned so far is how to output data in a format that suits your needs. For example, no matter what your input data are, you can always save the results of your program in a CSV file that you can open with R, Stata or SPSS for further analysis. And indeed, it can make sense to use different tools in different stages of a project.
 
-However, if you only want to calculate a mean and a standard deviation or even conduct a regression, this is actually not neccessary -- and, let's face it, is pretty cool if your program just does \emph{everything} in a single run. In this chapter, I'll briefly mention some modules that are useful for this, so that you know where to look further.
+However, if you only want to calculate a mean and a standard deviation or even conduct a regression, this is actually not neccessary -- and, let's face it, is pretty cool if your program just does \emph{everything} in a single run. In addition, Python is actually pretty good in doing statistics and used by many data scientists for this purpose. In this chapter, I'll briefly mention some modules that are useful for this, so that you know where to look further.
 
 
 \section{numpy \& scipy}
@@ -2459,7 +2441,7 @@ plt.scatter(x,y)
 
 \section{pandas}
 Pandas \citep{pandas} is a framework that allows statistical modelling in Python. Those of you who know R will see a lot of similarities. Within pandas, data are stored in a table, very much like a Stata or SPSS dataset -- and yes, it is indeed called exactly as it is called in R: a \emph{dataframe}.
-As you see below, a dataframe basically consists of different columns with a name, which consist of a list of data. Pandas can read directly fromm a CSV file, but as you can see below, you can also construct a dataframe yourself. To run an OLS regression, for example you then only have to specify which columns are the dependent and the independent variables. 
+As you see below, a dataframe basically consists of different columns with a name, which consist of a list of data. Pandas can read directly fromm a CSV file, but as you can see below, you can also construct a dataframe yourself. To run an OLS regression, for example, you only have to specify which columns are the dependent and the independent variables. 
 
 \begin{lstlisting}
 import pandas as pd
@@ -2492,7 +2474,7 @@ coef    std err          t      P>|t|      [95.0% Conf. Int.]
 Intercept        14.9525     17.764      0.842      0.489       -61.481    91.386
 age               0.4012      0.650      0.617      0.600        -2.394     3.197
 facebooklikes     0.0004      0.001      0.650      0.583        -0.002     0.003
-===========================================================================
+==========================================================================
 Omnibus:                          nan   Durbin-Watson:                   1.061
 Prob(Omnibus):                    nan   Jarque-Bera (JB):                0.498
 Skew:                          -0.123   Prob(JB):                        0.780
@@ -2504,17 +2486,16 @@ Pandas is a \emph{huge} framework, especially in combination with Jupyter Notebo
 
 However, it would be kind of useless to cover it extensively in this intro, as others have already done so. You can have a look at the books by \cite{McKinney2012} and  \cite{Russel2013}. 
 
-We are also building a online ressource with many examples for typical analyses with pandas, ranging from correlations and t-tests to regression models and time-series analysis. Please have a look at:
-\todo[inline]{insert URL once everything is up}
+You can also find some iPython notebooks with typical analyses with pandas, ranging from correlations and t-tests to regression models and time-series analysis, here: \url{https://github.com/damian0604/bdaca}. 
 
 
 
 \section{Recap}
 Things you should remember:
 \begin{itemize}
-	\item There are multiple packages for doing statistical analysis like you know them from programs like SPSS, Stata, or R
-	\item pandas offers you R-like data structures
-	\item There are online ressources with a lot of examples
+	\item There are multiple packages for doing statistical analysis like you know them from programs like SPSS, Stata, or R.
+	\item pandas offers you R-like data structures.
+	\item There are online ressources with a lot of examples.
 \end{itemize}
 In particular, once you arrived at this part of this book, you can run \emph{your whole workflow} in Python --- from collecting the data until the final analysis. This obviously has major advantages compared to switching between environments.
 
@@ -2523,7 +2504,7 @@ In particular, once you arrived at this part of this book, you can run \emph{you
 The following books provide the interested student with more and deeper information. They are intended for the advanced reader and might be useful for your individual projects (or, maybe, a thesis):
 
 \begin{itemize}
-\item \citealp{Russel2013}. Gives a lot of examples about how to analyze a variety of online data, including Facebook and Twitter, but going much beyond that. Because social media APIs have undergone multiple changes in the last years, the examples might be slightly outdated.
+\item \citealp{Russel2013}. Gives a lot of examples about how to analyze a variety of online data, including Facebook and Twitter, but going much beyond that. Because social media APIs have undergone multiple changes in the last years, the examples might be slightly outdated. A PDF of the book can be downloaded for free on \url{http://www.webpages.uidaho.edu/\%7Estevel/504/Mining-the-Social-Web-2nd-Edition.pdf}
 \item \citealp{Bird2009}. This is the official documentation of the NLTK package that we are using. A newer version of the book can be read for free at \url{http://nltk.org}
 \item \citealp{McKinney2012}: Another book with a lot of examples. A PDF of the book can be downloaded for free on \url{http://it-ebooks.info/book/1041/}.
 \end{itemize}
@@ -2588,7 +2569,7 @@ Ready to go? Let's do some work:
 \end{enumerate}
 
 
-\chapter[Hint 1: Exchanging files]{Hint 1: Exchanging files by mounting your host system}
+\chapter[Hint 1: Exchanging files]{Exchanging files by mounting your host system}
 
 One of the nice things of using a Virtual Machine is that you cannot break anything on your own computer. The obvious downside is that you also cannot access files on it. Of course, you can always mail stuff to yourself or use some other workaround. 
 
