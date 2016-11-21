@@ -215,13 +215,14 @@ Ready to go?
 Download and install VirtualBox from \url{https://www.virtualbox.org/}. Depending on your computer, download the binary for Windows, MacOS, or Linux.
 
 \section{Download a Lubuntu-image}
-Download the Lubuntu image from \url{http://lubuntu.net}. If you have a relatively new computer, download \texttt{lubuntu 64-bit (AMD64) desktop CD}, only if you encounter problems later on or have an old computer (up to around 2007), download \texttt{lubuntu (Intel x86) desktop CD}. So, in most cases, select the 64-bit version. 
+Download the Lubuntu image from \url{http://lubuntu.net}. \textbf{We are working with version 16.04.1 LTS (Xenial Xerus). It is important that you do \emph{not} use version 16.10.} The download link for this version should be \url{http://cdimages.ubuntu.com/lubuntu/releases/xenial/release/}
+If you have a relatively new computer, download \texttt{lubuntu 64-bit (AMD64) desktop CD}, only if you encounter problems later on or have an old computer (up to around 2007), download the 32-bit version. So, in most cases, select the 64-bit version. 
 Save it at a place of your convenience.
 
 \section{Create a virtual machine}
 Open VirtualBox, click on ``New'', give your image a name, and select first Linux, then Ubuntu~64bit from the list (or 32 bit, if that's what you downloaded). On the following screens, just leave the default settings and agree to everything---with one exception: When you are asked how much ``base memory'' you want to allocate to your machine, you should choose a value of at the \emph{very} least around 1000 MB. More is better, if you you have 4,096 MB of RAM in total, you can safely choose 2,048 MB. The examples in this tutorial are tested on a VM with 2,048 MB RAM. 
 
-On the next screens, you are asked about a virtual hard disk to create. You can basically accept the suggested settings, but I strongly recommend you to use a bit more than the 8~GB that are suggested. If you choose more (say, 12~GB or so), chances are lower that you will run out of space later during the course.
+On the next screens, you are asked about a virtual hard disk to create. I strongly recommend you to use a bit more than the 8~GB that are suggested. If you choose more (say, 12~GB or so), chances are lower that you will run out of space later during the course.
 
 \begin{quote}
 The virtual machine you just created should show up in the main window now. If it doesn't (I had that on one computer once), restart VirtualBox.
@@ -229,12 +230,21 @@ The virtual machine you just created should show up in the main window now. If i
 
 
 \begin{figure}[h]
-\centering
-\includegraphics[width=.5\paperwidth,,keepaspectratio]{../pictures/enablepaenx.png}
-\caption{\label{fig:enablepaenx}Enabling PAE/NX in the settings dialogue}
+	\centering
+	\includegraphics[width=.5\paperwidth,,keepaspectratio]{../pictures/virtualbox-tweak2.png}
+	\caption{\label{fig:tweak2}Possibly necessary tweaks: Enabling PAE/NX and allowing the use of multiple CPUs in the settings dialogue}
 \end{figure}
 
-Now click on the name of the virtual machine and on "Settings" (Figure~\ref{fig:enablepaenx}. Under "System"/"Processors", you should see a check box "Enable PAE/NX". If you can enable this, enable it.\footnote{In rare cases, you might just to have to disable it. So, if you cannot start your VM, you know what to try.} Confirm with OK.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.5\paperwidth,,keepaspectratio]{../pictures/virtualbox-tweak1.png}
+\caption{\label{fig:tweak1}Possibly necessary tweaks: Enabling 3D and/or 2D acceleration in the settings dialogue}
+\end{figure}
+
+
+
+Now click on the name of the virtual machine and on "Settings" (Figure~\ref{fig:tweak2}. Under "System"/"Processors", you should see a check box "Enable PAE/NX". If you can enable this, enable it.\footnote{In rare cases, you might just to have to disable it. So, if you cannot start your VM, you know what to try.} If you have more than one processor, also select the maximum (e.g., choose 2 instead of 1). Confirm with OK. Also, check if you can enable "Display"/"Enable 3D acceleation" (Figure~\ref{fig:tweak1}). These changes might not be strictly necessary, but can in some instances prevent problems.
 
 When you are done, start the virtual machine by clicking on the green arrow in the main window. You will be asked for a location from which to boot. Click on the icon to select a file and select the Lubuntu-image you downloaded.
 
@@ -242,7 +252,7 @@ When you are done, start the virtual machine by clicking on the green arrow in t
 \section{Install Lubuntu on your virtual machine}
 Once your virtual machine is running, you can select whether you want to try out Lubuntu without installing or install it. If you feel like, you can now just play around a bit in the try-out mode, but eventually, you'll need to go for installing as we need some specific tools for our course. So you can as well just select Install now, using the arrow keys.
 When you select "Install", just follow the instructions. At one point in time, you will be asked whether you want to erase all data from your hard drive (yes, seriously). You can safely agree (remember, that's just the point of the VirtualBox, you have a fenced room in which you cannot damage anything. Only your \emph{virtual} hard drive will be erased, not your real one).
-After finishing the installation, your virtual machine will reboot. After clicking on reboot, it might happen that you see only some lines of text saying something like ``Unmounting crypto disks''. If this takes longer than a minute or so, try pressing Enter twice. 
+After finishing the installation, your virtual machine will reboot. After clicking on reboot, you can get a message saying ``please remove installation disks''. You can just press enter, you don't have to remove anything in your case. Also, it might happen that you see only some lines of text saying something like ``Unmounting crypto disks''. If this takes longer than a minute or so, try pressing Enter twice. 
 
 
 
@@ -250,7 +260,7 @@ After finishing the installation, your virtual machine will reboot. After clicki
 \label{sec:installpackages}
 Once you have installed and rebooted your virtual machine, you will have to install a couple of packages. It might be that your system is running now in a very low resulution, but that will change after the following step.  Click on the button on the bottom left (where the traditional Windows start button would be), then on System Tools/LXTerminal. Enter the following command:
 \begin{lstlistingbash}
-sudo apt-get install virtualbox-guest-dkms
+sudo apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
 \end{lstlistingbash}
 You will be asked for your password (the one you defined during the install process). Just type it and confirm with Enter (no, you do not see anything while you type, that's correct). 
 If you reboot your virtual machine (by clicking on the Start button/logout/reboot or by typing
@@ -262,7 +272,7 @@ it will display in a higher resolution and you can even run it full screen if yo
 We will now install some other programs we will use with the following commands. Just type them into the LX Terminal, which you already know:
 
 \begin{lstlistingbash}
-sudo apt-get install gedit spyder3 python3-dev
+sudo apt-get install gedit spyder3 python3-dev python3-pip
 \end{lstlistingbash}
 
 You will be asked for your password and some questions which have to be answered with yes (by typing the letter \texttt{y}) followed by Enter. 
@@ -280,7 +290,7 @@ And let us finally install some additional Python modules:
 % als we apt-get install python3-pip doen, dan krijgen we een verouderde versie van pi wat later tot problemen leidt
 
 \begin{lstlistingbash}
-sudo easy_install3 -U pip
+sudo pip3 install --upgrade pip
 sudo pip3 install nltk
 sudo pip3 install scikit-learn
 sudo pip3 install pandas
@@ -2441,9 +2451,13 @@ plt.scatter(x,y)
 \end{lstlisting}
 
 
-\section{pandas}
+\section{pandas \& statsmodels}
 Pandas \citep{pandas} is a framework that allows statistical modelling in Python. Those of you who know R will see a lot of similarities. Within pandas, data are stored in a table, very much like a Stata or SPSS dataset -- and yes, it is indeed called exactly as it is called in R: a \emph{dataframe}.
-As you see below, a dataframe basically consists of different columns with a name, which consist of a list of data. Pandas can read directly fromm a CSV file, but as you can see below, you can also construct a dataframe yourself. To run an OLS regression, for example, you only have to specify which columns are the dependent and the independent variables. 
+As you see below, a dataframe basically consists of different columns with a name, which consist of a list of data. Pandas can read directly from a CSV file, but as you can see below, you can also construct a dataframe yourself. 
+
+While pandas has a lot of nice functions to explore and manage datasets, it is -- for our purposes -- especially powerful when combined with statsmodels \citep{statsmodels}. Statsmodels allows provides a wide range of models, just like what you would expect from SPSS, Stata, or R.
+
+To run an OLS regression, for example, you only have to specify which columns are the dependent and the independent variables. 
 
 \begin{lstlisting}
 import pandas as pd
@@ -2627,9 +2641,9 @@ As well as anaconda, the folder in your home directory might be named anaconda2 
 \end{lstlistingoutput}
 
 Because you might \emph{also} have a version of Python already installed on your system (at least on Linux and MacOS, this is generally the case), you have to make sure that you actually run the correct version: If you just type
-\begin{lstlisting}
+\begin{lstlistingbash}
 python
-\end{lstlisting}
+\end{lstlistingbash}
 in your Terminal, then you probably will \emph{not} start the anaconda version -- and thus be unable to use the packages installed with anaconda. You would have to explicitly refer to the location where anaconda is installed.
 
 \end{appendices}
