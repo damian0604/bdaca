@@ -1073,7 +1073,7 @@ print ("The average length of a book by Luhmann is", sum(pagelist)/len(pagelist)
 \end{question}
 
 \subsection{The Twitter API}
-
+\label{subsec:twitterapi}
 For this exercise, we need to import a module named \texttt{twitter}.\footnote{Another popular module for accessing the Twitter API is called \texttt{tweepy}. If you want to dig deeper into using the Twitter API, you might want to check that one out as well and find out which one fits your purposes best.} You can easily install it from the command line with
 \begin{lstlistingbash}
 sudo pip3 install twitter
@@ -1141,7 +1141,12 @@ with open("tweetswithdate.csv",mode="w",encoding="utf-8") as fo:
 \section{Another example: The AmCAT API}
 Some of you might use AmCAT \citep{VanAtteveldt2008}, a framework for content analysis. If you have no idea what AmCAT is, just skip this section. If you do, however, you will be delighted to hear that you can access your AmCAT projects via an API and retrieve all your data for further analysis with Python.
 
-There are several ways of installing the AmCAT Client (see \url{https://github.com/amcat/amcatclient}), but you do not need to do so: Just install the additional goodies in Chapter~\ref{goodies}, then the AmCAT client is already included. 
+First, you have to install the AmCAT Client:
+
+\begin{lstlistingbash}
+sudo pip install amcatclient
+\end{lstlistingbash}
+
 
 You need your username, your password, the project number, and the article set number. Then, you can simply adapt the following sample script to your own needs.
 
@@ -1190,56 +1195,51 @@ You should have understood
 
 \chapter{Sentiment analysis}
 \section{Preparation}
-\label{goodies}
 In this chapter, we are going to conduct a sentiment analysis. You can use your own data for this, you only have to modify the proposed code accordingly. For instance, you can use the examples from earlier chapters about how to use CSV files, JSON files, or APIs and add the sentiment analysis code from the examples below to them.
 
-Before you start, however, make sure you have all the necessary modules and data we need for this. To save you some work, I put a file together which contains an advanced sentiment analysis algorithm, but also two simple lists with positive and negative words. Download it using the following bash-commands:
+We will discuss several approaches to sentiment analysis below and use several example datasets. In the end, you should be able to transfer what you learned to own datasets and make an informed decision on the approach to use.
+
+
+You can also download the whole code for the first example if you want to:
 
 \begin{lstlistingbash}
-cd /home/damian
-wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/goodies.tar.gz --user=USERNAME --password=PASSWORD
-tar -xzf goodies.tar.gz
-rm goodies.tar.gz
+wget https://raw.githubusercontent.com/damian0604/bdaca/master/examples/ex-senti-simple.py
 \end{lstlistingbash}
-
-In addition, you have to install Java:
-\begin{lstlistingbash}
-sudo apt-get install default-jre
-\end{lstlistingbash}
-
-When finished, you have to tell Spyder where to find the new modules. You can do this via the menu Tools/PYTHONPATH Manager (see Figure~\ref{fig:pythonpath} for the two necessary entries). After that, you have to select ``Update module names list'' from the same menu, and close the Python consoles that are still open (or restart Spyder).
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=.8\textwidth, keepaspectratio]{../pictures/pythonpath}
-\caption{\label{fig:pythonpath}Telling spyder where to find additional modules}
-\end{figure}
-
-Now you only need data to play with. You can download the following datasets for doing the exercises, but you are also free to use other datasets.
-
-\begin{lstlistingbash}
-cd /home/damian
-mkdir week4
-cd week4
-wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/hillary.csv --user=USERNAME --password=PASSWORD
-wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/stateoftheunion.json --user=USERNAME --password=PASSWORD
-\end{lstlistingbash}
-
-You can also download the solutions for the following exercises:
-
-\begin{lstlistingbash}
-wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/ex-senti-simple.py --user=USERNAME --password=PASSWORD
-wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/ex-senti-sentistrength.py --user=USERNAME --password=PASSWORD
-wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/ex-senti-sentistrength-file.py --user=USERNAME --password=PASSWORD
-
-\end{lstlistingbash}
-
 
 
 \section{A simple dictionary-based approach}
 \label{simplesent}
 
-The data used in this example consist of a sample of 1\,000 tweets related to the Democratic Party in the US, collected on the day when Hillary Clinton announced her candidacy.  They were collected using DMI-TCAT \citep{Borra2014}. Before you go any further, get an idea of the data. For example, you could use the \texttt{head} command on the bash command line (see Chapter~\ref{firstcsvfile}).
+The simplest way to do a sentiment analysis is to simply count the number of positive and negative words in a text. While this has obvious drawbacks (for example, because we do not care about word order, we cannot distinguish between `good' and `not good'), it is a good starting point to understand how sentiment analysis works. Moreover, because the approach is so simple, you can easily modify it to measure other things.
+
+First of all, we need a list of negative words and a list of positive words. Let's use the command line to make a new directory and download two files with such lists from the internet\footnote{The example presented here is based on the following tutorial: \url{http://nealcaren.web.unc.edu/an-introduction-to-text-analysis-with-python-part-1/}, and the word lists are originally developed by \cite{Wilson2005}}:
+
+\begin{lstlistingbash}
+cd /home/damian
+mkdir sentiment
+cd sentiment
+wget http://www.unc.edu/~ncaren/haphazard/negative.txt
+wget http://www.unc.edu/~ncaren/haphazard/positive.txt
+\end{lstlistingbash}
+
+
+Let us use some Twitter data to play with. Unfortunately, Twitter does not allow to share datasets with tweets. It does allow, however, to share lists with tweet ids. Via the Twitter API, anyone can then download the whole tweets and reconstruct the dataset.
+
+I prepared a list of tweet ids with tweets about Bernie Sanders in the pre-election period of the US elections before a candidate was nominated. I also prepared a script that automatically downloads the associated tweets.
+
+Download them\ldots
+\begin{lstlistingbash}
+wget https://raw.githubusercontent.com/damian0604/bdaca/master/examples/sanders.txt
+wget https://raw.githubusercontent.com/damian0604/bdaca/master/examples/retrievetweets.py
+\end{lstlistingbash}
+\ldots and then open \texttt{retrievetweets.py}, where you have to change lines 5 to 8 by entering your API credentials (see Subsection~\ref{subsec:twitterapi}). Now you can run the file, and it will retrieve a set of approximately 900 tweets and save them to a TAB-separated file.
+
+First of all, you should carefully inspect the file to get an understanding of the data structure. For example, you could use the \texttt{head} command on the bash command line (see Chapter~\ref{firstcsvfile}):
+
+\begin{lstlisting}
+head -5 sanders.tsv
+\end{lstlisting}
+
 Which columns are interesting? Is there a header line (with column names), or do all lines contain data?
 
 Once we have this information, we can make a plan on how to proceed. 
@@ -1255,17 +1255,17 @@ Once we have this information, we can make a plan on how to proceed.
 import csv
 tweetlist=[]
 processedlist=[]
-with open("/home/damian/week4/hillary.csv") as fi:
-    reader=csv.reader(fi)
+with open("/home/damian/sentiment/sanders.tsv") as fi:
+    reader=csv.reader(fi,delimiter='\'})
     next(reader)
     for row in reader:
-        tweet=row[6]
+        tweet=row[0]
         tweet_processed=tweet.lower().replace("!"," ").replace("."," ").replace("?"," ").replace(u"\u201A"," ").replace("'"," ").replace('"'," ").replace('#'," ").replace(':'," ")
         tweetlist.append(tweet)
         processedlist.append(tweet_processed)
 \end{lstlisting}
 
-Ok, we have the data and already did the necessary preprocessing (removing unnecessary characters in this case). BTW: You see why we access the element with the index 6 of the list \texttt{row} in line 7?
+Ok, we have the data and already did the necessary preprocessing (removing unnecessary characters in this case). BTW: You see why we access the element with the index 0 of the list \texttt{row} in line 7?
 
 You might actually want to have a look at how the data look like to see that you did not make any mistakes. You can do so with some \texttt{print()} functions, or by clicking on the values in the variable explorer (Figure~\ref{fig:inspectvariables}).
 
@@ -1279,18 +1279,18 @@ We can now plan our next steps:
 
 \begin{enumerate}
 \setcounter{enumi}{\thelijst}
-\item We need to have a list of positive words
-\item We need to have a list of negative words
+\item We need to read a list of positive words
+\item We need to read a list of negative words
 \setcounter{lijst}{\theenumi}
 \end{enumerate}
 
-In the goodies-folder, you have such a lists, \texttt{positive.txt} and \texttt{negative.txt}. Use the bash commands \texttt{head} or \texttt{cat} to find out how they look like!
+We already downloaded two of such lists, \texttt{positive.txt} and \texttt{negative.txt}. Use the bash commands \texttt{head} or \texttt{cat} to find out how they look like!
 
 Luckily, Python makes it very easy to read a text file in which each line should be treated as a single string into a list of strings:
 
 \begin{lstlisting}
-positivelist=open("/home/damian/goodies/positive.txt").read().splitlines()
-negativelist=open("/home/damian/goodies/negative.txt").read().splitlines()
+positivelist=open("/home/damian/sentiment/positive.txt").read().splitlines()
+negativelist=open("/home/damian/sentiment/negative.txt").read().splitlines()
 \end{lstlisting}
 
 Print the lists and check if they look like you would expect them to look like!
@@ -1337,18 +1337,90 @@ The only thing we still want to do is to save a dataset for further analysis ---
 
 \begin{lstlisting}
 output=zip(tweetlist,processedlist,negcountlist,poscountlist,sentilist)
-with open("/home/damian/week4/hillary-analyzed.csv",mode="w",encoding="utf-8", newline="") as fo:
+with open("/home/damian/sentiment/sanders-analyzed.csv",mode="w",encoding="utf-8", newline="") as fo:
     writer=csv.writer(fo)
     writer.writerows(output)
 \end{lstlisting}
 
 
 
-
-\section{Sentistrength}
+\section{Vader}
 There are several nice things to the simple approach demonstrated above: First, it is insightful from a didactical point of view, as it illustrates the basic principles of bag-of-words analyses. Second, it is very flexible in that it can be modified to measure a lot of other things, not only positivity or negativity. Third, it is transparent---everyone can understand the basic algorithm.
 
-However, in a real-world setting, it might be too simplistic. Instead of writing a sentiment analysis algorithm yourself, you can therefore invoke some third-party algorithm like SentiStrength \citep{Thelwall2012}. SentiStrength is free for academic use, but you have to pay for it if you want to use it commercially. To link it to Python, I wrote a module called \texttt{sentipy}, which you already installed (see Chapter~\ref{goodies}). You can test wether everything works:
+However, in a real-world setting, it might be too simplistic. Instead of writing a sentiment analysis algorithm yourself, you can therefore invoke some algorithm that others have developed. For instance, the sentiment analysis module Vader by \cite{Hutto2014} deals with negation, punctuation, intensifiers (``very'') and dampeners (``kind of'') as well as emoticons (see \url{https://github.com/cjhutto/vaderSentiment}).
+
+Vader is integrated in NLTK, a Python module that we will use for a number of text processing tasks in this course (see Section~\ref{sec:nltk}). You already installed NLTK when setting up your VM, but we need to additionally install the Vader sentiment lexicon. We only have to do this once, and we can do it within Python:
+
+\begin{lstlisting}
+import nltk
+nltk.download('vader_sentiment')
+\end{lstlisting}
+
+
+It is very easy to use:
+
+\begin{lstlisting}
+from nltk.sentiment import vader
+senti=vader.SentimentIntensityAnalyzer()
+senti.polarity_scores('This is a great day!')
+senti.polarity_scores("I don't like this food")
+senti.polarity_scores("I love her, but I hate him")
+\end{lstlisting}
+
+The \texttt{.polarity\_scores} method returns a dictionary with four values. In our example, we get the following results:
+
+\begin{lstlistingoutput}
+{'neu': 0.406, 'pos': 0.594, 'neg': 0.0, 'compound': 0.6588}
+{'neu': 0.587, 'pos': 0.0, 'neg': 0.413, 'compound': -0.2755}
+{'neu': 0.282, 'pos': 0.244, 'neg': 0.474, 'compound': -0.5346}
+\end{lstlistingoutput}
+
+We see that we get for each of the sentences an estimate of its positivity, negativity, neutrality, and a combined measure of those. For detailed information on the workings, have a look at \cite{Hutto2014}!
+
+We see that we could easily implement this function into the script we developed in the previous section. For example, we could do:
+
+\begin{lstlisting}
+compoundscores=[]
+for tweet in tweetlist:
+    compoundscores.append(senti.polarity_scores(tweet)['compound'])
+\end{lstlisting}
+
+\begin{question}
+	Can you write a sentiment analysis script that applies Vader to your own data?
+\end{question}
+
+
+\section{Sentistrength}
+Another very frequently used algorithm is SentiStrength \citep{Thelwall2012}. Unfortunately, is is -- in contrast to all software that we use in this course -- not open-source. SentiStrength is free for academic use, but you have to pay for it if you want to use it commercially. The Java version, which we would need to use it, can be requested from the authors (see \url{http://sentistrength.wlv.ac.uk/}), but -- in contrast to a Windows version -- it cannot be downloaded from their site.
+
+For the sake of completeness, I will describe anyhow how to use Sentistrength together with Python -- assuming that you are in the possession of a copy of the Java version of Sentistrength.
+
+First of all, you have to install Java:
+\begin{lstlistingbash}
+sudo apt-get install default-jre
+\end{lstlistingbash}
+
+Then, download the following module that I wrote to access Sentistrenght from within Python:
+
+\begin{lstlistingbash}
+cd /home/damian
+mkdir goodies
+cd goodies
+wget https://raw.githubusercontent.com/damian0604/bdaca/master/examples/sentipy.py
+\end{lstlistingbash}
+
+Then, copy your Java version of sentistrength to a folder called \texttt{/home/damian/goodies/sentistrength}.
+
+When finished, you have to tell Spyder where to find the new modules. You can do this via the menu Tools/PYTHONPATH Manager (see Figure~\ref{fig:pythonpath} for the two necessary entries). After that, you have to select ``Update module names list'' from the same menu, and close the Python consoles that are still open (or restart Spyder).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.8\textwidth, keepaspectratio]{../pictures/pythonpath}
+	\caption{\label{fig:pythonpath}Telling spyder where to find additional modules}
+\end{figure}
+
+
+Now you can test wether everything works:
 
 
 \begin{lstlisting}
@@ -1359,6 +1431,13 @@ print(senti("geweldig nieuws","dutch"))
 You see that it returns a list with two values, the first one being the positivity (on a scale from 1 to 5), the second one being the negativity (on a scale from $-1$ to $-5$).
 
 So, let's run it on a real dataset. Why not open a JSON file with some paragraphs from State-of-the-Union speeches (which I exported from AmCAT \citep{VanAtteveldt2008}) and write the text, the positivity score, and the negativity score to a csv file?
+
+You can get the speeches here:
+\begin{lstlistingbash}
+wget https://raw.githubusercontent.com/damian0604/bdaca/master/examples/stateoftheunion.json
+\end{lstlistingbash}
+
+And this is the Python code:
 
 \begin{lstlisting}
 from sentipy import senti
@@ -1411,11 +1490,20 @@ with open("scoreswithtext.csv",mode="w",encoding="utf-8") as fo:
         writer.writerow([s[2],s[0],s[1]]) 
 \end{lstlisting}
 
+
+\section{Alternatives}
+Let us take a step back and compare the approaches we have seen so far. The first one, the simple dictionary approach, was easy to understand and easy to modify, but not very powerful. The second, Vader, was much more powerful. One disadvantage, however, is that it is only available in English. The third one, Sentistrength, is comparable to Vader, but has as big advantage the support of a number of languages, including Dutch. However, this comes at a price: It is not available for free, making it more difficult to share code with others; and it is written in Java, which requires us to use some tricks to actually use it in Python.
+
+But there are more alternatives. For instance, pattern.nl \citep{DeSmedt2012} is very easy to use, open source, and it supports multiple languages. However, it is only available for Python 2 and not compatible with Python 3.
+
+A last, but increasingly popular method for doing sentiment analysis is using supervised machine learning. How to do that will be discussed in Chapter \ref{chap:ml}.
+
+
 \section{Recap}
 You should have understood the general working of different approaches to sentiment analysis. You should know about their pros and cons. Practically speaking, you should be able to
 \begin{itemize}
 	\item implement a simple, dictionary-based sentiment analysis tool yourself
-	\item integrate SentiStrength in your own analyses.
+	\item integrate a tool like Vader or SentiStrength in your own analyses.
 \end{itemize}
 
 \chapter{Automated content analysis}
@@ -1507,7 +1595,7 @@ Can you write a program (a so-called parser) that takes a semi-structured input 
 
 
 \section{Natural language processing}
-
+\label{sec:nltk}
 To prepare, we have to install some more ressources. Run the following Python lines:
 
 
