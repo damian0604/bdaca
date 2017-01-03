@@ -149,9 +149,9 @@ This document can be obtained from \url{http://papers.ssrn.com/abstract=2737682}
 
 Social scientists are more and more confronted with the analysis of large-scale datasets. Often, these are data from online sources, and often, they contain some form of textual data. Think of data from social media, but also large archives. Often, this development if referred to as a move towards ``computational social science'' \citep{Lazer2009,Kitchin2014}.
 
-There is a certain overlap with the term ``Big Data''. But although the latter sounds sexy, it is a somewhat problematic term, because people use it for all kind of data. As scientists, we want a clear definition, but it is hard to tell what the term Big Data actually entails. This document is not about \emph{really} Big Data requiring a whole server farm, but it is about data that is too big to handle manually---think of one million tweets for example. It is about data sets that are small enough to be handled by an ordinary desktop computer, but too big to be processed by ordinary programs. Excel does not have an unlimited number of rows, and SPSS and STATA start complaining (or simply stop working) once you have too many cases and variables. If you know R, you are better off, but for some of the tasks we will discuss in this document, Python has much more to offer.\footnote{I do not want to go into the R-vs-Python-for-data-analysis debate here, I use both tools a lot, but for completely different tasks. Google for it if you want some comparison.}  
+There is a certain overlap with the term ``Big Data''. But although the latter sounds sexy, it is a somewhat problematic term, because people use it for all kind of data. As scientists, we want a clear definition, but it is hard to tell what the term Big Data actually entails. This document is not about \emph{really} Big Data requiring a whole server farm, but it is about data that is too big to handle manually---think of one million tweets for example. It is about data sets that are small enough to be handled by an ordinary desktop computer, but often too big to be processed by ordinary programs. Excel does not have an unlimited number of rows, and SPSS and STATA start complaining (or simply stop working) once you have too many cases and variables. If you know R, you are better off, but for some of the tasks we will discuss in this document, Python has a bit more to offer.\footnote{I do not want to go into the R-vs-Python-for-data-analysis debate here, I use both tools, but for different tasks. Google for it if you want some comparison.}  
 
-This document introduces you to automated content analysis of data that typically comes in amounts that are too voluminous for traditional point-and-click applications: Tweets, blogposts, articles from RSS-feeds, etc. We will use the programming language Python, which is very flexible and highly suitable for this end. It also scales very nicely---meaning that you can use it now for some smaller projects, but it can also be used on immense data sets. So, if you will find yourself working on some really Big Data that cannot be handled on a single computer any more, the principles are not too different from what we do in this document (yes, I'm simplifying a bit).
+This document introduces you to automated content analysis of data that typically comes in amounts that are too voluminous for manual coding and for traditional point-and-click applications: Tweets, blogposts, articles from RSS-feeds, etc. We will use the programming language Python, which is very flexible and highly suitable for this end. It also scales very nicely---meaning that you can use it now for some smaller projects, but it can also be used on immense data sets. So, if you will find yourself working on some really Big Data that cannot be handled on a single computer any more, the principles are not too different from what we do in this document (yes, I'm simplifying a bit).
 
 You will be guided through the first steps towards automated content analysis with Python. Note that I wrote this document for an audience of students in the social sciences, communication science in particular. From a computer science point of view, much more would have to be said, and some things we do in this course might actually be considered bad programming style. But that's not our objective here: This course should enable students of the social science to make some first steps with Python, in order to solve their analytical questions.
 
@@ -164,7 +164,7 @@ Have fun! And, join me in thanking those who contributed with great ideas or ser
 \begin{flushright}
 Amsterdam, March 2015 (version 0.1)\\
 Amsterdam, February 2016 (version 0.2)\\
-Amsterdam, November 2016 (version 1.0)
+Amsterdam, January 2017 (version 1.0)
 \end{flushright}
 
 Damian
@@ -179,20 +179,8 @@ www.damiantrilling.net\\
 
 \end{flushright}
 
-\mainmatter
-
-
-\chapter{Preparing your computer}
-\label{chap:prepare}
-
-This chapter describes how to prepare your computer for use in this course. We work with so-called virtual machines, which means that we install a program within which you can install an own operating system. This means that
-\begin{enumerate}[(a)] 
-\item you can play around without the danger of damaging your own system;
-\item you can make use of a lot of cool tools that might not be available for your own system;
-\item everyone in this course has exactly the same environment running.
-\end{enumerate}
-
-Specifically, we are using Oracle VirtualBox, within which we will install Lubuntu (a lightweight version of Ubuntu, a user-friendly Linux distribution). Before you start, make sure that you have plenty of space available on your laptop, preferably more than 10 GB. (You'd better put your music and photos on an external drive for the duration of this course...)
+\chapter{How to read this book}
+\label{howtoread}
 
 Before we start, let me introduce three conventions that I'll use in this book. Python-code, which you will type into the Python interpreter or use in the programs you'll write, is represented in blue:
 \begin{lstlisting}
@@ -207,6 +195,44 @@ And any output or data file is represented in gray:
 Hello world!
 \end{lstlistingoutput}
 
+And a word about the structure of this book. Part \ref{part:basics} teaches you the basics and should be read in the structure as presented in the book, as the chapters build on each other. 
+
+Part \ref{part:specific} presents specific techniques and can be read in any order you like. While there are some cross-references between the chapters, they do not necessarily build on each other. However, it assumes that you have all knowledge from Part \ref{part:basics}, and, most importantly, that you installed everything as explained in Chapter~\ref{chap:prepare}.
+
+Nevertheless, there are two ways to work with this book: the complete route and the short route.
+
+\section*{The complete route}
+When you use this book as part of a multi-week course, this is the route you take: You start at the beginning of and end, well, at the end (maybe skipping a bit here and there, or using some extra materials in addition.)
+
+\section*{The short route}
+When you use this book as a part of a short one or two day course, then you probably do not have the time to work through all materials. If the course focuses on just a few chapters from Part~\ref{part:specific}, the following preparations might be sufficient (if you do not want to fully read through Part~\ref{part:basics}):
+\begin{itemize}
+\item Make sure you have a basic understanding of the Python language, for example by following an online course like this one: \url{https://www.codecademy.com/learn/python}
+	\item Install Anaconda (the version for Python 3, not 2) from  \url{https://www.continuum.io/downloads}. Anaconda is a Python distribution that already includes most packages that you might want to use (see also Appendix~\ref{chap:anaconda}). Most likely, you will work using Jupyter Notebooks (Section~\ref{sec:jupyter}), so make sure you know how to start it!
+\end{itemize}
+Please note that when you use the short route, you will not be able to follow all instructions and examples in this book by the letter, especially because some of them imply that you are working on a Linux system (which you were, if you followed the approach of the long route, but probably aren't otherwise).
+
+
+
+\mainmatter
+
+\part{Basics}
+\label{part:basics}
+
+\chapter{Preparing your computer}
+\label{chap:prepare}
+
+This chapter describes how to prepare your computer. We work with so-called virtual machines, which means that we install a program within which you can install an own operating system. This means that
+\begin{enumerate}[(a)] 
+\item you can play around without the danger of damaging your own system;
+\item you can make use of a lot of cool tools that might not be available for your own system;
+\item everyone in this course has exactly the same environment running.
+\end{enumerate}
+
+Specifically, we are using Oracle VirtualBox, within which we will install Lubuntu (a lightweight version of Ubuntu, a user-friendly Linux distribution). Before you start, make sure that you have plenty of space available on your laptop, preferably more than 10 GB. (You'd better put your music and photos on an external drive for the duration of this course...)
+
+\textbf{Before you continue, make sure you have read ``How to read this book'' on page~\pageref{howtoread}.}
+
 Ready to go?
 
 
@@ -216,7 +242,7 @@ Download and install VirtualBox from \url{https://www.virtualbox.org/}. Dependin
 
 \section{Download a Lubuntu-image}
 Download the Lubuntu image from \url{http://lubuntu.net}. \textbf{We are working with version 16.04.1 LTS (Xenial Xerus). It is important that you do \emph{not} use version 16.10.} The download link for this version should be \url{http://cdimages.ubuntu.com/lubuntu/releases/xenial/release/}
-If you have a relatively new computer, download \texttt{lubuntu 64-bit (AMD64) desktop CD}, only if you encounter problems later on or have an old computer (up to around 2007), download the 32-bit version. So, in most cases, select the 64-bit version. 
+If you have a reasonably new computer, download \texttt{lubuntu 64-bit (AMD64) desktop CD}, only if you encounter problems later on or have an old computer (up to around 2007), download the 32-bit version. So, in most cases, select the 64-bit Desktop version (\texttt{lubuntu-16.04.1-desktop-amd64.iso}). 
 Save it at a place of your convenience.
 
 \section{Create a virtual machine}
@@ -376,34 +402,33 @@ Let's do a small exercise. Lets create a new directory for this exercise, downlo
 \begin{lstlistingbash}
 mkdir exercise1
 cd exercise1
-wget datacollection.followthenews-uva.vm.surfsara.nl/bdaca/mytweets.csv --user=USERNAME --password=PASSWORD
+wget https://s3.amazonaws.com/sift-sample-data/reviews_complete_en.csv
 \end{lstlistingbash}
-(Of course, you replace USERNAME and PASSWORD by the username and password you received from your instructor to access all class materials.\footnote{Unfortunately, Twitter does not allow to publish datasets with tweets. Therefore, I cannot make the dataset publicly available to all readers of this book (which luckily \emph{is} available to every interested reader).} Also note that they are entered in the same line as the rest of the \texttt{wget}-command. \textbf{And note the space before the \texttt{--}!}).
+
 
 You could as well just have downloaded this file by typing exactly the same URL in your browser, but \texttt{wget} allows you to do the same trick from the command line. If you have a really huge file, you'll appreciate this! Later on, you will learn some really cool stuff you can do with wget. 
 
 The general scheme of all following commands is that you type the command followed by the file name that you want to view. 
 
 You have four tools at your disposal: \texttt{head} (which gives you the first lines of a file), \texttt{tail} (last lines), \texttt{cat} (all lines), \texttt{less} (all lines, but with scrolling). By the way, if something goes wrong, you can always cancel by pressing CTRL-C. If you want to learn more about a command like \texttt{tail}, just type \texttt{man tail}. 
-By default, \texttt{head} and \texttt{tail} give you 10 lines, but you can specify a different number, thus, you can produce the output below with \texttt{head -3 mytweets.csv}. 
+By default, \texttt{head} and \texttt{tail} give you 10 lines, but you can specify a different number, thus, you can produce the output below with \texttt{head -3 reviews\_complete\_en.csv}. 
 
 \label{firstcsvfile}
 \begin{lstlistingoutput}
-text,to_user_id,from_user,id,from_user_id,iso_language_code,source,profile_image_url,geo_type,geo_coordinates_0,geo_coordinates_1,created_at,time
-:-) #Lectrr #wereldleiders #uitspraken #Wikileaks #klimaattop http://t.co/Udjpk48EIB,,henklbr,407085917011079169,118374840,nl,web,http://pbs.twimg.com/profile_images/378800000673845195/b47785b1595e6a1c63b93e463f3d0ccc_normal.jpeg,,0,0,Sun Dec 01 09:57:00 +0000 2013,1385891820
-Wat zijn de resulaten vd #klimaattop in #Warschau waard? @EP_Environment ontmoet voorzitter klimaattop @MarcinKorolec http://t.co/4Lmiaopf60,,Europarl_NL,406058792573730816,37623918,en,<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>,http://pbs.twimg.com/profile_images/2943831271/b6631b23a86502fae808ca3efde23d0d_normal.png,,0,0,Thu Nov 28 13:55:35 +0000 2013,1385646935
-
+Review ID,Review Date,Review Content,Listing Title,Neighbourhood,City,State,Country,Room Type,Room Price,Room Availability
+4055629,2012-10-06,"Very nice accommodation in an aesthetically pleasing environment. The apartment is located next to Portobello road which makes one feel part of the action. Close to transportation, shopping, cafes, restaurants and bars. Thanks Joanna, it was an honor to live in your apartment, it made our trip even more alive.",Nottinghill Portobello  Artist Flat,Kensington and Chelsea,London,England,United Kingdom,Entire home/apt,100,338
+25329416,2013-11-03,"Me and my friends had such a nice time at Dotti's place! She was super relaxed and helpful with all the things we needed. The apartment itself was lovely, very homey comfortable and clean. The location too was great as it only took a short cycle into the centre.I would definitely recommend staying here! Thanks again Dotti ",Quiet Pink Studio in the PIJP area,De Pijp - Rivierenbuurt,Amsterdam,North Holland,The Netherlands,Private room,80,10
 \end{lstlistingoutput}
 
-This is a so-called CSV file, a table in which each column is separated by a comma. The first column contains the tweet, the second the user that the tweet  is directed at (which obviously can be empty), the third the sender and so on.
+This is a so-called CSV file, a table in which each column is separated by a comma. You probably recognize by now what it contains: AirBnB reviews. As you can see from the first row, the first column contains the ID, the second the date, the third the review itself and so on.
 
-But it gets even cooler: You can also just display a specific column (e.g., only the tweets): \texttt{cut -f1 -d, mytweets.csv}. See man cut for more details. And you can combine these kind of commands through a technique called ``pipe'', indicated by the \texttt{\textbar}-sign. The command
+But it gets even cooler: You can also just display a specific column (e.g., only the tweets): \texttt{cut -f3 -d, reviews\_complete\_en.csv}. See man cut for more details. And you can combine these kind of commands through a technique called ``pipe'', indicated by the \texttt{\textbar}-sign. The command
 \begin{lstlistingbash}
-cut -f1 -d, mytweets.csv | tail -5 
+cut -f3 -d, reviews_complete_en.csv | tail -5 
 \end{lstlistingbash}
 for example sends the output of the cut-command to the tail-command. If you want to send output to a file instead of the screen, this is done with the \texttt{\textgreater}-sign (remember?). For example, try this cool pipe: 
 \begin{lstlistingbash}
-cut -f1 -d, mytweets.csv > mytweetsonlyfirstcolumn.csv 
+cut -f3 -d, reviews_complete_en.csv > onlyreviews.csv 
 \end{lstlistingbash}
 Now, play a bit around with the commands you learned!
 
@@ -472,7 +497,7 @@ You also installed \texttt{ipython3}, which is some kind of luxury version of \t
 
 For a quick look into a dataset or if you just need a calculator (yes, you can simply type \texttt{5+2} and stuff like that), starting an interactive shell can be very useful. But it comes with a big disadvantage: You cannot save your code. 
 
-In most cases, this is therefore, you probably want to do something else.
+In most cases, therefore, you probably want to do something else.
 
 \section{A text editor plus the command line}
 You could also write your code in an arbitrary text editor. For example, you could start 
@@ -624,7 +649,7 @@ age2 = 25
 age3 = 23
 age4 = 28
 age5 = 26
-meanage = (age1 + age2 + age3 + age4 + age5) /5
+meanage = (age1 + age2 + age3 + age4 + age5) / 5
 print(meanage)
 \end{lstlisting}
 In fact, we could almost do it more efficiently by hand. Thus, we might want to have something that is more like what is called a variable in SPSS or STATA: something named age that can contain multiple values. 
@@ -646,7 +671,7 @@ We can also access a specific item from a list: If we want to know the age of th
 \begin{lstlisting}
 age[2]
 \end{lstlisting}
-Yes, 2, because we start counting with 0!
+Yes, 2, because we start counting with zero\footnote{If you are in a nerdy mood, you can have a look at this classic (brief) text from 1982 explaining why: \url{http://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD831.html}}!
 The drawback of our current approach is that you have no idea who the person is that is 23 years old. You could have a second list in the same order:
 \begin{lstlisting}
 name=["John","Bas","Anne","Sheila","Mark"]
@@ -728,7 +753,7 @@ directly. But if the calculation is more complicated and if we have to do it rep
 
 
 \begin{quote}
-	Once I was teaching this course, a student had the great idea of writing a function she named \texttt{translatetoenglish()}. It took a Dutch string as argument, passed that one to to Google Translate, and returned the English translation. So, once the function was defined, you could write something like \texttt{print(translatetoenglish("Wat een mooie dag!"))}, which would produce the following output: \texttt{What a beautiful day!}. She used it for more serious business, namely to loop over a dataset of multilingual tweets to produce a new dataset in English. What a loop is, is explained in Section~\ref{sec:forloops}.
+Once I was teaching this course, a student had the idea of writing a function she named \texttt{translatetoenglish()}. It took a Dutch string as argument, passed that one to to Google Translate, and returned the English translation. So, once the function was defined, you could write something like \texttt{print(translatetoenglish("Wat een mooie dag!"))}, which would produce the following output: \texttt{What a beautiful day!}. She used it for more serious business, namely to loop over a dataset of multilingual tweets to produce a new dataset in English. What a loop is, is explained in Section~\ref{sec:forloops}.
 \end{quote}
 
 
@@ -833,7 +858,7 @@ You should have understood that you can write such functions yourself.
 And, very importantly, you have to understand for-loops and if-conditions, including the role of indentation to structure your code.
 
 
-\chapter{Basic ways to retrieve and store data}
+\chapter{Retrieving and storing data}
 We already learned in section \ref{datatypes} (\nameref{datatypes}) how we can internally create some data structures that we can use to further do some analyses. For example, if we wanted to do some analyses with names, ages, and height, we could create three lists like this:
 
 \begin{lstlisting}
@@ -1192,6 +1217,9 @@ You should have understood
 \item how to write the retrieved data to a CSV file.
 \end{itemize}
 
+
+\part{Specific techniques}
+\label{part:specific}
 
 \chapter{Sentiment analysis}
 \section{Preparation}
@@ -2611,6 +2639,7 @@ The following books provide the interested student with more and deeper informat
 \item \citealp{Russel2013}. Gives a lot of examples about how to analyze a variety of online data, including Facebook and Twitter, but going much beyond that. Because social media APIs have undergone multiple changes in the last years, the examples might be slightly outdated. A PDF of the book can be downloaded for free on \url{http://www.webpages.uidaho.edu/\%7Estevel/504/Mining-the-Social-Web-2nd-Edition.pdf}
 \item \citealp{Bird2009}. This is the official documentation of the NLTK package that we are using. A newer version of the book can be read for free at \url{http://nltk.org}
 \item \citealp{McKinney2012}: Another book with a lot of examples. A PDF of the book can be downloaded for free on \url{http://it-ebooks.info/book/1041/}.
+\item \citealp{Vanderplas2016}: More on the numeric and data handling side. While the book itself is not freely available, it is accompagnied by a set of interesting Jupter Notebooks that show a lot about data handling, visualization, and machine learning: \url{https://github.com/jakevdp/PythonDataScienceHandbook}
 \end{itemize}
 
 In the last years, some other tutorials, partly similar to this one, have been published. See for exampe:
@@ -2619,6 +2648,8 @@ In the last years, some other tutorials, partly similar to this one, have been p
 \end{itemize}
 
 
+\part{Appendix}
+\label{part:appendix}
 \begin{appendices}
 	\appendix
 
@@ -2704,7 +2735,7 @@ Voil\`a!
 
 
 \chapter{Installing Python on other systems}
-
+\label{chap:anaconda}
 \textbf{Before you install Python outside of the virtual machine, read this so that you know what you are doing.} While you could just go to \url{http://python.org} and download Python for your operating system, this may or may not be a good choice. First, Python might already be installed (which you could find out by typing \texttt{python} or  \texttt{python3} in your Terminal). Second, even if it is not, if you prefer one-stop-shopping above dealing with packages, you might like Anaconda (see below).
 
 Keep in mind that one can have multiple versions of Python on one computer, and you don't want to litter your system with a lot of different versions that you then mix up accidentally. 
