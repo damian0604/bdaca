@@ -113,7 +113,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 %\title{Big Data and Automated Content Analysis}
 \title{Doing Computational Social Science with Python: An Introduction}
 \author{Damian Trilling}
-\date{Version 0.99\\ ~ \\  \footnotesize{PDF created \today}}
+\date{Version 1.0\\ ~ \\  \footnotesize{PDF created \today}}
 
 
 \begin{document}
@@ -128,7 +128,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 \thispagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{\baselineskip}
-Copyright \copyright\ \the\year\ Damian Trilling\\
+Copyright \copyright\ 2015, 2016, \the\year\ Damian Trilling\\
 \vspace{.25cm} \\
 This document can be obtained from \url{http://papers.ssrn.com/abstract=2737682}. The source code of the most recent version can be found at \url{https://github.com/damian0604/bdaca}.
 
@@ -149,11 +149,11 @@ This document can be obtained from \url{http://papers.ssrn.com/abstract=2737682}
 
 Social scientists are more and more confronted with the analysis of large-scale datasets. Often, these are data from online sources, and often, they contain some form of textual data. Think of data from social media, but also large archives. Often, this development if referred to as a move towards ``computational social science'' \citep{Lazer2009,Kitchin2014}.
 
-There is a certain overlap with the term ``Big Data''. But although the latter sounds sexy, it is a somewhat problematic term, because people use it for all kind of data. As scientists, we want a clear definition, but it is hard to tell what the term Big Data actually entails. This document is not about \emph{really} Big Data requiring a whole server farm, but it is about data that is too big to handle manually---think of one million tweets for example. It is about data sets that are small enough to be handled by an ordinary desktop computer, but often too big to be processed by ordinary programs. Excel does not have an unlimited number of rows, and SPSS and STATA start complaining (or simply stop working) once you have too many cases and variables. If you know R, you are better off, but for some of the tasks we will discuss in this document, Python has a bit more to offer.\footnote{I do not want to go into the R-vs-Python-for-data-analysis debate here, I use both tools, but for different tasks. Google for it if you want some comparison.}  
+There is a certain overlap with the term ``Big Data''. But although the latter sounds sexy, it is a somewhat problematic term, because people use it for all kind of data. As scientists, we want a clear definition, but it is hard to tell what the term Big Data actually entails. This document is not about \emph{really} Big Data requiring a whole server farm, but it is about data that is too big to handle manually---think of one million tweets for example. It is about data sets that are small enough to be handled by an ordinary laptop, but often too big to be processed by ordinary programs. Excel does not have an unlimited number of rows, and SPSS and STATA start complaining (or simply stop working) once you have too many cases and variables. If you know R, you are better off, but for some of the tasks we will discuss in this book, Python has a bit more to offer.\footnote{I do not want to go into the R-vs-Python-for-data-analysis debate here, I use both tools, but for different tasks. Google for it if you want some comparison.}  
 
-This document introduces you to automated content analysis of data that typically comes in amounts that are too voluminous for manual coding and for traditional point-and-click applications: Tweets, blogposts, articles from RSS-feeds, etc. We will use the programming language Python, which is very flexible and highly suitable for this end. It also scales very nicely---meaning that you can use it now for some smaller projects, but it can also be used on immense data sets. So, if you will find yourself working on some really Big Data that cannot be handled on a single computer any more, the principles are not too different from what we do in this document (yes, I'm simplifying a bit).
+This document introduces you to automated content analysis of data that typically comes in amounts that are too voluminous for manual coding and for traditional point-and-click applications: tweets, blogposts, articles from RSS-feeds, etc. We will use the programming language Python, which is very flexible and highly suitable for this end. It also scales very nicely---meaning that you can use it now for some smaller projects, but it can also be used on immense data sets. So, if you will find yourself working on some really Big Data that cannot be handled on a single computer any more, the principles are not too different from what we do in this document (yes, I'm simplifying a bit).
 
-You will be guided through the first steps towards automated content analysis with Python. Note that I wrote this document for an audience of students in the social sciences, communication science in particular. From a computer science point of view, much more would have to be said, and some things we do in this course might actually be considered bad programming style. But that's not our objective here: This course should enable students of the social science to make some first steps with Python, in order to solve their analytical questions.
+You will be guided through the first steps towards automated content analysis with Python. Note that I wrote this document for an audience of students in the social sciences, like communication science, political science, or sociology. From a computer science point of view, much more would have to be said, and some things we do in this course might actually be considered bad programming style. But that's not our objective here: This course should enable students of the social science to make some first steps with Python, in order to solve their analytical questions.
 
 This also means that this manual is far from complete. It rather serves as a starting point---and from that point onwards, it's up to you. Once you got the basic ideas and concepts, there are enough resources out there to help you further.
 
@@ -184,7 +184,7 @@ www.damiantrilling.net\\
 
 Before we start, let me introduce three conventions that I'll use in this book. Python-code, which you will type into the Python interpreter or use in the programs you'll write, is represented in blue:
 \begin{lstlisting}
-print("Hello world"!)
+print("Hello world!")
 \end{lstlisting}
 Commands that you have to type into the Linux command line (also referred to as shell, terminal, or bash) are pink:
 \begin{lstlistingbash}
@@ -195,14 +195,24 @@ And any output or data file is represented in gray:
 Hello world!
 \end{lstlistingoutput}
 
-And a word about the structure of this book. Part \ref{part:basics} teaches you the basics and should be read in the structure as presented in the book, as the chapters build on each other. 
+Pay also attention to the line numbering at the left side of the code examples: It helps you see whether a line really ends (and that you should press enter), or whether it the paper is just too small to print the line on one line:
+
+\begin{lstlisting}
+print("Hello world"!)
+print("I am in a talkative mood today, I really have so much to say that it doesn't fit on one line on paper. But PLEASE, write this as a single line if you type me over!")
+print("Goodbye"!)
+\end{lstlisting}
+
+We see immediately that the example above consists of three lines, not five.
+
+Finally, a word about the structure of this book. Part \ref{part:basics} teaches you the basics and should be read in the structure as presented in the book, as the chapters build on each other. 
 
 Part \ref{part:specific} presents specific techniques and can be read in any order you like. While there are some cross-references between the chapters, they do not necessarily build on each other. However, it assumes that you have all knowledge from Part \ref{part:basics}, and, most importantly, that you installed everything as explained in Chapter~\ref{chap:prepare}.
 
 Nevertheless, there are two ways to work with this book: the complete route and the short route.
 
 \section*{The complete route}
-When you use this book as part of a multi-week course, this is the route you take: You start at the beginning of and end, well, at the end (maybe skipping a bit here and there, or using some extra materials in addition.)
+When you use this book as part of a multi-week course, this is the route you take: You start at the beginning of and end, well, at the end (maybe skipping a bit here and there, maybe changing the order a bit, or maybe using some extra materials in addition.)
 
 \section*{The short route}
 When you use this book as a part of a short one or two day course, then you probably do not have the time to work through all materials. If the course focuses on just a few chapters from Part~\ref{part:specific}, the following preparations might be sufficient (if you do not want to fully read through Part~\ref{part:basics}):
@@ -210,7 +220,7 @@ When you use this book as a part of a short one or two day course, then you prob
 \item Make sure you have a basic understanding of the Python language, for example by following an online course like this one: \url{https://www.codecademy.com/learn/python}
 	\item Install Anaconda (the version for Python 3, not 2) from  \url{https://www.continuum.io/downloads}. Anaconda is a Python distribution that already includes most packages that you might want to use (see also Appendix~\ref{chap:anaconda}). Most likely, you will work using Jupyter Notebooks (Section~\ref{sec:jupyter}), so make sure you know how to start it!
 \end{itemize}
-Please note that when you use the short route, you will not be able to follow all instructions and examples in this book by the letter, especially because some of them imply that you are working on a Linux system (which you were, if you followed the approach of the long route, but probably aren't otherwise).
+Please note that when you use the short route, you will not be able to follow all instructions and examples in this book to the letter, especially because some of them imply that you are working on a Linux system (which you were, if you followed the approach of the long route, but probably aren't otherwise).
 
 
 
@@ -226,10 +236,10 @@ This chapter describes how to prepare your computer. We work with so-called virt
 \begin{enumerate}[(a)] 
 \item you can play around without the danger of damaging your own system;
 \item you can make use of a lot of cool tools that might not be available for your own system;
-\item everyone in this course has exactly the same environment running.
+\item everyone in this course has exactly the same environment running, so that you can follow all examples to the letter.
 \end{enumerate}
 
-Specifically, we are using Oracle VirtualBox, within which we will install Lubuntu (a lightweight version of Ubuntu, a user-friendly Linux distribution). Before you start, make sure that you have plenty of space available on your laptop, preferably more than 10 GB. (You'd better put your music and photos on an external drive for the duration of this course...)
+Specifically, we are using Oracle VirtualBox, within which we will install Lubuntu (a lightweight version of Ubuntu, a user-friendly Linux distribution). Before you start, make sure that you have plenty of space available on your laptop, preferably more than 15 GB. (You'd better put your music and photos on an external drive for the duration of this course...)
 
 \textbf{Before you continue, make sure you have read ``How to read this book'' on page~\pageref{howtoread}.}
 
@@ -241,14 +251,19 @@ Ready to go?
 Download and install VirtualBox from \url{https://www.virtualbox.org/}. Depending on your computer, download the binary for Windows, MacOS, or Linux.
 
 \section{Download a Lubuntu-image}
+\label{sec:lubuntu}
 Download the Lubuntu image from \url{http://lubuntu.net}. \textbf{We are working with version 16.04.1 LTS (Xenial Xerus). It is important that you do \emph{not} use version 16.10.} The download link for this version should be \url{http://cdimages.ubuntu.com/lubuntu/releases/xenial/release/}
 If you have a reasonably new computer, download \texttt{lubuntu 64-bit (AMD64) desktop CD}, only if you encounter problems later on or have an old computer (up to around 2007), download the 32-bit version. So, in most cases, select the 64-bit Desktop version (\texttt{lubuntu-16.04.1-desktop-amd64.iso}). 
 Save it at a place of your convenience.
 
 \section{Create a virtual machine}
-Open VirtualBox, click on ``New'', give your image a name, and select first Linux, then Ubuntu~64bit from the list (or 32 bit, if that's what you downloaded). On the following screens, just leave the default settings and agree to everything---with one exception: When you are asked how much ``base memory'' you want to allocate to your machine, you should choose a value of at the \emph{very} least around 1000 MB. More is better, if you you have 4,096 MB of RAM in total, you can safely choose 2,048 MB. The examples in this tutorial are tested on a VM with 2,048 MB RAM. 
+Open VirtualBox, click on ``New'', give your image a name, and select first Linux, then Ubuntu~64bit from the list (or 32 bit, if that's what you downloaded). On the following screens, just leave the default settings and agree to everything---with two exceptions: 
+\begin{itemize}
+	\item When you are asked how much ``base memory'' you want to allocate to your machine, you should choose a value of at the \emph{very} least around 1000 MB. More is better, if you you have 4,096 MB of RAM in total, you can safely choose 2,048 MB. The examples in this tutorial are tested on a VM with 2,048 MB RAM. 
+	\item On the next screens, you are asked about a virtual hard disk to create. I strongly recommend you to use a bit more than the 8~GB that are suggested. If you choose more (say, 12~GB or so), chances are lower that you will run out of space later during the course.
+\end{itemize}
 
-On the next screens, you are asked about a virtual hard disk to create. I strongly recommend you to use a bit more than the 8~GB that are suggested. If you choose more (say, 12~GB or so), chances are lower that you will run out of space later during the course.
+
 
 \begin{quote}
 The virtual machine you just created should show up in the main window now. If it doesn't (I had that on one computer once), restart VirtualBox.
@@ -277,8 +292,11 @@ When you are done, start the virtual machine by clicking on the green arrow in t
 
 \section{Install Lubuntu on your virtual machine}
 Once your virtual machine is running, you can select whether you want to try out Lubuntu without installing or install it. If you feel like, you can now just play around a bit in the try-out mode, but eventually, you'll need to go for installing as we need some specific tools for our course. So you can as well just select Install now, using the arrow keys.
-When you select "Install", just follow the instructions. At one point in time, you will be asked whether you want to erase all data from your hard drive (yes, seriously). You can safely agree (remember, that's just the point of the VirtualBox, you have a fenced room in which you cannot damage anything. Only your \emph{virtual} hard drive will be erased, not your real one).
-After finishing the installation, your virtual machine will reboot. After clicking on reboot, you can get a message saying ``please remove installation disks''. You can just press enter, you don't have to remove anything in your case. Also, it might happen that you see only some lines of text saying something like ``Unmounting crypto disks''. If this takes longer than a minute or so, try pressing Enter twice. 
+When you select "Install", just follow the instructions. At one point in time, you will be asked whether you want to erase all data from your hard drive (yes, seriously). You can safely agree (remember, that's just the point of the VirtualBox, you have a fenced room in which you cannot damage anything. Only your \emph{virtual} hard drive will be erased, not your real one). You will also be asked whether you want to download updates (yes, but it doesn't really matter) and third-party software (no).
+
+After finishing the installation, your virtual machine will reboot. After clicking on reboot, you can get a message saying ``please remove installation disks''. You can just press enter, you don't have to remove anything in your case. You might have to press enter a second time.
+
+Also, it might happen that you see only some lines of text saying something like ``Unmounting crypto disks''. If this takes longer than a minute or so, try pressing Enter twice. 
 
 
 
@@ -288,7 +306,8 @@ Once you have installed and rebooted your virtual machine, you will have to inst
 \begin{lstlistingbash}
 sudo apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
 \end{lstlistingbash}
-You will be asked for your password (the one you defined during the install process). Just type it and confirm with Enter (no, you do not see anything while you type, that's correct). 
+You will be asked for your password (the one you defined during the install process). Just type it and confirm with Enter (no, you do not see anything while you type, that's correct). You will see a long list of packages to be installed, which you -- as the last line shows -- have to confirm with yes (by typing the letter \texttt{y}) followed by Enter). 
+
 If you reboot your virtual machine (by clicking on the Start button/logout/reboot or by typing
 \begin{lstlistingbash}
 sudo reboot
@@ -311,7 +330,7 @@ sudo apt-get upgrade
 \end{lstlistingbash}
 
 
-And let us finally install some additional Python modules:
+And let us finally install some additional Python modules (by the way, you can use the arrow-up key to get the previous command you typed):
 
 % als we apt-get install python3-pip doen, dan krijgen we een verouderde versie van pi wat later tot problemen leidt
 
@@ -341,9 +360,11 @@ spyder3 &
 	Indeling: Engels (VS)\\
 	standaard\\
 	geen samenstelling\\
-	X-server: nee	
+	X-server: nee	\\
+	Of course, if you have a Mac, select the Mac keyboard instead.
 \end{quote}
 
+From now on, you do not need the Lubuntu image that you downloaded in Section~\ref{sec:lubuntu} any more, you can delete it to free up some space.
 
 \section{Recap}
 Make sure you installed \emph{everything} correctly. If you got any error messages, try to find out what went wrong or ask your instructor. In particular, make sure you write down \emph{what} went wrong.
@@ -1843,6 +1864,8 @@ What happens exactly in line 8 to 10? In line 8, we form a HTTP-request to speci
 Now, you should be ready to write your own parser for some content you are interested in!
 
 \section{XPath-parsing with lxml}
+\label{sec:xpath}
+
 One does not always have  to reinvent the weel, though. It is useful to understand how parsing would work with regular expressions, and it is very likely to come into a situation where this knowledge can be applied. Especially in the case of HTML pages, though, several parsers exist that can make life easier. 
 
 In the example in the last section, we saw that an element in a HTML page can be nested in another element. In other words, a HTML page can be represented as a tree: For example, the page branches into an article, a navigation section, and a comment sections; the latter than branches into several comments. Each element in this tree can be identified by a so-called XPath. You can compare it with the path of a given file (\texttt{/home/damian/week6/slides.pdf}), where the leftmost element is the "highest" level, and where after each \texttt{/}, it indicates to which lower level one has to turn before finally arriving at the file (\texttt{slides.pdf}).  
@@ -1930,7 +1953,7 @@ You can get very far with the approaches sketched in this chapter: regular expre
 
 If you want to write an application that integrates crawling and parsing, you might have a look at the scrapy framework (\url{http://scrapy.org/}), although it might be a bit of an overkill.
 
-One approach that we haven't covered is how to scrape content from sites that do complicated stuff like interactively loading data while they are visited. For example, think of a news site that uses a JavaScript to display comments: these comments may not be present in the HTML code of the site, but might be dynamically loaded while the user is reading the article. In such a case, one can make use of a framework like Selenium (google "selenium python" or ask your instructor for some examples). Selenium allows you to start a browser, click somewhere, and so on (in essence, it just automates what a human would do), and then parse what is displayed in the browser. 
+One approach that we haven't covered is how to scrape content from sites that do complicated stuff like interactively loading data while they are visited. For example, think of a news site that uses a JavaScript to display comments: these comments may not be present in the HTML code of the site, but might be dynamically loaded while the user is reading the article. In such a case, one can make use of a framework like Selenium. Selenium allows you to start a browser, click somewhere, and so on (in essence, it just automates what a human would do), and then parse what is displayed in the browser. See Appenix~\ref{chap:selenium} for more details.
 
 \section{Recap}
 You should be able to write your own web scraper. This entails that you
@@ -2084,11 +2107,10 @@ This chapter taught you how to deal with co-occurrences and similar structures f
 
 
 
-\chapter{Machine learning and topic modelling}
+\chapter{Supervised Machine learning}
 \label{chap:ml}
-The vastness of the topic makes it impossible to cover it extensively in this course. Nevertheless, as last part, we will take a very small and superficial glimpse in the world of supervised and unsupervised machine learning. The lecture slides should give you a bit more context, but here you find two examples to illustrate the general principle --- and to give you a starting point for your own investigations. We will use scikit-learn \citep{scikit-learn} and gensim \citep{Rehurek2010}, two packages that are very widely used and for which you will find a lot of tutorials and usage examples on the web.
+The vastness of the topic makes it impossible to cover it extensively in this course. Nevertheless, as last part, we will take a very small and superficial glimpse in the world of supervised machine learning. The example illustrates the general principle --- and should give you a starting point for your own investigations. We will use scikit-learn \citep{scikit-learn}, a  packages that is very widely used and for which you will find a lot of tutorials and usage examples on the web.
 
-\section{Supervised machine learning}
 For this demonstration, we use a dataset from the Internet Movie Database \citep{Maas2011}. It contains in total $50 000$ reviews, separated into a test dataset and a training datasset ($25 000$ each), half of them positive, half of them negative.
 
 Download and unpack the dataset:
@@ -2197,7 +2219,7 @@ print(predictions)
 
 
 
-\subsection{Comparing different classifiers and vectorizers}
+\section{Comparing different classifiers and vectorizers}
 Usually, when we de supervised machine larning, we want to compare different classifiers. For example, in the last section, we used a Naïve Bayes classifier. But we could use a logistic regression as well, or a so-called support vector machine. It is common to run several of these models and then compare their \emph{precision} and \emph{recall}. 
 
 Let us assume that the goal of training above-mentioned classifier is to build an app that shows the user only films we can expect to receive positive ratings. There are two things that we want to achieve: We want to find as many as possible positive films (recall), but we also want that the selection we found \emph{only} contains positive films (precision).
@@ -2378,7 +2400,7 @@ Note that the names I assigned to each classifier (\texttt{nb}, \texttt{logreg},
 
 
 
-\subsection{Saving the trained model}
+\section{Saving the trained model}
 
 In theory, you could just train the model everytime you want to use it. However, that does not only take unnecessary time and ressources, but it also requires you to have the training data at hand. Therefore, it can be useful to save your vectorizers and classifiers. It is important to realize that you need to save both: After all, the vectorizer determines which word is mapped to which internal numeric representation, that is used by the classifier. 
 
@@ -2416,9 +2438,17 @@ predictions = nb.predict(new_features)
 
 
 
-\section{Latent Dirichlet Allocation (LDA)}
+\chapter{Unsupervised machine learning}
 In the previous chapter, we were had \emph{labeled} data, i.e. we had an outcome which we could predict. In other words, we applied supervised machine learning. But sometimes, we do not have an outcome to predict.For instance, we want to group the films into topics, but we have no idea which topics exist to begin with. 
+The sci-kit learn package \citep{scikit-learn} offers a lot of unsupervised methods, like principal component analysis or cluster analysis. Have a look at their website for usage examples.
 
+In this chapter, however, we will focus on one specific form of unsupervised machine learning: topic modeling. The basic idea is to find some latent constructs (topics), that are present in a set of documents, so that one gets both a list of topics and a dataset indicating the extend o which these topics are present in each of the documents.
+
+While there are several methods, we will focus here on a very popular one: Latent Dirichlet Allocation.
+
+
+
+\section{Latent Dirichlet Allocation (LDA)}
 Topic Modelling therefore is a form of \emph{unsupervised} machine learning. To get to know it, we will use the gensim package \citep{Rehurek2010}. 
 	
 Furthermore, let us assume you have a list of lists of words (!) called \texttt{texts}:
@@ -2648,10 +2678,10 @@ In the last years, some other tutorials, partly similar to this one, have been p
 \end{itemize}
 
 
-\part{Appendix}
+\part{Appendices}
 \label{part:appendix}
 \begin{appendices}
-	\appendix
+\appendix
 
 \chapter[Exercise 1]{Exercise 1: Describing an existing structured dataset}
 \section{Downloading the data}
@@ -2717,7 +2747,7 @@ What you want to do, is mounting a directory from your ``real'' computer, the so
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.75\paperwidth,keepaspectratio]{../pictures/virtualbox-mount.png}
+\includegraphics[width=\linewidth,keepaspectratio]{../pictures/virtualbox-mount.png}
 \caption{\label{fig:mount}Configuring VirtualBox to make it possible to mount folders from the host system}
 \end{figure}
 
@@ -2732,6 +2762,164 @@ sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) Desktop /home/damian/myrealcompute
 \end{lstlistingbash}
 
 Voil\`a!
+
+
+
+
+\chapter{Web scraping with Selenium}
+\label{chap:selenium}
+\emph{By Marthe M\"oller}\\
+
+
+
+Sometimes, web scraping as explained in Chapter~\ref{chap:scraping} cannot be used, because content is dynamically fetched or created. For example, maybe some comments are only retrieved by some JavaScript after the user has scrolled down. Here, Selenium comes into play.
+
+Selenium is a tool which you can use to automate what a human would do when browsing the web. For example, with Selenium it is possible to let the computer open a web browser, go to \url{www.google.com}, enter the name of your favorite cartoon character as a search term, click the ``search'' button, take a screenshot of the results page and then click the ``next page'' button. This appendix will show you how to use Selenium so that your computer will do exactly that.   
+
+To use Selenium, you must first install the Selenium package by typing the following in your terminal:
+
+\begin{lstlistingbash}
+sudo pip3 install selenium
+\end{lstlistingbash}
+
+You also have to download the geckodriver. You can find it here: 
+\url{https://github.com/mozilla/geckodriver/releases}
+
+In most cases, the geckodriver-v0.13.0-linux64.tar.gz version is the one you need, but there are versions for Mac and Windows as well. Save it in the directory in which you are working and unpack it, either by double-clicking on it or by using the \texttt{tar -xzf} command.
+
+From the Selenium package, you must then import some modules in your Python script: 
+
+\begin{lstlisting}
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+\end{lstlisting}
+
+Now, we can instruct our script to open a web browser and go to \url{www.google.com}.
+ 
+\begin{lstlisting}
+driver = webdriver.Firefox()
+driver.get("https://www.google.com")  
+\end{lstlisting}
+
+In line 1 we tell the computer that we want to work with Firefox as a driver. Of course, if you prefer Google Chrome or some other driver, you can replace Firefox with the name of that browser.\footnote{There is also a driver called PhantomJS, which is a so-called ``headless browser'', which means that it does not display any browser window; in fact, it doesn't display anything. This can be very useful if you want to run a selenium script on a server without a graphical display, or if you want to run selenium on the background.} 
+
+In line 2 we tell the computer to use the driver and to go to Google. If you execute these two lines of code, you will see that your computer will open Firefox and go to Google.
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth,keepaspectratio]{../pictures/selenium.png}
+\caption{\label{fig:selenium}Looking up an element's class.}
+\end{figure}
+
+Next, we need the computer to type in a word in the Google search field. To do this, we must first tell the computer with which element in the web page we want to work. In this case the element that we want to work with is the white area in which we can type our search word. With Selenium, there are different ways in which you can find elements. One of them is defining elements by their class name. Similar to finding a webpage element’s Xpath (see Section~\ref{sec:xpath}), you can find an element’s class name by right-clicking the page and by clicking ``inspect element'' (Figure~\ref{fig:selenium}). 
+
+In the case of Google, the search field has class ``sbtc''.  
+
+\begin{lstlisting}
+element = driver.find_element_by_class_name("sbtc")
+\end{lstlisting}
+
+In addition to finding elements by their class name, it is possible to find them using other classifiers as well (for example, by their Xpath!). For more information about different manners to detect elements using Selenium, see
+\url{http://selenium-python.readthedocs.io/locating-elements.html}.
+
+Now, let’s enter a search word in the search field. For this, we use the Keys module that we imported earlier, because this allows us to automate everything that a human would type with the keyboard.
+
+\begin{lstlisting}
+element.send_keys("TinTin")
+\end{lstlisting}
+
+Now, we can use class names again to detect the ``search'' button and then instruct the computer to click it. However, we can also just press ‘enter’ instead of clicking ``search'', as many humans also do. For this we use the Keys module gain. 
+
+\begin{lstlisting}
+element.send_keys(Keys.RETURN)
+driver.implicitly_wait(10)
+\end{lstlisting}
+
+In line 2, we instruct the computer to wait 10 seconds before it does anything. This way, we provide some time for the page to load. This can also be useful to conceal the fact that there is no human, but in fact an automated script accessing the content/
+
+In addition to letting the computer wait for some seconds, it is also possible to let the driver wait until a specific element has appeared on a website (this is called an explicit wait). This can be nice for example if you want to click a button of which you know that it takes a while before it appears. Take a look at this webpage if you want to learn more about waits: \url{http://selenium-python.readthedocs.io/waits.html}.
+
+We have now reached the first page with the Google results. Let's take a screenshot of this page. When we do this, we have to specify where we want the computer to save the screenshot and how we want the screenshot to be named.
+
+\begin{lstlisting}
+driver.save_screenshot("/home/marthe/images/screenshot_page1") 
+\end{lstlisting}
+
+Let's go to the next page by clicking ``next'' at the bottom of the page. First, we must again tell the computer what element of the webpage we want it to click. We can again define the element by looking for its class name. 
+
+\begin{lstlisting}
+element2 = driver.find_element_by_class_name("pn")
+element2.click()
+driver.implicitly_wait(10)
+\end{lstlisting}
+
+When we are done, we can close the browser by typing:
+
+\begin{lstlisting}
+driver.quit()
+\end{lstlisting}
+
+The entire code will look as follows:
+
+\begin{lstlisting}
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+driver = webdriver.Firefox()
+driver.get("https://www.google.com")  
+element = driver.find_element_by_class_name("sbtc")
+element.send_keys("TinTin")
+element.send_keys(Keys.RETURN)
+driver.implicitely_wait(10)
+driver.save_screenshot("/home/marthe/images/screenshot_page1") 
+element2 = driver.find_element_by_class_name("pn")
+elememnt2.click()
+driver.implicitly_wait(10)
+driver.quit()
+\end{lstlisting}
+
+
+With Selenium you can automate a lot more things, such as saving a file, uploading a file, or downloading texts or links from a webpage. It is also possible to deal with pop-up screens, such as screens with information about cookies. You can find more information on Selenium here: \url{http://selenium-python.readthedocs.io/index.html}.
+
+\section*{Two common geckodriver error messages}
+
+Python might throw the following error message: ‘geckodriver’ executable needs to be in PATH. If this happens, enter the following code in the terminal:
+
+\begin{lstlistingbash}
+export PATH=$PATH:/path-to-the-folder-where-geckodriver-is-saved
+\end{lstlistingbash}
+
+Then, restart Spyder (or whatever Python interpreter you still have opened) and the problem should be solved.
+
+Another common error message is this: Permission denied: 'geckodriver.log'. To solve this, create an empty text document using an editor like gedit or leafpad, name it 'geckodriver.log' and save it in the same directory as where geckodriver is saved. Alternatively, you can create an empty file with the following command in your terminal:
+\begin{lstlistingbash}
+touch /path-to-where-the-file-is-saved/geckodriver.log
+\end{lstlistingbash}
+
+Then change line 3 in the code to this: 
+
+\begin{lstlisting}
+driver.webdriver.Firefox(log_path="/path-to-where-the-file-is-saved/geckodriver.log") 
+\end{lstlisting}
+
+
+and the error message should disappear.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \chapter{Installing Python on other systems}
