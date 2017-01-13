@@ -130,7 +130,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 \setlength{\parskip}{\baselineskip}
 Copyright \copyright\ 2015, 2016, \the\year\ Damian Trilling\\
 \vspace{.25cm} \\
-This document can be obtained from \url{http://papers.ssrn.com/abstract=2737682}. The source code of the most recent version can be found at \url{https://github.com/damian0604/bdaca}.
+This book can be obtained from \url{http://papers.ssrn.com/abstract=2737682}. The source code of the most recent version can be found at \url{https://github.com/damian0604/bdaca}.
 
 
 \par Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. You may obtain a copy of the license at \url{http://creativecommons.org/licenses/ by-nc-nd/4.0/}. \\
@@ -149,9 +149,9 @@ This document can be obtained from \url{http://papers.ssrn.com/abstract=2737682}
 
 Social scientists are more and more confronted with the analysis of large-scale datasets. Often, these are data from online sources, and often, they contain some form of textual data. Think of data from social media, but also large archives. Often, this development if referred to as a move towards ``computational social science'' \citep{Lazer2009,Kitchin2014}.
 
-There is a certain overlap with the term ``Big Data''. But although the latter sounds sexy, it is a somewhat problematic term, because people use it for all kind of data. As scientists, we want a clear definition, but it is hard to tell what the term Big Data actually entails. This document is not about \emph{really} Big Data requiring a whole server farm, but it is about data that is too big to handle manually---think of one million tweets for example. It is about data sets that are small enough to be handled by an ordinary laptop, but often too big to be processed by ordinary programs. Excel does not have an unlimited number of rows, and SPSS and STATA start complaining (or simply stop working) once you have too many cases and variables. If you know R, you are better off, but for some of the tasks we will discuss in this book, Python has a bit more to offer.\footnote{I do not want to go into the R-vs-Python-for-data-analysis debate here, I use both tools, but for different tasks. Google for it if you want some comparison.}  
+There is a certain overlap with the term ``Big Data''. But although the latter sounds sexy, it is a somewhat problematic term, because people use it for all kind of data. As scientists, we want a clear definition, but it is hard to tell what the term Big Data actually entails. This book is not about \emph{really} Big Data requiring a whole server farm, but it is about data that is too big to handle manually---think of one million tweets for example. It is about data sets that are small enough to be handled by an ordinary laptop, but often too big to be processed by ordinary programs. Excel does not have an unlimited number of rows, and SPSS and STATA start complaining (or simply stop working) once you have too many cases and variables. If you know R, you are better off, but for some of the tasks we will discuss in this book, Python has a bit more to offer.\footnote{I do not want to go into the R-vs-Python-for-data-analysis debate here, I use both tools, but for different tasks. Google for it if you want some comparison.}  
 
-This document introduces you to automated content analysis of data that typically comes in amounts that are too voluminous for manual coding and for traditional point-and-click applications: tweets, blogposts, articles from RSS-feeds, etc. We will use the programming language Python, which is very flexible and highly suitable for this end. It also scales very nicely---meaning that you can use it now for some smaller projects, but it can also be used on immense data sets. So, if you will find yourself working on some really Big Data that cannot be handled on a single computer any more, the principles are not too different from what we do in this document (yes, I'm simplifying a bit).
+This book introduces you to automated content analysis of data that typically comes in amounts that are too voluminous for manual coding and for traditional point-and-click applications: tweets, blogposts, articles from RSS-feeds, etc. We will use the programming language Python, which is very flexible and highly suitable for this end. It also scales very nicely---meaning that you can use it now for some smaller projects, but it can also be used on immense data sets. So, if you will find yourself working on some really Big Data that cannot be handled on a single computer any more, the principles are not too different from what we do in this document (yes, I'm simplifying a bit).
 
 You will be guided through the first steps towards automated content analysis with Python. Note that I wrote this document for an audience of students in the social sciences, like communication science, political science, or sociology. From a computer science point of view, much more would have to be said, and some things we do in this course might actually be considered bad programming style. But that's not our objective here: This course should enable students of the social science to make some first steps with Python, in order to solve their analytical questions.
 
@@ -198,9 +198,9 @@ Hello world!
 Pay also attention to the line numbering at the left side of the code examples: It helps you see whether a line really ends (and that you should press enter), or whether it the paper is just too small to print the line on one line:
 
 \begin{lstlisting}
-print("Hello world"!)
+print("Hello world!")
 print("I am in a talkative mood today, I really have so much to say that it doesn't fit on one line on paper. But PLEASE, write this as a single line if you type me over!")
-print("Goodbye"!)
+print("Goodbye!")
 \end{lstlisting}
 
 We see immediately that the example above consists of three lines, not five.
@@ -2107,7 +2107,7 @@ This chapter taught you how to deal with co-occurrences and similar structures f
 
 
 
-\chapter{Supervised Machine learning}
+\chapter{Supervised machine learning}
 \label{chap:ml}
 The vastness of the topic makes it impossible to cover it extensively in this course. Nevertheless, as last part, we will take a very small and superficial glimpse in the world of supervised machine learning. The example illustrates the general principle --- and should give you a starting point for your own investigations. We will use scikit-learn \citep{scikit-learn}, a  packages that is very widely used and for which you will find a lot of tutorials and usage examples on the web.
 
@@ -2870,7 +2870,7 @@ driver.get("https://www.google.com")
 element = driver.find_element_by_class_name("sbtc")
 element.send_keys("TinTin")
 element.send_keys(Keys.RETURN)
-driver.implicitely_wait(10)
+driver.implicitly_wait(10)
 driver.save_screenshot("/home/marthe/images/screenshot_page1") 
 element2 = driver.find_element_by_class_name("pn")
 elememnt2.click()
