@@ -1,0 +1,145 @@
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper,12pt]{report}
+\usepackage[natbibapa,nosectionbib,tocbib,numberedbib]{apacite}
+\AtBeginDocument{\renewcommand{\bibname}{Literature}}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{url}
+
+\usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{pifont}
+
+\usepackage{lmodern}
+\usepackage{listings}
+\lstset{
+basicstyle=\scriptsize\ttfamily,
+columns=flexible,
+breaklines=true,
+numbers=left,
+%stepsize=1,
+numberstyle=\tiny,
+backgroundcolor=\color[rgb]{0.85,0.90,1}
+}
+
+
+\let\oldquote\quote
+\let\endoldquote\endquote
+\renewenvironment{quote}{\footnotesize\oldquote}{\endoldquote}
+
+
+
+\title{Two-day workshop Automated Content Analysis with Python\\~\\Course Manual}
+\author{dr. Damian Trilling\\~\\
+Department of Communication Science
+\\University of Amsterdam\\~\\d.c.trilling@uva.nl\\www.damiantrilling.net\\@damian0604\\~\\Office: REC-C, 8\textsuperscript{th} floor}
+\date{31-1-2016 \& 2-2-2016}
+
+
+\begin{document}
+\maketitle
+
+%\tableofcontents
+
+
+\section*{About this course}
+
+\subsection*{Course description}
+ 
+In the social sciences, there is an increasing interest for automatically analyzing texts. This in particular concerns research that draws on Internet-based data sources such as social media, online news, large digital archives, and public comments to news and products.  This emerging field of studies is also called \emph{Computational Social Science} \citep{Lazer2009} or even \emph{Computational Communication Science} \citep{Shah2015}.
+
+The workshop will provide insights in the basic concepts, challenges and opportunities associated with data so large that traditional research methods (like manual coding) cannot be applied any more. Participants are introduced to strategies and techniques for analyzing large quantities of text, through concrete examples and templates than can be shared and modified for own research projects. 
+
+
+\subsection*{Goals}
+Upon completion of this course, the following goals are reached:
+\begin{enumerate}[A]
+
+\item Participants can identify research methods from computer science and computational linguistics which can be used for research in the domain of the social sciences; they can explain the principles of these methods and apply them to the analysis of texts.
+
+\item Participants have a basic knowledge of the Python programming language and can work with Jupyter Notebooks.
+
+\item Participants can at least on a basic level implement techniques from (A), using commonly used Python modules.
+
+\end{enumerate}
+
+
+\subsection*{Readings}
+We will work with the book by \cite{Trilling2016}, which can be downloaded as a PDF file (see references).
+
+
+In the schedule below, we will refer to chapters from this book.
+
+
+\section*{Preparation and Prerequisits}
+\textsc{\ding{52} Chapter 1: Preparing your computer} \textbf{\emph{or (!)}} install Anaconda\\
+\textsc{\ding{52} Section 3.5: Jupyter Notebook} \\
+\textsc{\ding{52} Chapter 4: The very, very basics of programming in Python}
+
+~\\
+You are expected to
+\begin{itemize}
+	\item bring a laptop with either Anaconda (Python 3 version) \emph{or} a virtual machine as explained in Chapter~1 of the book installed;
+	\item have a (very) basic understanding of the Python programming language;
+	\item know how to work with Jupyter Notebook (on your computer).
+\end{itemize}
+
+
+
+
+\section*{Meeting 1}
+\textsc{\ding{52} Chapter 6: Sentiment analysis}\\
+\textsc{\ding{52} Chapter 7: Automated content analysis}\\
+
+We will start with an overview about different approaches to automated content analysis (ACA), as outlined by \cite{Boumans2016}. 
+
+We will briefly discuss sentiment analysis, as it is one of the frequently applied out-of-the-box techniques for analyzing text.
+
+After that, we will move on to techniques that can be better tailored to your own research questions. Text as written by humans usually is pretty messy. You will therefore learn how to process text to make it suitable for further analysis by using techniques of Natural Language Processing (NLP), and how to extract meaningful information (discarding the rest) using regular expressions. Also, I will introduce you to techniques and concepts like stemming, stopword removal, n-grams, word counts and word co-occurrances.
+
+
+\section*{Meeting 2}
+\textsc{\ding{52} Chapter 10: Supervised machine learning}\\
+\textsc{\ding{52} Chapter 11: Unsupervised machine learning}\\
+
+In the first meeting, we considered techniques that are rule-based and, in general, deterministic: ``if you encounter X, do Y'', ``if you find string X, code as mention of actor A''. While such techniques can be a informative and are necessary to automatically and efficiently perform routine tasks, they are less suitable for offering really deep insights into what texts are about.
+
+In this session, I will therefore introduce you to one of the most fascinating topics in automated content analysis: Machine learning. I will walk you trough the ideas behind unsupervised and supervised machine learning. The nice thing is that you actually have already done it before: principal component analysis is a form of unsupervised ML and regression analysis a form of supervised ML -- you just never called it like this. And you probably never thought about using these techniques to analyze texts (or images). And that's what we are going to do.
+
+
+
+
+\section*{Further readings}
+
+There are a lot of online ressources available for using Python in the social sciences, just google it. 
+
+Some jupyter notebooks that might be interestig for you are available at \url{http://damiantrilling.net/tools}.
+
+Suggested additional literature on sentiment analysis: 
+\begin{itemize}
+	\item Some  examples of sentiment analysis: \cite{Huang2007,Pestian2012,Mostafa2013}. 
+	\item If you want to have a look under the hood of popular sentiment analysis algorithms, you can read \cite{Thelwall2012} and \cite{Hutto2014}.
+\end{itemize}
+
+
+
+Next to this, the following books provide the interested participants with more and deeper information. They are intended for the advanced reader and might be very useful for those who want to go deeper into the topic. Keep in mind that, due to the rapidly changing nature of the subject, parts of them are outdated already.
+
+\begin{itemize}
+	\item \citealp{Russel2013}. Gives a lot of examples about how to analyze a variety of online data, including Facebook and Twitter, but going much beyond that.
+	\item \citealp{Bird2009}. This is the official documentation of the NLTK package that we are using. A newer version of the book can be read for free at \url{http://nltk.org}
+	\item \citealp{McKinney2012}: Another book with a lot of examples. A PDF of the book can be downloaded for free on \url{http://it-ebooks.info/book/1041/}.
+\end{itemize}
+
+
+
+
+
+\bibliographystyle{apacite}
+\bibliography{../bigdata}
+
+\end{document}
