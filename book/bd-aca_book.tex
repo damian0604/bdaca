@@ -351,6 +351,24 @@ spyder3 &
 \end{lstlistingbash}
 
 
+Make also sure that you have the correct version of IPython installed -- if it is too old, then you might have problems later on, because spyder and/or jupyter-notebook might not be fully compatible. Check the version from the Linux command line:
+
+\begin{lstlistingbash}
+ipython3 --version
+\end{lstlistingbash}
+
+The version number should be higher than 5. In case it is not, try the following:
+
+
+\begin{lstlistingbash}
+sudo apt-get remove ipython3
+sudo pip3 install ipython
+ipython3 --version
+\end{lstlistingbash}
+
+
+
+
 \begin{quote}
 	While working in the VM, you realize that you made a mistake while configuring your keyboard so that some keys don't work as expected? No worries, you can re-configure your keyboard at any time with the following command:\\
 	\texttt{sudo dpkg-reconfigure keyboard-configuration}\\
@@ -365,6 +383,7 @@ spyder3 &
 \end{quote}
 
 From now on, you do not need the Lubuntu image that you downloaded in Section~\ref{sec:lubuntu} any more, you can delete it to free up some space.
+
 
 \section{Recap}
 Make sure you installed \emph{everything} correctly. If you got any error messages, try to find out what went wrong or ask your instructor. In particular, make sure you write down \emph{what} went wrong.
@@ -1285,9 +1304,9 @@ wget https://raw.githubusercontent.com/damian0604/bdaca/master/examples/retrieve
 
 First of all, you should carefully inspect the file to get an understanding of the data structure. For example, you could use the \texttt{head} command on the bash command line (see Chapter~\ref{firstcsvfile}):
 
-\begin{lstlisting}
+\begin{lstlistingbash}
 head -5 sanders.tsv
-\end{lstlisting}
+\end{lstlistingbash}
 
 Which columns are interesting? Is there a header line (with column names), or do all lines contain data?
 
@@ -1305,11 +1324,11 @@ import csv
 tweetlist=[]
 processedlist=[]
 with open("/home/damian/sentiment/sanders.tsv") as fi:
-    reader=csv.reader(fi,delimiter='\'})
+    reader=csv.reader(fi,delimiter='\t'})
     next(reader)
     for row in reader:
         tweet=row[0]
-        tweet_processed=tweet.lower().replace("!"," ").replace("."," ").replace("?"," ").replace(u"\u201A"," ").replace("'"," ").replace('"'," ").replace('#'," ").replace(':'," ")
+        tweet_processed=tweet.lower().replace("!"," ").replace("."," ").replace("?"," ").replace("'"," ").replace('"'," ").replace('#'," ").replace(':'," ")
         tweetlist.append(tweet)
         processedlist.append(tweet_processed)
 \end{lstlisting}
@@ -1402,7 +1421,7 @@ Vader is integrated in NLTK, a Python module that we will use for a number of te
 
 \begin{lstlisting}
 import nltk
-nltk.download('vader_sentiment')
+nltk.download('vader_lexicon')
 \end{lstlisting}
 
 
@@ -1660,7 +1679,15 @@ A graphical interface is opened (Figure~\ref{fig:nltkdownload}).
 \caption{\label{fig:nltkdownload}Loading additional NLTK-packages}
 \end{figure}
 
-Do \emph{not} download all packages, that will take too much space and you do not need it. Instead, download only the packages ``stopwords'' , ``punkt'', and ``maxent\_treebank\_pos\_tagger'' from the ``all packages'' tab. Close the window when done.
+Do \emph{not} download all packages, that will take too much space and you do not need it. Instead, download only the packages ``stopwords'' , ``punkt'', ``averaged\_perceptron\_tagger'', ``hmm\_treebank\_pos\_tagger'', and ``maxent\_treebank\_pos\_tagger'' from the ``all packages'' tab. Close the window when done.
+
+Instead of using the graphical interface, you can also install the packages by providing their name as an argument:
+
+\begin{lstlisting}
+import nltk
+nltk.download('averaged_perceptron_tagger')
+\end{lstlisting}
+
 
 \subsection{Stopword removal}
 
@@ -2267,14 +2294,14 @@ print("Constructing training dataset")
 
 for file in glob ("/home/damian/aclImdb/train/pos/*.txt"):
     with open(file) as fi:
-        reviews.append((fi.read(),1))
+        reviews.append((fi.read(),"1"))
 nopostr=len(reviews)
 
 print ("Added",nopostr,"positive reviews")  
 
 for file in glob ("/home/damian/aclImdb/train/neg/*.txt"):
     with open(file) as fi:
-        reviews.append((fi.read(),-1))
+        reviews.append((fi.read(),"-1"))
 nonegtr=len(reviews)-nopostr
 print ("Added",nonegtr,"negative reviews")  
    
@@ -2282,13 +2309,13 @@ print("Constructing test dataset")
 
 for file in glob ("/home/damian/aclImdb/test/pos/*.txt"):
     with open(file) as fi:
-        test.append((fi.read(),1))
+        test.append((fi.read(),"1"))
 noposte=len(test)
 print ("Added",noposte,"positive reviews")  
 
 for file in glob ("/home/damian/aclImdb/test/neg/*.txt"):
     with open(file) as fi:
-        test.append((fi.read(),-1))
+        test.append((fi.read(),"-1"))
 nonegte=len(test)-noposte
 print ("Added",nonegte,"negative reviews")  
 
