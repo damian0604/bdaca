@@ -1,0 +1,67 @@
+NAIVE BAYES
+
+
+Accuracy:
+0.81968
+Precision:
+0.863206689693
+Recall:
+0.75976
+        side note: Precision if we are interested in retrieving negative reviews:
+         0.785469352765
+         side note: Recall if we are interested in retrieving negative reviews:
+         0.8796
+F1-score:
+0.808186537316
+Confusion matrix:
+[[0 0]
+ [0 0]]
+
+metrics.confusion_matrix(actual,predictions)
+Out[46]: 
+array([[10995,  1505],
+       [ 3003,  9497]])
+       
+       
+       
+       
+       
+LOGISTIC REGRESSION
+
+Accuracy:
+0.85888
+Precision:
+0.865488023464
+Recall:
+0.84984
+         side note: Precision if we are interested in retrieving negative reviews:
+         0.852506679239
+         side note: Recall if we are interested in retrieving negative reviews:
+         0.86792
+F1-score:
+0.857592637442
+Confusion matrix:
+[[10849  1651]
+ [ 1877 10623]]
+
+
+
+
+
+LOGISTIC REGRESSION TF-IDF
+
+Accuracy:
+0.879
+Precision:
+0.877881470846
+Recall:
+0.88048
+         side note: Precision if we are interested in retrieving negative reviews:
+         0.880125170505
+         side note: Recall if we are interested in retrieving negative reviews:
+         0.87752
+F1-score:
+0.879178815353
+Confusion matrix:
+[[10969  1531]
+ [ 1494 11006]]
