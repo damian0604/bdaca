@@ -41,7 +41,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 \title{Using computational methods to analyze communication}
 \author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
-\date{1--5--2017}
+\date{27--11--2017}
 \institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
 
 
@@ -76,34 +76,36 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 \section[Basic ACA]{Basic ACA: Dictionary- and string-based methods}
 
-\begin{frame}
-	Basic ACA: Dictionary- and string-based methods
-\end{frame}
-
 \subsection{Regular expressions}
-
 \begin{frame}
-Automated content analysis using regular expressions
+	\textbf{Basic ACA: Dictionary- and string-based methods}\\
+	Regular expressions
 \end{frame}
+
 
 \begin{frame}{Regular Expressions: What and why?}
 \begin{block}{What is a regexp?}
 \begin{itemize}
 \item<1-> a \emph{very} widespread way to describe patterns in strings
 \item<2-> Think of wildcards like {\tt{*}} or operators like {\tt{OR}}, {\tt{AND}} or {\tt{NOT}} in search strings: a regexp does the same, but is \emph{much} more powerful
-\item<3-> You can use them in many editors (!), in the Terminal, in STATA \ldots and in Python
+\item<3-> You can use them in many text editors (!), in STATA, R, Python, \ldots 
 \end{itemize}
 \end{block}
-\end{frame}
+\end{frame}o
 
 \begin{frame}{An example}
-\begin{block}{Cleaning up}
+\begin{block}{We wanted to find references to companies in several years of news coverage}
+Problems: 
 \begin{itemize}
-\item We wanted to remove everything but words from a tweet
-\item We could do this with a regular expression as well: \\
-{\tt{ \lbrack \^{}a-zA-Z\rbrack}} would match anything that is not a letter
+\item Spelling variations (ABN, ABN Amro, ABN-Amro, \ldots)
+\item Shouldn't be in the middle of the word, but \emph{can} be at the beginning of a word, optionally connected with a hyphen (``ABN-topman'', ``Shellstation'')
 \end{itemize}
+For instance, \\
+{\texttt{\textbackslash bING(?:-.*?)?\textbackslash b}} \\
+allows to specify exactly this.
 \end{block}
+{\tiny{Strycharz, J., Strauss, N., \& Trilling, D. (2017). The role of media coverage in explaining stock market fluctuations: insights for strategic financial communication. \textit{International Journal of Strategic Communication, online first}. doi:10.1080/1553118X.2017.1378220 \\
+Jonkman, J. G., Trilling, D., Verhoeven, P., \& Vliegenthart, R. (2016). More or less diverse: An assessment of the effect of attention to media salient company types on media agenda diversity in Dutch newspaper coverage between 2007 and 2013.\textit{ Journalism, online first.} doi:10.1177/1464884916680371\\ } }
 \end{frame}
 
 \begin{frame}{Basic regexp elements}
@@ -213,32 +215,53 @@ If you google {\tt{regexp}} or {\tt{regular expression}}, you'll get a bunch of 
 \end{frame}
 
 
-\begin{frame}{Some terminology }
-	\begin{columns}[t]
-		\column{.5\textwidth}
-		
-		\begin{block}<1-4>{Supervised machine learning}
-			You have a dataset with both predictor and outcome (independent and dependent variables; features and labels) --- a \emph{labeled} dataset.
-			\onslide<2>{
-				\footnotesize{Think of regression: You measured \texttt{x1}, \texttt{x2}, \texttt{x3} and you want to predict \texttt{y}, which you also measured}}
-		\end{block}
-		
-		\column{.5\textwidth}
-		
-		\begin{block}<3->{Unsupervised machine learning}
-			You have no labels. \onslide<4>{(\footnotesize{You did not measure \texttt{y})}}\\
-			\onslide<5>{\textbf{Again, you already know some techniques to find out how \texttt{$x_1$}, \texttt{$x_2$},\ldots \texttt{$x\_i$} co-occur from other courses:} \begin{itemize}
-					\item Principal Component Analysis (PCA)
-					\item Cluster analysis
-					\item \ldots
-				\end{itemize}
-			}
-		\end{block}
-		
-	\end{columns}
-	
+
+\begin{frame}[plain]
+	\begin{figure}
+		\centering
+		\includegraphics[width=1.0\linewidth]{boumanstrilling2016}
+		\label{fig:boumanstrilling2016}
+	\end{figure}
+	\tiny{Boumans, J. W., \& Trilling, D. (2016). Taking stock of the toolkit: An overview of relevant autmated content analysis approaches and techniques for digital journalism scholars. \emph{Digital Journalism, 4}(1), 8–23. doi:10.1080/21670811.2015.1096598}
 \end{frame}
 
+
+
+
+\begin{frame}{Supervised vs. unsupervised learning}
+	\begin{columns}[t]
+		
+		\column{.5\textwidth}
+		
+		\begin{block}{Unsupervised}<1->
+			\begin{itemize}
+				\item No manually coded data
+				\item We want to identify patterns or to make groups of most similar cases
+				%\item Per case, we want to know to which group it belongs
+			\end{itemize}
+		\end{block}
+		{\footnotesize{
+				\onslide<2->{Example: We have a dataset of Facebook-massages on an organizations' page. We use clustering to group them and later interpret these clusters (e.g., as complaints, questions, praise, \ldots)}
+			}}
+			
+			\column{.5\textwidth}
+			\begin{block}{Supervised}<3->
+				\begin{itemize}
+					\item We code a small dataset by hand and use it to ``train'' a machine
+					\item The machine codes the rest 
+				\end{itemize}
+			\end{block}
+			
+			{\footnotesize{
+					\onslide<4->{Example: %We use a hand-coded CSV table with two columns (tweet and gender of the sender) as training dataset and then predict for a different dataset per tweet if it was sent by a man or a woman.
+						We have 2,000 of these messages grouped into such categories by human coders. We then use this data to group all remaining messages as well.
+					}
+				}}
+				
+			\end{columns}
+		\end{frame}
+		
+		
 
 
 
@@ -267,15 +290,15 @@ If you google {\tt{regexp}} or {\tt{regular expression}}, you'll get a bunch of 
 \end{frame}
 
 \begin{frame}[fragile]{A so-called term-document-matrix}
-	\begin{lstlisting}
-	w1,w2,w3,w4,w5,w6 ...
-	text1, 2, 0, 0, 1, 2, 3 ...
-	text2, 0, 0, 1, 2, 3, 4 ...
-	text3, 9, 0, 1, 1, 0, 0 ...
-	...
-	\end{lstlisting}
-	\vspace{1cm}
-	\onslide<2>{These can be simple counts, but also more advanced metrics, like tf-idf scores (where you weigh the frequency by the number of documents in which it occurs), cosine distances, etc.}
+\begin{lstlisting}
+      w1,w2,w3,w4,w5,w6 ...
+text1, 2, 0, 0, 1, 2, 3 ...
+text2, 0, 0, 1, 2, 3, 4 ...
+text3, 9, 0, 1, 1, 0, 0 ...
+...
+\end{lstlisting}
+\vspace{1cm}
+\onslide<2>{These can be simple counts, but also more advanced metrics, like tf-idf scores (where you weigh the frequency by the number of documents in which it occurs), cosine distances, etc.}
 \end{frame}
 
 
@@ -354,16 +377,14 @@ id2word = corpora.Dictionary(texts)
 mm =[id2word.doc2bow(text) for text in texts]
 
 # Train the LDA models.
-lda = models.ldamodel.LdaModel(corpus=mm, id2word=id2word, num_topics=NTOPICS, alpha="auto")
+lda = models.ldamodel.LdaModel(corpus=mm, id2word=id2word, num_topics=NTOPICS)
 
 # Print the topics.
 for top in lda.print_topics(num_topics=NTOPICS, num_words=5):
     print ("\n",top)
 
-print ("\nFor further analysis, a dataset with the topic score for each document is saved to",LDAOUTPUTFILE)
-
+# save topic scores
 scoresperdoc=lda.inference(mm)
-
 with open(LDAOUTPUTFILE,"w",encoding="utf-8") as fo:
   for row in scoresperdoc[0]:
     fo.write("\t".join(["{:0.3f}".format(score) for score in row]))
@@ -376,19 +397,19 @@ with open(LDAOUTPUTFILE,"w",encoding="utf-8") as fo:
 
 
 \begin{frame}[fragile]{Output: Topics (below) \& topic scores (next slide)}
-	\begin{lstlisting}
-	0.069*fusie + 0.058*brussel + 0.045*europesecommissie + 0.036*europese + 0.023*overname
-	0.109*bank + 0.066*britse + 0.041*regering + 0.035*financien + 0.033*minister
-	0.114*nederlandse + 0.106*nederland + 0.070*bedrijven + 0.042*rusland + 0.038*russische
-	0.093*nederlandsespoorwegen + 0.074*den + 0.036*jaar + 0.029*onderzoek + 0.027*raad
-	0.099*banen + 0.045*jaar + 0.045*productie + 0.036*ton + 0.029*aantal
-	0.041*grote + 0.038*bedrijven + 0.027*ondernemers + 0.023*goed + 0.015*jaar
-	0.108*werknemers + 0.037*jongeren + 0.035*werkgevers + 0.029*jaar + 0.025*werk
-	0.171*bank + 0.122* + 0.041*klanten + 0.035*verzekeraar + 0.028*euro
-	0.162*banken + 0.055*bank + 0.039*centrale + 0.027*leningen + 0.024*financiele
-	0.052*post + 0.042*media + 0.038*nieuwe + 0.034*netwerk + 0.025*personeel
-	...
-	\end{lstlisting}
+\begin{lstlisting}
+0.069*fusie + 0.058*brussel + 0.045*europesecommissie + 0.036*europese + 0.023*overname
+0.109*bank + 0.066*britse + 0.041*regering + 0.035*financien + 0.033*minister
+0.114*nederlandse + 0.106*nederland + 0.070*bedrijven + 0.042*rusland + 0.038*russische
+0.093*nederlandsespoorwegen + 0.074*den + 0.036*jaar + 0.029*onderzoek + 0.027*raad
+0.099*banen + 0.045*jaar + 0.045*productie + 0.036*ton + 0.029*aantal
+0.041*grote + 0.038*bedrijven + 0.027*ondernemers + 0.023*goed + 0.015*jaar
+0.108*werknemers + 0.037*jongeren + 0.035*werkgevers + 0.029*jaar + 0.025*werk
+0.171*bank + 0.122* + 0.041*klanten + 0.035*verzekeraar + 0.028*euro
+0.162*banken + 0.055*bank + 0.039*centrale + 0.027*leningen + 0.024*financiele
+0.052*post + 0.042*media + 0.038*nieuwe + 0.034*netwerk + 0.025*personeel
+...
+\end{lstlisting}
 \end{frame}
 
 
@@ -401,15 +422,15 @@ with open(LDAOUTPUTFILE,"w",encoding="utf-8") as fo:
 
 
 \begin{frame}[fragile]{Visualization with pyldavis}
-	\begin{lstlisting}
-	import pyLDAvis
-	import pyLDAvis.gensim
-	% first estiate gensim model, then:
-	vis_data = pyLDAvis.gensim.prepare(lda,mm,id2word)
-	pyLDAvis.display(vis_data)
-	\end{lstlisting}
-	\makebox[\linewidth]{
-		\includegraphics[width=\paperwidth,height=.5\paperheight,keepaspectratio]{pyldavis}}
+\begin{lstlisting}
+import pyLDAvis
+import pyLDAvis.gensim
+% first estiate gensim model, then:
+vis_data = pyLDAvis.gensim.prepare(lda,mm,id2word)
+pyLDAvis.display(vis_data)
+\end{lstlisting}
+\makebox[\linewidth]{
+	\includegraphics[width=\paperwidth,height=.5\paperheight,keepaspectratio]{pyldavis}}
 \end{frame}
 
 
@@ -427,49 +448,17 @@ with open(LDAOUTPUTFILE,"w",encoding="utf-8") as fo:
 
 
 
+\begin{frame}[plain]
+	\begin{figure}
+		\centering
+		\includegraphics[width=1.0\linewidth]{boumanstrilling2016}
+		\label{fig:boumanstrilling2016}
+	\end{figure}
+	\tiny{Boumans, J. W., \& Trilling, D. (2016). Taking stock of the toolkit: An overview of relevant autmated content analysis approaches and techniques for digital journalism scholars. \emph{Digital Journalism, 4}(1), 8–23. doi:10.1080/21670811.2015.1096598}
+\end{frame}
 
 
 
-\begin{frame}{Recap: supervised vs. unsupervised}
-	\begin{columns}[t]
-		
-		\column{.5\textwidth}
-		
-		\begin{block}{Unsupervised}<1->
-			\begin{itemize}
-				\item No manually coded data
-				\item We want to identify patterns or to make groups of most similar cases
-				%\item Per case, we want to know to which group it belongs
-			\end{itemize}
-		\end{block}
-		{\footnotesize{
-				\onslide<2->{Example: We have a dataset of Facebook-massages on an organizations' page. We use clustering to group them and later interpret these clusters (e.g., as complaints, questions, praise, \ldots)}
-			}}
-			
-			\column{.5\textwidth}
-			\begin{block}{Supervised}<3->
-				\begin{itemize}
-					\item We code a small dataset by hand and use it to ``train'' a machine
-					\item The machine codes the rest 
-				\end{itemize}
-			\end{block}
-			
-			{\footnotesize{
-					\onslide<4->{Example: %We use a hand-coded CSV table with two columns (tweet and gender of the sender) as training dataset and then predict for a different dataset per tweet if it was sent by a man or a woman.
-						We have 2,000 of these messages grouped into such categories by human coders. We then use this data to group all remaining messages as well.
-					}
-				}}
-				
-			\end{columns}
-		\end{frame}
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		\subsection{You have done it before!}
 		\begin{frame}{You have done it before!}
@@ -656,41 +645,7 @@ with open(LDAOUTPUTFILE,"w",encoding="utf-8") as fo:
 		%opdracht bedenken: classifiers vergelijken
 		%\end{frame}
 		
-		
-		\begin{frame}{And it works!}
-			Using 50,000 IMDB movies that are classified as either negative or positive,
-			\begin{itemize}
-				\item I created a list with 25,000 training tuples and another one with 25,000 test tuples and
-				\item trained a classifier
-				\item that achieved an AUC of .82.
-			\end{itemize}
-			~\\
-			\tiny{Dataset obtained from \url{http://ai.stanford.edu/~amaas/data/sentiment}, Maas, A.L., Daly, R.E., Pham, P.T., Huang, D., Ng, A.Y., \& Potts, C. (2011). Learning word vectors for sentiment analysis. \emph{49th Annual Meeting of the Association for Computational Linguistics (ACL 2011)}
-			}
-			
-		\end{frame}
-		
-%		\begin{frame}[fragile]{Playing around with new data}
-%			\begin{lstlisting}
-%			newdata=vectorizer.transform(["What a crappy movie! It sucks!", "This is awsome. I liked this movie a lot, fantastic actors","I would not recomment it to anyone.", "Enjoyed it a lot"])
-%			predictions = nb.predict(newdata)
-%			print(predictions)
-%			\end{lstlisting}
-%			This returns, as you would expect and hope:
-%			\begin{lstlisting} 
-%			[-1  1 -1  1]
-%			\end{lstlisting}
-%			
-%			
-%		\end{frame}
-%		
-		
-		
-		
-		\begin{frame}{But we can do even better}
-			We can use different vectorizers and different classifiers.
-		\end{frame}
-		
+	
 		\begin{frame}{Different vectorizers}
 			\begin{itemize}
 				\item CountVectorizer (=simple word counts)
@@ -709,34 +664,21 @@ with open(LDAOUTPUTFILE,"w",encoding="utf-8") as fo:
 			Typical approach: Find out which setup performs best (see example source code in the book).
 		\end{frame}
 		
-		
-		\begin{frame}{Try it yourself!}
-			\huge
-			\url{https://pastebin.com/KLeq6SGT}
-		\end{frame}
-
+	
 \section{Examples}
 \begin{frame}
 	\textbf{Examples} \\
 	Putting these techniques into practice
+	\vspace{1cm}
+	\begin{itemize}
+		\item Shareworthiness
+		\item Online vs offline news
+	\end{itemize}
 \end{frame}
 
 
-\begin{frame}{Examples}
-The following examples were implemented in Python.
 
-(Alternative: R).
-
-	burggraaff trilling
-	
-	shareworthiness tolochko
-	
-	
-	evtl strycharz
-	
-
-\end{frame}
-
+\subsection{Shareworthiness}
 
 \begin{frame}{What explains how often an article is shared on social media?}
 Trilling, D., Tolochko, P., \& Burscher, B. (2017). From Newsworthiness to Shareworthiness. \textit{Journalism \& Mass Communication Quarterly, 94}(1), 38–60. doi:10.1177/1077699016654682
@@ -788,6 +730,7 @@ Trilling, D., Tolochko, P., \& Burscher, B. (2017). From Newsworthiness to Share
 \end{frame}
 
 
+\subsection{Difference between offline and online news}
 \begin{frame}{How do online and offline news differ?}
 Burggraaff, C., \& Trilling, D. (2017). Through a different gate: An automated content analysis of how online news and print news differ. \textit{Journalism, online first}. doi:10.1177/1464884917716699
 \end{frame}
