@@ -114,7 +114,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 %\title{Big Data and Automated Content Analysis}
 \title{Doing Computational Social Science with Python: An Introduction}
 \author{Damian Trilling}
-\date{Version 1.0\\ ~ \\  \footnotesize{PDF created \today}}
+\date{Version 1.1\\ ~ \\  \footnotesize{PDF created \today}}
 
 
 \begin{document}
@@ -165,7 +165,8 @@ Have fun! And, join me in thanking those who contributed with great ideas or ser
 \begin{flushright}
 Amsterdam, March 2015 (version 0.1)\\
 Amsterdam, February 2016 (version 0.2)\\
-Amsterdam, January 2017 (version 1.0)
+Amsterdam, January 2017 (version 1.0)\\
+Amsterdam, January 2018 (version 1.1)
 \end{flushright}
 
 Damian
@@ -1015,9 +1016,7 @@ Note that opening a file for writing (i.e., with \texttt{mode="w"}) creates a ne
 
 But as I promised, it get's cooler, because in the next section, we will retrieve JSON objects not from a file, but directly via an API.
 
-\section{APIs}
-\subsection{How does it work?–––A first example}
-
+\section{Getting to know APIs}
 \begin{figure}[h]
 \centering
 \includegraphics[width=.6\paperwidth,,keepaspectratio]{../pictures/screenshot-googlebooks}
@@ -1139,7 +1138,8 @@ print ("The average length of a book by Luhmann is", sum(pagelist)/len(pagelist)
 
 \end{question}
 
-\subsection{The Twitter API}
+\section{The Twitter API}
+\subsection{Getting all tweets by a given user}
 \label{subsec:twitterapi}
 For this exercise, we need to import a module named \texttt{twitter}.\footnote{Another popular module for accessing the Twitter API is called \texttt{tweepy}. If you want to dig deeper into using the Twitter API, you might want to check that one out as well and find out which one fits your purposes best.} You can easily install it from the command line with
 \begin{lstlistingbash}
@@ -1179,7 +1179,9 @@ print(info["description"])
 \end{lstlisting}
 To see what type of elements \texttt{info} contains, you can either read the documentation on \url{https://dev.twitter.com/} or use \texttt{print} or \texttt{pprint} to inspect its structure. 
 
-\section{Saving the retrieved data}
+
+
+\subsection{Saving the retrieved data}
 Once you have retrieved the data from an API, there are several ways to go. You could directly analyze them in some way, but maybe you just want to save them first (in fact, it might be a good idea to sve them anyway for archiving purposes). Combining our knowledge we gained up til know, we can conceive of multiple ways of storing the data. The first possibility, as we have learned, would be to simply dump the Twitter dataset we aquired into a JSON file.
 \begin{lstlisting}
 with open("/home/damian/someone.json", mode="w", encoding="utf-8") as fo:
@@ -1203,6 +1205,59 @@ with open("tweetswithdate.csv",mode="w",encoding="utf-8") as fo:
 \end{lstlisting}
 
 
+\section{Listening to the Twitter stream}
+
+Many people want to collect all tweets containing a given hashtag.
+However, it is not possible to get these retrospectively (unless you pay for it). 
+Instead, you have to do so live (like in the good old days, when you were taping songs from the radio or had a VCR to record television shows).
+Thus, your computer must run 24/7; and you probably want to consider a lot of things in advance (e.g., the available storage, error handling in case your script fails, etc.).
+Nevertheless, for the sake of completeness, you find an example of how to listen to the Twitter stream and retrieve everything related to a given search term or hashtag.
+
+First of all, we need to install another module (we could also use the Twitter module we used above, but tweepy is easier to use)
+\begin{lstlistingbash}
+sudo pip3 install tweepy
+\end{lstlistingbash}	
+
+I will not explain the code below in detail, because it requires knowledge of what a class is (which we have not covered yet), but as you probably can see, we listen to the twitter stream and retrieve all tweets with the hashtag \#metoo that are send \emph{at this very minute}.
+
+\begin{lstlisting}
+from tweepy.streaming import StreamListener
+from tweepy import OAuthHandler
+from tweepy import Stream
+
+consumer_key = "..."
+consumer_secret = "..."
+access_token = "..."
+access_token_secret = "..."
+
+fo = open('mytweets',mode='w')
+
+class MyListener(StreamListener):
+    def on_data(self, data):
+        fo.writelines(data)
+        return True
+    def on_error(self, status):
+        print(status)
+
+l = MyListener()
+auth = OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+stream = Stream(auth, l)
+stream.filter(track=['#metoo'])
+\end{lstlisting}
+
+
+The file we produce, \texttt{mytweets}, basically contains a JSON document per line, where the last line is probably corrupted (as the script above runs infinitely, so we have to kill it at one point, probably in the middle of writing a tweet). We could for example read it again as follows:
+
+\begin{lstlisting}
+import json
+
+tweets = []
+lines = open('mytweets').readlines()
+for line in lines[:-1]:
+    tweets.append(json.loads(line))
+\end{lstlisting}
 
 
 \section{Another example: The AmCAT API}
