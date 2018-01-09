@@ -259,7 +259,8 @@ Save it at a place of your convenience.
 \section{Create a virtual machine}
 Open VirtualBox, click on ``New'', give your image a name, and select first Linux, then Ubuntu~64bit from the list (or 32 bit, if that's what you downloaded). On the following screens, just leave the default settings and agree to everything---with two exceptions: 
 \begin{itemize}
-	\item When you are asked how much ``base memory'' you want to allocate to your machine, you should choose a value of at the \emph{very} least around 1000 MB. More is better, if you you have 4,096 MB of RAM in total, you can safely choose 2,048 MB. The examples in this tutorial are tested on a VM with 2,048 MB RAM. 
+	\item When you are asked how much ``base memory'' you want to allocate to your machine, you should choose a value of at least 50\% of the available memory. The examples in this tutorial are tested on a VM with 2,048 MB RAM.
+	However, especially if you want to work with larger datasets (especially, Elasticsearch and/or INCA), you might need to have 4 GB or more. 
 	\item On the next screens, you are asked about a virtual hard disk to create. I strongly recommend you to use a bit more than the 8~GB that are suggested. If you choose more (say, 12~GB or so), chances are lower that you will run out of space later during the course.
 \end{itemize}
 
@@ -2735,7 +2736,7 @@ ls -lh
 \end{lstlistingbash}
 should give you an output like this:
 \begin{lstlistingoutput}
-damian@damian-VirtualBox:~/pornexercise$ ls -lh
+damian@damian-VirtualBox:~/pornexercise\$ ls -lh
 total 284M
 -rw-r--r-- 1 damian damian 229M feb  8  2014 xhamster.json
 -rw-rw-r-- 1 damian damian  55M feb  8  2014 xhamster.json.tar.gz
@@ -2801,7 +2802,7 @@ Voil\`a!
 
 Sometimes, web scraping as explained in Chapter~\ref{chap:scraping} cannot be used, because content is dynamically fetched or created. For example, maybe some comments are only retrieved by some JavaScript after the user has scrolled down. Here, Selenium comes into play.
 
-Selenium is a tool which you can use to automate what a human would do when browsing the web. For example, with Selenium it is possible to let the computer open a web browser, go to \url{www.google.com}, enter the name of your favorite cartoon character as a search term, click the ``search'' button, take a screenshot of the results page and then click the ``next page'' button. This appendix will show you how to use Selenium so that your computer will do exactly that.   
+Selenium is a tool which you can use to automate what a human would do when browsing the web. For example, with Selenium it is possible to let the computer open a web browser, go to \url{www.google.com}, enter the name of your favorite cartoon character as a search term, click the ``search'' button, take a screenshot of the results page and then click the ``next page'' button. This appendix will show you how to use Selenium so that your computer will do exactly that. . This way, it will introduce you to working with the tool.   
 
 To use Selenium, you must first install the Selenium package by typing the following in your terminal:
 
@@ -2814,11 +2815,15 @@ You also have to download the geckodriver. You can find it here:
 
 In most cases, the geckodriver-v0.13.0-linux64.tar.gz version is the one you need, but there are versions for Mac and Windows as well. Save it in the directory in which you are working and unpack it, either by double-clicking on it or by using the \texttt{tar -xzf} command.
 
-From the Selenium package, you must then import some modules in your Python script: 
+From the Selenium packageFrom the Selenium package, you must then import some modules in your Python script. You also need to import the time module, as it is a useful tool when working with Selenium (this is standard module and you do not need to download anything to import it):
 
 \begin{lstlisting}
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC 
+from selenium.webdriver.common.by import By
+import time
 \end{lstlisting}
 
 Now, we can instruct our script to open a web browser and go to \url{www.google.com}.
@@ -2831,7 +2836,6 @@ driver.get("https://www.google.com")
 In line 1 we tell the computer that we want to work with Firefox as a driver. Of course, if you prefer Google Chrome or some other driver, you can replace Firefox with the name of that browser.\footnote{There is also a driver called PhantomJS, which is a so-called ``headless browser'', which means that it does not display any browser window; in fact, it doesn't display anything. This can be very useful if you want to run a selenium script on a server without a graphical display, or if you want to run selenium on the background.} 
 
 In line 2 we tell the computer to use the driver and to go to Google. If you execute these two lines of code, you will see that your computer will open Firefox and go to Google.
-
 
 \begin{figure}[h]
 \centering
@@ -2847,63 +2851,73 @@ In the case of Google, the search field has class ``sbtc''.
 element = driver.find_element_by_class_name("sbtc")
 \end{lstlisting}
 
-In addition to finding elements by their class name, it is possible to find them using other classifiers as well (for example, by their Xpath!). For more information about different manners to detect elements using Selenium, see
+In addition to finding elements by their class name, it is possible to find them using other classifiers as well (for example, by their Xpath!). Other manners to find elements will be discussed later on, but for more information about different manners to detect elements using Selenium, see
 \url{http://selenium-python.readthedocs.io/locating-elements.html}.
 
-Now, let’s enter a search word in the search field. For this, we use the Keys module that we imported earlier, because this allows us to automate everything that a human would type with the keyboard.
+Now, let’s enter a search word in the search field. For this, use the Keys module that you imported earlier. The Keys module allows you to automate everything that a human would type with the keyboard. 
 
 \begin{lstlisting}
 element.send_keys("TinTin")
 \end{lstlisting}
 
-Now, we can use class names again to detect the ``search'' button and then instruct the computer to click it. However, we can also just press ‘enter’ instead of clicking ``search'', as many humans also do. For this we use the Keys module gain. 
+To instruct the computer to press search, you could use class names again to detect the ``search'' button and then instruct the computer to click it. However, you can also just press Enter instead of clicking ``search'', as many humans also do. For this, you can use the Keys module again. 
 
 \begin{lstlisting}
 element.send_keys(Keys.RETURN)
-driver.implicitly_wait(10)
 \end{lstlisting}
 
-In line 2, we instruct the computer to wait 10 seconds before it does anything. This way, we provide some time for the page to load. This can also be useful to conceal the fact that there is no human, but in fact an automated script accessing the content/
-
-In addition to letting the computer wait for some seconds, it is also possible to let the driver wait until a specific element has appeared on a website (this is called an explicit wait). This can be nice for example if you want to click a button of which you know that it takes a while before it appears. Take a look at this webpage if you want to learn more about waits: \url{http://selenium-python.readthedocs.io/waits.html}.
-
-We have now reached the first page with the Google results. Let's take a screenshot of this page. When we do this, we have to specify where we want the computer to save the screenshot and how we want the screenshot to be named.
+Now, you want to go to a webpage about TinTin. However, before you can find a link to such a webpage, you must make sure that the Google webpage is fully loaded and that all the search results are visible, otherwise the driver might not be able to find such a link. For this, you need to write a loop.
 
 \begin{lstlisting}
-driver.save_screenshot("/home/marthe/images/screenshot_page1") 
-\end{lstlisting}
+try:
+    element2 = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "rso")))
+    element3 = driver.find_element_by_partial_link_text("Tintin")
 
-Let's go to the next page by clicking ``next'' at the bottom of the page. First, we must again tell the computer what element of the webpage we want it to click. We can again define the element by looking for its class name. 
+    element3.click()
+    time.sleep(10)	driver.save_screenshot("/home/Marthe/screenshot_adventures_TinTin")
 
-\begin{lstlisting}
-element2 = driver.find_element_by_class_name("pn")
-element2.click()
-driver.implicitly_wait(10)
-\end{lstlisting}
+finally:
+    driver.quit()
+\end{lstlisting} 
 
-When we are done, we can close the browser by typing:
 
-\begin{lstlisting}
-driver.quit()
-\end{lstlisting}
+In line 2 and 3, you tell the computer to locate an element by its ID (you can find the ID of an element in the same way as you can find an element’s class), which in this case is the ID of the page’s results section, namely ``rso''. In line 2, you also tell the driver to wait for maximum 10 seconds until this element is present. This is called an explicit wait.
+\footnote{In addition to letting the computer wait until an element has appeared, you can also let the driver wait for a fixed number of seconds until it starts searching for an element. This is called an implicit wait. The advantage of an explicit wait is that as soon as the driver found the element, it will continue to the next line of the code. If you use an implicit wait, the computer will always wait the number of seconds you instructed it to wait, even if the element takes less time to load. Take a look at this webpage if you want to learn more about waits: \url{http://selenium-python.readthedocs.io/waits.html}}
+If the driver does not find the element in 10 seconds, it will quit the browser (of course, you can insert any number of seconds that you want to allow the driver to wait before quitting the browser).  
+
+
+Once the driver has found element2, it will search for a new element on the webpage, namely a link to a webpage with more information about TinTin. However, we do not have a specific link in mind, we just want to click some link to a webpage about TinTin. Luckily, with Selenium you can search for a link by a part of its text. If the driver finds a link that contains the word “TinTin”, we should get to a webpage that contains the information we need. So, in line 5 and 6, you instruct the computer to find a link that contains the word ``Tintin'' and to click it. 
+
+
+The computer has now found a link containing the word ``Adventures'' and clicked it. It turns out to be a link to a Wikipedia page about the adventures of TinTin. Before you can take a screenshot of this page, let’s make sure that the whole page is loaded. This is done in line 7. As we want to wait for the page to load, but we do not have specific element in mind that we want to find, you can use another method to let the driver wait. By using the time function, you can let the driver pause for a number of seconds. This function can also be useful to conceal the fact that there is no human, but in fact an automated script accessing the content.
+
+Now that the page has loaded, you can take a screenshot in line 8. In the command, you also need to specify where you want the computer to save the image and under what name. If you run this line of code, you will see that a screenshot of the webpage appears in your images folder. Finally, you can close the browser in line 9.  
+
+
 
 The entire code will look as follows:
-
 \begin{lstlisting}
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC 
+from selenium.webdriver.common.by import By
+import time
 driver = webdriver.Firefox()
 driver.get("https://www.google.com")  
 element = driver.find_element_by_class_name("sbtc")
 element.send_keys("TinTin")
 element.send_keys(Keys.RETURN)
-driver.implicitly_wait(10)
-driver.save_screenshot("/home/marthe/images/screenshot_page1") 
-element2 = driver.find_element_by_class_name("pn")
-elememnt2.click()
-driver.implicitly_wait(10)
-driver.quit()
+try:
+    element2 = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "rso")))
+    element3 = driver.find_element_by_partial_link_text("Tintin")
+    element3.click()
+    time.sleep(10)
+    driver.save_screenshot("/home/Marthe/screenshot_adventures_TinTin")
+finally:
+    driver.quit()
 \end{lstlisting}
+
 
 
 With Selenium you can automate a lot more things, such as saving a file, uploading a file, or downloading texts or links from a webpage. It is also possible to deal with pop-up screens, such as screens with information about cookies. You can find more information on Selenium here: \url{http://selenium-python.readthedocs.io/index.html}.
