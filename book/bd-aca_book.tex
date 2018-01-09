@@ -44,6 +44,7 @@
 
 \usepackage{lettrine}
 
+\usepackage{rotating}
 \usepackage{lmodern}
 \usepackage{listings}
 \lstset{
@@ -2761,6 +2762,64 @@ Ready to go? Let's do some work:
 \item What is the average length of a video description?
 \item What are the most frequently used words in the descriptions?
 \end{enumerate}
+
+
+
+\chapter[Exercise 2]{Exercise 2: Analyzing your Whatsapp-Chats}
+\section{Get the data}
+In this exercise, you will play around with some data from your own Whatsapp chats.
+
+Whatsapp allows you to email a chat to yourself. Do that and unzip the file. It should contain a file called \texttt{\_chat.txt}.
+In Python, you can read this file into a list of strings, each string representing one line:
+
+\begin{lstlisting}
+with open('_chat.txt') as f:
+    data = f.readlines()
+\end{lstlisting}
+
+Print it, calculate its length and so forth to get some idea.
+As you'll see, each element of the list looks a bit like this:
+
+\begin{lstlistingoutput}
+05-12-16 18:57:07: Damian: Ben denk ik pas rond 2130 of zo thuis\n
+\end{lstlistingoutput}
+
+Use
+\begin{itemize}
+	\item slicing (i.e. \texttt{somearbitratystring[:6]} or \texttt{somearbitratystring[6:12]}) to retrieve only the first 6 letters, or the next 6, \ldots
+	\item \texttt{.split(":")[0]} or \texttt{.split(":")[1]} or \ldots to split the string into a list of substrings at every \texttt{:}-sign and select only the 0\textsuperscript{st}, 1\textsuperscript{st}, \ldots of these substrings	
+\end{itemize}
+to select the meaningful information (i.e., seperate time stamps from user names from text). Save this info to new lists (or dicts, if you prefer).
+
+Put all of this in a for-loop to iterate over all lines.
+
+Then, analyze the new lists (e.g., count most frequently used words or the like).
+
+First try it yourself, but if you do not manage to get it work, you'll find a solution on the next page.
+
+\newpage
+
+\section{Solution}
+\vspace{10cm}
+\hspace{15cm}
+\begin{rotate}{180}
+\begin{lstlisting}
+import csv
+data = open('_chat.txt').readlines()
+timestamps=[e[:17] for e in data]
+text_unparsed =[e[19:] for e in data]
+names = [e.split(':')[0] for e in text_unparsed]
+text = [":".join(e.split(':')[1:]) for e in text_unparsed]
+
+output = zip(timestamps,names,text)
+with open('output.csv',mode='w') as fo:
+    writer=csv.writer(fo)
+    writer.writerows(output)
+\end{lstlisting}
+\end{rotate}
+
+
+
 
 
 \chapter[Exchanging files]{Exchanging files by mounting your host system}
