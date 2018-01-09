@@ -1,32 +1,19 @@
 % !TEX encoding = UTF-8 Unicode
 
-
-% TODO: HIER KIJKEN VOOR STRUCTUUR EN OPMAAK http://tex.stackexchange.com/questions/20538/what-is-the-right-order-when-using-frontmatter-tableofcontents-mainmatter?rq=1
-
-
-
 %\documentclass[book,a4paper,12pt,natbib]{apa6}
 \documentclass[a4paper,12pt]{book}
 
 \usepackage[titletoc]{appendix}
-
 \newcounter{lijst}
-
 \usepackage[natbibapa,nosectionbib,tocbib,numberedbib]{apacite}
-
-
-
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-%\usepackage{wrapfig}
-%\usepackage{xparse}
 \usepackage{enumerate}
 \usepackage{url}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{hyperref}
 \usepackage[scale=2]{ccicons}
-
 %to make line breaks possible at more parts within \texttt
 \renewcommand{\texttt}[1]{%
   \begingroup
@@ -40,10 +27,7 @@
   \endgroup
 }
 
-
-
 \usepackage{lettrine}
-
 \usepackage{rotating}
 \usepackage{lmodern}
 \usepackage{listings}
@@ -56,7 +40,6 @@ numbers=left,
 numberstyle=\tiny,
 backgroundcolor=\color[rgb]{0.85,0.90,1}
 }
-
 
 \lstnewenvironment{lstlistingbash}{\lstset{basicstyle=\footnotesize\ttfamily,
 		columns=flexible,
@@ -76,42 +59,19 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 		backgroundcolor=\color[rgb]{.7,.7,.7}}}{}
 
 
-%\let\oldquote\quote
-%\let\endoldquote\endquote
-
-%\RenewDocumentEnvironment{quote}{m}{
-%    \oldquote\small\begin{wrapfigure}{l}{2cm}\centering\includegraphics[width=1cm]{gloeilamp.jpg}%
-%	\end{wrapfigure}}
-%{
-%    \endoldquote
-%}
-
-
 
 \let\oldquote\quote
 \let\endoldquote\endquote
 \renewenvironment{quote}{
-%{
-%\setlength{\columnsep}{0pt}%
-%\begin{wrapfigure}{l!}[-2cm]{1cm}\vspace*{\topsep}\includegraphics[width=1cm]{gloeilamp.jpg}\end%{wrapfigure}
-%}
 \oldquote\footnotesize
 \lettrine[lines=3]{\color{BrickRed}!}{ }}
 {\endoldquote}
 
-
-
 \newenvironment{question}{
-%{
-%\setlength{\columnsep}{0pt}%
-%\begin{wrapfigure}{l!}[-2cm]{1cm}\vspace*{\topsep}\includegraphics[width=1cm]{gloeilamp.jpg}\end%{wrapfigure}
-%}
 \oldquote\footnotesize
 \lettrine[lines=3]{\color{BrickRed}?}{ }}
 {\endoldquote}
 
-
-%\title{Big Data and Automated Content Analysis}
 \title{Doing Computational Social Science with Python: An Introduction}
 \author{Damian Trilling}
 \date{Version 1.1\\ ~ \\  \footnotesize{PDF created \today}}
@@ -1137,6 +1097,14 @@ print ("The average length of a book by Luhmann is", sum(pagelist)/len(pagelist)
 \end{lstlisting}
 
 \end{question}
+
+
+
+\begin{quote}
+There are APIs for a lot of different purposes, it's always worth checking if a source you want to use has one.
+For example, even the Dutch parliament has one, via which you an access a lot of interesting material: \url{https://opendata.tweedekamer.nl/nieuws/kamer-maakt-parlementaire-data-toegankelijker}
+\end{quote}
+
 
 \section{The Twitter API}
 \subsection{Getting all tweets by a given user}
@@ -2185,6 +2153,11 @@ Rather than producing a GDF file and opening it in Gephi, you can also do networ
 
 
 
+\begin{quote}
+	\textbf{Further reading:} In fact, you can do a lot of great network analysis stuff in Python itself, for instance using Python modules such as \texttt{networkx} or \texttt{igraph}. There are many tutorials available, for instance here: \url{https://github.com/vtraag/4TU-CSS/blob/master/presentations/traag/notebook/Network.ipynb}
+\end{quote}
+
+
 \section{Recap}
 This chapter taught you how to deal with co-occurrences and similar structures from a network point of view and how to visualize them using Gephi. More in general, you also should have seen how one can write own programs to create specific file formats, even if they are not natively supported.
 
@@ -2520,6 +2493,11 @@ predictions = nb.predict(new_features)
 
 
 
+\begin{quote}
+\textbf{Further reading:} You'll easily find more examples and other methods on \url{http://scikit-learn.org}, but also in a lot of other tutorials on the internet, for instance 
+\url{https://www.kaggle.com/abhishek/approaching-almost-any-nlp-problem-on-kaggle}
+\end{quote}
+
 
 
 \chapter{Unsupervised machine learning}
@@ -2609,6 +2587,29 @@ tfidf = models.TfidfModel(mm)
 
 # use that tfidf-representation instead of the pure counts
 lda = models.ldamodel.LdaModel(corpus=tfidf[mm], id2word=id2word, num_topics=100, alpha="auto")
+\end{lstlisting}
+
+\begin{quote}
+	There is a more detailed tutorial available online at \url{https://github.com/damian0604/bdaca/blob/master/ipynb/ic2s2.ipynb}
+\end{quote}
+
+
+There is also a nice tool called \texttt{pyLDAvis} that -- when run inside a Jupyter Notebook -- allows you to interactively explore a topic model.
+Rather than printing topics and words, you can hover with your mouse over them and even get the topics projected in a two-dimensional space to see how big and how similar they are
+(see Figure~\ref{fig:pyldavis}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.9\linewidth]{../pictures/pyldavis}
+	\caption{\label{fig:pyldavis}\texttt{pyldavis} allows you to interacitvely explore a topic model in your browser.}
+\end{figure}
+
+For our above model, we could invoke \texttt{pyLDAvis} as follows:
+\begin{lstlisting}
+import pyLDAvis
+import pyLDAvis.gensim
+vis_data = pyLDAvis.gensim.prepare(lda,mm,id2word)
+pyLDAvis.display(vis_data)
 \end{lstlisting}
 
 
@@ -2771,7 +2772,7 @@ In the last years, some other tutorials, partly similar to this one, have been p
 \section{Downloading the data}
 In this exercise, you will do some basic descriptive analyses of an existing dataset. \cite{mazieres2014} scraped data from online porn sites, resulting in two datasets with  metadata about almost two million amateur porn videos. We will work with one of these datasets, consisting of all metadata on all videos posted on \url{http://xhamster.com} from its creation in 2007 until February 2013. The authors made the dataset available on on \url{http://sexualitics.github.io}, and you can find a description of it in Figure~\ref{fig:sexualitics}.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=.75\paperwidth,keepaspectratio]{../pictures/sexualitics.png}
 \caption{\label{fig:sexualitics}The discription of the dataset.}
@@ -2802,6 +2803,9 @@ You see that the compressed file is 55MB large, but the uncompressed one is more
 rm xhamster.json.tar.gz
 \end{lstlistingbash}
 
+
+
+
 \section{The tasks}
 Start with having a look at Figure~\ref{fig:sexualitics}. It is important to understand the structure of the data: Which fields are there, how are they named, and what do they contain? For example, we see that the field ``channels'' contains a \emph{list} of different tags, while ``nb\_votes'' seems to contain an \emph{integer}.
 Ready to go? Let's do some work:
@@ -2817,6 +2821,179 @@ Ready to go? Let's do some work:
 \item What is the average length of a video description?
 \item What are the most frequently used words in the descriptions?
 \end{enumerate}
+
+
+\section{Hints}
+The following hints will help you solving the exercise.
+
+\subsection*{Task 1}
+
+You haven't learned yet how to handle JSON-files. This is explained in chapter 4 in detail. For now, you only have to know that you can read the data into a Python dict with the following command:
+
+\begin{lstlisting}
+import json
+with open ('/home/damian/WHATEVERTHEFILEISCALLED.json') as f:
+data=json.load(f)
+\end{lstlisting}
+
+You now have a dict called data. This dict consists of other dicts, each of which contains information on one video clip. We can loop over the keys and values of the outer dict to get the data we want:
+
+\begin{lstlisting}
+for key, value in data.items():
+   print(value["title"])
+\end{lstlisting}
+
+You could print the key as well (try it!), if you are interested in the number of the clip to which the title belongs.
+
+You know from Figure~\ref{fig:sexualitics} that the key we are interested in is called "title".
+
+That's it!
+
+
+\subsection*{Task 2}
+
+There is a module called Counter that allows you to count elements in a list.
+
+Consister this example to print the two most frequent words in a list:
+
+\begin{lstlisting}
+from collections import Counter
+
+l = ['hi','hi','hi','bye','bye','hi','doei','hoi']
+c = Counter(l)
+print(c.most_common(2))
+\end{lstlisting}
+
+This gives as a result: 
+
+\begin{lstlistingoutput}
+[('hi', 4), ('bye', 2)]
+\end{lstlistingoutput}
+
+
+To solve this task, you probably want to create an empty list for the tags first, and then loop over your data to fill the list. After you have this list, you can use a counter to determine the frequencies. 
+
+
+\begin{quote}
+If you do this on \emph{really} big datasets, there is a replacement for Counter called bounter, see \url{https://github.com/RaRe-Technologies/bounter}
+\end{quote}
+
+
+\subsection*{Task 3}
+
+You might want to construct a dict with the categories as keys and an int containing the number of comments. Then you loop over your dataset and each time you encounter the same category, you add the number of comments to the dictionary entry. However, the first time you encounter a category, it does not have a key yet. We can use a so-called defaultdict, that automatically creates a key if it isn't there yet.
+
+\begin{lstlisting}
+from collections import defaultdict
+commentspercat=defaultdict(int)
+\end{lstlisting}
+And then, loop over the dataset and add \\exttt{int(value["nb\_comments"])} to the dict.
+
+Not all items might have comments and have a value of 'NA' instead. Thus, referring to \texttt{int(data[item]["nb\_comments"])} might fail. You can specify what should happen in such cases by using a try-except construction:
+
+\begin{lstlisting}
+try:
+    commentspercat[category]+=int(value['nb_comments'])
+except: 
+    pass
+\end{lstlisting}
+
+This just means that if the line fails, it just continues without any error message.
+
+
+
+
+\subsection*{Task 4}
+This is basically the same what you've already done...
+
+
+
+\subsection*{Task 5}
+You can transform a string to a list of words by using the split method.
+\begin{lstlisting}
+"this is a test".split()
+\end{lstlisting}
+results in
+\begin{lstlistingoutput}
+["this", "is", "a", "test"]
+\end{lstlistingoutput}
+(useful for applying a Counter...)
+
+
+On the next page, you will find the solution.
+
+\newpage
+\section{Solution}
+Try first to do it yourself, but if you cannot find out how to do it, you can have a look at the example solution below.
+
+\begin{lstlisting}
+import json
+from collections import Counter
+
+#Right path?
+with open("/home/damian/pornexercise/xhamster.json") as fi:
+    data=json.load(fi)
+
+
+#%% task 1: print titles
+for k,v in data.items():
+    print (v["title"])
+
+
+
+#%% task 2a en 2b: average tags per video and most frequently used tags
+
+alltags=[]
+i=0
+for identifyer,clip in data.items():
+    i+=1
+    alltags+=clip["channels"]
+
+print(len(alltags),"tags have been used to describe the",i,"different videos")
+print("Thus, we have an average of",len(alltags)/i,"tags per video")
+c=Counter(alltags)
+print (c.most_common(100))
+
+
+
+#%% task 3: What porn category is most frequently commented on?
+from collections import defaultdict
+commentspercat=defaultdict(int)
+for identifier,clip in data.items():
+    for tag in clip["channels"]:
+        try:
+            commentspercat[tag]+=int(clip["nb_comments"])
+        except:
+            pass
+
+print(commentspercat)
+
+# or nicer:
+for tag in sorted(commentspercat, key=commentspercat.get, reverse=True):
+    print(tag, commentspercat[tag])
+
+
+
+#%%task 4: average length of text 
+length=[]
+for identifier,clip in data.items():
+    length.append(len(clip["description"]))
+
+print ('Average length',sum(length)/len(length))
+
+
+#%%task 5:  most frequently used words
+
+# most frequently used words
+allwords=[]
+for identifier,clip in data.items():
+    allwords+=clip["description"].split()
+c2=Counter(allwords)
+print(c2.most_common(100))
+\end{lstlisting}
+
+
+
 
 
 
