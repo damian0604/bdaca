@@ -278,7 +278,7 @@ You now have updated the list of available packages. To actually install the new
 sudo apt upgrade
 \end{lstlistingbash}
 
-You will see a long list of packages to be installed, which you -- as the last line shows -- have to confirm with yes (by typing the letter \texttt{y}) followed by Enter).
+You will see a long list of packages to be installed, which you -- as the last line shows -- have to confirm with yes (by typing the letter \texttt{y}) followed by Enter). Potentially, you are asked some additional questions, which most likely have to be answered with yes (by typing the letter \texttt{y}) followed by Enter. 
 
 
 We will now install the Virtualbox Guest Utils, which solve the potential problem of your screen using a too low resolution.
@@ -300,8 +300,6 @@ Just type the following command into the LX Terminal, which you already know:
 \begin{lstlistingbash}
 sudo apt install python3-pip geany
 \end{lstlistingbash}
-
-You will be asked for your password and potentially some questions which have to be answered with yes (by typing the letter \texttt{y}) followed by Enter. 
 
 Let us finally install some additional Python modules (by the way, you can use the arrow-up key to get the previous command you typed):
 
@@ -1207,7 +1205,7 @@ First of all, we need to install another module (we could also use the Twitter m
 sudo pip3 install tweepy
 \end{lstlistingbash}	
 
-I will not explain the code below in detail, because it requires knowledge of what a class is (which we have not covered yet), but as you probably can see, we listen to the twitter stream and retrieve all tweets with the hashtag \#metoo that are send \emph{at this very minute}.
+I will not explain the code below in detail, because it requires knowledge of what a class is\footnote{Unfortunately, we do not have the time to cover classes in this course. If you want to delve into this topic yourself, though, you can find some first hints in Appendix~\ref{sec:classes}}, but as you probably can see, we listen to the twitter stream and retrieve all tweets with the hashtag \#metoo that are send \emph{at this very minute}.
 
 \begin{lstlisting}
 from tweepy.streaming import StreamListener
@@ -3142,7 +3140,7 @@ You can think of list comprehensions as for-loops written in one single line, wi
 Take the following example, in which we want to convert a list of strings to lowercase and strip leading and trailing whitespace:
 
 \begin{lstlisting}
-names = [" Joanna", "THEO", " Anne"]
+names = [" Joanna", "THEO", " Anne  "]
 names_cleaned = []
 for name in names:
     names_cleaned.append(name.strip().lower())
@@ -3162,7 +3160,7 @@ names_cleaned_female = [name.strip().lower() for name in names if not name.start
 And if we want to, we do not even need to create a new variable name for the list: we can also use the old one and overwrite it:
 
 \begin{lstlisting}
-names= [name.strip().lower() for name in names]
+names = [name.strip().lower() for name in names]
 \end{lstlisting}
 
 The big advantage of list comprehensions is that they are so concise: they just take one single line, and you do not have to deal with indention. This can make your code more readable and is considered good programming style.
