@@ -3254,6 +3254,46 @@ Defining an own class allows you to create objects that contain exactly those pr
 Explaining the exact workings lies outside the scope of this book, but you can find many tutorials and examples online, for instance here:
  \url{http://www.jesshamrick.com/2011/05/18/an-introduction-to-classes-and-inheritance-in-python/}
 
+Nevertheless, maybe the following example can illustrate the general principle. \texttt{self} refers to the specific instance of a class. In other words, in the example below, \texttt{self.weight} is the weight of the specific animal we are talking about, not the weight of all animals.
+ \texttt{\_\_init\_\_} is a function that is executed when the class is instantiated. 
+All functions that are defined within a class are available as methods in each instance of the class.
+
+\begin{lstlisting}
+class animal():
+    def __init__(self,weight=100):
+        self.weight=weight
+    def eat(self):
+        self.weight+=.2
+        print('im eating')
+
+# This is an example of inheritance:
+# a cat is an animal (and has all methods and properties of an animal),
+# but we can add new functions or overwrite old ones:
+
+class cat(animal):
+    def purr(self):
+        print('purring')
+
+
+myownpet = animal()   # we create an instance of an animal
+
+myownpet.eat()        # functions defined in the class can be called as methods
+
+mysecondpet = animal() # let's get another pet
+
+poes = cat()          # and a cat.
+
+poes.eat()  # can eat even though we didn't define it in the cat class. 
+# That's  thanks to inheritance!
+
+print(poes.weight)
+
+poes.purr()
+
+myownpet.purr() # doesn't work
+
+\end{lstlisting}
+
 
 \section{String formatting}
 \label{sec:stringformatting}
