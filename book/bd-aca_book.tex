@@ -89,7 +89,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 \thispagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{\baselineskip}
-Copyright \copyright\ 2015, 2016, \the\year\ Damian Trilling\\
+Copyright \copyright\ 2015, 2016, 2017, \the\year\ Damian Trilling\\
 \vspace{.25cm} \\
 This book can be obtained from \url{http://papers.ssrn.com/abstract=2737682}. The source code of the most recent version can be found at \url{https://github.com/damian0604/bdaca}.
 
@@ -114,7 +114,7 @@ There is a certain overlap with the term ``Big Data''. But although the latter s
 
 This book introduces you to automated content analysis of data that typically comes in amounts that are too voluminous for manual coding and for traditional point-and-click applications: tweets, blogposts, articles from RSS-feeds, etc. We will use the programming language Python, which is very flexible and highly suitable for this end. It also scales very nicely---meaning that you can use it now for some smaller projects, but it can also be used on immense data sets. So, if you will find yourself working on some really Big Data that cannot be handled on a single computer any more, the principles are not too different from what we do in this document (yes, I'm simplifying a bit).
 
-You will be guided through the first steps towards automated content analysis with Python. Note that I wrote this document for an audience of students in the social sciences, like communication science, political science, or sociology. From a computer science point of view, much more would have to be said, and some things we do in this course might actually be considered bad programming style. But that's not our objective here: This course should enable students of the social science to make some first steps with Python, in order to solve their analytical questions.
+You will be guided through the first steps towards automated content analysis with Python. Note that I wrote this book for an audience of students in the social sciences, like communication science, political science, or sociology. From a computer science point of view, much more would have to be said, and some things we do in this course might actually be considered bad programming style. But that's not our objective here: This course should enable students of the social science to make some first steps with Python, in order to solve their analytical questions.
 
 This also means that this manual is far from complete. It rather serves as a starting point---and from that point onwards, it's up to you. Once you got the basic ideas and concepts, there are enough resources out there to help you further.
 
@@ -157,7 +157,7 @@ And any output or data file is represented in gray:
 Hello world!
 \end{lstlistingoutput}
 
-Pay also attention to the line numbering at the left side of the code examples: It helps you see whether a line really ends (and that you should press enter), or whether it the paper is just too small to print the line on one line:
+Pay also attention to the line numbering at the left side of the code examples: It helps you see whether a line really ends (and that you should press enter), or whether the paper is just too narrow to print the line on one line:
 
 \begin{lstlisting}
 print("Hello world!")
@@ -214,8 +214,8 @@ Download and install VirtualBox from \url{https://www.virtualbox.org/}. Dependin
 
 \section{Download a Lubuntu-image}
 \label{sec:lubuntu}
-Download the Lubuntu image from \url{http://lubuntu.net}. \textbf{We are working with version 16.04.1 LTS (Xenial Xerus). It is important that you do \emph{not} use version 16.10.} The download link for this version should be \url{http://cdimages.ubuntu.com/lubuntu/releases/xenial/release/}
-If you have a reasonably new computer, download \texttt{lubuntu 64-bit (AMD64) desktop CD}, only if you encounter problems later on or have an old computer (up to around 2007), download the 32-bit version. So, in most cases, select the 64-bit Desktop version (\texttt{lubuntu-16.04.1-desktop-amd64.iso}). 
+Download the Lubuntu image from \url{http://lubuntu.net}. \textbf{We are working with version 16.04.1 LTS (Xenial Xerus). It is important that you use \emph{exactly} this version. Not 16.04.3, not 16.10, not 17.x.} The download link for this version should be \url{http://cdimages.ubuntu.com/lubuntu/releases/xenial/release/}
+If you have a reasonably new computer, download \texttt{lubuntu 64-bit (AMD64) desktop CD}, only if you encounter problems later on or have a really old computer (up to around 2007), download the 32-bit version. So, in most cases, select the 64-bit Desktop version (\textbf{\texttt{lubuntu-16.04.1-desktop-amd64.iso}}). 
 Save it at a place of your convenience.
 
 \section{Create a virtual machine}
@@ -257,7 +257,7 @@ When you are done, start the virtual machine by clicking on the green arrow in t
 Once your virtual machine is running, you can select whether you want to try out Lubuntu without installing or install it. If you feel like, you can now just play around a bit in the try-out mode, but eventually, you'll need to go for installing as we need some specific tools for our course. So you can as well just select Install now, using the arrow keys.
 When you select "Install", just follow the instructions. At one point in time, you will be asked whether you want to erase all data from your hard drive (yes, seriously). You can safely agree (remember, that's just the point of the VirtualBox, you have a fenced room in which you cannot damage anything. Only your \emph{virtual} hard drive will be erased, not your real one). You will also be asked whether you want to download updates (yes, but it doesn't really matter) and third-party software (no).
 
-After finishing the installation, your virtual machine will reboot. After clicking on reboot, you can get a message saying ``please remove installation disks''. You can just press enter, you don't have to remove anything in your case. You might have to press enter a second time.
+After finishing the installation, your virtual machine will reboot. After clicking on reboot, you can get a message saying ``please remove installation medium''. You can just press enter, you don't have to remove anything in your case. You might have to press enter a second time.
 
 Also, it might happen that you see only some lines of text saying something like ``Unmounting crypto disks''. If this takes longer than a minute or so, try pressing Enter twice. 
 
@@ -266,67 +266,68 @@ Also, it might happen that you see only some lines of text saying something like
 \section{Install necessary packages}
 \label{sec:installpackages}
 Once you have installed and rebooted your virtual machine, you will have to install a couple of packages. It might be that your system is running now in a very low resulution, but that will change after the following step.  Click on the button on the bottom left (where the traditional Windows start button would be), then on System Tools/LXTerminal. Enter the following command:
-\begin{lstlistingbash}
-sudo apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
-\end{lstlistingbash}
-You will be asked for your password (the one you defined during the install process). Just type it and confirm with Enter (no, you do not see anything while you type, that's correct). You will see a long list of packages to be installed, which you -- as the last line shows -- have to confirm with yes (by typing the letter \texttt{y}) followed by Enter). 
 
+\begin{lstlistingbash}
+sudo apt update
+\end{lstlistingbash}
+You will be asked for your password (the one you defined during the install process). Just type it and confirm with Enter (no, you do not see anything while you type, that's correct).
+
+You now have updated the list of available packages. To actually install the newest versions of them, enter
+
+\begin{lstlistingbash}
+sudo apt upgrade
+\end{lstlistingbash}
+
+You will see a long list of packages to be installed, which you -- as the last line shows -- have to confirm with yes (by typing the letter \texttt{y}) followed by Enter).
+
+
+We will now install the Virtualbox Guest Utils, which solve the potential problem of your screen using a too low resolution.
+
+\begin{lstlistingbash}
+sudo apt install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+\end{lstlistingbash}
+ 
 If you reboot your virtual machine (by clicking on the Start button/logout/reboot or by typing
 \begin{lstlistingbash}
 sudo reboot
 \end{lstlistingbash}
 it will display in a higher resolution and you can even run it full screen if you want to (by clicking on View/Switch to Full Screen in the VirtualBox menu).
 
-We will now install some other programs we will use with the following commands. Just type them into the LX Terminal, which you already know:
+We will now install some specific Python packages. We will therefore first install pip, a package manager for Python (and also geany, a text editor we will use). 
+
+Just type the following command into the LX Terminal, which you already know:
 
 \begin{lstlistingbash}
-sudo apt-get install gedit spyder3 python3-dev python3-pip
+sudo apt install python3-pip geany
 \end{lstlistingbash}
 
-You will be asked for your password and some questions which have to be answered with yes (by typing the letter \texttt{y}) followed by Enter. 
+You will be asked for your password and potentially some questions which have to be answered with yes (by typing the letter \texttt{y}) followed by Enter. 
 
-Let us also update everything to the latest version:
+Let us finally install some additional Python modules (by the way, you can use the arrow-up key to get the previous command you typed):
 
 \begin{lstlistingbash}
-sudo apt-get update
-sudo apt-get upgrade
+sudo -H pip3 install --upgrade pip
+sudo -H pip3 install jupyter
+sudo -H pip3 install spyder
+sudo -H pip3 install nltk
+sudo -H pip3 install scikit-learn
+sudo -H pip3 install pandas
+sudo -H pip3 install statsmodels
+sudo -H pip3 install gensim
 \end{lstlistingbash}
 
-
-And let us finally install some additional Python modules (by the way, you can use the arrow-up key to get the previous command you typed):
-
-% als we apt-get install python3-pip doen, dan krijgen we een verouderde versie van pi wat later tot problemen leidt
-
-\begin{lstlistingbash}
-sudo pip3 install --upgrade pip
-sudo pip3 install nltk
-sudo pip3 install scikit-learn
-sudo pip3 install pandas
-sudo pip3 install statsmodels
-sudo pip3 install jupyter
-sudo pip3 install gensim
-\end{lstlistingbash}
-
-In the start menu under "Education" you now find a new program, Spyder~3. This is the tool we will be using for doing some Python programming. But of course, you can also start it from the command line by just typing:
+You should now be able to start Spyder, a tool we will be using for doing some Python programming, by just typing:
 
 \begin{lstlistingbash}
 spyder3 &
 \end{lstlistingbash}
 
 
-Make also sure that you have the correct version of IPython installed -- if it is too old, then you might have problems later on, because spyder and/or jupyter-notebook might not be fully compatible. Check the version from the Linux command line:
-
-\begin{lstlistingbash}
-ipython3 --version
-\end{lstlistingbash}
-
-The version number should be higher than 5. In case it is not, try the following:
+You also should be able to run Jupyter Notebook, another tool that runs in a Firefox window:
 
 
 \begin{lstlistingbash}
-sudo apt-get remove ipython3
-sudo pip3 install ipython
-ipython3 --version
+jupyter-notebook
 \end{lstlistingbash}
 
 
@@ -352,6 +353,8 @@ From now on, you do not need the Lubuntu image that you downloaded in Section~\r
 Make sure you installed \emph{everything} correctly. If you got any error messages, try to find out what went wrong or ask your instructor. In particular, make sure you write down \emph{what} went wrong.
 
 There are so many different system types (and believe me, I never expected \emph{how} many slightly different systems there are until I had dozens of students in these methods courses!), that we cannot cover every eventuality. But once you got your VM is up and running, everything should be the same for everyone in the course.
+
+Do not forget to delete the original image you downloaded (\texttt{lubuntu-16.0.4.1-desktop-amd64.iso})
 
 
 
@@ -392,7 +395,7 @@ What happend? Let's discuss it line by line:
 \item Now it's there.
 \item Let's have a look at the file,
 \item remove it again,
-\item and finally go the parent directory (i.e., one level up), so that we are back at where we started.
+\item and finally go the parent directory (i.e., one level up), so that we are back at where we started. In all commands, \texttt{.} always refers to the current directory,  \texttt{..} to the parent directory.
 \end{enumerate}
  
 
@@ -460,10 +463,10 @@ If you come from the SPSS or Stata world, you probably expect to \emph{open SPSS
 
 In contrast, there are many ways to issue Python commands, which is actually a first important lesson: Python is not a program (like SPSS, or Word or Excel are programs), but a language --- and there are a bunch of programs one can talk to in this language. Because of this, it is so flexible and can be used in so many contexts.
 
-Therefore, there is no such thing as \emph{opening Python}. Instead, there are several programs in which you can write code in Python and/or execute it. You probably will have your own favorite after a while, but you should be aware of the alternatives, as it is not only partly a matter of taste which one to choose. Especially if you later on want to run a script not on your own computer but, for instance, on a university server, you want to be able to deal with different ways of running Python code.
+Therefore, there is no such thing as \emph{opening Python}. Instead, there are several programs in which you can write code in Python and/or execute it. You probably will have your own favorite after a while, but you should be aware of the alternatives. It is partly a matter of taste which one to choose, but especially if you later on want to run a script not on your own computer but, for instance, on a university server, you want to be able to deal with different ways of running Python code.
 
 \section{A note on different versions}
-In all examples in this book, we use Python 3. Most likely, it won't matter which exact version you have. The differences between, say, 3.4 and 3.5 are so minor that you are very unlikely to notice. 
+In all examples in this book, we use Python 3. Most likely, it won't matter which exact version you have. The differences between, say, 3.4 and 3.5 are so minor that you are unlikely to notice. 
 
 However, this is \emph{not} true for versions starting with a 2. Python 2 is \emph{not} just an old version of Python 3, and the latest version of Python 2, Python 2.7, is still widely used. This is important to know, because if you look on Google or StackOverflow for help, or if you read some of the books and tutorials I cite, then chances are high you come across code written in Python 2.
 
@@ -505,7 +508,7 @@ In most cases, therefore, you probably want to do something else.
 \section{A text editor plus the command line}
 You could also write your code in an arbitrary text editor. For example, you could start 
 \begin{lstlistingbash}
-gedit &
+geany &
 \end{lstlistingbash}
 (or any other text editor you like)
 and write the following code:
@@ -538,6 +541,7 @@ You can now run the program by typing
 	\caption{\label{fig:spyder}Different ways to issue Python commands: By starting the interpreter \texttt{python3} in the terminal (top) or by using an integrated development environment (IDE) like spyder (bottom).}
 \end{figure}
 
+If you pursue this approach, maybe you want to have a look at the ``traditional'' Linux editors \texttt{emacs} and/or \texttt{vim}.
 
 
 \section{Integrated development environments (IDE)}
@@ -697,6 +701,8 @@ If we want to know how old Sheila is, we can retrieve that information:
 print(nameage["Sheila"])
 \end{lstlisting}
 
+The deeper you dive into data analysis with Python, the more you will appreciate the data structure of a dict: Because each value has a key (thus, some sort of a label), the ``meaning'' of a specific value is much clearer than with lists. 
+In addition, nested dictionaries can be a great way to analyze and store nested data.
 
 \section{Functions}
 We have played around a bit with variables. To do some useful things with them, however, we need something called \emph{functions}. In fact, we already used some: \texttt{print()} for example, or \texttt{len()} and \texttt{int()}. 
@@ -717,7 +723,9 @@ Pay attention to the \texttt{" "}, which indicate that you do not supply a varia
 hi="Hello world"
 print(hi)
 \end{lstlisting}
-This gives exactly the same result.
+This gives exactly the same result. \texttt{hi} has no \texttt{" "} around it, which indicates that it is a variable name.
+
+
 Another function that we already used is \texttt{len()}. It gives the length of an object, for example, the number of elements in a list or the number of characters in a string. You can actually also use functions within a function: 
 \begin{lstlisting}
 hi="Hello world"
@@ -728,7 +736,8 @@ print("They serve",len(opdetap),"different beers")
 Make sure you understand where a \texttt{"} is placed and why!
 
 \subsection{Writing your own functions}
-There are a lot of useful functions available, either directly or from one of the numerous additional modules that can be loaded into Python. However, you can also write your own functions. This is something you might not need right now, but it can come in very handy later on. Imagine you would want to write a function to calculate the mean age, given a list of integers with ages. Then you could define a function to do this:
+\label{subsec:ownfunctions}
+There are a lot of useful functions available, either directly or from one of the numerous additional modules that can be loaded into Python. However, you can also write your own functions. Imagine you would want to write a function to calculate the mean age, given a list of integers with ages. Then you could define a function to do this:
 
 \begin{lstlisting}
 def averageage(agelist):
@@ -761,13 +770,13 @@ Once I was teaching this course, a student had the idea of writing a function sh
 
 
 \section{Methods}
-We have learned that a function is called\footnote{To 'call a function' means to execute it.} by simply writing its name and passing some variables as an argument between \texttt{()}. Another way of doing something with variables is using a \emph{method}\footnote{Strictly speaking, a method is also a function, but hey, this is no computer science course, so we'll allow ourselves to be a bit sloppy (and it relieves me from the burden to explain to you what a \emph{class} is, what I would have to do to tell you the complete story).}. In contrast to a function, a method is directly associated with a variable. For example, each string has a built-in method with the name \texttt{.lower()}. If you want to change all Capital Letters to lowercase, you can simply call the method by attaching it to the string. See these examples:
+We have learned that a function is called\footnote{To 'call a function' means to execute it.} by simply writing its name and passing some variables as an argument between \texttt{()}. Another way of doing something with variables is using a \emph{method}\footnote{Strictly speaking, a method is also a function, but hey, this is no computer science course, so we'll allow ourselves to be a bit sloppy (and it relieves me from the burden to explain to you what a \emph{class} is, what I would have to do to tell you the complete story).}. In contrast to a function, a method is directly associated with an object such as a variable. For example, each string has a built-in method with the name \texttt{.lower()}. If you want to change all Capital Letters to lowercase, you can simply call the method by attaching it to the string. See these examples:
 \begin{lstlisting}
 hi="Hello world OUT THERE"
 print(hi.lower())
 print("TESTtttt".lower())
 \end{lstlisting}
-As you see, methods are very similar to functions, but the way they are called is different. If \texttt{lower()} was a function, you would write \texttt{lower("TEST")} --- but it is a built-in method of each string rather than a function, so you have to call it by writing \texttt{"TEST".lower()} instead. Obviously, \texttt{.lower()} does not need an additional argument to convert the string to lowercase, as it a method \emph{of the very string it is supposed to work on}, so there is simply nothing between the \texttt{()}. Nevertheless, you cannot leave away the\texttt{()}, because every function and every method has to end with \texttt{()}, otherwise, it would not be executed.
+As you see, methods are very similar to functions, but the way they are called is different. If \texttt{lower()} was a function, you would write \texttt{lower("TEST")} --- but it is a built-in method of each string rather than a function, so you have to call it by writing \texttt{"TEST".lower()} instead. Obviously, \texttt{.lower()} does not need an additional argument to convert the string to lowercase, as it a method \emph{of the very string it is supposed to work on}, so there is simply nothing between the \texttt{()}. Nevertheless, you cannot leave away the \texttt{()}, because every function and every method has to end with \texttt{()}, otherwise, it would not be executed.
 
 For now, it is not important to know why some things are a method and some are a function.\footnote{In fact, sometimes this is kind of an arbitrary choice made by those who invented Python. Some operations have even been implemented as both function and method.} It is important to know, however, that both ways of doing something with your variables exist and how you use them.
 
@@ -810,8 +819,20 @@ for tweet in alltweets:
 
 \texttt{\textbackslash n} denotes a line ending, so we get an empty line. In the last line, we add one to our counter variable \texttt{i}. A short form of doing this is \texttt{i+=1}, and it's pretty likely that I'll use that shorthand in the lectures.
 
+
+If you want to loop over a dict, you can do so as follows:
+
+\begin{lstlisting}
+people = {"Sheila": 28, "Anne": 23, "John": 22, "Bas": 25, "Mark": 26}
+for k, v in people.items():
+    print(k, 'is', v, 'years old')
+\end{lstlisting}
+
+\texttt{k} and \texttt{v} are arbitrary names, but it seems intuitive to call the key \texttt{k} and the value \texttt{v}. We could also write \texttt{for name, age in people.items()}
+
+
 \begin{question}
-Can you write your own loop based on the functions and data structures you learned until now?
+Can you write your own loop using some of the functions and data structures you learned until now?
 \end{question}
 
 
@@ -874,7 +895,7 @@ But of course, if we had such a limited amount of data, we wouldn't need to writ
 
 
 \section{CSV files}
-
+\label{sec:csvfiles}
 In the easiest secenario, we already have a \emph{table} in which each row contains a case and each column the value for age, name, and height, respectively. The universally acceptable format for such a table are CSV files: Text files in which columns are seperated by commas. Sometimes, a semicolon is used instead,  conventions differ. Others use a TAB character instead, which is essentially the same, although one usually calls it a TAB-seperated file then.
 
 You actually already saw a CSV file on page \pageref{firstcsvfile}. Have a look back there if you forgot. Virtually all programs (including SPSS, Stata, Excel, \ldots) can read and write CSV files, that's why we will use them very frequently. When creating data with such a program, make sure that you know how they are formatted exactly (e.g., are columns separated by \texttt{,} or \texttt{;}, are strings encapsulated by \texttt{""} or not, \ldots. You can use the tools described on page~\pageref{firstcsvfile} to inspect the files.
@@ -888,7 +909,7 @@ Sheila,28,1.76
 Mark,26,1.74
 \end{lstlistingoutput}
 
-You can use gedit for this, an editor you find somewhere in the menu, but which you can---surprise, surprise!---also start from the command line with \texttt{gedit~\&}. Let's assume we saved this file as \texttt{/home/damian/mensen.csv}.
+You can use Geany for this, an editor you find somewhere in the menu, but which you can---surprise, surprise!---also start from the command line with \texttt{geany~\&}. Let's assume we saved this file as \texttt{/home/damian/mensen.csv}.
 
 Now we can write a simple Python program to read this data:
 \begin{lstlisting}
@@ -947,7 +968,7 @@ OK, let's do this quickly, because what we will do in the next section is way co
 
 Because a JSON file has the same data structure, we can open a JSON file and directly import it into a dict. This is really handy, as a lot of online data is available in that format.
 
-Lets again (with an editor like gedit) create a file with the following content and call it \texttt{/home/damian/mensen.json}.
+Lets again (with an editor like Geany) create a file with the following content and call it \texttt{/home/damian/mensen.json}.
 \begin{lstlistingoutput}
 {"Sheila": 28, "Anne": 23, "John": 22, "Bas": 25, "Mark": 26}
 \end{lstlistingoutput}
@@ -958,7 +979,7 @@ import json
 with open("/home/damian/mensen.json", mode="r", encoding="utf-8") as fi:
         mydict = json.load(fi)
 print(mydict)
-print("Sheila is",mydict["Sheila"])
+print("Sheila is ",mydict["Sheila"])
 \end{lstlisting}
 Note that  both the dictionary name \texttt{mydict} and the name of the file object \texttt{fi} are completely arbitrary. I often use \texttt{fi} (file in) for files I read from and \texttt{fo} (file out) for files I want to write to, so that I don't confuse the two.
 
@@ -1587,7 +1608,15 @@ with open("scoreswithtext.csv",mode="w",encoding="utf-8") as fo:
 \section{Alternatives}
 Let us take a step back and compare the approaches we have seen so far. The first one, the simple dictionary approach, was easy to understand and easy to modify, but not very powerful. The second, Vader, was much more powerful. One disadvantage, however, is that it is only available in English. The third one, Sentistrength, is comparable to Vader, but has as big advantage the support of a number of languages, including Dutch. However, this comes at a price: It is not available for free, making it more difficult to share code with others; and it is written in Java, which requires us to use some tricks to actually use it in Python.
 
-But there are more alternatives. For instance, pattern.nl \citep{DeSmedt2012} is very easy to use, open source, and it supports multiple languages. However, it is only available for Python 2 and not compatible with Python 3.
+But there are more alternatives. For instance, pattern.nl \citep{DeSmedt2012} is very easy to use, open source, and it supports multiple languages. However, it's support for Python 3 is still experimental. 
+To install it, you need to do the following:
+\begin{lstlistingbash}
+sudo apt install git
+sudo apt install libmysqlclient-dev
+sudo pip3 install git+git://github.com/clips/pattern.git@development
+\end{lstlistingbash}
+
+For more information, see \url{https://www.clips.uantwerpen.be/pattern}.
 
 A last, but increasingly popular method for doing sentiment analysis is using supervised machine learning. How to do that will be discussed in Chapter \ref{chap:ml}.
 
@@ -1596,7 +1625,7 @@ A last, but increasingly popular method for doing sentiment analysis is using su
 You should have understood the general working of different approaches to sentiment analysis. You should know about their pros and cons. Practically speaking, you should be able to
 \begin{itemize}
 	\item implement a simple, dictionary-based sentiment analysis tool yourself
-	\item integrate a tool like Vader or SentiStrength in your own analyses.
+	\item integrate a tool like Vader, SentiStrength, or pattern in your own analyses.
 \end{itemize}
 
 \chapter{Automated content analysis}
@@ -1732,7 +1761,7 @@ for w in t.split():
        tn=tn+w+" "
 \end{lstlisting}
 
-Instead of defining the list in the script itself, we could also read them from a file. Imagine we have a file called \texttt{stopwords.txt} in which we put one stopword per line (we could easily create such a file in \texttt{gedit} or Leafpad or any other text editor):
+Instead of defining the list in the script itself, we could also read them from a file. Imagine we have a file called \texttt{stopwords.txt} in which we put one stopword per line (we could easily create such a file in Geany or any other text editor):
 
 \begin{lstlistingoutput}
 he
@@ -1776,7 +1805,7 @@ We can now \texttt{print(stems)} to see how the stemmed string looks like.
 The last three lines can be replaced by a single line: \\
 \texttt{stems=" ".join([stemmer.stem(w) for w in s.split()])}
 \\
-The technique used for it is called \emph{list comprehension} and a really cool feature, google it if you want to know more. In addition, the \texttt{.join()} method allows to join elements from a list to a single string. These two things are considered very pythonic and good coding style, so if you do this kind of stuff more often, it is useful to understand the working (but you can as well use the more elaborate way used in the example). In fact, also the stopword removal could be done in this way: Assuming we have a list with stopwords called \texttt{stopwords} and a sentence \texttt{s} from which we want to remove all stopwords, we can do so with \\
+The technique used for it is called \emph{list comprehension} and a really cool feature, see Appendix~\ref{sec:listcomprehensions}. In addition, the \texttt{.join()} method allows to join elements from a list to a single string. These two things are considered very pythonic and good coding style, so if you do this kind of stuff more often, it is useful to understand the working (but you can as well use the more elaborate way used in the example). In fact, also the stopword removal could be done in this way: Assuming we have a list with stopwords called \texttt{stopwords} and a sentence \texttt{s} from which we want to remove all stopwords, we can do so with \\
 \texttt{s2=" ".join([w for w in s.split() if w not in stopwords])} \\
 In doing so, we can create a new string \texttt{s2} with one single line of Python code in which we first split s into a list of words, then make a new list out of these words in which only those words are included that are not in the stopword list, and finally join this list into a single string seperated by spaces.
 \end{quote}
@@ -2226,7 +2255,7 @@ test_features = vectorizer.transform([r[0] for r in test])
 \end{lstlisting}
 
 \begin{quote}
-Note that \texttt{[r[0] for r in reviews]} is a short form of writing something like the following (it is called ``list comprehension''):
+Note that \texttt{[r[0] for r in reviews]} is a short form of writing something like the following (it is called ``list comprehension'', see Appendix~\ref{sec:listcomprehensions}):
 \begin{verbatim}
 newlist=[]
 for r in reviews:
@@ -2833,7 +2862,7 @@ You haven't learned yet how to handle JSON-files. This is explained in chapter 4
 \begin{lstlisting}
 import json
 with open ('/home/damian/WHATEVERTHEFILEISCALLED.json') as f:
-data=json.load(f)
+    data=json.load(f)
 \end{lstlisting}
 
 You now have a dict called data. This dict consists of other dicts, each of which contains information on one video clip. We can loop over the keys and values of the outer dict to get the data we want:
@@ -3032,7 +3061,20 @@ First try it yourself, but if you do not manage to get it work, you'll find a so
 \newpage
 
 \section{Solution}
-\vspace{10cm}
+This is one possible solution, using list comprehensions (see Appendix~\ref{sec:listcomprehensions}). You can also write more verbose code. For instance, instead of writing
+\begin{lstlisting}
+timestamps=[e[:17] for e in data]
+\end{lstlisting}
+you can also write
+\begin{lstlisting}
+timestamps = []
+for e in data:
+    timestamps.append(e[:17])
+\end{lstlisting}
+
+The complete solution (rotated):
+
+\vspace{8cm}
 \hspace{15cm}
 \begin{rotate}{180}
 \begin{lstlisting}
@@ -3083,6 +3125,173 @@ sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) Desktop /home/damian/myrealcompute
 Voil\`a!
 
 
+
+\chapter{Python goodies}
+\label{chap:pythongoodies}
+This appendix summarizes a couple of cool Python features that are not covered as part of a specific technique this book deals with.
+They rather will be useful in various circumstances, and if you want to deepen your Python knowledge, it is strongly advised to make use of them.
+
+
+\section{List comprehensions}
+\label{sec:listcomprehensions}
+List comprehension offer a a short form of getting information from one list into another.
+For example, you may want to apply a function to each element of a list, select only specific elements of a list, etc.
+
+You can think of list comprehensions as for-loops written in one single line, without the need to create an empty list and .append() things to it.
+
+Take the following example, in which we want to convert a list of strings to lowercase and strip leading and trailing whitespace:
+
+\begin{lstlisting}
+names = [" Joanna", "THEO", " Anne"]
+names_cleaned = []
+for name in names:
+    names_cleaned.append(name.strip().lower())
+\end{lstlisting}
+
+Using list comprehensions, we can write instead:
+\begin{lstlisting}
+names_cleaned = [name.strip().lower() for name in names]
+\end{lstlisting}
+
+We can even add an if condition to it:
+
+\begin{lstlisting}
+names_cleaned_female = [name.strip().lower() for name in names if not name.startswith('T')]
+\end{lstlisting}
+
+And if we want to, we do not even need to create a new variable name for the list: we can also use the old one and overwrite it:
+
+\begin{lstlisting}
+names= [name.strip().lower() for name in names]
+\end{lstlisting}
+
+The big advantage of list comprehensions is that they are so concise: they just take one single line, and you do not have to deal with indention. This can make your code more readable and is considered good programming style.
+
+
+
+\section{Generators}
+\label{sec:generators}
+In Python, we have a lot of so-called \emph{iterables}: things we can loop over. A prominent example are lists.
+
+However, lists have a drawback: They can be big and need to be stored in memory. But often, when looping over a list, we do not actually need the \emph{whole} list -- we only need to be able to get the \emph{next} element, and care neither about all preceeding elements nor about the total number of elements.
+
+Here, generators come into play. 
+
+Actually, in Section~\ref{sec:csvfiles} you already used one: You learned how to iterate over the lines of a csv file using a csv reader.
+
+This reader was a generator. Rather than reading the whole file, it only reads one line at a time. This means that if we have a table with 10 million rows and 1,000 columns, but we only need one of the columns, while reading, we only read 1,000 values at a time. Therefore, at no point in time, we have the whole $10,000,000 \times 1,000$ table in memory.
+
+We can make our own generator by defining a function, as we already did in Section~\ref{subsec:ownfunctions}. The only difference is that instead of \texttt{return}, we use \texttt{yield}.
+
+\begin{lstlisting}
+def firstsquares(n):
+    for i in range(n+1):
+        yield i**2
+\end{lstlisting}
+
+We can than use this generator:
+
+\begin{lstlisting}
+for v in firstsquares(10):
+    print(v)
+\end{lstlisting}
+
+The efficieny of this becomes clear when we want to do something like calculating the sum of these numers: We can just calculate \texttt{sum(firstsquares(10))} \emph{without actually having to store a list of all these numbers in memory}. After all, if you add up 10 numbers, you only need two numbers at a time: the sum up til now and the next number.
+
+
+
+Just like we can have list comprehensions (Section~\ref{sec:listcomprehensions}) as a shorter version to create lists, we can also use so-called \emph{generator expressions} to simplify the creation of generators:
+
+\begin{lstlisting}
+g = (x*x for x in range(10))
+\end{lstlisting}
+
+To get the next square number, we can just do
+
+
+\begin{lstlisting}
+next(g)
+\end{lstlisting}
+
+However, we could also iterate over it in a loop:
+
+\begin{lstlisting}
+g = (x*x for x in range(10))
+
+for square in g:
+    print(square)
+\end{lstlisting}
+
+
+
+\begin{quote}
+	Note that you can only iterate over an iterator once!
+\end{quote}
+
+
+
+
+\section{Classes}
+\label{sec:classes}
+
+There is one big (really big) topic that is \emph{not} covered in this book: the concept of a \emph{class}.
+A class is a sort of blueprint and a core concept of object oriented programming. We actually even worked with it before, without diving into the details of a class. For instance, when we did
+\begin{lstlisting}
+from collections import Counter
+mycounter = Counter()
+\end{lstlisting}
+or 
+\begin{lstlisting}
+import csv
+with open(test.csv') as fi:
+    myreader = csv.reader(fi)
+    ...
+\end{lstlisting}
+then Counter and csv.reader are classes, and mycounter and myreader are \emph{instances} of these classes.
+
+Defining an own class allows you to create objects that contain exactly those properties and methods that you need for your task at hand, and are something you might want to look into before beginning a bigger project that aims at reuseability of the code.
+
+Explaining the exact workings lies outside the scope of this book, but you can find many tutorials and examples online, for instance here:
+ \url{http://www.jesshamrick.com/2011/05/18/an-introduction-to-classes-and-inheritance-in-python/}
+
+
+\section{String formatting}
+\label{sec:stringformatting}
+Often you want to combine information in a string. For instance, you want to insert the result of a calculation into a string that is printed.
+
+The not-so-elegant way is to simply print these things seperately. For instance:
+
+\begin{lstlisting}
+result = 5 + 7 
+print("He ate", result, "peanuts")
+\end{lstlisting}
+
+The nicer way of doing this is using the string formatting method. Basically, you use curly brackets in a string to indicate where a value is to be inserted, and specify the value afterwards.
+
+
+\begin{lstlisting}
+print("He ate {} peanuts".format(result))
+\end{lstlisting}
+
+Or, using multiple arguments and specifying their order:
+
+\begin{lstlisting}
+v1 = 5
+v2 = 7
+result = 12
+print("He ate {2} peanuts in total, first {0} and then {1}".format(v1,v2,result))
+\end{lstlisting}
+
+The nice thing is that this offers a lot of extra possibilities to specify how the string is to be formatted exactly. For instance, to get two decimals:
+
+\begin{lstlisting}
+points = 19
+total = 22
+print('Correct answers: {:.2%}'.format(points/total))
+\end{lstlisting}
+
+Have a look at the official documentation for more details: 
+\url{https://docs.python.org/3.4/library/string.html#format-examples}
 
 
 \chapter{Web scraping with Selenium}
@@ -3223,7 +3432,7 @@ export PATH=$PATH:/path-to-the-folder-where-geckodriver-is-saved
 
 Then, restart Spyder (or whatever Python interpreter you still have opened) and the problem should be solved.
 
-Another common error message is this: Permission denied: 'geckodriver.log'. To solve this, create an empty text document using an editor like gedit or leafpad, name it 'geckodriver.log' and save it in the same directory as where geckodriver is saved. Alternatively, you can create an empty file with the following command in your terminal:
+Another common error message is this: Permission denied: 'geckodriver.log'. To solve this, create an empty text document using an editor like Geany, name it 'geckodriver.log' and save it in the same directory as where geckodriver is saved. Alternatively, you can create an empty file with the following command in your terminal:
 \begin{lstlistingbash}
 touch /path-to-where-the-file-is-saved/geckodriver.log
 \end{lstlistingbash}
