@@ -160,6 +160,7 @@ TSWLatexianTemp*
 
 # Emacs
 *~
+\#*\#
 
 # jupyter notebook
 .ipynb_checkpoints/
