@@ -136,15 +136,15 @@ for k in data:      #or: for k in data.keys():
 	
 What to do if you want to work with a smaller subset of the data?
 
-Taking a random sample of 10 items in your dict:
+Taking a random sample of 10 items in a dict:
 	\begin{lstlisting}
 import random
-short_dict = dict(random.sample(data.items(),10))
+mydict_short = dict(random.sample(mydict.items(),10))
 	\end{lstlisting}
 	
 Taking the first 10 elements in a list:
 	\begin{lstlisting}
-short_list = list[:10]
+mylist_short = mylist[:10]
 	\end{lstlisting}
 
 \end{frame}
