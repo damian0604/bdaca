@@ -1,0 +1,13 @@
+Regular-expression exercises
+----------------------------
+
+
+1. Write a regular expression to extract a Twitter username from a string.
+
+2. Write a regular expression to get only words (a) in small letters only, (b) starting with a capital letter followed by small letters, (c) starting with a capital letter followed by either small or capital letters.
+
+3. Write a regular expression to extract an email-address from a string.
+
+4. Write a regular expression to identify all URLs in a string.
+
+5. Write a regular expression that you can use to count references to Geert Wilders (make sensible choices regarding first and/or last name) or his PVV (which stands for Partij voor de Vrijheid). Make sure to minimize false positives (counting someone else with the name Geert) while also minimizing false negatives (missing a reference because of a different spelling).
