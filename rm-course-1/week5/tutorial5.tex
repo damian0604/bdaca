@@ -126,7 +126,7 @@ You can always export to .csv and use R or Stata or SPSS or whatever\ldots
 
 \begin{frame}[plain]
 	Statistics in Python\\
-	\textbf{Useful packageds}
+	\textbf{Useful packages}
 \end{frame}
 
 
@@ -177,7 +177,7 @@ array([[ 1.        ,  0.67883359, -0.37256219],
 	\item Operates (also) on simple lists
 	\item Returns output in standard datatypes (you can print it, store it, calculate with it, \ldots)
 	\item it's fast! \texttt{np.mean(x)} is faster than \texttt{sum(x)/len(x)}
-	\item it is more accurate (cf. rounding errors) 
+	\item it is more accurate (less rounding errors) 
 \end{itemize}
 \end{frame}
 
@@ -287,7 +287,7 @@ import statsmodels.formula.api as smf
 
 df = pd.DataFrame({'income': [10,20,30,40,50], 'age': [20, 30, 10, 40, 50], 'facebooklikes': [32, 234, 23, 23, 42523]})
 
-# alternative: read from CSV file:
+# alternative: read from CSV file (or stata...):
 # df = pd.read_csv('mydata.csv')
 
 myfittedregression = smf.ols(formula='income ~ age + facebooklikes', data=df).fit()
@@ -337,7 +337,7 @@ Kurtosis:                       1.474   Cond. No.                     5.21e+04
 	\item[df{['age']}.describe()] to get descriptive statistics 
 	\item[df{['age']}.value\_counts()] to get a frequency table
 \end{description}
-and MUCH more
+and MUCH more\ldots
 	
 \end{frame}
 
