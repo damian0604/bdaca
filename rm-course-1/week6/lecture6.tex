@@ -1,0 +1,363 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass{beamer}
+% for handouts: \documentclass[handout]{beamer}
+
+%\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=structure.fg!25]
+% or whatever
+
+\usetheme[compress]{Amsterdam}
+%\setbeamertemplate{headline}{}
+%\setbeamertemplate{footline}{}
+%\setbeamersize{text margin left=0.5cm}
+  
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{multicol}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\lstset{
+basicstyle=\scriptsize\ttfamily,
+columns=flexible,
+breaklines=true,
+numbers=left,
+numberstyle=\tiny,
+backgroundcolor=\color[rgb]{0.85,0.90,1}
+}
+
+
+\begin{document}
+
+\title[Big Data  and Automated Content Analysis]{\textbf{Big Data  and Automated Content Analysis} \\ Week 6 -- Monday\\ »Web scraping«}
+\author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
+\date{12 March 2018}
+\institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
+
+%\maketitle
+\begin{frame}{}
+\titlepage
+\end{frame}
+
+\begin{frame}{Today}
+\tableofcontents
+\end{frame}
+
+%{\setbeamercolor{background canvas}{bg=black}
+%\begin{frame}[plain]
+%\makebox[\linewidth]{
+%\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{process-heel.png}}
+%\end{frame}
+%}
+
+
+\section{A first intro to parsing webpages}
+
+\begin{frame}
+Let's have a look of a webpage with comments and try to understand the underlying structure.
+\end{frame}
+
+
+{\setbeamercolor{background canvas}{bg=black}
+\begin{frame}[plain]
+\makebox[\linewidth]{
+\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/geenstijl.png}}
+\end{frame}
+\begin{frame}[plain]
+\makebox[\linewidth]{
+\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/geenstijl_detail.png}}
+\end{frame}
+
+\begin{frame}[plain]
+\makebox[\linewidth]{
+\includegraphics[width=1.3\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/geenstijl2018-2.png}}
+\end{frame}
+}
+
+
+\begin{frame}{Let's make a plan!}
+\begin{block}{Which elements from the page do we need?}
+\begin{itemize}
+\item What do they mean?
+\item How are they represented in the source code?
+\end{itemize}
+\end{block}
+\begin{block}{How should our output look like?}
+\begin{itemize}
+\item What \emph{lists} do we want?
+\item \ldots
+\end{itemize}
+\end{block}
+And how can we achieve this?
+\end{frame}
+
+
+\begin{frame}{}
+\begin{block}{A first plan}
+\begin{enumerate}
+\item<2-> Download the page
+   \begin{itemize}
+   \item<3-> Possibly taking measures to deal with cookie walls, being blocked, etc.
+   \end{itemize}
+\item<4-> Remove all line breaks (\textbackslash n, but maybe also \textbackslash n\textbackslash r or \textbackslash r) and TABs (\textbackslash t): We want one long string
+\item<5-> Try to isolate the comments
+   \begin{itemize}
+   	\item<5-> Do we see any pattern in the source code? $\Rightarrow$ \emph{last week: if we can see a pattern, we can describe it with a regular expression}
+   \end{itemize}
+\end{enumerate}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile,plain]
+\begin{lstlisting}
+import requests
+import re
+
+response = requests.get('http://kudtkoekiewet.nl/setcookie.php?t=http://www.geenstijl.nl/mt/archieven/2014/05/das_toch_niet_normaal.html')
+
+tekst=response.text.replace("\n"," ").replace("\t"," ")
+
+comments=re.findall(r'<div class="cmt-content">(.*?)</div>',tekst)
+print("There are",len(comments),"comments")
+print("These are the first two:")
+print(comments[:2])
+\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}{Some remarks}
+\begin{block}{The regexp}<1->
+\begin{itemize}
+\item {\tt{.*?}} instead of {\tt{.*}} means \emph{lazy} matching. As  {\tt{.*}} matches everything, the part where the regexp should stop would not be analyzed (\emph{greedy} matching) -- we would get the whole rest of the document (or the line, but we removed all line breaks).
+\item<2->The parentheses in {\tt{(.*?)}} make sure that the function only returns what's between them and not the surrounding stuff (like {\tt{<div>}} and {\tt{</div>}})
+\end{itemize}
+\end{block}
+\begin{block}{Optimization}<3->
+\begin{itemize}
+\item Parse usernames, date, time, \ldots
+\item Replace \texttt{<p>} tags
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+
+\begin{frame}{Further reading}
+
+\begin{block}{Doing this with other sites?}<1->
+\begin{itemize}
+\item It's basically puzzling with regular expressions. 
+\item Look at the source code of the website to see how well-structured it is.
+\end{itemize}
+\end{block}
+
+%\begin{block}{More powerful modules and packages}<2->
+%\begin{itemize}
+%\item BeautifulSoup
+%\item Scrapy
+%\end{itemize}
+%\end{block}
+\end{frame}
+
+
+
+\section{OK, but this surely can be doe more elegantly? Yes!}
+\begin{frame}
+OK, but this surely can be doe more elegantly? Yes!
+\end{frame}
+
+
+\begin{frame}{Scraping}
+\begin{block}{Geenstijl-example}
+\begin{itemize}
+\item<1->Worked well (and we could do it with the knowledge we already had)
+\item<2->But we can also use existing parsers (that can interpret the structure of the html page)
+\item<3->especially when the structure of the site is more complex 
+\end{itemize}
+\end{block}
+\footnotesize{
+\onslide<4->{The following example is based on \url{http://www.chicagoreader.com/chicago/best-of-chicago-2011-food-drink/BestOf?oid=4106228}.  It uses the module {\tt{lxml}} }}
+\end{frame}
+
+
+
+
+\begin{frame}{What do we need?}
+\begin{itemize}
+\item the URL (of course)
+\item the XPATH of the element we want to scrape (you'll see in a minute what this is)
+\end{itemize}
+\end{frame}
+
+
+
+
+{\setbeamercolor{background canvas}{bg=black}
+\begin{frame}[plain]
+\makebox[\linewidth]{
+\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/kieskeurig2018.png}}
+\end{frame}
+\begin{frame}[plain]
+\makebox[\linewidth]{
+\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/kieskeuriginspect2018-1.png}}
+\end{frame}
+\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/kieskeuriginspect2018-2.png}}
+\end{frame}
+\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/kieskeuriginspect2018-3.png}}
+\end{frame}
+
+}
+
+
+
+
+\begin{frame}{But you can also create your XPATH yourself}
+There are multiple different XPATHs to address a specific element.
+
+Some things to play around with:
+\begin{itemize}
+\item<1-> \texttt{//} means `arbitrary depth' (=may be nested in many higher levels)
+\item<2->  \texttt{*} means `anything'. (\texttt{p[2]} is the second paragraph, \texttt{p[*]} are all
+\item<3-> If you want to refer to a specific attribute of a HTML tag, you can use \texttt{@}. For example, every \texttt{*[@id="reviews-container"]} would grap a tag like \texttt{<div id=reviews-container'' class='''user-content'}
+\item<4->  Let the XPATH end with \texttt{/text()} to get all text
+\item<5->  Have a look at the source code (via `inspect elements') of the web page to think of other possible XPATHs!
+\end{itemize}
+\end{frame}
+
+%\begin{frame}{The XPATH}
+%\begin{block}{You get something like}<1->
+%{\tt{
+%//*[@id="tabbedReviewsDiv"]/dl[1]/dd
+%//*[@id="tabbedReviewsDiv"]/dl[2]/dd
+%}}
+%\end{block}
+%\onslide<2->{The {\tt{*}} means ``every''. \\ Also, to get the text of the element, the XPATH should end on {\tt{/text()}}. }
+%\begin{block}{We can infer that we (probably) get all comments with}<3->
+%{\tt{//*[@id="tabbedReviewsDiv"]/dl[*]/dd/text()}}
+%\end{block}
+%\end{frame}
+
+
+
+\begin{frame}{Let's test it!}
+	\large{\url{https://www.kieskeurig.nl/smartphone/product/3518003-samsung-galaxy-a5-2017-zwart/reviews}}
+\end{frame}
+
+
+\begin{frame}[fragile]{Let's scrape them!}
+\begin{lstlisting}
+from lxml import html
+from urllib import request
+
+req=request.Request("https://www.kieskeurig.nl/smartphone/product/3518003-samsung-galaxy-a5-2017-zwart/reviews")
+tree = html.fromstring(request.urlopen(req).read().decode(encoding="utf-8",errors="ignore"))        
+
+reviews = tree.xpath('//*[@class="reviews-single__text"]/text()')
+
+# remove empty reviews
+reviews = [r.strip() for r in reviews if r.strip()!=""]
+
+print (len(reviews),"reviews scraped. Showing the first 60 characters of each:")
+i=0
+for review in reviews:
+    print("Review",i,":",review[:60])
+    i+=1
+\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{The output -- perfect!}
+\begin{lstlisting}
+63 reviews scraped. Showing the first 60 characters of each:
+Review 0 : Apple maakt mooie toestellen met hard- en software uitsteken
+Review 1 : Vanaf de iPhone 4 ben ik erg te spreken over de intuitieve i
+Review 2 : Helaas ontbreekt het Apple toestellen aan een noodzakelijk i
+Review 3 : Met een enorme mate van pech hebben wij als (beschaafd!!) ge
+\end{lstlisting}
+\end{frame}
+
+
+
+
+\begin{frame}{Recap}
+\begin{block}{General idea}
+\begin{enumerate}
+\item Identify each element by its XPATH (look it up in your browser) 
+\item Read the webpage into a (loooooong) string
+\item Use the XPATH to extract the relevant text into a list (with a module like lxml)
+\item Do something with the list (preprocess, analyze, save)
+\end{enumerate}
+\footnotesize{Alternatives: scrapy, beautifulsoup, regular expressions, \ldots}
+\end{block}
+\end{frame}
+
+
+
+
+\begin{frame}{Last remarks}
+	\begin{block}{There is often more than one way to specify an XPATH}
+		\begin{enumerate}
+			%\item You can usually leave away the namespace (the \texttt{x:})
+			\item Sometimes, you might want to use a different suggestion to be able to generalize better (e.g., using the \emph{attributes} rather than the \emph{tags})
+			\item in that case, it makes sense to look deeper into the structure of the HTML code, for example with ``Inspect Element'' and use that information to play around with in the XPATH Checker
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+
+{\setbeamercolor{background canvas}{bg=black}
+	\begin{frame}[plain]
+		\makebox[\linewidth]{
+			\includegraphics[width=1.5\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/kieskeuriginspect2018-2.png}}
+	\end{frame}
+}
+
+\section{Next steps}
+\begin{frame}
+Next steps
+\end{frame}
+
+
+
+
+\begin{frame}{From now on\ldots}
+\ldots focus on individual projects!
+\makebox[\linewidth]{
+\includegraphics[width=\paperwidth,height=.6\paperheight,keepaspectratio]{../../pictures/projectlastminute}}
+\end{frame}
+
+
+\begin{frame}{Wednesday}
+\begin{itemize}
+\item Write a scraper for a website of your choice!
+\item Prepare a bit, so that you know where to start
+\item Suggestions: Review texts and grades from \url{http://iens.nl}, articles from a news site of your choice, \ldots
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[plain]{}
+	\makebox[\linewidth]{
+		\includegraphics[width=1.2\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/iens.png}}
+\end{frame}
+
+
+
+
+\end{document}
+
+
