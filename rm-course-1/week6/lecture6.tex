@@ -260,10 +260,10 @@ Some things to play around with:
 \begin{frame}[fragile]{Let's scrape them!}
 \begin{lstlisting}
 from lxml import html
-from urllib import request
+import requests
 
-req=request.Request("https://www.kieskeurig.nl/smartphone/product/3518003-samsung-galaxy-a5-2017-zwart/reviews")
-tree = html.fromstring(request.urlopen(req).read().decode(encoding="utf-8",errors="ignore"))        
+htmlsource = requests.get("https://www.kieskeurig.nl/smartphone/product/3518003-samsung-galaxy-a5-2017-zwart/reviews").text
+tree = html.fromstring(htmlsource)        
 
 reviews = tree.xpath('//*[@class="reviews-single__text"]/text()')
 
@@ -282,14 +282,54 @@ for review in reviews:
 
 \begin{frame}[fragile]{The output -- perfect!}
 \begin{lstlisting}
-63 reviews scraped. Showing the first 60 characters of each:
-Review 0 : Apple maakt mooie toestellen met hard- en software uitsteken
-Review 1 : Vanaf de iPhone 4 ben ik erg te spreken over de intuitieve i
-Review 2 : Helaas ontbreekt het Apple toestellen aan een noodzakelijk i
-Review 3 : Met een enorme mate van pech hebben wij als (beschaafd!!) ge
+61 reviews scraped. Showing the first 60 characters of each:
+Review 0 : Wat een fenomenale smartphone is de nieuwe Samsung Galaxy A5
+Review 1 : Bij het openen van de verpakking valt direct op dat dit toes
+Review 2 : Tijd om deze badboy eens aan de tand te voelen dus direct he
+Review 3 : Na een volle week dit toestel gebruikt te hebben kan ik het 
+Review 4 : ik ben verliefd op de Samsung Galaxy A5 2017!
+
 \end{lstlisting}
 \end{frame}
 
+\section{Scaling up}
+\begin{frame}[plain]
+	Scaling up
+\end{frame}
+
+
+\begin{frame}[fragile]{But this was on \emph{one} page only, right?}
+Next step: Repeat for each relevant page.
+
+\begin{block}{Possibility 1: Based on url schemes}
+	If the url of one review page is \url{https://www.hostelworld.com/hosteldetails.php/ClinkNOORD/Amsterdam/93919/reviews?page=2}
+
+\ldots then the next one is probably?
+\end{block}
+
+\pause
+
+$\Rightarrow$ you can construct a list of all possible URLs:
+
+\begin{lstlisting}
+baseurl = 'https://www.hostelworld.com/hosteldetails.php/ClinkNOORD/Amsterdam/93919/reviews?page='
+
+allurls = [baseurl+str(i+1) for i in range(20)]
+\end{lstlisting}	
+	
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{But this was on \emph{one} page only, right?}
+	Next step: Repeat for each relevant page.
+	
+	\begin{block}{Possibility 2: Based on XPATHs}
+	Use XPATH to get the url of the next page (i.e., to get the link that you would click to get the next review)
+	\end{block}
+	
+\end{frame}
 
 
 
@@ -300,6 +340,7 @@ Review 3 : Met een enorme mate van pech hebben wij als (beschaafd!!) ge
 \item Read the webpage into a (loooooong) string
 \item Use the XPATH to extract the relevant text into a list (with a module like lxml)
 \item Do something with the list (preprocess, analyze, save)
+\item Repeat
 \end{enumerate}
 \footnotesize{Alternatives: scrapy, beautifulsoup, regular expressions, \ldots}
 \end{block}

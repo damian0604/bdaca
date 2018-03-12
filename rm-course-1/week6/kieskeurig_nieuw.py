@@ -1,8 +1,8 @@
 from lxml import html
-from urllib import request
+import requests
 
-req=request.Request("https://www.kieskeurig.nl/smartphone/product/3518003-samsung-galaxy-a5-2017-zwart/reviews")
-tree = html.fromstring(request.urlopen(req).read().decode(encoding="utf-8",errors="ignore"))        
+htmlsource = requests.get("https://www.kieskeurig.nl/smartphone/product/3518003-samsung-galaxy-a5-2017-zwart/reviews").text
+tree = html.fromstring(htmlsource)        
 
 reviews = tree.xpath('//*[@class="reviews-single__text"]/text()')
 
