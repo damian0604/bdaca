@@ -1226,11 +1226,11 @@ class MyListener(StreamListener):
     def on_error(self, status):
         print(status)
 
-l = MyListener()
+listener = MyListener()
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
-stream = Stream(auth, l)
+stream = Stream(auth, listener)
 stream.filter(track=['#metoo'])
 \end{lstlisting}
 
@@ -1731,7 +1731,7 @@ A graphical interface is opened (Figure~\ref{fig:nltkdownload}).
 \caption{\label{fig:nltkdownload}Loading additional NLTK-packages}
 \end{figure}
 
-Do \emph{not} download all packages, that will take too much space and you do not need it. Instead, download only the packages ``stopwords'' , ``punkt'', ``averaged\_perceptron\_tagger'', ``hmm\_treebank\_pos\_tagger'', and ``maxent\_treebank\_pos\_tagger'' from the ``all packages'' tab. Close the window when done.
+Do \emph{not} download all packages, that will take too much space and you do not need it. Instead, download only the packages ``stopwords'' , ``punkt'', ``averaged\_perceptron\_tagger'', and ``maxent\_treebank\_pos\_tagger'' from the ``all packages'' tab. Close the window when done.
 
 Instead of using the graphical interface, you can also install the packages by providing their name as an argument:
 
@@ -2719,12 +2719,12 @@ To run an OLS regression, for example, you only have to specify which columns ar
 
 \begin{lstlisting}
 import pandas as pd
-from statsmodels.formula.api import ols
+import statsmodels.formula.api as smf
 df = pd.DataFrame({"income": [10,20,30,40,50], "age": [20, 30, 10, 40, 50], "facebooklikes": [32, 234, 23, 23, 42523]}
 # alternative: read from CSV file:
 # df = pd.read_csv('mydata.csv')
 
-myfittedregression = ols(formula='income ~ age + facebooklikes', data=df).fit()
+myfittedregression = smf.ols(formula='income ~ age + facebooklikes', data=df).fit()
 print(myfittedregression.summary())
 
 \end{lstlisting}
