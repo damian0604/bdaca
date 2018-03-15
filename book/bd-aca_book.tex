@@ -30,6 +30,8 @@
 \usepackage{lettrine}
 \usepackage{rotating}
 \usepackage{lmodern}
+\usepackage{dirtree}
+\usepackage{placeins}
 \usepackage{listings}
 \lstset{
 basicstyle=\footnotesize\ttfamily,
@@ -74,7 +76,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 \title{Doing Computational Social Science with Python: An Introduction}
 \author{Damian Trilling}
-\date{Version 1.1\\ ~ \\  \footnotesize{PDF created \today}}
+\date{Version 1.2\\ ~ \\  \footnotesize{PDF created \today}}
 
 
 \begin{document}
@@ -126,7 +128,8 @@ Have fun! And, join me in thanking those who contributed with great ideas or ser
 Amsterdam, March 2015 (version 0.1)\\
 Amsterdam, February 2016 (version 0.2)\\
 Amsterdam, January 2017 (version 1.0)\\
-Amsterdam, January 2018 (version 1.1)
+Amsterdam, January 2018 (version 1.1)\\
+Amsterdam, March 2018 (version 1.2)
 \end{flushright}
 
 Damian
@@ -312,6 +315,8 @@ sudo -H pip3 install scikit-learn
 sudo -H pip3 install pandas
 sudo -H pip3 install statsmodels
 sudo -H pip3 install gensim
+sudo -H pip3 install requests
+sudo -H pip3 install cssselect
 \end{lstlistingbash}
 
 You should now be able to start Spyder, a tool we will be using for doing some Python programming, by just typing:
@@ -1531,6 +1536,7 @@ The other approaches to automated content analysis mentioned by \cite{Boumans201
 
 
 \section{Regular expressions}
+\label{sec:regexp}
 
 A regular expression is a \emph{very} widespread way to describe patterns in strings. You probably know wildcards like {\tt{*}} or operators like {\tt{OR}}, {\tt{AND}} or {\tt{NOT}} that you can use in search strings in a lot of applications. But of course this is rather limited: Maybe you want to say somethhing like ``I want all words starting with a letter or a number (but no special character), then a \@-sign, then again some letters, and after the last dot two or three letters (but not more!) letters. You probably saw that this would be some way of describing an email-adress. 
 
@@ -1740,194 +1746,373 @@ You should have understood
 
 
 
-
 \chapter{Web scraping}
 \label{chap:scraping}
-\label{parsing}
-\section{Overview}
-When scraping data from the web, we can distinguish two different stages:
+
+
+\section{General approach}
+\label{sec:generalapproachtoscraping}
+When scraping data from the web, we can distinguish two different tasks:
 \begin{enumerate}
-\item Downloading a (possibly large) number of webpages 
-\item Parsing the content of the webpages
+	\item downloading a (possibly large) number of webpages; 
+	\item parsing\footnote{In this context, `parsing' is just a fancy term for `extracting meaningful information'} the content of the webpages.
 \end{enumerate}
-Let us start with the first point. Sometimes, we have a list with all URLs of all Dutch news items of the last year, for example, because we retrieved them from a RSS feed. In this case, downloading the data is trivial. We could for exampe use a for-loop in Python, or use the command \texttt{wget} from the bash command line. If we have a file \texttt{urls.txt} that contains one URL per row, we can download all urls with the command
-\begin{lstlistingbash}
-wget -i urls.txt
-\end{lstlistingbash}
-We could use a number of additional options, in particular waiting between the URLs to avoid gettig blocked, or pretend that we use a specific web browser. \texttt{wget --help} or Google give you more information.
+Both can go hand in hand. For instance, the URL of the next page to be downloaded might actually be parsed from the content of the current page; or some overview page may contain the links and thus has to be parsed first in order to download subsequent pages.
 
-If we do not have such a list, but rather want to start from one page (e.g., the homepage of a specific website) and simply follow all links that we find on that page, we have to resort to a technique called \emph{crawling}. If we for example want to download the page \url{http://gsc.uva.nl/}, including all links, plus all links encountered on the pages linked to (but stop after this second level of recursion), we can simply type
-\begin{lstlistingbash}
-wget -l2 http://gsc.uva.nl/
-\end{lstlistingbash}
-The internet is full of examples (like here: \url{http://www.thegeekstuff.com/2009/09/the-ultimate-wget-download-guide-with-15-awesome-examples/})
+Let us consider the example of a hotel review website. We might, for example, be interested in retrieving all reviews from hotels in Amsterdam.
+Maybe the site has an overview page that lists all Hotels in Amsterdam. There are (too) many hotels in Amsterdam, so they probably do not fit on one page, but we will ignore that for now and come back to it later. 
 
-At the end of this chapter, I will point you to a framework that allows crawling with Python.
+Our approach, thus, could look as follows:
 
-But first, let us turn to the second point: Parsing the content of the pages we downloaded. In virtually all cases, we do not care about the webpage as we downloaded it, but we rather want to extract \emph{some} information in a meaningful way. For example, on a page with product reviews, we want to get rid of all advertisements, navigation elements, \ldots --- in fact, everything except the reviews themselves, which we probably want to store in a list or a similar data structure.
+\begin{enumerate}
+	\item Retrieve the overview page.
+	\item Parse the names of the hotels and the corresponding links.
+	\item Loop over all the links, retrieve the corresponding pages.
+	\item On each of these pages, parse the interesting content (i.e., the reviews, ratings, and so on).
+\end{enumerate}
 
-In the next section, we will do so with an approach you are already familiar with: regular expressions. This is useful to show the general idea, and you could use a similar approach a wide range of input data, not only web pages (think of the LexisNexis example). However, especially with complicated HTML pages, this approach can become cumbersome. We will therefore learn how to use XPath descriptions to parse a webpage in another section. 
-
-
-\section{A simple regular-expression based approach}
-
-First of all, have a look again at the materials about regular expressions. In particular, have another loot at how the \texttt{re.findall()} function can be used to get a list of all strings that match a regular expression within another string. 
-
-Then, open Firefox and go to \url{http://www.geenstijl.nl/mt/archieven/2014/05/das_toch_niet_normaal.html}. Even if you do not understand a word (which actually might help you to look at the structure rather than the content!), you will see that the article is followed by a whole bunch of comments. Already think about a way how one could identify the comments
-
-Click on Tools/Web Developer/Page source (or press \fbox{CTRL-U}) to inspect the source code (Figure~\ref{fig:geenstijlsource}).
-
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=.75\textwidth,keepaspectratio]{../pictures/geenstijl_sourcecode_detail.png}
-\caption{\label{fig:geenstijlsource}Examining the source code of a HTML page}
-\end{figure}
-
-You should see that the whole block of comments starts with the tag \texttt{<div class="commentlist">} (and, much later, ends with \texttt{</div>}). Also, you should see that each comment starts with a tag \texttt{<article id="xxxxxxxxx">} and ens with \texttt{</article>}.
-
-This looks like a regular pattern, therefore, we can match it with a regular expression. Assuming that the whole page is called \texttt{tekst}, we can get the whole comment section with:
+So, what if there are multiple overview pages (or multiple pages with reviews)? Basically, there are two possibilities:
+The first possibility is to look for the link to the next page, parse it, download the next page, and so on.
+The second possibility exploits the fact that often, URLs are very systematic: For instance, the first page of hotels might have a URL such as \url{http://myreviewsite.com/amsterdam/hotels.html?page=1}.
+If this is the case, we can simply construct a list with all possible URLs:
 \begin{lstlisting}
-commentsection=re.findall(r'<div class="commentlist">.*?</div>',tekst)
+baseurl = 'http://myreviewsite.com/amsterdam/hotels.html?page='
+tenpages = [baseurl+str(i+1) for i in range(10)]
 \end{lstlisting}
-\label{greedy}
-Pay attention that we write \texttt{.*?} instead of \texttt{.*} only. The \texttt{.} matches every character, and \texttt{*} means an arbitrary number of times, therefore \texttt{.*} \emph{also} matches \texttt{</div>}. This means that our regular expression would only stop at the \emph{last} occurrence of \texttt{</div>} if there are several ones instead of the \emph{first} one. This is referred to as \emph{greedy matching}. Using \texttt{.*?} instead of \texttt{.*} means that we want to perform \emph{lazy matching} instead, where we do stop as soon as the next part of the regular expression is matched.
+Afterwards, we would just loop over this list and retrieve all the pages.
+
+But to implement all this, we need to know how to retrieve and subsequently parse a web page.
 
 
-As \texttt{re.findall()} returns a list of all matches, \texttt{commentssection} is a list of all commentssections. As there is only one comment section (which we can verify by calculating \texttt{len(commentssection)}, we can get the whole chunk of HTML-code of the comment section by accessing the first and only element of the list, \texttt{commentssection[0]}. 
-
-Now, we can do the same for each comment ("article") within the comment section:
+\section{Retrieving web pages}
+\label{sec:retrievingwebpages}
+There are several ways of retrieving web pages. The most simplest way is maybe using the \texttt{requests} module:
 
 \begin{lstlisting}
-comments=re.findall(r'<article.*?>(.*?)</article>',commentsection[0])
+import requests
+htmlsource = requests.get('http://nu.nl').text
 \end{lstlisting}
 
-Voilà! We got a list of all comments!
-
-But wait, why did we write the \texttt{()} around\texttt{(.*?)}? This simply means that only the part between \texttt{()} is returned. In other words, \texttt{comments} contains only what is \emph{between} \texttt{<article.*?>} and \texttt{</article>}.
-
-If we now but all this together, add some code to actually download the data (and to also parse the metadata, like author and time of writing), we get the following script:
+Usually, you would then want to proceed with parsing the text (see next section), but for testing purposes, you can also save it to a file:
 
 \begin{lstlisting}
-from urllib import request
-import re
-import csv
+with open('/home/damian/Desktop/test.html', mode = 'w') as fo:
+    fo.write(htmlsource)
+\end{lstlisting}
+Open test.html in Firefox and make sure you downloaded what you wanted to download.
 
-onlycommentslist=[]
-metalist=[]
+Also, instead of downloading the website again, for later use you can just read it from disk (see also Section~\ref{sec:benice}):
 
-req = request.Request('http://www.geenstijl.nl/mt/archieven/2014/05/das_toch_niet_normaal.html', headers={'User-Agent' : "Mozilla/5.0"})
-tekst=request.urlopen(req).read()
-tekst=tekst.decode(encoding="utf-8",errors="ignore").replace("\n"," ").replace("\t"," ")
-
-commentsection=re.findall(r'<div class="commentlist">.*?</div>',tekst)
-print (commentsection)
-comments=re.findall(r'<article.*?>(.*?)</article>',commentsection[0])
-print (comments)
-print ("There are",len(comments),"comments")
-for co in comments:
-    metalist.append(re.findall(r'<footer>(.*?)</footer>',co))
-    onlycommentslist.append(re.findall(r'<p>(.*?)</p>',co))
-writer=csv.writer(open("geenstijlcomments.csv",mode="w",encoding="utf-8"))
-output=zip(onlycommentslist,metalist)
-writer.writerows(output)
+\begin{lstlisting}
+with open('/home/damian/Desktop/test.html') as fi:
+    htmlsource = fi.read()
 \end{lstlisting}
 
 
-Of course, rather than just saving it to a csv file, we could also add one or two lines to the for-loop and immediately perform a sentiment analysis!
+Sometimes, it can be useful to pretend to `be' a specific web browser. Some websites deliver different content depending on what browser you use (for instance, content delivered to mobile devices might look different). Also, the other party might not like it if you are, in fact, a Python program.
+You can pretend to be a specific browser by specifyig a so-called \emph{user-agent string}.
+For instance, the user-agent string of Firefox looks like in the following example (google for more user-agent strings; there are many lists on the Internet):
 
-\begin{quote}
-What happens exactly in line 8 to 10? In line 8, we form a HTTP-request to specify what we want to download. We could skip this and just specify the URL, but we want to perform a little trick to fool the other side. As they do not like people scraping their content, we have to conceal that we actually do not use a web browser like normal people. Therefore, we let our program just pretend to be Firefox ("Mozilla"). In line 9, we download the web page. However, what we get is just a number of bytes, and Python does not know which byte corresponds to which character. This is why we use the \texttt{.decode()} method in line 10, which changes the sequence of bytes to a string as we know it. Furthermore, we remove all newlines and tabs from the string, because we want one long, uninterrupted string for further processing (especially, we do not want to care about this when designing our regular expressions). 
-\end{quote}
-Now, you should be ready to write your own parser for some content you are interested in!
+\begin{lstlisting}
+htmlsource = requests.get("http://nu.nl/net-binnen", headers={"User-Agent": "Mozilla/5.0"}).text
+\end{lstlisting}
 
-\section{XPath-parsing with lxml}
-\label{sec:xpath}
-
-One does not always have  to reinvent the weel, though. It is useful to understand how parsing would work with regular expressions, and it is very likely to come into a situation where this knowledge can be applied. Especially in the case of HTML pages, though, several parsers exist that can make life easier. 
-
-In the example in the last section, we saw that an element in a HTML page can be nested in another element. In other words, a HTML page can be represented as a tree: For example, the page branches into an article, a navigation section, and a comment sections; the latter than branches into several comments. Each element in this tree can be identified by a so-called XPath. You can compare it with the path of a given file (\texttt{/home/damian/week6/slides.pdf}), where the leftmost element is the "highest" level, and where after each \texttt{/}, it indicates to which lower level one has to turn before finally arriving at the file (\texttt{slides.pdf}).  
-
-The good news is that you can look up the XPath of an element with your web browser (the bad news, though, is that on some pages it can be a bit tricky to get it \emph{exactly} right). In Firefox, you have to install a plugin for that. It is called XPath Checker and you can get it by googling it or from \url{https://addons.mozilla.org/nl/firefox/addon/xpath-checker/}. Install it and restart Firefox.
-
-Now, go to a website of your choice, select the part of content that you want to scrape, right-click on it, and select "View XPath". XPath Checker opens (Figure~\ref{fig:xpathchecker}) and suggests an XPath. It also displays the content that would be selected if one used this XPath.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth,keepaspectratio]{../pictures/xpathchecker}
-\caption{\label{fig:xpathchecker}Identifying a correct XPath with XPath Checker}
-\end{figure}
-
-Often, you do not only want that \emph{one} comment you selected, but \emph{all} comments. Nevertheless, select just one, and then try to modify the XPath until it fits your needs. The XPath Checker immediately shows you the results, so you can engage in a lot of trial- and error. Some rules for modifying the XPath:
-
-\begin{itemize}
-\item \texttt{//} (thus, a double slash rather than a single slash) means `arbitrary depth' (=may be nested in many higher levels, there may be an arbitrary number of higher levels which are not further specified)
-\item \texttt{*} means `anything' (if \texttt{p[2]} is the second paragraph, \texttt{p[*]} are all paragraphs)
-\item Let the XPath end with \texttt{/text()} to get all text
-\end{itemize}
-
-\begin{quote}
-	When there is a line or paragraph break within the results of an XPATH, the \texttt{/text()} function might not function properly, as it sees each part as a separate element. This can be fixed by leaving away the \texttt{/text()} in the XPATH itself and instead using the \texttt{.text\_content()} method later on, as this example illustrates:
-	\begin{lstlisting}
-reviews = tree.xpath('//div/div/div[2]/div[*]/div[2]/p[1]')
-i=0
-for review in reviews:
-	print("Review",i,":",review.text_content())
-	i+=1
-\end{lstlisting}	
-\end{quote}
+In fact, the requests library can do much more, including, for instance, handling cookies or transmitting information (like usernames or passwords). For more information, see \url{http://docs.python-requests.org/en/latest/user/quickstart/}
 
 
-In addition, you can also have a look at alternative XPath specifications. Again, select the text you are interested in, right-click, and choose ``Inspect element''.\footnote{If you use the Chrome browser, you can directly copy an XPath from the ``Inspect element'' window, but you have no way of interactively checking the XPath like with the Firefox XPath Checker.} You can now see how the HTML tags referring to that element are nested, which should correspond to the construction of your XPath (Figure~\ref{fig:inspectelement}). In particular,
-\begin{itemize}
-\item If you want to refer to a specific attribute of a HTML tag, you can use \texttt{@}. For example, every \texttt{*[@id="reviews-container"]} in an XPath would grab what is within a tag like \texttt{<div id="reviews-container" class="user-content">}
-\end{itemize}
+
+\section{Parsing HTML pages}
+\label{parsing}
+\subsection{HTML pages as trees}
+
+
+We now know how to retrieve a given web page. But how do we extract the relevant information?
+
+Your first idea might be that we could use regular expressions (Section~\ref{sec:regexp}) for this. And indeed, that is possible (and, in fact, it can be a last resort when everything else fails). However, using regular expressions to parse a HTML page would be error prone and unnecessarily complicated. We would, in fact, ending up reinventing the wheel: After all, parsing HTML pages is such a common task that there are packages for this. Fun fact: Under the hood, they actually sometimes work with regular expressions, and you can sometimes use regular expressions within them.
+
+However, in order to get started with parsing HTML pages, we need to have a basic understanding of how a HTML page looks like. Here is a simplified example:
+
+\begin{lstlistingoutput}
+<html>
+<body>
+<h1>This is a title</h1>
+<div>
+<p> Some text with one <a href=bla.html>link </a> </p>
+<img src = plaatje.jpg>an image </img>
+</div>
+<div>
+<p> Some more text </p>
+<p> Even more... </p>
+<p> And more. </p>
+</div>
+</body>
+</html>
+\end{lstlistingoutput}
+
+For now, it is not too important to understand the function of each specific tag (although it might help, for instance, to realize that \texttt{a} denotes a link, \texttt{h1} a first-level heading, \texttt{p} a paragraph and \texttt{div} some kind of section).
+
+What is important, though, is to realize that each tag is opened and closed  (with \texttt{/}). Because tags can be nested, we can actually draw the code as a tree. In our example, this would look like this:
+
+\dirtree{%
+.1 html.
+.2 body.
+.3 h1.
+.3 div.
+.4 p.
+.5 a.
+.4 img.
+.3 div.
+.4 p.
+.4 p.
+.4 p.
+}
+
+If we represent our web page as such a tree\footnote{This is also referred to as the Document Object Model (DOM), or a DOM tree.}, we can describe each location in the page by describing how to walk through the tree to arrive at the correct position. 
+For instance, to describe where to find ``Even more text'', we could say: start at html, go to body, go to the second div, and take the first p element.
+
+If we translate this verbal explanation to a so-called XPATH, it reads:
+
+\begin{lstlisting}
+'/html/body/div[2]/p[1]'
+\end{lstlisting}
+
+ You can compare the syntax of an XPATH with the path of a given file (\texttt{/home/damian/week6/slides.pdf}), where the leftmost element is the "highest" level, and where after each \texttt{/}, it indicates to which lower level one has to turn before finally arriving at the file (\texttt{slides.pdf}).  
+
+If we leave away the \texttt{[1]} after \texttt{p}, we retrieve a list of all the three texts within the second div -- which makes it ease to, for instance, retrieve all reviews from a web page instead of only one specific review.
+
+You might observe that in contrast to how it's generally done in Python, XPATHs do not start counting at 0 (after all, XPATHs are not Python-specific).
+
+Thus, we need a module that transforms our web page into such a tree and allows us to address parts of the tree by their XPATH. Such a module is \texttt{lxml}, which will be presented in the next session.
+
+
+\subsection{Finding a good XPATH}
 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth,keepaspectratio]{../pictures/inspectelementcrop}
-	\caption{\label{fig:inspectelement}Gathering information for constructing an alternative XPATH specification, using the ``inspect element'' function.}
+	%\includegraphics[width=.5\paperwidth,,keepaspectratio]{../pictures/kieskeurig2018.png}
+	\includegraphics[width=.5\paperwidth,,keepaspectratio]{../pictures/kieskeuriginspect2018-1.png}
+	
+	A\vskip 0.5cm
+	
+	\includegraphics[width=.5\paperwidth,,keepaspectratio]{../pictures/kieskeuriginspect2018-2.png}
+	
+	B\vskip 0.5cm
+	
+	\includegraphics[width=.5\paperwidth,,keepaspectratio]{../pictures/kieskeuriginspect2018-3.png}
+	
+	C
+	\caption{\label{fig:kieskeurig}Select the part of the website that you are interested in, right-click, and choose ``Inspect Element'' (A). Have a look at the highlighted part of the HTML source code to see which tags and/or attributes are relevant for constructing your XPATH (B). Alternatively, just copy the XPATH Firefox suggests (C).}
 \end{figure}
 
 
-An example that scrapes all reviews of a specific telephone using one single XPath expression:
+At first glance, one might think that there is exactly one way to write an XPATH to describe a location on the page. But that's not the case. XPATHs can also contain instructions like `go to an arbitrary depth of the tree until you find element X' or `only consider elements with a specific attribute'.
+
+Therefore, one often has to play around a bit before one finds the most suitable XPATH. On the one hand, one can be not specific enough (for instance, instead of selecting all links to reviews, one would also select all other irrelevant links). On the other hand, one can be too specific (for instance, only selecting the first review instead of all reviews).
+
+In the previous section, we already saw the general structure:
+
+\begin{itemize}
+	\item \texttt{/} seperates the different levels. Thus, \texttt{/html/body/div} means: go from html to body and from there to div.
+	\item \texttt{[]} can be used to indicate which branch of the tree to take if there are several ones with the same name. For instance, if there are five p tags, \texttt{p[3]} would select the third.
+\end{itemize}
+
+Useful other elements are:
+
+\begin{itemize}
+	\item \texttt{//} (thus, a double slash rather than a single slash) means `arbitrary depth' (=may be nested in many higher levels, there may be an arbitrary number of higher levels which are not further specified). For instance, \texttt{/html/body//p} can be read as: ``I don't care which path you take between `body' and `p'. Very often, you can start your XPATH with \texttt{//} to avoid make it shorter and avoid being too specific.
+	\item \texttt{*} means `everything' (if \texttt{p[2]} is the second paragraph, \texttt{p[*]} are all paragraphs)
+	
+	\item 	\texttt{[@attribute="whatever"]} lets you select only those tags that contain a specific attribute. For example, instead of just being a short and plain \texttt{<div>}, a HTML tag might then look like this: 
+	
+	\texttt{<div class="reviews-single\_\_text">}. 
+	
+	An XPATH to capture all div tags that have an attribute ``class'' with the value ``reviews-single\_\_text'' could look like this:
+	
+ \texttt{//div[@class="reviews-single\_\_text"]}
+	%\item Let the XPath end with \texttt{/text()} to get all text
+\end{itemize}
+
+
+Let try this with an example (Figure~\ref{fig:kieskeurig}).
+
+Go to a website of your choice (because websites change their layout quite often, any specific example is likely to be outdated when you read this).
+
+Select some element that you are interested in, right-click on it, select ``Inspect Element'') and have a look at the highlighted source code (Figure~\ref{fig:kieskeurig}). 
+
+Now run the following Python code:
 
 \begin{lstlisting}
 from lxml import html
-from urllib import request
+import requests
 
-req=request.Request("http://www.kieskeurig.nl/smartphone/product/2334455-apple-iphone-6/reviews")
-tree = html.fromstring(request.urlopen(req).read().decode(encoding="utf-8",errors="ignore"))        
+myurl = "https://www.kieskeurig.nl/smartphone/product/3518003-samsung-galaxy-a5-2017-zwart/reviews"
 
-reviews = tree.xpath('//*[@class="reviews-single__text"]/text()')
+htmlsource = requests.get(myurl).text
+tree = html.fromstring(htmlsource)        
+\end{lstlisting}
 
-# remove empty reviews and remove leadint/trailing whitespace
-reviews = [r.strip() for r in reviews if r.strip()!=""]
+Optionally, save the HTML source code to a file and open it in a browser (see Section~\ref{sec:retrievingwebpages}).
 
-print (len(reviews),"reviews scraped. Showing the first 60 characters of each:")
+Now, playing begins. You basically need to find an XPATH (using the rules outlined above) that gives you the desired result. Make sure that you do not re-download the page every time, that just causes unnecessary traffic.
+
+\begin{lstlisting}
+reviews = tree.xpath('//div[@class="reviews-single__text"]')
+
+# get the text for each of the elements
+reviewstext = [r.text for r in reviews]
+
+# alternatively, without leading and trailing whitespace
+
+reviewstext = [r.text.strip() for r in reviews]
+\end{lstlisting}
+
+Now, we can do whatever we want with the reviews. For example, let's print an overview:
+
+\begin{lstlisting}
+print (len(reviews),"reviews scraped.  The first 60 characters of each:")
 i=0
-for review in reviews:
+for review in reviewstext:
     print("Review",i,":",review[:60])
     i+=1
 \end{lstlisting}
 
 
-This produces the following output:
+
+\FloatBarrier
+
+\subsection{Parsing links}
+
+The list \texttt{reviews} that we created from \texttt{tree.xpath} contains the parsed elements in their own, very specific data type. While we cannot do much with them directly, luckily, these datatypes have a couple of properties that contain the information we need.
+
+For instance, as we saw in the example above, they do have a property \texttt{.text} that contains the text within the element. That is very often indeed what we are interested in. 
+
+But, as outlined in Section~\ref{sec:generalapproachtoscraping}, we sometimes want to retrieve other information, in particular, links. 
+
+For example, a website might display the string "My great hotel", which is a link to www.myhotel.com. The underlying HTML code might look like this:
+\begin{lstlistingoutput}
+...
+...
+<div class="hotel">
+<a href="http://www.myhotel.com">My great hotel</a>
+
+</div>
+...
+... 
+\end{lstlistingoutput} 
+
+If we would construct an XPATH such as
+\begin{lstlisting}
+element = tree.xpath('//div[@class="hotel"]/a')
+\end{lstlisting}
+then 
+\begin{lstlisting}
+print(element[0].text) 
+\end{lstlisting}
+would print "My great hotel", because that's the text between the opening \texttt{a} tag and the closing \texttt{/a} tag. However, we want to retrieve an attribute of the first tag, namely the value associated with \texttt{href}.
+
+Luckily, that's not much more complicated than getting the text:
+
+\begin{lstlisting}
+print(element[0].attrib["href"]) 
+\end{lstlisting}
+will print http://www.myhotel.com. 
+
+
+
+To give another example and let's get the links to all hotels on a website that formats their links in the following way:
+
 
 \begin{lstlistingoutput}
-67 reviews scraped. Showing the first 60 characters of each:
-Review 0 : De Apple Iphone 6 Zilver/16GB het is een heel fijn apparaat 
-Review 1 : Apple maakt mooie toestellen met hard- en software uitsteken
-Review 2 : Vanaf de iPhone 4 ben ik erg te spreken over de intuitieve i
-Review 3 : Helaas ontbreekt het Apple toestellen aan een noodzakelijk i
-\end{lstlistingoutput}
+<a href="http://www.myhotel.com" class="hotel">My great hotel</a>
+<a href="http://www.myrestaurant.com" class="restaurant">My restaurant</a>
+<a href="http://www.myshabbyhotel.com" class="hotel">My not so good hotel</a>
+ 
+\end{lstlistingoutput} 
 
-Now it's your turn!
+Let's further assume that we don't care about where on the page the links are -- they can basically be on an arbitrary position on the tree.
+
+We could do so by writing:
+
+\begin{lstlisting}
+linkelements = tree.xpath('//a[@class="hotel"]')
+links = [l.attrib["href"] for l in linkelements]
+\end{lstlisting}
+
+
+
+
+\subsection{CSS Selectors as an easy alternative}
+Another way to select elements within the DOM tree are so-called CSS selectors. Some say that there syntax is easier than the XPATH syntax.
+For instance, to select all elements that have an attribute \texttt{class} with the value \texttt{fluid}, we can just write: \texttt{.fluid} (with a dot).
+And to select all \texttt{h1} tags, we can just write: \texttt{h1} (without a dot).
+
+
+
+\begin{lstlisting}
+import requests
+from lxml.html import fromstring
+
+response = requests.get('https://www.nu.nl/buitenland/5176460/britse-regering-zet-23-russische-diplomaten-vergiftiging-skripal.html')
+
+tree = fromstring(response.text)
+
+print ("Getting the headline via attribute")
+
+print('Result via XPATH:')
+print(tree.xpath('//*[@class="fluid"]')[0].text)
+
+print('Result via CSS selector:')
+print(tree.cssselect('.fluid')[0].text)
+
+
+print ("Getting the headline via tag")
+
+print('Result via XPATH:')
+print(tree.xpath('//h1')[0].text)
+
+print('Result via CSS selector:')
+print(tree.cssselect('h1')[0].text)
+
+\end{lstlisting}
+
+All should print the same.
+
+This already illustrates that for many tasks, it doesn't really matter whether you use XPATHs or CSS selectors. Sometimes, XPATHs can be more powerful (for instance when it makes sense to describe which path on the DOM tree to follow exactly), sometimes CSS selectors are simpler and easier to read. 
+In the end, you need to find out what makes most sense in your project.
+
+For an overview of all possible CSS selectors, see
+\url{https://www.w3schools.com/cssref/css_selectors.asp}
+
+Also, as shown in panel C in Figure~\ref{fig:kieskeurig}, you can directly copy CSS selectors from the Inspect Element function in Firefox.
+
+
+\section{Be nice!}
+\label{sec:benice}
+
+When you put together the bits and pieces and end up writing your own scraper (for instance, by collecting all links from some page, follow these links, download and parse the pages you encounter, and repeat the whole process for all links on another page), you need to carefully think about how to minimize the impact this has on the site that you are scraping.
+
+Every time you download a page, you somewhere cause some cost -- someone has to pay for the traffic, and someone needs to provide the computing power and memory to serve the page for you. When a human visits a news site, these costs are negligibly small, but if you do not visit the website one or ten times like a human would, but tens of thousands of times, this can change. 
+
+It lies beyond the scope of this tutorial to discuss legal implications, but at the very least, it would be pretty unethical to cause unnecessary costs and stress to their servers. If you take it to the extreme, if you run a program that issues an extremely high number of requests to a server and does so with a very high frequency, then you are effectively running an attack on the website in question.
+
+So, what can we do to minimize harm and keep everyone happy?
+
+\begin{enumerate}
+	\item Avoid multiple downloads. For instance, during testing, save the downloaded webpage to disk and read it from there instead of re-downloading it every time you try a new XPATH. Or, when running your scraper, include a functionality to only download the pages that you do not have yet downloaded.
+	
+	\item Take your time. Between downloading two pages, wait some seconds to act more like a human. You can find the code for waiting randomly between 5 and 10 seconds below. 
+\end{enumerate}
+
+\begin{lstlisting}
+from random import randint
+from time import sleep
+sleep(randint(5,10))
+\end{lstlisting}
 
 
 \section{Alternatives}
-You can get very far with the approaches sketched in this chapter: regular expressions, the lxml-package, and wget for automated downloading tasks. BeautifulSoup is a python package that lies somewhere in between, as it resembles lxml, but internally uses regular expressions rather than an XPath to parse the HTML. Within lxml, you can also use so-called CSS selectors instead of XPATHs.
+You can get very far with the approaches sketched in this chapter: regular expressions, the lxml-package, and wget for automated downloading tasks. BeautifulSoup is a python package that lies somewhere in between, as it resembles lxml, but internally uses regular expressions rather than an XPath to parse the HTML.
 
 If you want to write an application that integrates crawling and parsing, you might have a look at the scrapy framework (\url{http://scrapy.org/}), although it might be a bit of an overkill.
 
@@ -1938,8 +2123,9 @@ You should be able to write your own web scraper. This entails that you
 \begin{itemize}
 	\item have a global understanding of how a HTML page looks like, so that you can use this information to build your scraper
 	\item understand that there are several ways to parse a specific piece of information from a page
-	\item know not only regular expressions, but also how to use packages like lxml.
+	\item know how to use packages like lxml.
 \end{itemize}
+
 
 
 \chapter{Network visualization}
