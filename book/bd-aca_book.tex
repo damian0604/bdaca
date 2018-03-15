@@ -693,7 +693,40 @@ print(name[i])
 print(age[i])
 \end{lstlisting}
 
-Another option would be the last data type that we will discuss: a \emph{dictionary}. As the name says, a dictionary is something where you can look something up–––in Python terms, you search for a \emph{key} and get its \emph{value}. A dictionary is denoted by \texttt{\{ \}}, with entries separated by commas, and keys and values by a colon:
+
+We can also modify lists by appending new items (such as a new string) to them:
+\begin{lstlisting}
+mijnlijst = ["element 1", "element 2"]
+anotherone = "element 3"   # note that this is a string, not a list!
+mijnlijst.append(anotherone)
+print(mijnlijst)
+\end{lstlisting}
+gives you:
+\begin{lstlistingoutput}
+["element 1", "element 2", "element 3"]
+\end{lstlistingoutput}
+
+If we want to merge all items from a second list into the first one:
+
+\begin{lstlisting}
+mijnlijst = ["element 1", "element 2"]
+anotherone = ["element 3", "element 4"]
+mijnlist.extend(anotherone)  
+print(mijnlijst)
+\end{lstlisting}
+gives you:
+\begin{lstlistingoutput}
+["element 1", "element 2", "element 3", "element 4]
+\end{lstlistingoutput}
+
+\begin{question}
+What would have happened if we would have used \texttt{.append()} instead of \texttt{.extend()} in the last example?
+\end{question}
+
+
+
+
+Another option to solve our problem of storing our names and ages is using the last data type that we will discuss: a \emph{dictionary}. As the name says, a dictionary is something where you can look something up–––in Python terms, you search for a \emph{key} and get its \emph{value}. A dictionary is denoted by \texttt{\{ \}}, with entries separated by commas, and keys and values by a colon:
 \label{whatsadict}
 \begin{lstlisting}
 nameage={"John": 22, "Bas": 25, "Anne": 23,"Sheila": 28 ,"Mark": 26}
@@ -704,8 +737,30 @@ If we want to know how old Sheila is, we can retrieve that information:
 print(nameage["Sheila"])
 \end{lstlisting}
 
+
+Adding a key to a dict (or changing the value of an existing key) is very straightforward:
+
+\begin{lstlisting}
+mydict = {"whatever": 42, "something": 11}
+mydict["somethingelse"] = 76
+print(mydict)
+\end{lstlisting}
+gives you:
+\begin{lstlistingoutput}
+{'whatever': 42, 'somethingelse': 76, 'something': 11}
+\end{lstlistingoutput}
+If a key already exists, its value is simply replaced.
+
+
+
 The deeper you dive into data analysis with Python, the more you will appreciate the data structure of a dict: Because each value has a key (thus, some sort of a label), the ``meaning'' of a specific value is much clearer than with lists. 
 In addition, nested dictionaries can be a great way to analyze and store nested data.
+
+
+
+
+
+
 
 \section{Functions}
 We have played around a bit with variables. To do some useful things with them, however, we need something called \emph{functions}. In fact, we already used some: \texttt{print()} for example, or \texttt{len()} and \texttt{int()}. 
@@ -3059,7 +3114,7 @@ alltags=[]
 i=0
 for identifyer,clip in data.items():
     i+=1
-    alltags+=clip["channels"]
+    alltags.extend(clip["channels"])
 
 print(len(alltags),"tags have been used to describe the",i,"different videos")
 print("Thus, we have an average of",len(alltags)/i,"tags per video")
@@ -3099,7 +3154,7 @@ print ('Average length',sum(length)/len(length))
 # most frequently used words
 allwords=[]
 for identifier,clip in data.items():
-    allwords+=clip["description"].split()
+    allwords.extend(clip["description"].split())
 c2=Counter(allwords)
 print(c2.most_common(100))
 \end{lstlisting}
