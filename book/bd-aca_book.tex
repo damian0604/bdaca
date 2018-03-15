@@ -221,6 +221,20 @@ Download the Lubuntu image from \url{http://lubuntu.net}. \textbf{We are working
 If you have a reasonably new computer, download \texttt{lubuntu 64-bit (AMD64) desktop CD}, only if you encounter problems later on or have a really old computer (up to around 2007), download the 32-bit version. So, in most cases, select the 64-bit Desktop version (\textbf{\texttt{lubuntu-16.04.1-desktop-amd64.iso}}). 
 Save it at a place of your convenience.
 
+
+\begin{quote}
+	If in the next step, VirtualBox does not even show you the 64 bit option and the 32 bit option doesn't work either, it might be that using Virtualization is disabled in your computers settings (UEFI, formerly called and still known as BIOS -- the basic configuration menu you get when pressing a special key after switching on your computer. Look into your computers' manual or google how to enter it.) Most computers do not even have such an option or have it enabled by default, but it seems that for instance many new Lenovo models have it disabled. In this case, you need to enable it.
+	
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=.5\paperwidth,,keepaspectratio]{../pictures/bios}
+		\caption{\label{fig:bios}The Virtual Technology option must be switched on.}
+	\end{figure}
+	
+\end{quote}
+
+
 \section{Create a virtual machine}
 Open VirtualBox, click on ``New'', give your image a name, and select first Linux, then Ubuntu~64bit from the list (or 32 bit, if that's what you downloaded). On the following screens, just leave the default settings and agree to everything---with two exceptions: 
 \begin{itemize}
@@ -251,7 +265,8 @@ The virtual machine you just created should show up in the main window now. If i
 
 
 
-Now click on the name of the virtual machine and on "Settings" (Figure~\ref{fig:tweak2}. Under "System"/"Processors", you should see a check box "Enable PAE/NX". If you can enable this, enable it.\footnote{In rare cases, you might just to have to disable it. So, if you cannot start your VM, you know what to try.} If you have more than one processor, also select the maximum (e.g., choose 2 instead of 1). Confirm with OK. Also, check if you can enable "Display"/"Enable 3D acceleation" (Figure~\ref{fig:tweak1}). These changes might not be strictly necessary, but can in some instances prevent problems.
+Now click on the name of the virtual machine and on "Settings" (Figure~\ref{fig:tweak2}. Under "System"/"Processors", you should see a check box "Enable PAE/NX". If you can enable this, enable it.\footnote{In rare cases, you might just to have to disable it. So, if you cannot start your VM, you know what to try.}
+Confirm with OK. Also, check if you can enable "Display"/"Enable 3D acceleation" (Figure~\ref{fig:tweak1}). These changes might not be strictly necessary, but can in some instances prevent problems.
 
 When you are done, start the virtual machine by clicking on the green arrow in the main window. You will be asked for a location from which to boot. Click on the icon to select a file and select the Lubuntu-image you downloaded.
 
@@ -340,10 +355,10 @@ jupyter-notebook
 	While working in the VM, you realize that you made a mistake while configuring your keyboard so that some keys don't work as expected? No worries, you can re-configure your keyboard at any time with the following command:\\
 	\texttt{sudo dpkg-reconfigure keyboard-configuration}\\
 	If you have a standard laptop purchased in the Netherlands, it is very likely that you have a US keyboard. In that case, the following configuration is correct:\\ 
-	Model: Algemeen 105 toetsen internationaal\\
-	Oorsprong van het toetsenbord (Engels VS)\\
-	Indeling: Engels (VS)\\
-	standaard\\
+	Model: Algemeen 105 toetsen internationaal (Generic 105 key (intl) PC)\\
+	Oorsprong van het toetsenbord: Engels VS (English US)\\
+	Indeling: Engels (VS) (English US)\\
+	standaard (with Euro on 5)\\
 	geen samenstelling\\
 	X-server: nee	\\
 	Of course, if you have a Mac, select the Mac keyboard instead.
@@ -988,7 +1003,6 @@ We see a lot of familiar structures: for example, the construction of (empty) li
 \item The \texttt{import} statement. It simply says that we want to load an external module, in this case one that knows how to read csv files. Import statements are usually written in the very first lines of a python scripts.
 \item The \texttt{with open(\ldots) as:} construction. It indicates that we want to open a file and assigns a name to that so-called \emph{file object}, indicated by \texttt{as} (in this case, we decided to call it \texttt{csvfile}, which is a completely arbitrary name). The statement ends with a colon, so an indented block has to follow (remember?). When the indented block is over (thus, after line 10), the file is automatically closed again. That's exactly what we want, because by then, we have read all the information and stored it in lists; we don't need the file any more. The arguments passed to the \texttt{open()} function specify the file name, but also some other details of how to open it. We'll skip the details for now.
 \item The \texttt{csv.reader()} function. It returns an object\footnote{For those who are interested: More specifically, it returns a so-called generator. You can loop over a generator, but you can do so only once. In every iteration of the loop, it gives you one next element (one more row from the file in our case), and once there are no elements left, it stops. The great advantage of this, especially when dealing with large files, is that you don't have to load the whole file into memory at once.} (which I decided to call, not very creatively, \texttt{reader}) that we can use to actually read the file. Note that in line 5, we only \emph{opened} the file, we have not \emph{read} a single byte from it yet. In line 5, we actually could have opened any arbitrary file---the \texttt{open()} command does not imply a specific data structure. Therefore now, in line 6, we define how to read from the file: Namely, by using the \texttt{csv} module. As an argument, we can give more specific information, for example, as done here, that the columns are separated by a \texttt{,}.
-\item The \texttt{.append()} method. It adds a new element to a list.
 \end{itemize}
 
 With your knowledge gained so far, you probably already can explain what in the for-loop in line 7--10 exactly happens. Think about it for a moment before reading further.
@@ -1127,6 +1141,8 @@ Now we're there! The dict \texttt{data['items'][i]['volumeInfo']} consists of se
 (remember, we start counting at 0).
 
 \begin{quote}
+	While \texttt{pprint} can be useful to get a visual representation of small files and objects, it is a bad idea to print it. In that case, it is much better to use commands like \texttt{len} and \texttt{type} to get an idea of the data, and to use subsets of the data by selecting just one element, such as \texttt{firstelement=mylist[0]} or \texttt{oneentry = mydict[somekey]}.
+	
 	If you want to see all keys of a given dictionary \texttt{mydict} without having to wade through all the output, then you can get them by calling the method \texttt{mydict.keys()}.
 \end{quote}
 
