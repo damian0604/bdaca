@@ -308,6 +308,18 @@ for url in urls:
 
 
 
+
+\begin{frame}{Make it robust}
+You cannot foresee every possible problem.\\
+Most important: Make sure your program does not fail and loose all data just because something goes wrong at case 997/1000.
+	\begin{itemize}
+		\item Use \texttt{try/except} to explicitly tell the program what
+		\item Write data to files (or database) in between
+		\item Use \texttt{assert len(x) == len(y}) for sanity checks
+	\end{itemize}	
+\end{frame}
+
+
 %
 %
 %\begin{frame}{Replicability}
@@ -447,6 +459,23 @@ Looking forward\\
 		\item $\Rightarrow$ \tiny{Günther, E., Trilling, D., \& Van de Velde, R.N. (2018). But how do we store it? (Big) data architecture in the social-scientific research process. In:\textit{ Stuetzer, C.M., Welker, M., \& Egger, M. (eds.): Computational Social Science in the Age of Big Data. Concepts, Methodologies, Tools, and Applications}. Cologne, Germany: Herbert von Halem.}
 	\end{itemize}
 	\end{block}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Storing data}
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/guenteretal_fig1}}
+\end{frame}
+
+
+
+
+\begin{frame}{From retrieved data to enriched data}
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/guentheretal_fig3}}
 \end{frame}
 
 
