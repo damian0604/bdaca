@@ -3070,7 +3070,7 @@ You might want to construct a dict with the categories as keys and an int contai
 from collections import defaultdict
 commentspercat=defaultdict(int)
 \end{lstlisting}
-And then, loop over the dataset and add \\exttt{int(value["nb\_comments"])} to the dict.
+And then, loop over the dataset and add \texttt{int(value["nb\_comments"])} to the dict.
 
 Not all items might have comments and have a value of 'NA' instead. Thus, referring to \texttt{int(data[item]["nb\_comments"])} might fail. You can specify what should happen in such cases by using a try-except construction:
 
