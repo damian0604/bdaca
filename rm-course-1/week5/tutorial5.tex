@@ -57,9 +57,9 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 \begin{document}
 
 
-\title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis} \\ Week 5 -- Wednesday \\ »Statistics with Python«}
+\title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis} \\ Week 6 -- Wednesday \\ »Statistics with Python«}
 \author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
-\date{7 March 2018}
+\date{9 May2018}
 \institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
 
 %\maketitle
@@ -353,7 +353,7 @@ df['is_center'] = df['hood'].str.contains('[cC]enter')
 or define your own function:
 \begin{lstlisting}
 def is_center(x):
-    int(x.lower().find('center') > -1)
+    return int(x.lower().find('center') > -1)
     
 df['is_center'] = df['hood'].map(is_center)
 \end{lstlisting}
