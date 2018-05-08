@@ -342,6 +342,32 @@ and MUCH more\ldots
 \end{frame}
 
 
+
+
+\begin{frame}[fragile]{Recoding and transforming}
+To transform your data, you can use \texttt{.apply()}, \texttt{.applymap()}, and \texttt{.map()} or the .str.XXX() methods:
+
+\begin{lstlisting}
+df['is_center'] = df['hood'].str.contains('[cC]enter')
+\end{lstlisting}
+or define your own function:
+\begin{lstlisting}
+def is_center(x):
+    int(x.lower().find('center') > -1)
+    
+df['is_center'] = df['hood'].map(is_center)
+\end{lstlisting}
+or use a throwaway-function:
+\begin{lstlisting}
+df['is_center'] = df['hood'].map(lambda x: int(x.lower().find('center') > -1))
+\end{lstlisting}
+
+
+\end{frame}
+
+
+
+
 \section{Exercise}
 \begin{frame}[plain]
 {\huge{Joanna will introduce you to the exercise} }
