@@ -36,9 +36,9 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 \begin{document}
 
-\title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis} \\ Week 7 -- Monday \\ »Machine Learning«}
-\author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
-\date{19 March 2018}
+\title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis} \\ Week 7 -- Wednesday \\ »Machine Learning«}
+\author[Damian Trilling]{Joanna Strycharz \& Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
+\date{23 May 2018}
 \institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
 
 
@@ -130,7 +130,7 @@ Recap: Types of Automated Content Analysis
 
 \begin{frame}[fragile]{A so-called term-document-matrix}
 \begin{lstlisting}
-w1,w2,w3,w4,w5,w6 ...
+      w1,w2,w3,w4,w5,w6 ...
 text1, 2, 0, 0, 1, 2, 3 ...
 text2, 0, 0, 1, 2, 3, 4 ...
 text3, 9, 0, 1, 1, 0, 0 ...
@@ -214,19 +214,19 @@ id2word = corpora.Dictionary(texts)
 mm =[id2word.doc2bow(text) for text in texts]
 
 # Train the LDA models.
-lda = models.ldamodel.LdaModel(corpus=mm, id2word=id2word, num_topics=NTOPICS, alpha="auto")
+mylda = models.ldamodel.LdaModel(corpus=mm, id2word=id2word, num_topics=NTOPICS, alpha="auto")
 
 # Print the topics.
-for top in lda.print_topics(num_topics=NTOPICS, num_words=5):
-print ("\n",top)
+for top in mylda.print_topics(num_topics=NTOPICS, num_words=5):
+  print ("\n",top)
 
 print ("\nFor further analysis, a dataset with the topic score for each document is saved to",LDAOUTPUTFILE)
 
-scoresperdoc=lda.inference(mm)
+scoresperdoc=mylda.inference(mm)
 
 with open(LDAOUTPUTFILE,"w",encoding="utf-8") as fo:
-for row in scoresperdoc[0]:
-fo.write("\t".join(["{:0.3f}".format(score) for score in row]))
+  for row in scoresperdoc[0]:
+    fo.write("\t".join(["{:0.3f}".format(score) for score in row]))
 fo.write("\n")
 \end{lstlisting}
 
@@ -263,7 +263,7 @@ fo.write("\n")
 import pyLDAvis
 import pyLDAvis.gensim
 # first estiate gensim model, then:
-vis_data = pyLDAvis.gensim.prepare(lda,mm,id2word)
+vis_data = pyLDAvis.gensim.prepare(mylda,mm,id2word)
 pyLDAvis.display(vis_data)
 \end{lstlisting}
 \makebox[\linewidth]{
@@ -575,16 +575,16 @@ Typical approach: Find out which setup performs best (see example source code in
 
 \section{Next meetings}
 \begin{frame}{Next (last\ldots) meetings}
-\begin{block}{Wednesday}
+\begin{block}{Friday}
 Playing around with machine learning! Choose what you find interesting (SML or LDA).
 \end{block}
 
-\begin{block}{Monday: Looking back and forward }
+\begin{block}{Wednesday: Looking back and forward }
 Putting in perspective what we have done. Putting all pieces together. Going forward: other techniques to use in your future projects.
 \end{block}
 
 
-\begin{block}{Wednesday}
+\begin{block}{Friday}
 	Final chance for questions regarding final project
 \end{block}
 
