@@ -1,0 +1,1126 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass{beamer}
+% for handouts: \documentclass[handout]{beamer}
+
+%\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=structure.fg!25]
+% or whatever
+
+\usetheme[compress]{Amsterdam}
+%\setbeamertemplate{headline}{}
+%\setbeamertemplate{footline}{}
+%\setbeamersize{text margin left=0.5cm}
+  
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{hyperref}
+
+\usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+%\usepackage[export]{adjustbox}
+
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+
+
+\usepackage{multicol}
+\lstset{
+basicstyle=\scriptsize\ttfamily,
+columns=flexible,
+breaklines=true,
+numbers=left,
+%stepsize=1,
+numberstyle=\tiny,
+backgroundcolor=\color[rgb]{0.85,0.90,1}
+}
+
+
+\begin{document}
+
+\title[Bottom-Up and Top-Down Automated Content Analysis]{Choosing the right Method for the Task:\\{\textbf{Bottom-Up and Top-Down Approaches to Automated Content Analysis}}}
+\author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
+\date{Summer School Computational Social Science\\
+July 30th – August 4th, 2018, Los Angeles, USA }
+\institute[UvA]{Department of Communication Science \\Universiteit van Amsterdam}
+
+
+
+
+
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw]
+\tikzstyle{pijltje} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+minimum height=2em, text width=4em, text centered,]
+
+
+
+
+
+
+\begin{frame}{}
+\titlepage
+\end{frame}
+
+
+\begin{frame}[plain]
+If you are interested in the whole course on which this talk is based, please find 
+\begin{itemize}
+	\item all slides of an 8-weeks course
+	\item a 130 page PDF teaching you the basics of Python and how to code up all techniques discussed
+	\item some additional Jupyter Notebooks
+\end{itemize}
+at:
+
+
+\huge
+\url{https://github.com/damian0604/bdaca/}
+\tiny
+\end{frame}
+
+
+\begin{frame}{Today}
+\tableofcontents
+\end{frame}
+
+
+
+
+\section[Types of ACA]{Types of Automated Content Analysis}
+\begin{frame}{}
+Types of Automated Content Analysis
+\end{frame}
+\subsection{The role of theory}
+
+
+
+
+\begin{frame}{Let's start with reflecting on the role of theory in CSS\ldots}
+Three types of epistemologies with regard to Big Data:
+\begin{enumerate}
+	\item<+-> (Reborn) empiricism: purely inductive, correlation is enough
+	\item<+-> Data-driven science: knowledge discovery guided by theory
+	\item<+->Computational social science and digital humanities: employ Big Data research within existing epistemologies
+	\begin{itemize}
+		\item DH: descriptive statistics, visualizations
+		\item CSS: prediction and simulation
+	\end{itemize}
+\end{enumerate}
+
+\tiny
+Kitchin, R. (2014). Big Data, new epistemologies and paradigm shifts.\textit{ Big Data \& Society, 1}(1), 1–12. doi:10.1177/2053951714528481
+
+
+\end{frame}
+
+
+\begin{frame}[plain]
+	\begin{alertblock}{Things to rember}
+Before designing an Automated Content Analysis, decide whether you 
+\begin{enumerate}[A]
+	\item want to inductively explore data or find things you did not define in advance; \\ or
+	\item have theoretically well-defined concepts you want to operationalize and measure.
+\end{enumerate}
+\end{alertblock}
+\pause
+A is a \textit{bottom up} approach, B is \textit{top down}.
+\end{frame}
+
+
+\subsection{Top-down vs. bottom-up}
+
+
+\begin{frame}{Automated Content Analysis}
+	\makebox[\columnwidth]{
+		\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../pictures/boumanstrilling2016}}
+	\\
+	\tiny
+	Boumans, J.W., \& Trilling, D. (2016). Taking stock of the toolkit: An overview of relevant automated content analysis approaches and techniques for digital journalism scholars. \emph{Digital Journalism, 4}, 1. 8--23.
+\end{frame}
+
+
+
+\begin{frame}{Examples}
+
+\begin{table}[]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{p{2cm}p{5cm}p{5cm}}
+	& \textbf{bottom-up}                                                                                       & \textbf{top-down} \\
+	\hline
+	\textbf{event detection} & unusual spikes and (word) distributions                                                 & finding pre-defined events                                   \\
+	\textbf{topics}          & words co-occurance patterns; unknown which topics exist (number may be known/set) & finding pre-defined topics (well-defined and knwon)\\
+	\textbf{frames}          & same as above                                                                                   & same as above                                               
+\end{tabular}%
+}
+\end{table}
+
+
+\end{frame}
+
+
+
+\begin{frame}{Examples}
+
+\begin{table}[]
+\resizebox{\textwidth}{!}{%
+	\begin{tabular}{p{2cm}p{5cm}p{5cm}}
+		& \textbf{bottom-up}                                                                                       & \textbf{top-down} \\
+		\hline
+		\textbf{event detection} & You want to see when people suddenly start tweeting about something new                                                 & you want to know when ``your'' topic receives a lot of attention \\
+		\textbf{topics}          & You want to know what people write about on review sites & You want to know whether these reviews are (a) complaints, (b) praise, or (c) neutral \\
+		\textbf{frames}          & You want to know which different topic-specific frames are used to discuss nuclear power plants                                                                    & You want to know whether your data contains a human-interest frame, an economic-consequences frame, and/or a conflict frame.
+	\end{tabular}%
+}
+\end{table}
+
+	
+\end{frame}
+
+
+\section{Bottom-up approaches}
+
+\begin{frame}[plain]
+	\textbf{Bottom-up approaches}
+\end{frame}
+
+
+\subsection{Word counts}
+
+\begin{frame}{Counting word frequencies}
+	\begin{itemize}
+	\item Simply counting the most frequently occurring words
+	\item Often visualized as word clouds
+	\item When calculated for different corpora, most characteristic words can be easily determined by calculating the log-likelihood
+	\end{itemize}
+
+
+Example of an application: \\
+	\tiny
+Boukes, M., \& Trilling, D. (2017). Political relevance in the eye of the beholder: Determining the substantiveness of TV shows and political debates with Twitter data. \textit{First Monday, 22}(4). %\url{http://doi.org/10.5210/fm.v22i4.7031}
+
+\end{frame}
+
+
+\begin{frame}[plain]
+\makebox[\linewidth]{
+	\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../pictures/boukestrilling}}
+\end{frame}
+
+
+
+\begin{frame}{Word counts}
+	
+
+	\begin{columns}[t]
+	\column{.5\textwidth}
+	\begin{exampleblock}{pro}
+		easy to do and easy to understand
+	\end{exampleblock}
+	\column{.5\textwidth}
+	\begin{alertblock}{con}
+	doesn't tell much; all context is lost and it's hard to guess what a single word ``means''\textsuperscript{1}
+	\end{alertblock}
+\end{columns}
+
+
+$\Rightarrow$ Specific use cases aside, mostly only a useful first explorative step, but probably not your final analysis.
+
+\vspace{1cm}
+
+\footnotesize
+\textsuperscript{1} Can be partly improved by including bigrams (ngrams), i.e. adjacent words
+
+\end{frame}
+
+
+
+\subsection{Word co-occurrences}
+
+
+\begin{frame}{Counting word co-occurrences}
+	\begin{itemize}
+		\item Count which words co-occur in the same sentence/paragraph/text
+		\item Often visualized as networks (``semantic map'') \\
+		Node size \textasciitilde{} word frequency \\
+		Edge weight \textasciitilde{} number of co-occurrences
+	\end{itemize}
+	
+	
+	Examples of applications: \\
+	\tiny
+Hellsten, I., Dawson, J., \& Leydesdorff, L. (2010). Implicit media frames: Automated analysis of public debate on artificial sweeteners. \textit{Public Understanding of Science, 19}(5), 590–608. %\url{http://doi.org/10.1177/0963662509343136}
+	
+	
+Trilling, D. (2015). Two Different Debates? Investigating the Relationship Between a Political Debate on TV and Simultaneous Comments on Twitter. \textit{Social Science Computer Review, 33}(3), 259–276. %\url{http://doi.org/10.1177/0894439314537886}
+\end{frame}
+
+
+
+
+\begin{frame}[plain]
+\makebox[\linewidth]{
+	\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../pictures/trilling2015}}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Counting word co-occurrences}
+	
+	
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		\begin{exampleblock}{pro}
+			Visualizations to show ``clusters'' (topics, frames)
+		\end{exampleblock}
+		\column{.5\textwidth}
+		\begin{alertblock}{con}
+		sensitive to preprocessing choices, cutoff values, etc.; unclear what's the ``right'' visualization; hard to ``substantiate'' findings
+		\end{alertblock}
+	\end{columns}
+	
+	
+	$\Rightarrow$ Can be a good way to summarize texts visually, but also a bit out-dated and superseded by, e.g., topic models (more later)
+
+\tiny
+Even though some still prefer it over topic models, see
+
+Leydesdorff, L., \& Nerghes, A. (2017). Co-word maps and topic modeling: A comparison using small and medium-sized corpora ( N < 1,000). \textit{Journal of the Association for Information Science and Technology, 68}(4), 1024–1035. %http://doi.org/10.1002/asi.23740	
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[plain]
+	\begin{alertblock}{Things to rember}
+	If you choose for a bottom-up approach, you can start by counting word frequencies and word co-occurrences. These allow for easy-to-understand visualizations (word clouds, co-occurrence networks).
+\end{alertblock}
+	\pause
+But let's move on to more advanced approaches.
+\end{frame}
+
+
+
+
+
+
+\subsection{Unsupervised Machine Learning}
+\begin{frame}[plain]
+	inductive and bottom-up:\\ \textbf{unsupervised machine learning}\\
+	\vspace{1cm}\hspace{1cm} \onslide<2> \footnotesize{(something you aready did in your Bachelor -- no kidding.)}
+\end{frame}
+
+
+
+
+\begin{frame}{Some terminology }
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		
+		\begin{block}<1-4>{Supervised machine learning}
+			You have a dataset with both predictor and outcome (independent and dependent variables; features and labels) --- a \emph{labeled} dataset.
+			\onslide<2>{
+				\footnotesize{Think of regression: You measured \texttt{x1}, \texttt{x2}, \texttt{x3} and you want to predict \texttt{y}, which you also measured}}
+		\end{block}
+		
+		\column{.5\textwidth}
+		
+		\begin{block}<3->{Unsupervised machine learning}
+			You have no labels. \onslide<4>{(\footnotesize{You did not measure \texttt{y})}}\\
+			\onslide<5>{\textbf{Again, you already know some techniques to find out how \texttt{x1}, \texttt{x2},\ldots \texttt{x\_i} co-occur from other courses:} \begin{itemize}
+					\item Principal Component Analysis (PCA)
+					\item Cluster analysis
+					\item \ldots
+				\end{itemize}
+			}
+		\end{block}
+		
+	\end{columns}
+	
+\end{frame}
+
+
+
+
+
+
+
+\subsubsection{PCA}
+
+
+
+
+\begin{frame}{Principal Component Analysis? How does \emph{that} fit in here?}
+	\onslide<2>{In fact, PCA is used everywhere, even in image compression}
+	
+	\begin{block}<3->{PCA in ACA}
+		\begin{itemize}
+			\item Find out what word cooccur (inductive frame analysis)
+			\item Basically, transform each document in a vector of word frequencies and do a PCA
+		\end{itemize}
+	\end{block}
+	%\onslide<4>{\textbf{But we'll look at the state of the art instead: Latent Dirichlet Allication (LDA)}}
+\end{frame}
+
+\begin{frame}[fragile]{A so-called term-document-matrix}
+\begin{lstlisting}
+       w1,w2,w3,w4,w5,w6 ...
+text1, 2, 0, 0, 1, 2, 3 ...
+text2, 0, 0, 1, 2, 3, 4 ...
+text3, 9, 0, 1, 1, 0, 0 ...
+...
+\end{lstlisting}
+\vspace{1cm}
+\onslide<2>{These can be simple counts, but also more advanced metrics, like tf-idf scores (where you weigh the frequency by the number of documents in which it occurs), cosine distances, etc.}
+\end{frame}
+
+\begin{frame}{Interpreting the loadings}
+Usually, the components (factors) are then interpreted as topics or frames, based on the highest-loading words.
+	
+\vspace{1cm}
+	
+	Examples of applications: \\
+	\tiny
+	Hellsten, I., Dawson, J., \& Leydesdorff, L. (2010). Implicit media frames: Automated analysis of public debate on artificial sweeteners. \textit{Public Understanding of Science, 19}(5), 590–608. %\url{http://doi.org/10.1177/0963662509343136}
+	
+	Van der Meer, G. L. A., Verhoeven, P., Beentjes, H., \& Vliegenthart, R. (2014). When frames align: The interplay between PR, news media, and the public in times of crisis. \textit{Public Relations Review, 40}(5), 751–761. %http://doi.org/10.1016/j.pubrev.2014.07.008
+	
+\end{frame}
+
+\begin{frame}{\ldots but there are problems}
+	
+	
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		\begin{exampleblock}{pro}
+			given a term-document matrix, easy to do with any tool; \\ familiar to social scientists
+		\end{exampleblock}
+		\column{.5\textwidth}
+		\begin{alertblock}{con}
+			probably extremely skewed distributions; \\ 
+			some problematic assumptions: does the goal of PCA, to find a solution in which one word loads on \emph{one} component match real life, where a word can belong to several topics or frames?
+		\end{alertblock}
+	\end{columns}
+	
+	
+\end{frame}
+
+
+
+
+\begin{frame}[plain]
+	\begin{alertblock}{Things to rember}
+	If we represent each document by the frequency the words in it, we can run familiar data reduction techniques like PCA to find topics/frames\textsuperscript{1}.
+	\end{alertblock}
+
+\textsuperscript{1}or cluster analysis to group similar documents
+
+\pause
+\tiny
+(I won't discuss a different use of PCA here: using it as a first step to reduce the number of \textit{features } as input for future analyses)
+\end{frame}
+
+
+
+\subsubsection{LDA}
+
+
+\begin{frame}{}
+	Enter \textbf{topic modeling with Latent Dirichlet Allocation (LDA)}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{LDA, what's that?}
+	\begin{block}{No mathematical details here, but the general idea}
+		\begin{itemize}
+			\item There are $k$ topics, $T_1$\ldots$T_k$
+			\item Each document $D_i$ consists of a mixture of these topics, e.g.$80\% T_1, 15\% T_2, 0\% T_3, \ldots 5\% T_k $
+			\item On the next level, each topic consists of a specific probability distribution of words
+			\item Thus, based on the frequencies of words in $D_i$, one can infer its distribution of topics
+			\item Note that LDA (like PCA) is a Bag-of-Words (BOW) approach
+		\end{itemize}
+	\end{block}
+	
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Doing a LDA in Python}
+You can use gensim ({\v R}eh{\r u}{\v r}ek \& Sojka, 2010) for this.
+
+Let us assume you have a list of lists of words (!) called \texttt{texts}:
+
+\begin{lstlisting}
+articles=['The tax deficit is higher than expected. This said xxx ...', 'Germany won the World Cup. After a']
+texts=[art.split() for art in articles]
+\end{lstlisting}
+which looks like this:
+\begin{lstlisting}
+[['The', 'tax', 'deficit', 'is', 'higher', 'than', 'expected.', 'This', 'said', 'xxx', '...'], ['Germany', 'won', 'the', 'World', 'Cup.', 'After', 'a']]
+\end{lstlisting}
+
+\tiny{{\v R}eh{\r u}{\v r}ek, R., \& Sojka, P. (2010). Software framework for topic modelling with large corpora. \emph{Proceedings of the LREC 2010 Workshop on New Challenges for NLP Frameworks}, pp. 45–50. Valletta, Malta: ELRA. }
+
+\end{frame}
+
+
+
+
+\begin{frame}[plain,fragile]
+\begin{lstlisting}
+from gensim import corpora, models
+
+NTOPICS = 100
+LDAOUTPUTFILE="topicscores.tsv"
+
+# Create a BOW represenation of the texts
+id2word = corpora.Dictionary(texts)
+mm =[id2word.doc2bow(text) for text in texts]
+
+# Train the LDA models.
+mylda = models.ldamodel.LdaModel(corpus=mm, id2word=id2word, num_topics=NTOPICS, alpha="auto")
+
+# Print the topics.
+for top in mylda.print_topics(num_topics=NTOPICS, num_words=5):
+  print ("\n",top)
+
+print ("\nFor further analysis, a dataset with the topic score for each document is saved to",LDAOUTPUTFILE)
+
+scoresperdoc=mylda.inference(mm)
+
+with open(LDAOUTPUTFILE,"w",encoding="utf-8") as fo:
+  for row in scoresperdoc[0]:
+    fo.write("\t".join(["{:0.3f}".format(score) for score in row]))
+fo.write("\n")
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Output: Topics (below) \& topic scores (next slide)}
+\begin{lstlisting}
+0.069*fusie + 0.058*brussel + 0.045*europesecommissie + 0.036*europese + 0.023*overname
+0.109*bank + 0.066*britse + 0.041*regering + 0.035*financien + 0.033*minister
+0.114*nederlandse + 0.106*nederland + 0.070*bedrijven + 0.042*rusland + 0.038*russische
+0.093*nederlandsespoorwegen + 0.074*den + 0.036*jaar + 0.029*onderzoek + 0.027*raad
+0.099*banen + 0.045*jaar + 0.045*productie + 0.036*ton + 0.029*aantal
+0.041*grote + 0.038*bedrijven + 0.027*ondernemers + 0.023*goed + 0.015*jaar
+0.108*werknemers + 0.037*jongeren + 0.035*werkgevers + 0.029*jaar + 0.025*werk
+0.171*bank + 0.122* + 0.041*klanten + 0.035*verzekeraar + 0.028*euro
+0.162*banken + 0.055*bank + 0.039*centrale + 0.027*leningen + 0.024*financiele
+0.052*post + 0.042*media + 0.038*nieuwe + 0.034*netwerk + 0.025*personeel
+...
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[plain]
+\makebox[\linewidth]{
+	\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../pictures/topicscores}}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Visualization with pyldavis}
+\begin{lstlisting}
+import pyLDAvis
+import pyLDAvis.gensim
+# first estiate gensim model, then:
+vis_data = pyLDAvis.gensim.prepare(mylda,mm,id2word)
+pyLDAvis.display(vis_data)
+\end{lstlisting}
+\makebox[\linewidth]{
+	\includegraphics[width=\paperwidth,height=.5\paperheight,keepaspectratio]{../pictures/pyldavis}}
+\end{frame}
+
+
+
+
+\begin{frame}[plain]
+	\begin{alertblock}{Things to rember}
+Topic models can be a good way to analyze your data if you cannot specify in advance \textit{what} the topics are; however, even mathematically well-fitting models may be hard to interpret
+	\end{alertblock}
+
+\end{frame}
+
+
+
+
+\subsubsection{Other techniques}
+
+\begin{frame}{Other techniques}
+Cluster analysis
+\begin{itemize}
+	\item k-means
+	\item hierarchical clustering (e.g., Ward's method)
+\end{itemize}
+
+Improved topic models that take into accounts co-variates and nested data structures
+\begin{itemize}
+	\item Author-topic models
+	\item Structured topic models (STM)
+\end{itemize}
+
+Also have a look at the websites of gensim and scikit-learn!
+\end{frame}
+
+
+%
+%
+%\begin{frame}[plain]
+%	\begin{alertblock}{Things to rember}
+%		NOG DOEN
+%	\end{alertblock}
+%	
+%\end{frame}
+
+
+\section{Top-down approaches}
+
+\begin{frame}[plain]
+	\textbf{Top-down approaches}
+\end{frame}
+
+
+\subsection{Dictionaries and regular expressions}
+
+\begin{frame}{Dictionaries and regular expressions}
+\begin{itemize}
+	\item Use a (manually compiled) list of words (dictionary) and search for them
+	\item For example, look for ``stock exchange'', ``exchange rate'', ``closing price'' \ldots to find economic news
+	\item Better: \textit{regular expressions} to look for patterns, e.g. \texttt{[Ee]conom.?\textbackslash w}
+	\item There are pre-defined lists for many applications
+\end{itemize}	
+
+\end{frame}
+
+
+
+
+\begin{frame}{Dictionaries and regular expressions}
+	
+	
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		\begin{exampleblock}{pro}
+			easy to do and easy to understand
+		\end{exampleblock}
+		\column{.5\textwidth}
+		\begin{alertblock}{con}
+		The more latent the construct, the lower the accuracy\\
+		Many false positives when using comprehensive lists, many false negatives when using short lists
+		\end{alertblock}
+	\end{columns}
+	
+	
+	$\Rightarrow$ The technique of choice if you try to measure something that is unambigous (how often is party X mentioned?). Largely outdated when it comes to more subtle concepts like topics or frames.
+	
+\end{frame}
+
+
+
+
+\begin{frame}[plain]
+	\begin{alertblock}{Things to rember}
+		Regular expressions are a very powerful way of describing patterns in strings, and the technique of choice when looking for manifest and well-defined concepts (party names, company names) or things that are always formatted in a specific way (numbers, dates, words with specific characters in it)
+	\end{alertblock}
+$\Rightarrow$ You can formulate a rule? Use regular expressions! You cannot? Then enters\ldots	
+\end{frame}
+
+
+
+
+
+\subsection[Supervised Machine Learning]{Supervised Machine Learning}
+
+\begin{frame}[plain]
+	predefined categories, but no predefined rules:\\ \textbf{supervised machine learning}\\
+	\vspace{1cm}\hspace{1cm} \onslide<2> \footnotesize{(something you aready did in your Bachelor -- no kidding.)}
+\end{frame}
+
+
+
+
+
+
+
+
+\begin{frame}{Recap: supervised vs. unsupervised}
+	\begin{columns}[t]
+		
+			\column{.5\textwidth}
+			
+			\begin{block}{Unsupervised}<1->
+				\begin{itemize}
+					\item No manually coded data
+					\item We want to identify patterns or to make groups of most similar cases
+					%\item Per case, we want to know to which group it belongs
+				\end{itemize}
+			\end{block}
+			{\footnotesize{
+					\onslide<2->{Example: We have a dataset of Facebook-massages on an organizations' page. We use clustering to group them and later interpret these clusters (e.g., as complaints, questions, praise, \ldots)}
+				}}
+				
+\column{.5\textwidth}
+\begin{block}{Supervised}<3->
+	\begin{itemize}
+		\item We code a small dataset by hand and use it to ``train'' a machine
+		\item The machine codes the rest 
+	\end{itemize}
+\end{block}
+
+{\footnotesize{
+		\onslide<4->{Example: %We use a hand-coded CSV table with two columns (tweet and gender of the sender) as training dataset and then predict for a different dataset per tweet if it was sent by a man or a woman.
+			We have 2,000 of these messages grouped into such categories by human coders. We then use this data to group all remaining messages as well.
+			}
+	}}
+
+	\end{columns}
+\end{frame}
+
+
+
+
+
+
+
+
+
+\begin{frame}{You have done it before!}
+\begin{block}{Regression}<2->
+	\begin{enumerate}
+		\item<3-> Based on your data, you estimate some regression equation 	$y_i = \alpha + \beta_1 x_{i1} + \cdots + \beta_p x_{ip} + \varepsilon_i$
+		\item<4-> Even if you have some \emph{new unseen data}, you can estimate your expected outcome $\hat{y}$!
+		\item<5-> Example: You estimated a regression equation where $y$ is newspaper reading in days/week: $y = -.8 + .4 \times man + .08 \times age$
+		\item<6-> You could now calculate $\hat{y}$ for a man of 20 years and a woman of 40 years -- \emph{even if no such person exists in your dataset}: \\
+		$\hat{y}_{man20} = -.8 + .4 \times 1 + .08 \times 20 = 1.2$ \\
+		$\hat{y}_{woman40} = -.8 + .4 \times 0 + .08 \times 40 = 2.4$
+	\end{enumerate}
+\end{block}	
+
+\end{frame}
+
+
+\begin{frame}{}
+	If we use such a model for prediction, then
+	\huge{this is\\ Supervised Machine Learning!}
+\end{frame}
+
+\begin{frame}{\ldots but\ldots}
+	\begin{itemize}
+		\item<1-> We will only use \emph{half} {\tiny{(or another fraction)}} of our data to estimate the model, so that we can use the other half to check if our predictions match the manual coding (``labeled data'',``annotated data'' in SML-lingo)
+		\begin{itemize}
+			\item<2->e.g., 2000 labeled cases, 1000 for training, 1000 for testing --- if successful, run on 100,000 unlabeled cases
+		\end{itemize}
+		\item<3-> We use many more independent variables (``features'')
+		\item<4-> Typically, IVs are word frequencies (often weighted, e.g. tf$\times$idf) ($\Rightarrow$BOW-representation)
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Applications}
+\begin{block}<2->{In other fields}
+\emph{A lot} of different applications
+\begin{itemize}
+\item from recognizing hand-written characters to recommendation systems
+\end{itemize}
+\end{block}
+
+\begin{block}<3>{In our field}
+It starts to get popular to measure latent variables
+\begin{itemize}
+\item frames
+\item topics
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}{SML to code frames and topics}
+\begin{block}{Some work by Burscher and colleagues}
+\begin{itemize}
+\item Humans can code generic frames (human-interest, economic, \ldots)
+\item Humans can code topics from a pre-defined list 
+\item<2->\textbf{But it is very hard to formulate an explicit rule} \\(as in: code as 'Human Interest' if regular expression R is matched)
+\end{itemize}
+\onslide<3>$\Rightarrow$ This is where you need supervised machine learning!
+\end{block}
+\tiny{Burscher, B., Odijk, D., Vliegenthart, R., De Rijke, M., \& De Vreese, C. H. (2014). Teaching the computer to code frames in news: Comparing two supervised machine learning approaches to frame analysis. \emph{Communication Methods and Measures, 8}(3), 190–206. doi:10.1080/19312458.2014.937527
+\\
+Burscher, B., Vliegenthart, R., \& De Vreese, C. H. (2015). Using supervised machine learning to code policy issues: Can classifiers generalize across contexts? \emph{Annals of the American Academy of Political and Social Science, 659}(1), 122–131.
+}
+
+\end{frame}
+
+
+
+
+
+{\setbeamercolor{background canvas}{bg=black}
+\begin{frame}[plain]
+\makebox[\linewidth]{
+\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../pictures/burscher2014}}
+\end{frame}
+
+\begin{frame}[plain]
+\makebox[\linewidth]{
+\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../pictures/burscher2015-a}}
+\end{frame}
+
+\begin{frame}[plain]
+\makebox[\linewidth]{
+\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../pictures/burscher2015-b}}
+\end{frame}
+}
+
+\begin{frame}[plain]
+\begin{columns}[]
+\column{.5\textwidth}
+
+{\tiny{http://commons.wikimedia.org/wiki/File:Precisionrecall.svg}}
+\makebox[\linewidth]{
+\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../pictures/precisionrecall.png}}
+
+\column{.5\textwidth}
+\begin{block}{Some measures of accuracy}
+\begin{itemize}
+\item Recall
+\item Precision
+\item $\text{F1}=2\cdot \frac{\text{precision}\cdot \text{recall}}{\text{precision}+\text{recall}}$
+\item AUC (Area under curve) $[0,1]$, $0.5=$ random guessing
+\end{itemize}
+\end{block}
+
+
+\end{columns}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{What does this mean for our research?}
+\begin{block}<2>{It we have 2,000 documents with manually coded frames and topics\ldots}
+\begin{itemize}
+\item we can use them to train a SML classifier
+\item which can code an unlimited number of new documents
+\item with an acceptable accuracy
+\end{itemize}
+\end{block}
+\onslide<2>{
+\tiny{Some easier tasks even need only 500 training documents, see Hopkins, D. J., \& King, G. (2010). A method of automated nonparametric content analysis for social science. \emph{American Journal of Political Science, 54}(1), 229–247.}} 
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{An implementation}
+Let's say we have a list of tuples with movie reviews and their rating:
+\begin{lstlisting}
+reviews=[("This is a great movie",1),("Bad movie",-1), ... ...]
+\end{lstlisting}
+And a second list with an identical structure:
+\begin{lstlisting}
+test=[("Not that good",-1),("Nice film",1), ... ...]
+\end{lstlisting}
+Both are drawn from the same population, it is pure chance whether a specific review is on the one list or the other.\\
+\tiny{Based on an example from \url{http://blog.dataquest.io/blog/naive-bayes-movies/}}
+\end{frame}
+
+
+\begin{frame}[fragile]{Training a A Naïve Bayes Classifier}
+\begin{lstlisting}
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn import metrics
+ 
+# This is just an efficient way of computing word counts
+vectorizer = CountVectorizer(stop_words='english')
+train_features = vectorizer.fit_transform([r[0] for r in reviews])
+test_features = vectorizer.transform([r[0] for r in test])
+ 
+# Fit a naive bayes model to the training data.
+nb = MultinomialNB()
+nb.fit(train_features, [r[1] for r in reviews])
+ 
+# Now we can use the model to predict classifications for our test features.
+predictions = nb.predict(test_features)
+actual=[r[1] for r in test]
+ 
+# Compute the error.
+fpr, tpr, thresholds = metrics.roc_curve(actual, predictions, pos_label=1)
+print("Multinomal naive bayes AUC: {0}".format(metrics.auc(fpr, tpr)))
+
+\end{lstlisting}
+\end{frame}
+%
+%\begin{frame}{TODO}
+%TODO\\
+%andere vectorizer (TFIDF)\\
+%verschillen classifiers\\
+%andere output (metrics summary)
+%\\
+%waarom is dit hier een MULTINOMIAL NB
+%\\
+%scikit-learn installeren\\ 
+%opdracht bedenken: classifiers vergelijken
+%\end{frame}
+
+
+\begin{frame}{And it works!}
+Using 50,000 IMDB movies that are classified as either negative or positive,
+\begin{itemize}
+\item I created a list with 25,000 training tuples and another one with 25,000 test tuples and
+\item trained a classifier
+\item that achieved an AUC of .82.
+\end{itemize}
+~\\
+\tiny{Dataset obtained from \url{http://ai.stanford.edu/~amaas/data/sentiment}, Maas, A.L., Daly, R.E., Pham, P.T., Huang, D., Ng, A.Y., \& Potts, C. (2011). Learning word vectors for sentiment analysis. \emph{49th Annual Meeting of the Association for Computational Linguistics (ACL 2011)}
+}
+
+\end{frame}
+
+\begin{frame}[fragile]{Playing around with new data}
+\begin{lstlisting}
+newdata=vectorizer.transform(["What a crappy movie! It sucks!", "This is awsome. I liked this movie a lot, fantastic actors","I would not recomment it to anyone.", "Enjoyed it a lot"])
+predictions = nb.predict(newdata)
+print(predictions)
+\end{lstlisting}
+This returns, as you would expect and hope:
+\begin{lstlisting} 
+[-1  1 -1  1]
+\end{lstlisting}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}{But we can do even better}
+	We can use different vectorizers and different classifiers.
+\end{frame}
+
+\begin{frame}{Different vectorizers}
+	\begin{itemize}
+		\item CountVectorizer (=simple word counts)
+		\item TfidfVectorizer (word counts (``term frequency'') weighted by number of documents in which the word occurs at all (``inverse document frequency''))
+		\item additional options: stopwords, thresholds for minimum frequencies etc.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Different classifiers}
+	\begin{itemize}
+		\item Naïve Bayes
+		\item Logistic Regression
+		\item Support Vector Machine (SVM)
+		\item \ldots
+	\end{itemize}
+Typical approach: Find out which setup performs best (see example source code in the book).
+
+$\Rightarrow$ cross-validation; grid search
+\end{frame}
+
+
+
+
+
+\begin{frame}[plain]
+	\begin{alertblock}{Things to rember}
+		If you cannot formulate an explicit rule ($\Rightarrow$ regular expressions), but you can get hand-code (``annotate'') a subset of your data of sufficient size, then you should consider using supervised machine learning.
+	\end{alertblock}
+	
+\end{frame}
+
+
+\section{From words to meaning}
+
+\begin{frame}[plain]
+From words to meaning
+\end{frame}
+
+
+\begin{frame}{From words to meanings}
+In everything we discussed so far, our methods were agnostic to word meaning. But can't we incorporate information about the difference between words into our models?
+\end{frame}
+
+\begin{frame}{Let's think about our features}
+Until now:
+\begin{itemize}
+	\item basically BOW
+	\item sometimes weighted ($tf\cdot idf$)
+	\item sometimes ngrams
+\end{itemize}
+
+\pause
+How can we make this more meaningful?
+
+
+\footnotesize
+NB: Sometimes it's just predictive performance that counts, sometimes it's meaning
+
+\end{frame}
+
+\begin{frame}{More meaningful features}
+\begin{block}{Strategy 1: Standardize}
+\begin{itemize}
+	\item stemming
+	\item substitute known synonyms (e.g., with regular expressions)
+	\item entity linking (named entity disambiguation)
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+
+
+\begin{frame}{More meaningful features}
+\begin{block}{Strategy 2: Reduce number of features}
+	\begin{itemize}
+		\item stopword removal
+		\item keep only specific POS-tags (e.g., nouns and adjectives)
+		\item if, e.g., NEs don't matter, replace all NER-Ps with \texttt{PERSON}
+	\end{itemize}
+\end{block}
+\end{frame}
+
+
+
+
+
+\begin{frame}{More meaningful features}
+\begin{block}{Strategy 3: From `identical (yes/no)?' towards `how similar?'}
+	\begin{itemize}
+		\item Word embeddings, e.g. to calculate Word Mover's Distance (WMD)
+	\end{itemize}
+\end{block}
+\begin{center}
+	\includegraphics[width=0.6\linewidth]{../pictures/wmd}
+\end{center}
+
+\tiny{Kusner, M., Sun, Y., Kolkin, N., \& Weinberger, K. (2015). From word embeddings to document distances. \textit{International Conference on Machine Learning}}
+\end{frame}
+
+
+
+\begin{frame}[plain]
+Take-home messages
+\end{frame}
+
+\section{Take-home messages}
+\begin{frame}{Take-home messages}
+\begin{itemize}
+	\item ACA can be bottom-up or top-down
+	\item Which technique is to be used depends on
+	\begin{itemize}
+		\item interpretability for non-experts vs. powerful models
+		\item whether explicit rules can be formulated
+		\item available data
+	\end{itemize}
+	\item Outcomes and performance vary widely based on model specifications, preprocessing, \ldots
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[plain]
+
+\begin{center}
+	\includegraphics[width=1\linewidth, height=1\textheight]{flowchart2}
+	
+	%\adjincludegraphics[height=1\textheight, width=1\linewidth, trim={ {.5\height} 0 0 0},clip]{flowchart2}
+\end{center}
+
+\end{frame}
+
+
+
+
+\begin{frame}[plain]
+\begin{tikzpicture}[node distance = 3cm, auto]
+\node [cloud] (retrieve) {retrieve};
+\node [cloud, right of=retrieve] (process) {process and/or enrich};
+\node [cloud, right of=process] (analyze) {analyze\\ explain\\ predict};
+\node [cloud, right of=analyze] (visualize) {communi-cate};
+
+
+\path [pijltje] (retrieve)--(process);
+\path [pijltje] (process)--(analyze);
+\path [pijltje] (analyze)--(visualize);
+
+
+\node [block, below of = retrieve] (retrievetech) {files\\ APIs\\ scraping};
+\node [block, below of= process] (processtech) {NLP\\ sentiment\\ LDA\\ SML};
+\node [block, below of=analyze] (analyzetech) {group comparisons; statistical tests and models};
+\node [block, below of=visualize] (visualizetech) {visualizations and summary tables};
+
+
+
+\path [pijltje] (retrievetech)--(processtech);
+\path [pijltje] (processtech)--(analyzetech);
+\path [pijltje] (analyzetech)--(visualizetech);
+
+
+\node [block, below of = retrievetech, fill=green!20] (retrievepython) {glob\\ json \& csv\\ requests\\ twitter\\ tweepy\\ lxml\\ \ldots};
+
+\node [block, below of = processtech, fill=green!20] (processpython) {nltk\\ gensim\\ scikit-learn \ldots};
+
+\node [block, below of = analyzetech, fill=green!20] (analyzepython) {numpy/scipy\\ pandas\\ statsmodels\\ \ldots};
+
+\node [block, below of = visualizetech, fill=green!20] (visualizepython) {pandas\\ matplotlib\\ seaborn\\ pyldavis\\ \ldots};
+
+
+
+
+
+\path [line, dashed] (retrieve)--(retrievetech);
+\path [line, dashed] (process)--(processtech);
+\path [line, dashed] (analyze)--(analyzetech);
+\path [line, dashed] (visualize)--(visualizetech);
+
+
+
+\path [line, dashed] (retrievetech)--(retrievepython);
+\path [line, dashed] (processtech)--(processpython);
+\path [line, dashed] (analyzetech)--(analyzepython);
+\path [line, dashed] (visualizetech)--(visualizepython);
+\end{tikzpicture}
+\end{frame}
+
+
+
+
+\begin{frame}{Questions?}
+\centering
+\huge
+Damian Trilling
+
+\large
+d.c.trilling@uva.nl\\
+@damian0604\\
+www.damiantrilling.net
+\end{frame}
+
+
+\end{document}
+

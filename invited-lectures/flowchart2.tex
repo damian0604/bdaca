@@ -1,0 +1,60 @@
+ \documentclass[border=10pt]{standalone}
+ 
+ \usepackage{hyperref}
+ 
+ \usepackage{tikz}
+ 
+ \usetikzlibrary{shapes,arrows}
+ \usetikzlibrary{positioning}
+ 
+ \begin{document}
+\tikzstyle{decision} = [ diamond, aspect=2, draw, fill=blue!20, text width=5em, text badly centered, node distance=3cm, inner sep=0pt, font=\scriptsize ]
+\tikzstyle{block} = [ rectangle, draw, fill=green!20, text width=5em, text centered, rounded corners, minimum height=4em , font = \scriptsize, node distance = 4.5cm]
+\tikzstyle{line} = [ draw, -latex', font = \scriptsize ]
+
+\tikzstyle{textbox} = [ rectangle, draw, fill=red!20, text width=20em, text centered, rounded corners, minimum height=4em , font = \scriptsize, node distance = 6.5cm]
+
+\begin{tikzpicture}[node distance=3.5cm, auto]
+
+% place nodes
+\node [block] (init) {start here} ;
+\node [decision, below of=init] (decision-1) {Theoretically defined,\\ operationalizable categories?} ;
+\node [block, right of=decision-1] (block-1) {top-down} ;
+\node [block, left of=decision-1] (block-2) {bottom-up} ;
+
+\node [decision, below left of=block-2] (decision-2) {Is interpretability by non-experts key?} ;
+\node [block, right of=decision-2] (block-4) {word frequencies, word co-occorrence networks} ;
+\node [decision, below of=decision-2] (decision-3) {Main goal: grouping documents or understanding their content?} ;
+\node [block, left of=decision-3] (block-6) {Topic Models} ;
+\node [block, right of=decision-3] (block-5) {k-means or hierarchical clustering} ;
+\node [decision, below of=block-6] (decision-4) {Do I want to use additional meta-data for estimating the model?} ;
+\node [block, below left of=decision-4] (block-8) {LDA} ;
+\node [block, below right of=decision-4] (block-9) {Author-topic models; structured topic models} ;
+\node [decision, below of=block-1] (rules) {Can I formulate explicit coding rules?};
+\node [block,  below left of=rules] (sml) {Supervised machine learning};
+\node [block,  below right of=rules] (regexp) {Dictionaries and regular expressions};
+
+\node [textbox, below of = rules] (othermethods) {This chart covers the most common approaches in Automated Content Analysis. For specific use cases, you might also consider additional approaches:\\
+	If you are interested in estimating how similar documents are, you can have a look at (a) cosine similarity, (b) Levenshtein distance, (c) Word Mover Distance.\\
+	If you are interested in estimating how similar the meaning of words is (e.g., that the difference between queen and king is the same as between woman and man), you should look at word embeddings (e.g., word2vec).\\ These approaches may be used stand-alone or in combination with the techniques in this chart.} ;
+
+\node[draw=none, align=left] at (-15,0) {Decision aid for automated content analysis\\ 	by Damian Trilling\\ \url{http://www.damiantrilling.net}};
+
+% draw edges
+\path [line] (init) -- (decision-1) ;
+\path [line] (decision-1) -- node {yes}(block-1) ;
+\path [line] (decision-1) -- node {no}(block-2) ;
+\path [line] (block-2) -- (decision-2) ;
+\path [line] (decision-2) -- node {above all!}(block-4) ;
+\path [line] (decision-2) -- node {not at all costs}(decision-3) ;
+\path [line] (decision-3) -- node {content}(block-6) ;
+\path [line] (decision-3) -- node {grouping}(block-5) ;
+\path [line] (block-6) -- (decision-4) ;
+\path [line] (decision-4) -- node {no}(block-8) ;
+\path [line] (decision-4) -- node {yes}(block-9) ;
+\path [line] (block-1) -- (rules);
+\path [line] (rules) -- node {no}(sml);
+\path [line] (rules) -- node {yes}(regexp);
+\end{tikzpicture}
+
+ \end{document}
