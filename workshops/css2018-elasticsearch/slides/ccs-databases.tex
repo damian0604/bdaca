@@ -58,10 +58,10 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 \begin{frame}[plain]
 G\"unther, Elisabeth; Trilling, Damian; van de Velde, Bob: But how do we store it?
 Data architecture in the social-scientific research process. In: Stuetzer, C.M. (Hrsg.);
-Welker, M. (Hrsg.); Egger, M. (Hrsg.): Computational social science in the age of
-Big Data. Concepts, methodologies, tools, and applications. Cologne: Herbert von Halem, 2018, pp. 161–187	
+Welker, M. (Hrsg.); Egger, M. (Hrsg.): \textit{Computational social science in the age of
+Big Data. Concepts, methodologies, tools, and applications.} Cologne: Herbert von Halem, 2018, pp. 161–187	
 
-\todo[inline]{ADD LINK TO PDF}
+%\todo[inline]{ADD LINK TO PDF}
 \end{frame}
 
 
@@ -248,21 +248,27 @@ Big Data. Concepts, methodologies, tools, and applications. Cologne: Herbert von
 
 
 
-\begin{frame}{SQL vs NoSQL in one slide}
-(for storing (textual) social-scientific data)
-
+\begin{frame}%{SQL vs NoSQL in one slide}
+%(for storing (textual) social-scientific data)
+\small
 \begin{columns}
 \column[T]{0.5\linewidth}
 \begin{block}{SQL}
 	\begin{itemize}
-		\item strucutre known in advance
+		\item You know the structure in advance
+		\item You can differentiate between short strings (e.g., names) stored as VARCHAR and long strings (e.g., articles) stored as TEXT %(TINYTEXT\ldots LONGTEXT) 
+		\item You expect that you don't need to query on the TEXTs, which are \emph{not} hold in memory (and need to be fully scanned)
+		\item Single source of truth is important, no duplication, consistency to be avoided %(b/c of relational structure)
 	\end{itemize}
 \end{block}
-
+\pause
 \column[T]{0.5\linewidth}
 \begin{block}{NoSQL}
 		\begin{itemize}
-			\item full-text search may be relevant
+			\item You do not know the (full) structure in advance
+			\item Full-text search (including  preprocessed (`analyzed') version ) is relevant
+			\item You want to add new keys as you go (e.g., store preprocessing results or enrichments (sentiment scores, predictions))
+			\item store first, clean up later
 		\end{itemize}
 \end{block}
 \end{columns}
@@ -280,10 +286,11 @@ Big Data. Concepts, methodologies, tools, and applications. Cologne: Herbert von
 \end{frame}
 
 
-\begin{frame}[<+->]{Use case}
+\begin{frame}[<+->]{Our use case}
 	\begin{itemize}
 		\item Scrape and store articles ($\approx$ 20M)
 		\item We first used Mongo and later switched to ES (because of better performance for full-text search)
+		\item On the other hand, there are some who say MongoDB is `safer' (less risk of data loss)
 	\end{itemize}
 \end{frame}
 
