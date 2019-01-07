@@ -15,7 +15,7 @@
 \usepackage{hyperref}
 
 \usepackage{color}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 
@@ -30,13 +30,14 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 }
 
 
-\begin{document}
 
-\title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis} \\ Week 3 -- Monday \\ \» Data harvesting and storage \«}
-\author[Damian Trilling]{Anne Kroon \& Damian Trilling \\ ~ \\ \footnotesize{a.c.kroon@uva.nl \\ @annekroon \\ d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
-\date{19 February 2018}
+
+\title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis} \\ Week 3 -- Wednesday \\ Data harvesting and storage}
+\author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
+\date{18 March 2018}
 \institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
 
+\begin{document}
 
 \begin{frame}{}
 \titlepage
@@ -83,20 +84,20 @@ for k,v in data.items()):
 len(data)
 type(data)
 data.keys()
-	
 \end{lstlisting}
 	\onslide<2->{
-		\footnotesize{\texttt{len()} returns the number of items of an object; \texttt{type()} returns the type object; \texttt{.keys()} returns a list of all available keys in the dictionary}}}
+		\footnotesize{\texttt{len()} returns the number of items of an object; \texttt{type()} returns the type object; \texttt{.keys()} returns a list of all available keys in the dictionary}}
 \end{frame}
 
+
 \begin{frame}[fragile]{What to do if you do not know the structure of the dataset?}
-	Inspecting your data: use the module \texttt{pprint} 
+Inspecting your data: use the module \texttt{pprint} 
 \begin{lstlisting}
 from pprint import pprint
-
 pprint(data)
-
 \end{lstlisting}
+
+(but better do this on a smaller subset of the data!)
 \end{frame}
 
 
@@ -161,7 +162,7 @@ alltags=[]
 i=0
 for k,v in data.items():
     i+=1
-    alltags+=v["channels"] # or: alltags.extend(v["channels"])
+    alltags.extend(v["channels"])
 
 print(len(alltags),"tags are describing",i,"different videos")
 print("Thus, we have an average of",len(alltags)/i,"tags per video")
@@ -215,12 +216,15 @@ print ("Average length",sum(length)/len(length))
 \end{frame}
 
 
-\begin{frame}[fragile]{Merging vs appending}
+\begin{frame}[fragile]{Extending (merging) vs appending}
 Merging:
 \begin{lstlisting}
 l1 = [1,2,3]
 l2 = [4,5,6]
+# either:
 l1 = l1 + l2
+# or:
+l1.extend(l2)
 print(l1)
 \end{lstlisting}
 gives \texttt{[1,2,3,4,5,6]}
@@ -321,7 +325,7 @@ location=tweepinfo["location"]
 \begin{frame}{APIs}
 	\begin{block}{Pro}<1->
 		\begin{itemize}
-			\item Structured data
+			\item Structured data (JSON!)
 			\item Easy to process automatically
 			\item Can be directy embedded in your script
 		\end{itemize}
@@ -349,36 +353,36 @@ location=tweepinfo["location"]
 	
 \end{frame}
 
-
-\begin{frame}[t]{Data harvesting and storage}
-	\begin{columns}
-		\column{.3\textwidth}
-		\makebox[\columnwidth]{
-			\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../../pictures/process-storage.png}
-		}
-		\column{.7\textwidth}
-		\begin{block}{It queries the API and stores the result}<2->
-			It continuosly calls the Twitter-API and saves all tweets containing specific hashtags to a MySQL-database.
-			\\~\\
-			You tell it once which data to collect -- and wait some months.
-		\end{block}
-	\end{columns}
-\end{frame}
-
-\begin{frame}[t]{Data harvesting and storage}
-	\begin{columns}
-		\column{.3\textwidth}
-		\makebox[\columnwidth]{
-			\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../../pictures/process-analysis.png}
-		}
-		\column{.7\textwidth}
-		\begin{block}{Retrieving the data for analysis}<2->
-			You \emph{could} access the MySQL-database directly. 
-			\\~\\
-			Generally raw data needs to be cleaned and parsed, before you can start analyzing and visualizing
-		\end{block}
-	\end{columns}
-\end{frame}
+%
+%\begin{frame}[t]{Data harvesting and storage}
+%	\begin{columns}
+%		\column{.3\textwidth}
+%		\makebox[\columnwidth]{
+%			\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../../pictures/process-storage.png}
+%		}
+%		\column{.7\textwidth}
+%		\begin{block}{It queries the API and stores the result}<2->
+%			It continuosly calls the Twitter-API and saves all tweets containing specific hashtags to a MySQL-database.
+%			\\~\\
+%			You tell it once which data to collect -- and wait some months.
+%		\end{block}
+%	\end{columns}
+%\end{frame}
+%
+%\begin{frame}[t]{Data harvesting and storage}
+%	\begin{columns}
+%		\column{.3\textwidth}
+%		\makebox[\columnwidth]{
+%			\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../../pictures/process-analysis.png}
+%		}
+%		\column{.7\textwidth}
+%		\begin{block}{Retrieving the data for analysis}<2->
+%			You \emph{could} access the MySQL-database directly. 
+%			\\~\\
+%			Generally raw data needs to be cleaned and parsed, before you can start analyzing and visualizing
+%		\end{block}
+%	\end{columns}
+%\end{frame}
 
 
 %{\setbeamercolor{background canvas}{bg=black}
@@ -421,25 +425,15 @@ location=tweepinfo["location"]
 
 \begin{frame}[fragile]{Parsing RSS feeds}
 \begin{lstlisting}
-	
-tree = fromstring(htmlsource)
-	
-# parsing article teaser
-try:
-    teaser=tree.xpath('//*[@class="item-excerpt"]//text()')[0]
-except:
-    logger.debug("Could not parse article teaser.")
-    teaser=""
-	
-# parsing article text
-try:
-    text=" ".join(tree.xpath('//*[@class="block-wrapper"]/div[@class="block-content"]/p//text()')).strip()
-except:
-    text = ""
-    logger.warning("Could not parse article text")
-	
+import feedparser
+d = feedparser.parse(rss_body)
+    for post in d.entries:
+        teaser=re.sub(r"\n|\r\|\t"," ",post.description)
+        link = post.linl
+...
+...
 \end{lstlisting}
-~\\ \tiny{(abbreviated Python example of how to parse the RSS feed of NU.nl)}
+~\\ \tiny{(abbreviated Python example of how to parse an RSS feed)}
 \end{frame}
 
 
@@ -605,18 +599,18 @@ JSON and XML
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{An  XML object containing an RSS feed}
+\begin{frame}[fragile]{An XML object containing an RSS feed}
 \begin{lstlisting}
 ...
 <item>
-        <title>Agema doet aangifte tegen Samsom en Spekman</title>
-        <link>http://www.nu.nl/politiek/3743441/agema-doet-aangifte-samsom-en-spekman.html</link>
-         <guid>http://www.nu.nl/politiek/3743441/index.html</guid>
-         <description>PVV-Kamerlid Fleur Agema gaat vrijdag aangifte doen tegen PvdA-leider Diederik Samsom en PvdA-voorzitter Hans Spekman wegens uitspraken die zij hebben gedaan over Marokkanen. </description>
-         <pubDate>Thu, 03 Apr 2014 21:58:48 +0200</pubDate>
-        <category>Algemeen</category>
-         <enclosure url="http://bin.snmmd.nl/m/m1mxwpka6nn2_sqr256.jpg" type="image/jpeg" />
-         <copyrightPhoto>nu.nl</copyrightPhoto>        
+<title>Agema doet aangifte tegen Samsom en Spekman</title>
+<link>http://www.nu.nl/politiek/3743441/agema-doet-aangifte-samsom-en-spekman.html</link>
+<guid>http://www.nu.nl/politiek/3743441/index.html</guid>
+<description>PVV-Kamerlid Fleur Agema gaat vrijdag aangifte doen tegen PvdA-leider Diederik Samsom en PvdA-voorzitter Hans Spekman wegens uitspraken die zij hebben gedaan over Marokkanen. </description>
+<pubDate>Thu, 03 Apr 2014 21:58:48 +0200</pubDate>
+<category>Algemeen</category>
+<enclosure url="http://bin.snmmd.nl/m/m1mxwpka6nn2_sqr256.jpg" type="image/jpeg" />
+<copyrightPhoto>nu.nl</copyrightPhoto>        
 </item>
 ...
 \end{lstlisting}
@@ -630,14 +624,28 @@ JSON and XML
 	}
 \end{frame}		
 		
+\subsection{Databases}
+
+\begin{frame}{When it gets bigger: Databases}
+\begin{block}{Out of scope of this course, but if it get's bigger, you could use a database, e.g.}
+	\begin{itemize}
+	\item For (relational) tables: SQL, e.g. mysql
+	\item For dumping dicts, messy content, and text: NoSQL, e.g. MongoDB or ElasticSearch
+	\end{itemize}
+They are easy to install on Linux and can be addressed from Python!
 		
+\end{block}
+
+\tiny{Günther, E., Trilling, D. C., \& van de Velde, R. N. (2018). But how do we store it? Data architecture in the social-scientific research process. In C. M. Stuetzer, M. Welker, \& M. Egger (Eds.),\textit{ Computational social science in the age of Big Data. Concepts, methodologies, tools, and applications} (pp. 161-187). Cologne: Herbert von Halem.}
+\end{frame}
+
 \section{Next meetings}
 \begin{frame}
 Next meetings
 \end{frame}
 
 \begin{frame}{Next meetings}
-\begin{block}{Wednesday, 21--3}
+\begin{block}{Friday, 20--3}
 Writing some first data collection scripts
 \end{block}
 	

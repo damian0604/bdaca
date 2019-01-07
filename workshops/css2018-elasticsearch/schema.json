@@ -1,0 +1,80 @@
+{
+  "settings":{
+    "mapping.total_fields.limit": 20000 },
+    "mappings": {
+        "doc": {
+	    "properties" :{
+		"doctype": {
+		    "type":"keyword"
+		},
+		"functiontype" : {
+		    "type":"keyword"
+		},
+		"url" : {
+		    "type":"keyword"
+		},
+		"source" : {
+		    "type":"keyword"
+		},
+    "id" : {
+      "type" : "keyword"
+    }
+	    },
+
+            "dynamic_templates": [
+              { "id": {
+                "match" : "id" ,
+                  "match_mapping_type" : "string",
+                "mapping":{
+                  "type" :  "keyword"
+
+                }
+              }
+
+
+
+            },
+    { "es": {
+                      "match":              "*_es",
+                      "match_mapping_type": "string",
+                      "mapping": {
+                          "type":           "text",
+                          "analyzer":       "spanish"
+                      }
+                }},
+
+		{ "nl": {
+                      "match":              "*_nl",
+                      "match_mapping_type": "string",
+                      "mapping": {
+                          "type":           "text",
+                          "analyzer":       "dutch"
+                      }
+                }},
+		{ "raw": {
+                      "match":              "*_raw",
+                      "match_mapping_type": "string",
+                      "mapping": {
+                          "type":           "text"
+                      }
+                }},
+		{ "en": {
+                      "match":              "*_en",
+                      "match_mapping_type": "string",
+                      "mapping": {
+                          "type":           "text",
+                          "analyzer" :      "english"
+                      }
+                }},
+
+                { "default": {
+                      "match":              "*",
+                      "match_mapping_type": "string",
+                      "mapping": {
+                          "type":           "text",
+			  "filter"  : [ "stop" ],
+			  "fields" : { "exact" : { "type" : "text", "analyzer" : "whitespace"}}
+                      }
+                }}
+            ]
+}}}
