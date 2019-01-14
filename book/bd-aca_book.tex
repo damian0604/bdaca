@@ -74,6 +74,12 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 \lettrine[lines=3]{\color{BrickRed}?}{ }}
 {\endoldquote}
 
+
+%\setcounter{biburllcpenalty}{7000}
+%\setcounter{biburlucpenalty}{8000}  % enables URL line wrapping in references https://tex.stackexchange.com/questions/134191/line-breaks-of-long-urls-in-biblatex-bibliography
+
+
+
 \title{Doing Computational Social Science with Python: An Introduction}
 \author{Damian Trilling}
 \date{Version 1.2\\ ~ \\  \footnotesize{PDF created \today}}
@@ -217,13 +223,11 @@ Download and install VirtualBox from \url{https://www.virtualbox.org/}. Dependin
 
 \section{Download a Lubuntu-image}
 \label{sec:lubuntu}
-Download the Lubuntu image from \url{http://lubuntu.net}. \textbf{We are working with version 16.04.1 LTS (Xenial Xerus). It is important that you use \emph{exactly} this version. Not 16.04.3, not 16.10, not 17.x.} The download link for this version should be \url{http://cdimages.ubuntu.com/lubuntu/releases/xenial/release/}
-If you have a reasonably new computer, download \texttt{lubuntu 64-bit (AMD64) desktop CD}, only if you encounter problems later on or have a really old computer (up to around 2007), download the 32-bit version. So, in most cases, select the 64-bit Desktop version (\textbf{\texttt{lubuntu-16.04.1-desktop-amd64.iso}}). 
-Save it at a place of your convenience.
+Download the Lubuntu image from \url{http://lubuntu.net}. Install version \textbf{18.10 for 64-bit (AMD64)}. The file is called (\textbf{\texttt{lubuntu-18.10-desktop-amd64.iso}}). Save it at a place of your convenience.
 
 
 \begin{quote}
-	If in the next step, VirtualBox does not even show you the 64 bit option and the 32 bit option doesn't work either, it might be that using Virtualization is disabled in your computers settings (UEFI, formerly called and still known as BIOS -- the basic configuration menu you get when pressing a special key after switching on your computer. Look into your computers' manual or google how to enter it.) Most computers do not even have such an option or have it enabled by default, but it seems that for instance many new Lenovo models have it disabled. In this case, you need to enable it.
+	If in the next step, VirtualBox does not even show you the 64 bit option, it might be that using Virtualization is disabled in your computers settings (UEFI, formerly called and still known as BIOS -- the basic configuration menu you get when pressing a special key after switching on your computer. Look into your computers' manual or google how to enter it.) Most computers do not even have such an option or have it enabled by default, but it seems that for instance many new Lenovo models have it disabled. In this case, you need to enable it.
 	
 	
 	\begin{figure}[h]
@@ -236,11 +240,11 @@ Save it at a place of your convenience.
 
 
 \section{Create a virtual machine}
-Open VirtualBox, click on ``New'', give your image a name, and select first Linux, then Ubuntu~64bit from the list (or 32 bit, if that's what you downloaded). On the following screens, just leave the default settings and agree to everything---with two exceptions: 
+Open VirtualBox, click on ``New'', give your image a name, and select first Linux, then Ubuntu~64bit from the list. On the following screens, just leave the default settings and agree to everything---with two exceptions: 
 \begin{itemize}
 	\item When you are asked how much ``base memory'' you want to allocate to your machine, you should choose a value of at least 50\% of the available memory. The examples in this tutorial are tested on a VM with 2,048 MB RAM.
 	However, especially if you want to work with larger datasets (especially, Elasticsearch and/or INCA), you might need to have 4 GB or more. 
-	\item On the next screens, you are asked about a virtual hard disk to create. I strongly recommend you to use a bit more than the 8~GB that are suggested. If you choose more (say, 12~GB or so), chances are lower that you will run out of space later during the course.
+	\item On the next screens, you are asked about a virtual hard disk to create. I strongly recommend you to use a bit more than what is suggested. I advise you to choose at least 12~GB, but if you have a large hard drive, just go for 15. Chances are lower that you will run out of space later during the course.
 \end{itemize}
 
 
@@ -273,6 +277,9 @@ When you are done, start the virtual machine by clicking on the green arrow in t
 
 \section{Install Lubuntu on your virtual machine}
 Once your virtual machine is running, you can select whether you want to try out Lubuntu without installing or install it. If you feel like, you can now just play around a bit in the try-out mode, but eventually, you'll need to go for installing as we need some specific tools for our course. So you can as well just select Install now, using the arrow keys.
+
+It may be that the resolution is very low at this point. We will fix this later. If you cannot see the whole dialogue box, click the maximize icon in the upper right corner of the box.
+
 When you select "Install", just follow the instructions. At one point in time, you will be asked whether you want to erase all data from your hard drive (yes, seriously). You can safely agree (remember, that's just the point of the VirtualBox, you have a fenced room in which you cannot damage anything. Only your \emph{virtual} hard drive will be erased, not your real one). You will also be asked whether you want to download updates (yes, but it doesn't really matter) and third-party software (no).
 
 After finishing the installation, your virtual machine will reboot. After clicking on reboot, you can get a message saying ``please remove installation medium''. You can just press enter, you don't have to remove anything in your case. You might have to press enter a second time.
@@ -283,7 +290,7 @@ Also, it might happen that you see only some lines of text saying something like
 
 \section{Install necessary packages}
 \label{sec:installpackages}
-Once you have installed and rebooted your virtual machine, you will have to install a couple of packages. It might be that your system is running now in a very low resulution, but that will change after the following step.  Click on the button on the bottom left (where the traditional Windows start button would be), then on System Tools/LXTerminal. Enter the following command:
+Once you have installed and rebooted your virtual machine, you will have to install a couple of packages. It might be that your system is running now in a very low resulution, but that will change after the following step.  Click on the button on the bottom left (where the traditional Windows start button would be), then on System Tools/QTerminal. Enter the following command:
 
 \begin{lstlistingbash}
 sudo apt update
@@ -372,7 +379,7 @@ Make sure you installed \emph{everything} correctly. If you got any error messag
 
 There are so many different system types (and believe me, I never expected \emph{how} many slightly different systems there are until I had dozens of students in these methods courses!), that we cannot cover every eventuality. But once you got your VM is up and running, everything should be the same for everyone in the course.
 
-Do not forget to delete the original image you downloaded (\texttt{lubuntu-16.0.4.1-desktop-amd64.iso})
+Do not forget to delete the original image you downloaded (\texttt{lubuntu-18.10-desktop-amd64.iso})
 
 
 
@@ -388,7 +395,7 @@ This chapter provides you with some basic knowledge about how to use the command
 
  Let’s get started with a generational divide. It greatly helps if you are of the age of the author (I'm born in 1983) or older, as you probably remember the thing in Figure~\ref{fig:msdos}. The Linux command line (which is basically the same as what you get when you start the Terminal on MacOS, so Mac users, you can use this on your own computer as well!), however, is much, much, much, much, much more powerful than the old MS-DOS thing. If you look on YouTube for ``bash'' (that's the specific one we are using) or ``linux command line'', you'll probably get some good tutorials, but let's explore the most basic things together.
  \begin{itemize}
- \item Open a Terminal by clicking on the Start button/System Tools/LXTerminal.
+ \item Open a Terminal by clicking on the Start button/System Tools/QTerminal.
  \item Type the following commands and watch what is happening: \begin{lstlistingbash}
 pwd
 mkdir test
@@ -1202,6 +1209,9 @@ For example, even the Dutch parliament has one, via which you an access a lot of
 
 
 \section{The Twitter API}
+\emph{Twitter recently swittched from a 140 character limit to a 280 character limit. The examples below still are only retrieving up to 140 characters. There is a new option} \texttt{tweet\_mode=extended} \emph{that needs to be passed to the API to retrieve the full text. Instead of using the text field, you can then use the} \texttt{extended\_tweet} \emph{field and its subfields. For more information, see} \url{https://developer.twitter.com/en/docs/tweets/tweet-updates} \emph{or the documentation of the libraries you are using}.
+
+
 \subsection{Getting all tweets by a given user}
 \label{subsec:twitterapi}
 For this exercise, we need to import a module named \texttt{twitter}.\footnote{Another popular module for accessing the Twitter API is called \texttt{tweepy}. If you want to dig deeper into using the Twitter API, you might want to check that one out as well and find out which one fits your purposes best.} You can easily install it from the command line with
@@ -1444,7 +1454,7 @@ import csv
 tweetlist=[]
 processedlist=[]
 with open("/home/damian/sentiment/sanders.tsv") as fi:
-    reader=csv.reader(fi,delimiter='\t'})
+    reader=csv.reader(fi,delimiter='\t')
     next(reader)
     for row in reader:
         tweet=row[0]
@@ -1729,9 +1739,9 @@ Let us first consider stopword removal. These are words without a meaning that i
 \begin{lstlisting}
 t = 'let us clean this up for her'
 tn = ""
-stopwords=['and','the','this','a','or','he','she','him','her','us']
+mystopwords=['and','the','this','a','or','he','she','him','her','us']
 for w in t.split():
-    if w not in stopwords:
+    if w not in mystopwords:
        tn=tn+w+" "
 \end{lstlisting}
 
@@ -1748,14 +1758,14 @@ they
 We could read this file to a list with
 
 \begin{lstlisting}
-stopwords=[w.strip() for w in open("stopwords.txt",encoding="utf-8").readlines()]
+mystopwords=[w.strip() for w in open("stopwords.txt",encoding="utf-8").readlines()]
 \end{lstlisting}
 
 Especially if we have a very long list, this makes our code much easier to read and to maintain. We could also use one of the pre-defined lists provided by \texttt{nltk}, but often, we might want to tweak it to our research interests anyway.
 
 \begin{lstlisting}
 from nltk.corpus import stopwords
-stopwords=stopwords.words('dutch')
+mystopwords=stopwords.words('dutch')
 \end{lstlisting}
 
 \subsection{Stemming}
@@ -1779,8 +1789,8 @@ We can now \texttt{print(stems)} to see how the stemmed string looks like.
 The last three lines can be replaced by a single line: \\
 \texttt{stems=" ".join([stemmer.stem(w) for w in s.split()])}
 \\
-The technique used for it is called \emph{list comprehension} and a really cool feature, see Appendix~\ref{sec:listcomprehensions}. In addition, the \texttt{.join()} method allows to join elements from a list to a single string. These two things are considered very pythonic and good coding style, so if you do this kind of stuff more often, it is useful to understand the working (but you can as well use the more elaborate way used in the example). In fact, also the stopword removal could be done in this way: Assuming we have a list with stopwords called \texttt{stopwords} and a sentence \texttt{s} from which we want to remove all stopwords, we can do so with \\
-\texttt{s2=" ".join([w for w in s.split() if w not in stopwords])} \\
+The technique used for it is called \emph{list comprehension} and a really cool feature, see Appendix~\ref{sec:listcomprehensions}. In addition, the \texttt{.join()} method allows to join elements from a list to a single string. These two things are considered very pythonic and good coding style, so if you do this kind of stuff more often, it is useful to understand the working (but you can as well use the more elaborate way used in the example). In fact, also the stopword removal could be done in this way: Assuming we have a list with stopwords called \texttt{mystopwords} and a sentence \texttt{s} from which we want to remove all stopwords, we can do so with \\
+\texttt{s2=" ".join([w for w in s.split() if w not in mystopwords])} \\
 In doing so, we can create a new string \texttt{s2} with one single line of Python code in which we first split s into a list of words, then make a new list out of these words in which only those words are included that are not in the stopword list, and finally join this list into a single string seperated by spaces.
 \end{quote}
 
@@ -3512,6 +3522,14 @@ You also have to download the geckodriver. You can find it here:
 
 In most cases, the geckodriver-v0.13.0-linux64.tar.gz version is the one you need, but there are versions for Mac and Windows as well. Save it in the directory in which you are working and unpack it, either by double-clicking on it or by using the \texttt{tar -xzf} command.
 
+You can consider copying it to a system directory so that it is available no matter in which working directory you are.
+
+\begin{lstlistingbash}
+cd path-to-the-folder-where-geckodriver-is-saved
+sudo cp geckodriver /usr/local/bin
+\end{lstlistingbash}
+
+
 From the Selenium packageFrom the Selenium package, you must then import some modules in your Python script. You also need to import the time module, as it is a useful tool when working with Selenium (this is standard module and you do not need to download anything to import it):
 
 \begin{lstlisting}
@@ -3627,7 +3645,17 @@ Python might throw the following error message: ‘geckodriver’ executable nee
 export PATH=$PATH:/path-to-the-folder-where-geckodriver-is-saved
 \end{lstlistingbash}
 
+
 Then, restart Spyder (or whatever Python interpreter you still have opened) and the problem should be solved.
+
+Alternatively, and better if you want to keep using the geckodriver in the long run, you can just save the geckodriver in a directory that is always accessible:
+
+\begin{lstlistingbash}
+cd path-to-the-folder-where-geckodriver-is-saved
+sudo cp geckodriver /usr/local/bin
+\end{lstlistingbash}
+
+
 
 Another common error message is this: Permission denied: 'geckodriver.log'. To solve this, create an empty text document using an editor like Geany, name it 'geckodriver.log' and save it in the same directory as where geckodriver is saved. Alternatively, you can create an empty file with the following command in your terminal:
 \begin{lstlistingbash}
