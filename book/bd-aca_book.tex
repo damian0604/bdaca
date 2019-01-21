@@ -1221,14 +1221,15 @@ The documentation on how to use the Rijksmuseum's API is quite extensive, and ca
 
 In order to get access to this API, you have to make an account in Rijksstudio, which you can do on the website of the Rijksmuseum. This is free and easy to do. Once you have created your account, visit your profile and go to 'settings'. At the bottom of the page you will find the option to request your API key. Please do s, and you will receive the key in your email box within minutes.
 
-In the following example, please replace ACCESS\_KEY with your personal API access key. First, we have to request the HTTP page with the information we are interested in. In Python, it is fairly easy to handle HTTP (Hypertext Transfer Protocol) related operations with the module 'requests'. Please install the module and import it. We also need to import the JSON module, as we will be handling JSON-formatted data.
+In the following example, please replace ACCESS\_KEY with your personal API access key. First, we have to request the HTTP page with the information we are interested in. In Python, it is fairly easy to handle HTTP (Hypertext Transfer Protocol) related operations with the module `requests'. We also need to import the `json' module, as we will be handling JSON-formatted data.
 
 \begin{lstlisting}
 import requests
 import json
 \end{lstlisting}
 
-Next, we will create the url needed to retrieve the data we are interested in. Most APIs have a base url that can be modified to fit the specific purpose of the data request. The base url of the Rijksmuseum API can be found below. We will generate a url that can be used to request data on past exhibitions. If, however, you are interested in something else (say, information of artists or the agenda of the Rijksmuseum), you can modify the url so to fit your purpose.
+Next, we will create the url needed to retrieve the data we are interested in.
+Most APIs have a base url that can be modified to fit the specific purpose of the data request. The base url of the Rijksmuseum API can be found below. We will generate a url that can be used to request data on past exhibitions. If, however, you are interested in something else (say, information of artists or the agenda of the Rijksmuseum), you can modify the url so to fit your purpose.
 
 \begin{lstlisting}
 base_url = 'https://www.rijksmuseum.nl/api/pages/en/{}?key={}&format=json'
@@ -1237,14 +1238,15 @@ key = 'ACCESS_KEY'
 full_url = base_url.format(page_of_interest, key)
 \end{lstlisting}
 
-Now we have our customized url, we can make a request to get some data. With the .get() method you can fetch the data from the API. If the HTTP status code '200' is returned, you know everything went well.
+Now we have our customized url, we can make a request to get some data. With the `.get()' method you can fetch the data from the API.
+If the HTTP status code '200' is returned, you know everything went well.
 
 \begin{lstlisting}
 r = requests.get(full_url)
 print('Response HTTP Status Code: {status_code}'.format(status_code=r.status_code))
 \end{lstlisting}
 
-Great, that worked. Next, we load the data in JSON format, so we can do some analysis with it. Let's say we want some general information about the past exhibitions. We can print the titles and dates of the 10 most recent exhibitions.
+Great, that worked. Next, we put the data (which we retrieved in JSON format) iinto a dictionary, so we can do some analysis with it. Let's say we want some general information about the past exhibitions. We can print the titles and dates of the 10 most recent exhibitions.
 
 \begin{lstlisting}
 data = json.loads(r.content.decode('utf-8')) # this loads the data
