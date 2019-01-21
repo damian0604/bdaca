@@ -1205,10 +1205,69 @@ print ("The average length of a book by Luhmann is", sum(pagelist)/len(pagelist)
 
 
 \begin{quote}
-There are APIs for a lot of different purposes, it's always worth checking if a source you want to use has one.
-For example, even the Dutch parliament has one, via which you an access a lot of interesting material: \url{https://opendata.tweedekamer.nl/nieuws/kamer-maakt-parlementaire-data-toegankelijker}
+There are APIs for a lot of different purposes, it's always worth checking if a source you want to use has one. Check out this website for an overview of thousands of cool APIs that you might want to use someday: \url{https://www.programmableweb.com/}. For example, the city of Amsterdam offers a very elaborate API with information on diverse topics, ranging from environmental themes to insights into business investment zones. Even the Dutch parliament has one, via which you an access a lot of interesting material: \url{https://opendata.tweedekamer.nl/nieuws/kamer-maakt-parlementaire-data-toegankelijker}. 
+
+APIs vary considerably regarding the amount of fetchable information. For example, the Twitter API is rather restricted in terms of the amount of tweets you can access for free.
+
+Other organizations, however, let you access all their data. Several European governmental organizations are making efforts to committed to increasing the public accessibility of their data - amongst others via APIs. Thats good news for us!
+
 \end{quote}
 
+\section{The Rijksmuseum API}
+\label{subsec:rijksapi}
+An example of an API that makes large amounts of data available for the public is the one offered the Rijksmuseum of Amsterdam. More specifically, the Rijksmuseum API allows you to fetch information about artists, and even high-quality images. Especially the information about expositions might be relevant for researchers interested in (cultural) agenda setting effects between cultural institutions, media coverage, and/ or trace over-time variation in the number of visitors.
+
+The documentation on how to use the Rijksmuseum's API is quite extensive, and can be found on their github page: \url{http://rijksmuseum.github.io/}
+
+In order to get access to this API, you have to make an account in Rijksstudio, which you can do on the website of the Rijksmuseum. This is free and easy to do. Once you have created your account, visit your profile and go to 'settings'. At the bottom of the page you will find the option to request your API key. Please do s, and you will receive the key in your email box within minutes.
+
+In the following example, please replace ACCESS\_KEY with your personal API access key. First, we have to request the HTTP page with the information we are interested in. In Python, it is fairly easy to handle HTTP (Hypertext Transfer Protocol) related operations with the module 'requests'. Please install the module and import it. We also need to import the JSON module, as we will be handling JSON-formatted data.
+
+\begin{lstlisting}
+import requests
+import json
+\end{lstlisting}
+
+Next, we will create the url needed to retrieve the data we are interested in. Most APIs have a base url that can be modified to fit the specific purpose of the data request. The base url of the Rijksmuseum API can be found below. We will generate a url that can be used to request data on past exhibitions. If, however, you are interested in something else (say, information of artists or the agenda of the Rijksmuseum), you can modify the url so to fit your purpose.
+
+\begin{lstlisting}
+base_url = 'https://www.rijksmuseum.nl/api/pages/en/{}?key={}&format=json'
+page_of_interest = 'whats-on/exhibitions-past'
+key = 'ACCESS_KEY'
+full_url = base_url.format(page_of_interest, key)
+\end{lstlisting}
+
+Now we have our customized url, we can make a request to get some data. With the .get() method you can fetch the data from the API. If the HTTP status code '200' is returned, you know everything went well.
+
+\begin{lstlisting}
+r = requests.get(full_url)
+print('Response HTTP Status Code: {status_code}'.format(status_code=r.status_code))
+\end{lstlisting}
+
+Great, that worked. Next, we load the data in JSON format, so we can do some analysis with it. Let's say we want some general information about the past exhibitions. We can print the titles and dates of the 10 most recent exhibitions.
+
+\begin{lstlisting}
+data = json.loads(r.content.decode('utf-8')) # this loads the data
+for item in data['contentPage']['overviewItems'][:10]:
+    print("Title:  {}".format(item['page']['title']))
+    print("Date:   {}".format((item['text'])))
+    print("URL:    {}".format(item['page']['url']))
+\end{lstlisting}
+
+Now lets get some information on the number of exhibitions per year.
+
+\begin{lstlisting}
+from collections import defaultdict
+from datetime import datetime
+
+counts = defaultdict(int)
+
+for item in data['contentPage']['overviewItems']:
+    end_date = ' '.join(item['text'].split(' ')[-3:])
+    dt = datetime.strptime(end_date, '%d %B %Y')
+    counts[dt.year] += 1
+counts
+\end{lstlisting}
 
 \section{The Twitter API}
 \emph{Twitter recently swittched from a 140 character limit to a 280 character limit. The examples below still are only retrieving up to 140 characters. There is a new option} \texttt{tweet\_mode=extended} \emph{that needs to be passed to the API to retrieve the full text. Instead of using the text field, you can then use the} \texttt{extended\_tweet} \emph{field and its subfields. For more information, see} \url{https://developer.twitter.com/en/docs/tweets/tweet-updates} \emph{or the documentation of the libraries you are using}.
