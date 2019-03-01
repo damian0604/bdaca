@@ -1,0 +1,235 @@
+\section*{Before the course starts: Prepare your computer.}
+\textsc{\ding{52} Chapter 1: Preparing your computer}\\
+Follow all steps as outlined in Chapter 1.
+
+
+\section*{PART I: Basics of Python and ACA}
+
+\section*{Week 1: Introduction}
+\subsection*{Wednesday, 6--2. Lecture.}
+We discuss what Big Data means, how the concept can be understood, what challenges and opportunities arise, and what the implications are for communication science. 
+
+Mandatory readings (in advance): \cite{boyd2012} and \cite{Kitchin2014}. 
+
+Additional literature, not obligatory to read in advance, but very informative: \cite{Mahrt2013}, \cite{Vis2013}, \cite{Trilling2017a}.
+
+%The articles mentioned above discuss the implications of Big Data methods in a very broad way. You should also have a look at some applied articles in the field to get an idea of the type of research that is currently conducted in the field. Good readings are \citealp{Castillo2014,Ellison2013,Conover2012}. You do not have to read all of them in detail, but should get a general understanding of the types of methods that are used in these studies.
+
+
+\subsection*{Friday, 8--2. No meeting.}
+\textsc{\ding{52} Chapter 2: The Linux command line}\\
+\textsc{\ding{52} Chapter 3: A language, not a program}\\
+
+Read the two chapters, and make sure you can reproduce the examples on your computer. Write down specific questions you have, so that you can ask them on Monday. It is encouraged to do so in pairs or groups.
+
+
+
+
+\section*{Week 2: Getting started with Python}
+
+\subsection*{Wednesday, 13--2. Lecture.}
+\textsc{\ding{52} Chapter 4: The very, very basics of programming in Python}\\
+You will get a very gentle introduction to computer programming. During the lecture, you are encouraged to follow the examples on your own laptop.
+
+
+\subsection*{Friday, 15--2. Lab session.}
+\textsc{\ding{52} Appendix A: Exercise 1}\\
+We will do our first real steps in Python and do some exercises to get the feeling. 
+
+
+\section*{Week 3: Data harvesting and storage}
+This week is about data sources and their (dis)advantages. 
+
+\subsection*{Wedneday, 20--2. Lecture.}
+A conceptual overview of APIs, scrapers, crawlers, RSS-feeds, databases, and different file formats.
+
+Read the article by \cite{Morstatter2013} in advance. It discusses the quality of data provided by the Twitter API. As a practical example for how ``dirty'' input data (i.e., data that for whatever reason does not come in form of a clean, structured data set like a table) can be parsed and preprocessed, have a look at the method section of the article by \cite{Lewis2013}. 
+
+
+\subsection*{Friday, 22--2. Lab session.}
+\textsc{\ding{52} Chapter 5.1--5.4: Retrieving and storing data}\\
+We will write a script to collect some data. 
+
+
+
+
+\section*{Week 4: Sentiment analysis.}
+Up till now, we have mainly talked about available data and how to acquire them. From now on, we will focus on analyzing them and cover one technique per week. By now, you should also have gotten some idea about your final project.
+
+
+\subsection*{Wednesday, 27--2. Lecture.}
+We start with an overview of different analytical approaches which we will cover in the next weeks, After that, we will focus on the first of these techniques, sentiment analysis.
+
+Mandatory readings (in advance): \cite{GonzalezBailon2015} and \cite{Hutto2014}.
+
+Suggestions for additional readings:
+\begin{itemize}
+	\item Examples of (simple) sentiment analyses: \cite{Huang2007,Pestian2012, Mostafa2013}. 
+	\item If you want to have a look under the hood of another popular sentiment analysis algorithm, you can read \cite{Thelwall2012}.
+\end{itemize}
+
+
+
+
+\subsection*{Friday, 1--3. Lab session.}
+\textsc{\ding{52} Chapter 6: Sentiment analysis}\\
+You will write a script to read data and conduct a sentiment analysis.
+
+
+
+
+
+
+\section*{Week 5: Automated content analysis with NLP and regular expressions.}
+Text as written by humans usually is pretty messy. You will learn how to process text to make it suitable for further analysis by using techniques of Natural Language Processing (NLP), and how to extract meaningful information (discarding the rest) using regular expressions. You will also make a first aquintance with the packages NLTK and spacy.
+
+
+
+
+\subsection*{Wedneday, 6--3. Lecture with exercises.}
+\textsc{\ding{52} Chapter 7: Automated content analysis}\\
+This lecture will introduce you to techniques and concepts like stemming, stopword removal, n-grams, word counts and word co-occurrances, and regular expressions. We will do some exercises during the lecture.
+
+Preparation: Mandatory reading: \cite{Boumans2016}. 
+
+
+
+
+\subsection*{Friday, 8--3. Lab session.}
+You will combine the techiques discussed on Wednesday and write a full automated content analysis script using a top-down dictioary or regular-expression approach.
+
+
+
+\subsection*{Take-home exam}
+In week 5, the first midterm take-home exam is distributed after the Friday meeting. The answer sheets and all files have to be handed in no later than the day before the next meeting, i.e. Tuesday evening (12--5, 23.59).
+
+
+
+
+\section*{Week 6: Web scraping and parsing}
+
+\subsection*{Wednesday, 13--3. Lecture.}
+We will explore techniques to download data from web pages and to extract meaningful information like the text (or a photo, or a headline, or the author) from an article on \url{http://nu.nl}, a review (or a price, or a link) from \url{http://kieskeurig.nl}, or similar. 
+
+\subsection*{Friday, 15--3. Lab session.}
+\textsc{\ding{52} Chapter 8: Web scraping}\\
+We will exercise with web scraping and parsing.
+
+
+
+
+
+\section*{Week 7: Statistics with Python}
+
+\subsection*{Wednesday, 20--3. Short lecture plus lab session.}
+\textsc{\ding{52} Section 3.5: Jupyter Notebook}\\
+\textsc{\ding{52} Chapter 12: Statistics with Python}\\
+You have worked hard so far, so we'll do something fun and relaxing (of course, fun might be a relative concept in this course\ldots). You are going to learn how to create visualizations, do conventional statistical tests, manage datasets with Python, save the results together with your code and your own explanations -- and all of this within your browser.
+
+
+
+\subsection*{Friday, 22--3.  Short lecture plus lab session.}
+We will learn how to do data wrangling with pandas: converting between wide and long formats (melting and pivoting), aggregating data, joining datasets, and so on.
+
+
+\section*{-- Break between block 1 and 2 -- }
+
+\section*{PART II: Advanced analyses}
+
+
+\section*{Week 8: Dealing with temporal data}
+
+\subsection*{Wednesday, 3--4. Guest lecture by Rens Vliegenthart.}
+We will talk about time series analysis. Many data you can collect online have some temporal component in them: think of references to political parties or topics over time, or of the coverage of an organization. The same holds true for non-media data, such as stock exchange rates or unemployment statistics. We will discuss statistical models to analyse such data.
+
+
+Mandatory reading (in advance): \cite{Vliegenthart2014} and \cite{Strycharz2018}.
+
+
+\subsection*{Friday, 5--4. Lab session.}
+We will use an example to explore how to implement the techniques discussed on Wednesday using statsmodels \citep{statsmodels}.
+
+
+
+\section*{Week 9: Supervised Machine Learning 1}
+In weeks 9 and 10, you will learn how to work with scikit-learn \citep{scikit-learn}, one of the most well-known machine learning libraries.
+
+
+\subsection*{Wednesday, 10--4. Lecture.}
+We will learn the principles of supervised machine learning and discuss how logistic regression and Naive Bayes classifiers can be used to predict, for instance, movie ratings or topics of news articles. We will also discuss basics evaluation metrics like precision and recall.
+
+Mandatory reading (in advance): \cite{burscher2014}. 
+
+\subsection*{Friday, 12--4. Lab session.}
+\textsc{\ding{52} Chapter 10: Supervised machine learning}\\
+You will build your first machine learning classifier.
+
+
+
+\section*{Week 10: Supervised Machine Learning 2}
+
+\subsection*{Wednesday, 17--4. Lecture with practical exercise.}
+We will discuss more in detail how to select the best model for your purpose. We will talk about cross-validation, parameter tuning, and building a pipeline.
+
+\subsection*{Friday, 19--4. No meeting (Easter)}
+
+
+
+
+\section*{Week 11: Unsupervised Machine Learning 1}
+
+\subsection*{Wednesday, 24--4. Lecture.}
+We will discuss the basics of unsupervised machine learning, using techniques such as principal component analysis, k-means clustering, and hiearchical clustering.
+
+Mandatory reading (in advance): \cite{burscher2016}.
+
+\subsection*{Friday, 26--4. Lab session.}
+You will apply the techniques discussed on Wednesday.
+
+
+\subsection*{Take-home exam}
+In week 11, the second midterm take-home exam is distributed after the Friday meeting. The answer sheets and all files have to be handed in no later than the day before the next meeting, i.e. Tuesday evening (30--4, 23.59).
+
+
+
+
+
+
+\section*{Week 12: Unsupervised Machine Learning 2}
+
+
+\subsection*{Wednesday, 1--5}
+We will discuss one of the most popular unsupervised techniques in automated content analysis: topic modeling. In particular, we will focus on LDA.
+
+Mandatory readings (in advance): \cite{Maier2018a} and \cite{Tsur2015}. 
+
+\subsection*{Friday, 3--5}
+\textsc{\ding{52} Chapter 11: Unsupervised machine learning}\\
+You will apply the techniques discussed on Wednesday using gensim \citep{Rehurek2010}.
+
+
+
+\section*{Week 13: Word embeddings}
+
+\subsection*{Wednesday, 8--5}
+In this week, we will talk about a problem of standard forms of ACA: they treat words as independent from each other, and as either present or absent. For instance, if ``teacher'' is a feature in a specific model, and a text mentions ``instructor'', then this is not captured -- even though it probably should matter, at least to some extend. Word embeddings are a technique to overcome this problem. But also, they can reveal hidden biases in the texts they are trained on.
+
+Mandatory readings (in advance): \cite{Kusner2015} and \cite{Garg2017}
+
+
+
+\subsection*{Friday, 10--5}
+We will apply a word2vec model.
+
+
+
+\section*{Week 14: Wrapping up \& moving on}
+
+\subsection*{Wednesday, 15--5. Lecture}
+In this meeting, we will wrap up what has been covered in this course and discuss what other techniques and approaches exist that we did not have time to cover in detail, such as deep learning. 
+
+\subsection*{Friday, 17--5. Open Lab}
+Possibility to ask last questions regarding the final project.
+
+\subsection*{Final project}
+Deadline for handing in: Wednesday, 29--5, 23.59.
