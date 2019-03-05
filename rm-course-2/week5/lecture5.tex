@@ -342,9 +342,9 @@ Natural Language Processing
 \begin{lstlisting}
 testo='He gives her a beer and a cigarette.'
 testonuovo=""
-stopwords=['and','the','a','or','he','she','him','her']
+mystopwords=['and','the','a','or','he','she','him','her']
 for verbo in testo.split():
-    if verbo not in stopwords:
+    if verbo not in mystopwords:
         testonuovo=testonuovo+verbo+" "
 \end{lstlisting}
 What do we get if we do:
@@ -366,9 +366,9 @@ Why is "He" still in there? \\ How can we fix this?
 \begin{lstlisting}
 testo='He gives her a beer and a cigarette.'
 testonuovo=""
-stopwords=['and','the','a','or','he','she','him','her']
+mystopwords=['and','the','a','or','he','she','him','her']
 for verbo in testo.split():
-    if verbo.lower() not in stopwords:
+    if verbo.lower() not in mystopwords:
         testonuovo=testonuovo+verbo+" "
 \end{lstlisting}
 
@@ -377,10 +377,10 @@ for verbo in testo.split():
 With \textit{list comprehension} and the \texttt{.join()} method, you can achieve the same thing in one line:
 
 \begin{lstlisting}
-testonuevo2 = " ".join([w for w in testo.split() if w not in stopwords])
+tn2 = " ".join([w for w in testo.split() if w not in mystopwords])
 \end{lstlisting}
 \pause
-This is more efficient and more ``pthonic'', but may be more difficult to debug (especially if it gets more complicated)
+This is more efficient and more ``pythonic'', but may be more difficult to debug (especially if it gets more complicated)
 
 \end{frame}
 
@@ -434,11 +434,11 @@ i am run while generous greet my neighbor
 from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
 stemmer=SnowballStemmer("english")
-stopwords = stopwords.words("english")
+mystopwords = stopwords.words("english")
 frase="I am running while generously greeting my neighbors"
 frasenuevo=""
 for palabra in frase.lower().split():
-    if palabra not in stopwords:
+    if palabra not in mystopwords:
         frasenuevo=frasenuevo + stemmer.stem(palabra)  + " "
 \end{lstlisting}
 Now, {\tt{print(frasenuevo)}} returns:
@@ -451,7 +451,7 @@ Perfect!
 \small
 Or:
 \begin{lstlisting}
-print(" ".join([stemmer.stem(p) for p in frase.lower().split() if p not in stopwords]))
+print(" ".join([stemmer.stem(p) for p in frase.lower().split() if p not in mystopwords]))
 \end{lstlisting}
 
 
