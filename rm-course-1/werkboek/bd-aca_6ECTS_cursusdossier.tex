@@ -33,9 +33,9 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 
 
-\title{Big Data and Automated Content Analysis\\~\\Cursusdossier}
+\title{Big Data and Automated Content Analysis\\ Part I+II (12 ECTS)\\~\\Cursusdossier}
 \author{dr. Damian Trilling\\~\\Graduate School of Communication\\University of Amsterdam\\~\\d.c.trilling@uva.nl\\www.damiantrilling.net\\@damian0604\\~\\Office: REC-C, 8\textsuperscript{th} floor}
-\date{Academic Year 2017/18}
+\date{Academic Year 2018/19}
 
 
 \begin{document}
@@ -45,17 +45,8 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 
 \chapter{Short description of the course}
- 
- ``Big data'' is a relatively new phenomenon, and refers to data that are more voluminous, but often also more unstructured and dynamic, than traditionally the case. In Communication Science and the Social Sciences more broadly, this in particular concerns research that draws on Internet-based data sources such as social media, large digital archives, and public comments to news and products This emerging field of studies is also called \emph{Computational Social Science} \citep{Lazer2009} or even \emph{Comutational Communication Science} \citep{Shah2015}.
- 
- %One of the big challenges is being able to derive information from these data that can be handled meaningfully and economically at the same time.
- 
- The course will provide insights in the basic concepts, challenges and opportunities associated with data so large that traditional research methods (like manual coding) cannot be applied any more and traditional inferential statistics start to loose their meaning. Participants are introduced to strategies and techniques for capturing and analyzing digital data in communication contexts, through concrete examples and templates than can be shared and modified for the students’ own research projects. We will focus on (a) data harvesting, storage, and preprocessing and (b) computer-aided content analysis, including natural language processing (NLP) and computational social science approaches.
- 
- To participate in this course, students are expected to be interested in learning how to write own programs where off-the-shelf software is not available. Some basic understanding of programming languages is helpful, but not necessary to enter the course. Students without such knowledge are encouraged to follow the (free) online course at \url{https://www.codecademy.com/learn/python} to prepare.
- 
 
-
+\input{description}
 
 \chapter{Exit qualifications}
 
@@ -205,162 +196,13 @@ To complete the course, next to active participation, the students have to succe
 
 \chapter{Literature}
 
-The obligatory literature is listed in the column “Students’ tasks” in the course schedule below (Chapter 6). In addition, the students have to carefully read the tutorial by  \cite{Trilling2016}, which was written specificially for this course and which provides them with the computer skills necessary to use the tools we use for data retrieval and analysis.
-
-
-The following books provide the interested student with more and deeper information. They are intended for the advanced reader and might be useful for final individual projects, but are by no means required literature:
-
-\begin{itemize}
-\item \citealp{Russel2013}. Gives a lot of examples about how to analyze a variety of online data, including Facebook and Twitter, but going much beyond that.
-\item \citealp{Bird2009}. This is the official documentation of the NLTK package that we are using. A newer version of the book can be read for free at \url{http://nltk.org}
-\item \citealp{McKinney2012}: Another book with a lot of examples. A PDF of the book can be downloaded for free on \url{http://it-ebooks.info/book/1041/}.
-\end{itemize}
+\input{literature}
 
 
 \chapter{Specific course timetable}
 
 
-\section*{Week 1: Introduction}
-\subsection*{Monday, 5--2. Lecture.}
-We discuss what Big Data means, how the concept can be understood, what challenges and opportunities arise, and what the implications are for communication science. 
-
-Mandatory readings (in advance): \citealp{boyd2012}, \citealp{Vis2013}, \citealp{Kitchin2014}. 
-
-Additional literature, not obligatory: \citealp{Mahrt2013}.
-
-The articles mentioned above discuss the implications of Big Data methods in a very broad way. You should also have a look at some applied articles in the field to get an idea of the type of research that is currently conducted in the field. Good readings are \citealp{Castillo2014,Ellison2013,Conover2012}. You do not have to read all of them in detail, but should get a general understanding of the types of methods that are used in these studies.
-
-
-\subsection*{Wednesday, 7--2. Lab session.}
-\textsc{\ding{52} Chapter 2: The Linux command line}\\
-\textsc{\ding{52} Chapter 3: A language, not a program}\\
-
-We will get familiar with the Virtual Machine and the software we will work with. Make sure you installed everything in advance and that you can start up your machine. 
-
-
-
-
-
-\section*{Week 2: Getting started with Python}
-
-\subsection*{Monday, 12--2. Lecture.}
-\textsc{\ding{52} Chapter 4: The very, very basics of programming in Python}\\
-You will get a very gentle introduction to computer programming. During the lecture, you are encouraged to follow the examples on your own laptop.
-
-
-\subsection*{Wednesday, 14--2. Lab session.}
-\textsc{\ding{52} Appendix A: Exercise 1}\\
-We will do our first real steps in Python and do some exercises to get the feeling. 
-
-
-\section*{Week 3: Data harvesting and storage}
-This week is about data sources and their (dis)advantages. 
-
-\subsection*{Monday, 19--2. Lecture.}
-A conceptual overview of APIs, scrapers, crawlers, RSS-feeds, databases, and different file formats.
-
-Read the article by \cite{Morstatter2013} in advance. It discusses the quality of data provided by the Twitter API. As a practical example for how ``dirty'' input data (i.e., data that for whatever reason does not come in form of a clean, structured data set like a table) can be parsed and preprocessed, have a look at the method section of the article by \citep{Lewis2013}. 
-
-
-\subsection*{Wednesday, 21--2. Lab session.}
-\textsc{\ding{52} Chapter 5: Retrieving and storing data}\\
-We will write a script to collect some data. 
-
-
-
-
-\section*{Week 4: Sentiment analysis}
-Up till now, we have mainly talked about available data and how to acquire them. From now on, we will focus on analyzing them and cover one technique per week. By now, you should also have gotten some idea about your final project.
-
-
-\subsection*{Monday, 26--2. Lecture.}
-We start with an overview of different analytical approaches which we will cover in the next weeks, After that, we will focus on the first of these techniques, sentiment analysis.
-
-Read the following two articles in advance. The first one gives an overview of how to analyze social media data, in this case, Twitter \citep{Bruns2013}. The other one is an example of a sentiment analysis \citep{Mostafa2013}.
-
-Some additional examples of sentiment analysis (not obligatory): \cite{Huang2007,Pestian2012}. If you want to have a look under the hood of a popular sentiment analysis algorithm, you can read \cite{Thelwall2012} and \cite{Hutto2014}.
-
-
-\subsection*{Wednesday, 28--2. Lab session.}
-\textsc{\ding{52} Chapter 6: Sentiment analysis}\\
-You will write a tool to read data and conduct a sentiment analysis.
-
-
-
-
-
-
-\section*{Week 5: Automated content analysis with NLP and regular expressions; pandas and notebooks}
-Text as written by humans usually is pretty messy. You will learn how to process text to make it suitable for further analysis by using techniques of Natural Language Processing (NLP), and how to extract meaningful information (discarding the rest) using regular expressions.
-
-
-\subsection*{Monday, 5--3. Lecture with exercises}
-\textsc{\ding{52} Chapter 7: Automated content analysis}\\
-This lecture will introduce you to techniques and concepts like stemming, stopword removal, n-grams, word counts and word co-occurrances, and regular expressions. We will do some exercises during the lecture.
-
-Preparation: Mandatory reading: \citealp{Boumans2016}. Also read the paper by \cite{Madnani}. It uses the same package (NLTK) which we use in class, If you don’t get all practical details yet, that’s OK. Pay special attention to the (linguistic) concepts applied.  
-
-\subsection*{Wednesday, 7--3. Short lecture plus lab session.}
-\textsc{\ding{52} Section 3.5: Jupyter Notebook}\\
-\textsc{\ding{52} Chapter 12: Statistics with Python}\\
-
-You have worked hard so far, so we'll do something fun and relaxing (of course, fun might be a relative concept in this course\ldots). You are going to learn how to create visualizations, do conventional statistical tests, manage datasets with Python, save the results together with your code and your own explanations -- and all of this within your browser.
-
-
-
-\subsection*{Take-home exam}
-In week 5, the midterm take-home exam is distributed. The answer sheets and all files have to be handed in no later than end of the week (i.e., Sunday, 11--3, 23.59).
-
-
-
-
-\section*{Week 6: Web scraping and parsing}
-
-\subsection*{Monday, 12--3. Lecture.}
-We will explore techniques to download data from web pages and to extract meaningful information like the text (or a photo, or a headline, or the author) from an article on \url{http://nu.nl}, a review (or a price, or a link) from \url{http://kieskeurig.nl}, or similar. 
-
-\subsection*{Wednesday, 14--3. Lab session}
-\textsc{\ding{52} Chapter 8: Web scraping}\\
-We will exercise with web scraping and parsing.
-
-%
-%\section*{Week 7: Network visualization with Gephi}
-%While an introduction to network analysis is beyond the scope of this course, we will briefly discuss the application of network analysis and visualization of social media data.
-%
-%\subsection*{Monday, 9--5. Lecture.}
-%
-%Read the following articles in advance: \citealp{Ausserhofer2013}; \citealp{Trilling2015}. During the lecture, it will be shown how the method used in these articles can be applied.
-%
-%\subsection*{Wednesday, 11--5. Lab session.}
-%Working on individual projects during the lab session.
-%
-%
-
-\section*{Week 7: Machine learning}
-
-\subsection*{Monday, 19--3. Lecture.}
-This lecture will introduce you to one of the most fascinating topics in automated content analysis: machine learning. I will walk you trough the ideas behind unsupervised and supervised machine learning. The nice thing is that you actually have already done it during your studies: Principal component analysis is a form of unsupervised ML and regression analysis a form of supervised ML -- you just never called it like this. And you probably never thought about using these techniques to analyze texts (or images). And that's what we are going to do.
-
-\subsection*{Wednesday, 21--3. Lab session.}
-\textsc{\ding{52} Chapter 10: Supervised machine learning}\\
-\textsc{\ding{52} Chapter 11: Unsupervised machine learning}\\
-We will exercise with different forms of machine learning. 
-
-
-\section*{Week 9: Finish!}
-We finish working on our projects and discuss last open questions. 
-
-\subsection*{Monday, 26--3. Lecture.}
-We will look back and systematize what we have learned. Also, this lecture will leave room for possible additional topics that you became interested in during this course and that haven't been covered extensively enough. For example, we might dig a bit deeper into some specific form of ML; or we might look more in detail into the possibilities of pandas. Or we might have a look at Chapter~9, which we will otherwise skip.
-
-
-\subsection*{Wednesday, 28--3. Open Lab.}
-Possibility to ask last questions regarding the final project.
-
-\subsection*{Final project}
-Deadline for handing in: Sunday, 31--3, 23.59.
-
-
+\input{schedule}
 
 
 \chapter{Testing}
