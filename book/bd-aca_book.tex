@@ -269,9 +269,8 @@ The virtual machine you just created should show up in the main window now. If i
 \end{figure}
 
 
-
 Now click on the name of the virtual machine and on "Settings" (Figure~\ref{fig:tweak2}. Under "System"/"Processors", you should see a check box "Enable PAE/NX". If you can enable this, enable it.\footnote{In rare cases, you might just to have to disable it. So, if you cannot start your VM, you know what to try.}
-Confirm with OK. Also, check if you can enable "Display"/"Enable 3D acceleation" (Figure~\ref{fig:tweak1}). These changes might not be strictly necessary, but can in some instances prevent problems.
+Confirm with OK. Under "Display", select "VBoxVGA" as your default "Graphics Controller". Also, check if you can enable "Display"/"Enable 3D acceleation" (Figure~\ref{fig:tweak1}). These changes might not be strictly necessary, but can in some instances prevent problems.
 
 When you are done, start the virtual machine by clicking on the green arrow in the main window. You will be asked for a location from which to boot. Click on the icon to select a file and select the Lubuntu-image you downloaded.
 
@@ -311,6 +310,7 @@ We will now install the Virtualbox Guest Utils, which solve the potential proble
 
 \begin{lstlistingbash}
 sudo apt install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+sudo apt-get install virtualbox-guest-additions-iso
 \end{lstlistingbash}
  
 If you reboot your virtual machine (by clicking on the Start button/logout/reboot or by typing
