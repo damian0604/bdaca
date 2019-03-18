@@ -1260,15 +1260,15 @@ Now lets get some information on the number of exhibitions per year.
 
 \begin{lstlisting}
 from collections import defaultdict
-from datetime import datetime
-
+import dateutil.parser
 counts = defaultdict(int)
 
 for item in data['contentPage']['overviewItems']:
     end_date = ' '.join(item['text'].split(' ')[-3:])
-    dt = datetime.strptime(end_date, '%d %B %Y')
+    dt = dateutil.parser.parse(end_date)
     counts[dt.year] += 1
-counts
+    
+print(counts)
 \end{lstlisting}
 
 \section{The Twitter API}
