@@ -3321,6 +3321,128 @@ with open('output.csv',mode='w') as fo:
 
 
 
+\chapter[Exercise 3]{Exercise 3: Use pandas to explore Airbnb data}
+\emph{By Joanna Strycharz}\\
+
+\section{Get the data}
+
+For this exercise, download the file \texttt{reviews\_details.csv.gz} for the city of Amsterdam from
+\url{http://insideairbnb.com/get-the-data.html}.
+
+Unpack it with 
+\begin{lstlistingbash}
+gunzip reviews_details.csv.gz
+\end{lstlistingbash}
+
+When I downloaded the dataset, the file inside the archive did not have the right permissions. Let's allow ourselves to read it:
+\begin{lstlistingbash}
+chmod u+r reviews_details.csv
+\end{lstlistingbash}
+
+Then, load the file into a pandas dataframe.
+
+\begin{lstlisting}
+import pandas as pd
+df = pd.read_csv('reviews_details.csv')
+\end{lstlisting}
+
+
+\section{Analyze the data}
+
+\begin{enumerate}
+	\item How many Airbnb apartments are there in Amsterdam?
+	\item What is the average price of an Airbnb apartment? How much does it differ per location (e.g., city center or not)?
+	\item What is the average price of an Airbnb apartment? How much does it differ per location (e.g., city center or not)?
+	\item What is the average rating of an Airbnb apartment in Amsterdam? Does it differ per location? 
+	\item Is the price of an apartment correlated with neighborhood and its rating?
+	\item To what extend do rating and number of reviews predict price of an apartment? Can you compare models where you control for location? 
+\end{enumerate}
+
+Below, you find a cheat sheet that helps you solving this exercise.
+
+
+\section{Cheat Sheet}
+
+\subsection{Numpy – mathematical functions in Python}
+\texttt{import numpy as np}
+\begin{itemize}
+	\item  Mean of a list of integers or floats \\
+	 	\texttt{np.mean([int1, int2, int3])}
+	\item  Standard deviation of a list of integers or floats \\
+		\texttt{np.std([int1, int2, int3])}
+	\item  Correlation between two or more variables (lists of ints or floats) \\
+\texttt{np.corrcoef([x1, x2, x3],[y1, y2, y3]))} or \texttt{np.corrcoef([l1, l2, l3])}
+\end{itemize}
+
+\subsection{Pandas - data structures and data analysis tools}
+\texttt{import pandas as pd} \\
+And, for plotting:\\
+\texttt{import matplotlib.pyplot as plt\\ 
+\%matplotlib inline}
+
+\begin{itemize}
+\item  descriptives on the data\\ \texttt{df.describe()}
+\item  Plot a column of your data\\ \texttt{df['variable'].plot()}
+\item  Get a frequency table of a variable\\ \texttt{df[‘variable’].value\_counts()}
+\item  Drop variables that are not interesting\\ \texttt{df = df.drop(['variable1', 'variable2'], axis=1)} \\ or \\ \texttt{df.drop(['variable1', 'variable2'], axis=1, inplace=True)}
+\item  Recode values\\ \texttt{df = df.replace(['value1', 'value2'],[1, 0])}
+\item  Recode a (string) variable
+	\begin{itemize}
+		\item using the build-in string functions:\\ \texttt{df['recoded\_var'] = df['variable'].str.contains('someregularexpression')}
+		\item using a throwaway-function: \\ \texttt{df['recoded\_var'] =  df[variable].map(lambda x: int(x.lower().find('somestring') > -1))}
+		\item using a named function: \\ \texttt{def myfunction(x):\\
+			\phantom{xxxx}return(int(x.lower().find('somestring') > -1)) \\ df['recoded\_var'] = df['variable'].map(myfunction)}
+	\end{itemize}
+
+
+
+
+\item  Split dataset			\\ \texttt{df.groupby('variable')}
+\item Graph your data
+	\begin{itemize}
+		\item Histogram\\ \texttt{df['variable'].hist()}
+		\item Bar chart\\ \texttt{df['variable'].value\_counts(sort=False).plot(kind='bar')}
+		\item Scatterplot\\ \texttt{df.plot.scatter(x=variable1, y='variable2', c='blue')}		
+	\end{itemize}
+\end{itemize}
+
+\subsection{Statistical tests }
+\begin{itemize}
+	\item Correlations \\ \texttt{from scipy.stats import pearsonr \\
+		pearsonr(df['variable'], df['variable'])}
+	\item T-test \\ \texttt{from statsmodels.stats.weightstats import ttest\_ind \\
+		data\_subset1 = df[df['grouping\_variable']==1]['dependent variable']\\
+		data\_subset2 = df[df['grouping\_variable']==0]['dependent variable']\\
+		data\_subset1.describe()\\
+		data\_subset2.describe()\\
+		ttest\_ind(data\_subset1,data\_subset2)} \\
+		Optional: \\
+		\texttt{results = ttest\_ind(data\_subset1, data\_subset2) \\
+			print('t({2:.0f}) = {0:.3f}, p = {1:.3F}'.format(*results))}
+	\item Regression\\ \texttt{import statsmodels.formula.api as smf \\
+		reg = smf.ols(formula='dependent\_var ~ independent\_var1 + independent\_var2 + independent\_var3', data=df).fit()\\
+		print(reg.summary())}
+		\begin{itemize}
+			\item Compare two models \\ \texttt{reg1.compare\_lr\_test(reg2)}
+		\end{itemize}
+\end{itemize}
+Need help? Interested in different parameters? More models? Use \texttt{?}, for instance \texttt{smf.ols?}. 
+
+Check documentation \url{www.statsmodels.org}
+
+\subsection{Fancy graphs}
+\texttt{import seaborn as asns}
+\begin{itemize}
+	\item Turn correlation matrix into a heatmap\\ \texttt{corrmatrix = df[['variable1','variable2','variable3']].corr() \\ sns.heatmap(corrmatrix)}
+	\item \ldots and much more
+\end{itemize}
+
+Look up the documentation at \url{https://seaborn.pydata.org}
+
+
+
+
+
 
 
 \chapter[Exchanging files]{Exchanging files by mounting your host system}
