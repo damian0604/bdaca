@@ -82,7 +82,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 \title{Doing Computational Social Science with Python: An Introduction}
 \author{Damian Trilling}
-\date{Version 1.3\\ ~ \\  \footnotesize{PDF created \today}}
+\date{Version 1.3.1\\ ~ \\  \footnotesize{PDF created \today}}
 
 
 \begin{document}
@@ -136,7 +136,8 @@ Amsterdam, February 2016 (version 0.2)\\
 Amsterdam, January 2017 (version 1.0)\\
 Amsterdam, January 2018 (version 1.1)\\
 Amsterdam, March 2018 (version 1.2)\\
-Amsterdam, January 2019 (version 1.3)
+Amsterdam, January 2019 (version 1.3)\\
+Amsterdam, March 2019 (version 1.3.1)
 \end{flushright}
 
 Damian
@@ -269,8 +270,8 @@ The virtual machine you just created should show up in the main window now. If i
 \end{figure}
 
 
-Now click on the name of the virtual machine and on "Settings" (Figure~\ref{fig:tweak2}. Under "System"/"Processors", you should see a check box "Enable PAE/NX". If you can enable this, enable it.\footnote{In rare cases, you might just to have to disable it. So, if you cannot start your VM, you know what to try.}
-Confirm with OK. Under "Display", select "VBoxVGA" as your default "Graphics Controller". Also, check if you can enable "Display"/"Enable 3D acceleation" (Figure~\ref{fig:tweak1}). These changes might not be strictly necessary, but can in some instances prevent problems.
+Now click on the name of the virtual machine and on ``Settings'' (Figure~\ref{fig:tweak2}. Under "System"/"Processors", you should see a check box ``Enable PAE/NX''. If you can enable this, enable it.\footnote{In rare cases, you might just to have to disable it. So, if you cannot start your VM, you know what to try.}
+Confirm with OK. Under ``Display'', you probably need to select ``VBoxVGA'' as your default ``Graphics Controller''. Also, check if you can enable "Display"/"Enable 3D acceleation" (Figure~\ref{fig:tweak1}). These changes might not be strictly necessary, but can in some instances prevent problems.
 
 When you are done, start the virtual machine by clicking on the green arrow in the main window. You will be asked for a location from which to boot. Click on the icon to select a file and select the Lubuntu-image you downloaded.
 
@@ -310,7 +311,7 @@ We will now install the Virtualbox Guest Utils, which solve the potential proble
 
 \begin{lstlistingbash}
 sudo apt install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
-sudo apt-get install virtualbox-guest-additions-iso
+sudo apt install virtualbox-guest-additions-iso
 \end{lstlistingbash}
  
 If you reboot your virtual machine (by clicking on the Start button/logout/reboot or by typing
@@ -341,6 +342,10 @@ sudo -H pip3 install gensim
 sudo -H pip3 install requests
 sudo -H pip3 install cssselect
 sudo -H pip3 install spacy
+sudo -H pip3 install matplotlib
+sudo -H pip3 install seaborn
+sudo -H pip3 install numpy
+sudo -H pip3 install scipy
 \end{lstlistingbash}
 
 You should now be able to start Spyder, a tool we will be using for doing some Python programming, by just typing:
@@ -1007,6 +1012,12 @@ with open('/home/damian/mensen.csv', encoding='utf-8',mode='r',newline='') as cs
         height.append(row[2])
 print("Done!")
 \end{lstlisting}
+
+\begin{quote}
+	\texttt{csv.reader()} is a so-called generator. Basically, that is a structure that you can loop over (like a list), but you can only do so \emph{once}. Each value (in this case, each row) is only calculated (in this case, read from the file) when needed. You can read more about generators in Appendix \ref{sec:generators}.
+\end{quote}
+
+
 We see a lot of familiar structures: for example, the construction of (empty) lists in lines 2 to 4, the \texttt{for}-loop in line 7 to 10. So, let's first focus on the new parts:
 \begin{itemize}
 \item The \texttt{import} statement. It simply says that we want to load an external module, in this case one that knows how to read csv files. Import statements are usually written in the very first lines of a python scripts.
@@ -1042,6 +1053,11 @@ with open("test.csv",mode="w",encoding="utf-8") as fo:
 \end{lstlisting}
 
 That's all! Have a look at the file you just created and check if everything went right.
+
+
+\begin{quote}
+	Again, \texttt{csv.writer()} and \texttt{zip()} both are generators.
+\end{quote}
 
 \section{JSON files}
 \label{json}
@@ -1214,6 +1230,7 @@ Other organizations, however, let you access all their data. Several European go
 \end{quote}
 
 \section{The Rijksmuseum API}
+\emph{By Anne Kroon}\\
 \label{subsec:rijksapi}
 An example of an API that makes large amounts of data available for the public is the one offered the Rijksmuseum of Amsterdam. More specifically, the Rijksmuseum API allows you to fetch information about artists, and even high-quality images. Especially the information about expositions might be relevant for researchers interested in (cultural) agenda setting effects between cultural institutions, media coverage, and/ or trace over-time variation in the number of visitors.
 
@@ -1589,7 +1606,7 @@ for tweet in processedlist:
     print("It contains",poscount,"positive words and",negcount,"negative words.")
     poscountlist.append(poscount)
     negcountlist.append(negcount)
-    sentilist.append((poscount-negcount)/len(tweet))
+    sentilist.append((poscount-negcount)/len(tweet.split()))
     
 print("Average sentiment:",sum(sentilist)/len(sentilist))
 \end{lstlisting}
@@ -1654,12 +1671,12 @@ for tweet in tweetlist:
 \section{Alternatives}
 Let us take a step back and compare the approaches we have seen so far. The first one, the simple dictionary approach, was easy to understand and easy to modify, but not very powerful. The second, Vader, was much more powerful. One disadvantage, however, is that it is only available in English. The third one, Sentistrength, is comparable to Vader, but has as big advantage the support of a number of languages, including Dutch. However, this comes at a price: It is not available for free, making it more difficult to share code with others; and it is written in Java, which requires us to use some tricks to actually use it in Python.
 
-But there are more alternatives. For instance, pattern.nl \citep{DeSmedt2012} is very easy to use, open source, and it supports multiple languages. However, it's support for Python 3 is still experimental. 
+But there are more alternatives. For instance, pattern.nl \citep{DeSmedt2012} is very easy to use, open source, and it supports multiple languages. 
+
 To install it, you need to do the following:
 \begin{lstlistingbash}
-sudo apt install git
 sudo apt install libmysqlclient-dev
-sudo pip3 install git+git://github.com/clips/pattern.git@development
+sudo pip3 install pattern
 \end{lstlistingbash}
 
 For more information, see \url{https://www.clips.uantwerpen.be/pattern}.
@@ -3137,7 +3154,7 @@ If you do this on \emph{really} big datasets, there is a replacement for Counter
 
 \subsection*{Task 3}
 
-You might want to construct a dict with the categories as keys and an int containing the number of comments. Then you loop over your dataset and each time you encounter the same category, you add the number of comments to the dictionary entry. However, the first time you encounter a category, it does not have a key yet. We can use a so-called defaultdict, that automatically creates a key if it isn't there yet.
+You might want to construct a dict with the categories as keys and an int containing the number of comments. Then you loop over your dataset and each time you encounter the same category, you add the number of comments to the dictionary entry. However, the first time you encounter a category, it does not have a key yet. We can use a so-called defaultdict, that just returns a default value (\texttt{0} for an int, \texttt{""} for a string,\ldots) if it isn't there yet. 
 
 \begin{lstlisting}
 from collections import defaultdict
@@ -3185,6 +3202,7 @@ Try first to do it yourself, but if you cannot find out how to do it, you can ha
 \begin{lstlisting}
 import json
 from collections import Counter
+from collections import defaultdict
 
 #Right path?
 with open("/home/damian/pornexercise/xhamster.json") as fi:
@@ -3213,7 +3231,6 @@ print (c.most_common(100))
 
 
 #%% task 3: What porn category is most frequently commented on?
-from collections import defaultdict
 commentspercat=defaultdict(int)
 for identifier,clip in data.items():
     for tag in clip["channels"]:
@@ -3879,9 +3896,9 @@ and the error message should disappear.
 
 Keep in mind that one can have multiple versions of Python on one computer, and you don't want to litter your system with a lot of different versions that you then mix up accidentally. 
 
-In this book, we use a virtual machine with Linux as operating system. However, if you want to install Python somewhere else, chances are high that it isn't Linux. Within Linux, we used the system's package manager \texttt{apt-get} to install Python itself (and maybe some other programs). We then used \texttt{pip} to install specific Python packages. This requires you to know which packages you want (that's why we installed a bunch of them on page~\pageref{sec:installpackages}), but on the other hand, if you forgot one, it doesn't really matter because you can easily just install it later on.
+In this book, we use a virtual machine with Linux as operating system. However, if you want to install Python somewhere else, chances are high that it isn't Linux. Within Linux, we used the system's package manager \texttt{apt} to install Python itself (and maybe some other programs). We then used \texttt{pip} to install specific Python packages. This requires you to know which packages you want (that's why we installed a bunch of them on page~\pageref{sec:installpackages}), but on the other hand, if you forgot one, it doesn't really matter because you can easily just install it later on.
 
-All very easy, it seems, but to install some (few) packages via pip one needs specific programs like, for instance, a C compiler. You probably didn't even realize this, because on Linux, this stuff is usually present, and if not, it can be easiliy installed via \texttt{apt-get}. MacOS \emph{sometimes} has the necessary stuff installed (usually if you have installed XCode via the App Store). But on a common Windows installation, things can quickly become complicated (unless you know exactly what you are doing).
+All very easy, it seems, but to install some (few) packages via pip one needs specific programs like, for instance, a C compiler. You probably didn't even realize this, because on Linux, this stuff is usually present, and if not, it can be easiliy installed via \texttt{apt}. MacOS \emph{sometimes} has the necessary stuff installed (usually if you have installed XCode via the App Store). But on a common Windows installation, things can quickly become complicated (unless you know exactly what you are doing).
 
 Because people do not really like dealing with all this stuff, there is an easier solution: Anaconda \url{https://www.continuum.io/downloads}.
 
