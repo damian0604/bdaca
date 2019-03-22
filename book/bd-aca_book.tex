@@ -3343,24 +3343,24 @@ with open('output.csv',mode='w') as fo:
 
 \section{Get the data}
 
-For this exercise, download the file \texttt{reviews\_details.csv.gz} for the city of Amsterdam from
+For this exercise, download the file \texttt{listings.csv.gz} for the city of Amsterdam from
 \url{http://insideairbnb.com/get-the-data.html}.
 
 Unpack it with 
 \begin{lstlistingbash}
-gunzip reviews_details.csv.gz
+gunzip listings.csv.gz
 \end{lstlistingbash}
 
 When I downloaded the dataset, the file inside the archive did not have the right permissions. Let's allow ourselves to read it:
 \begin{lstlistingbash}
-chmod u+r reviews_details.csv
+chmod u+r listings.csv
 \end{lstlistingbash}
 
 Then, load the file into a pandas dataframe.
 
 \begin{lstlisting}
 import pandas as pd
-df = pd.read_csv('reviews_details.csv')
+df = pd.read_csv('listings.csv')
 \end{lstlisting}
 
 
@@ -3368,8 +3368,8 @@ df = pd.read_csv('reviews_details.csv')
 
 \begin{enumerate}
 	\item How many Airbnb apartments are there in Amsterdam?
-	\item What is the average price of an Airbnb apartment? How much does it differ per location (e.g., city center or not)?
-	\item What is the average price of an Airbnb apartment? How much does it differ per location (e.g., city center or not)?
+	\item What is the average price of an Airbnb apartment? 
+	\item How much does it differ per location (e.g., city center or not)?
 	\item What is the average rating of an Airbnb apartment in Amsterdam? Does it differ per location? 
 	\item Is the price of an apartment correlated with neighborhood and its rating?
 	\item To what extend do rating and number of reviews predict price of an apartment? Can you compare models where you control for location? 
