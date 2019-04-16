@@ -212,6 +212,7 @@ To transform the probabilities into binary labels, we use a cutoff (default: 0.5
 \begin{itemize}[<+->]
 	\item It makes most sense (intuitively, mathematically)
 	\item But remember our precision/recall tradeoff: maybe we want to be `stricter' or `less strict'
+	\item Maybe it is importance to us that our classifier is balanced and equally good in predicting both classes, even if overall accuracy suffers (slightly) 
 \end{itemize}
 \pause
 Let's see what happens if we plot False Positives against True Positives (ROC-curve)
@@ -231,7 +232,7 @@ Let's see what happens if we plot False Positives against True Positives (ROC-cu
 \begin{frame}{So, how to we determine the exact value? }
 See notebook
 
-\url{https://github.com/damian0604/bdaca/tree/master/rm-course-2/week10/roccurve.ipynb}
+\url{https://github.com/damian0604/bdaca/blob/master/rm-course-2/week10/Determining\%20the\%20cutoff-point\%20in\%20logistic\%20regression.ipynb}
 \end{frame}
 
 
