@@ -258,6 +258,9 @@ Putting stuff together with pipelines
 \begin{frame}[fragile]{Let's rewrite our example from last week as pipeline (and add cross-validation)}
 \begin{lstlisting}
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegressionCV
+from sklearn.pipeline import make_pipeline
+
 vec = TfidfVectorizer()
 clf = LogisticRegressionCV()
 pipe = make_pipeline(vec, clf)
@@ -270,7 +273,7 @@ predictions = pipe.predict([r[0] for r in test])
 \begin{frame}{Pipeline takeaway}
 \begin{itemize}
 	\item In principle, just a different way to write what we already did
-	\item The more steps, the more relevant (e.g., reprocessing $\rightarrow$ vectorizer $\rightarrow$ dimensionality-reduction $\rightarrow$ classification)
+	\item The more steps, the more relevant (e.g., preprocessing $\rightarrow$ vectorizer $\rightarrow$ dimensionality-reduction $\rightarrow$ classification)
 	\item The more you rely on automated evaluation (e.g., grid search) of \emph{multiple} steps in the pipeline, the more useful it is
 \end{itemize}
 \end{frame}
