@@ -36,7 +36,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 \begin{document}
 
-\title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis\\ Part I+II} \\ Week 11 -- Wednesday \\ »Unupervised Machine Learning I«}
+\title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis\\ Part I+II} \\ Week 11 -- Wednesday \\ »Unsupervised Machine Learning I«}
 \author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
 \date{24 April 2019}
 \institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
@@ -459,6 +459,27 @@ Cluster 4: as was he if they my all will get has
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Finding the optimal $k$}
+
+\begin{itemize}
+	\item The only way to find $k$ is to estimate multiple models with different $k$s
+	\item No single best solution; finding a balance between error within clusters (distances from centroid) and low number of clusters.
+	\item An elbow plot can be helpful (see example in Burscher et al, 2016)
+\end{itemize}
+
+\pause
+
+\footnotesize 
+Code-example for creating an elbow plot:
+\url{https://pythonprogramminglanguage.com/kmeans-elbow-method/}
+
+(Don't forget to insert \texttt{\%matplotlib inline} to actually see the plot)
+
+
+\tiny{Burscher, B., Vliegenthart, R., \& de Vreese, C. H. (2016). Frames beyond words: Applying cluster and sentiment analysis to news coverage of the
+	nuclear power issue.\textit{ Social Science Computer Review, 34}(5), 530-545. doi:10.1177/0894439315596385}
+\end{frame}
+
 
 \subsection{Hierarchical clustering}
 
@@ -472,7 +493,7 @@ Hierarchical clustering
 k-means is fast, but has problems:
 
 \begin{itemize}
-	\item gives no guidance on how to determine $k$
+	\item $k$ can only be determined by fitting multiple models and comparing them
 	\item bad results if the wrong $k$ is chosen
 	\item bad results if the (real) clusters are non-spherical
 	\item bad results if the (real) clusters are not evenly sized
