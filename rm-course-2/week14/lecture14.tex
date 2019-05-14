@@ -296,6 +296,29 @@ for url in urls:
 \end{frame}
 
 
+
+\begin{frame}[plain, fragile]
+And you can always do even better: including a docstring
+\begin{lstlisting}
+def getreviews(url):
+    '''scrapes all reviews from a given URL and returns a list of strings'''
+    response = requests.get(url)
+    tree =  fromstring(response.text)
+    reviewelements = tree.xpath('//div[@class="review"]')
+    return [e.text for e in reviewelements]
+
+
+urls = ['http://xxxxx', 'http://yyyyy']
+
+allreviews = []
+
+for url in urls:
+    allreviews.extend(getreviews(url))
+\end{lstlisting}
+\end{frame}
+
+
+
 \begin{frame}{Scaling up}
 	If you continue working in this field, look into aspects like code style, re-usability, scalability
 	\begin{itemize}
@@ -478,22 +501,22 @@ Looking forward\\
 		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/guentheretal_fig3}}
 \end{frame}
 
-
-
-
-\begin{frame}{Process and/or enrich}
-	\begin{block}{Word embeddings}
-	We did not really consider the \emph{meaning} of words
-		\begin{itemize}
-		\item Word embeddings can be trained on large corpora (e.g., whole wikipedia or a couple of years of newspaper coverage) 
-		\item The trained model allows you to calculate with words (hence, word vectors): $king-man+woman = ?$ 
-		\item You can find out whether documents are similar \emph{even if they do not use the same words} (Word Mover Distance)
-		\item $\Rightarrow$ word2vec (in gensim!), glove
-		\end{itemize}
-	\end{block}
-\end{frame}
-
-
+%
+%
+%
+%\begin{frame}{Process and/or enrich}
+%	\begin{block}{Word embeddings}
+%	We did not really consider the \emph{meaning} of words
+%		\begin{itemize}
+%		\item Word embeddings can be trained on large corpora (e.g., whole wikipedia or a couple of years of newspaper coverage) 
+%		\item The trained model allows you to calculate with words (hence, word vectors): $king-man+woman = ?$ 
+%		\item You can find out whether documents are similar \emph{even if they do not use the same words} (Word Mover Distance)
+%		\item $\Rightarrow$ word2vec (in gensim!), glove
+%		\end{itemize}
+%	\end{block}
+%\end{frame}
+%
+%
 
 
 
@@ -503,7 +526,7 @@ Looking forward\\
 		\begin{itemize}
 			\item Named Entity Recognition (NER) to get names of people, organizations, \ldots
 			\item Dependency Parsing to find out exact relationships
-			$\Rightarrow$ nltk, Stanford, FROG. And now (that one is really cool): spacy
+			$\Rightarrow$ nltk, Stanford, FROG, spacy. And now (that one is really cool): spacy
 		\end{itemize}
 	\end{block}
 \end{frame}
@@ -515,7 +538,7 @@ Looking forward\\
 \begin{itemize}
 	\item  Supervised Machine learning does not care about what the features mean, so instead of texts we can also classify pictures
 	%\item  Based on a pre-coded training set, the computer compares images sorted into two (or more) groups
-	\item  Example: Teach the computer to decide whether an avatar on a social medium is an actual photograph of a person or a drawn image of something else (research Marthe)
+	\item  Example: Teach the computer to decide whether an avatar on a social medium is an actual photograph of a person or a drawn image of something else
 	\item  This principle can be applied to many fields and disciplines -- for example, it is possible to teach a computer to indicate if a tumor is present or not on X-rays of people's brains
 \end{itemize}
 \end{block}
