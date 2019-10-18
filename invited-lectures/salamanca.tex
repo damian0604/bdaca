@@ -89,7 +89,7 @@ You have no labels. \onslide<4>{(\footnotesize{You did not measure \texttt{y})}}
 \onslide<5>{\textbf{You probably already know some techniques to find out how \texttt{x1}, \texttt{x2},\ldots \texttt{x\_i} co-occur:} \begin{itemize}
 		\item Principal Component Analysis (PCA) and Singular Value Decomposition (SVD)
 		\item Cluster analysis
-		\item Topic modelling (Non-negative matrix factorization and Latent Dirichlet Allocation)
+		%\item Topic modelling (Non-negative matrix factorization and Latent Dirichlet Allocation)
 		\item \ldots
 	\end{itemize}
 }
@@ -337,14 +337,6 @@ A goodness-of-fit measure, answering the question: If we do a train-test split, 
 
 \end{frame}
 
-
-\begin{frame}{So, how do we do this?}
-\begin{itemize}[<+->]
-	\item Basically, similar to the idea behind our grid search from two weeks ago: estimate multiple models, store the metrics for each model, and then compare them (numerically, or by plotting)
-	\item Idea: We select some candidate models, and then look whether they can be interpreted.
-	\item But what can we tune?
-\end{itemize}
-\end{frame}
 
 
 \begin{frame}{Choosing $k$: How many topics do we want?}
