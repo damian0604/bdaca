@@ -82,7 +82,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 \title{Doing Computational Social Science with Python: An Introduction}
 \author{Damian Trilling}
-\date{Version 1.3.1\\ ~ \\  \footnotesize{PDF created \today}}
+\date{Version 1.3.2\\ ~ \\  \footnotesize{PDF created \today}}
 
 
 \begin{document}
@@ -138,6 +138,7 @@ Amsterdam, January 2018 (version 1.1)\\
 Amsterdam, March 2018 (version 1.2)\\
 Amsterdam, January 2019 (version 1.3)\\
 Amsterdam, March 2019 (version 1.3.1)
+Amsterdam, January 2020 (version 1.3.2)
 \end{flushright}
 
 Damian
@@ -227,6 +228,7 @@ Download and install VirtualBox from \url{https://www.virtualbox.org/}. Dependin
 \label{sec:lubuntu}
 Download the Lubuntu image from \url{http://lubuntu.net}. Install version \textbf{18.10 for 64-bit (AMD64)}. The file is called (\textbf{\texttt{lubuntu-18.10-desktop-amd64.iso}}). Save it at a place of your convenience.
 
+Version 19.04 should also work.
 
 \begin{quote}
 	If in the next step, VirtualBox does not even show you the 64 bit option, it might be that using Virtualization is disabled in your computers settings (UEFI, formerly called and still known as BIOS -- the basic configuration menu you get when pressing a special key after switching on your computer. Look into your computers' manual or google how to enter it.) Most computers do not even have such an option or have it enabled by default, but it seems that for instance many new Lenovo models have it disabled. In this case, you need to enable it.
@@ -1496,10 +1498,11 @@ First of all, we need a list of negative words and a list of positive words. Let
 cd /home/damian
 mkdir sentiment
 cd sentiment
-wget http://www.unc.edu/~ncaren/haphazard/negative.txt
-wget http://www.unc.edu/~ncaren/haphazard/positive.txt
+wget http://ptrckprry.com/course/ssd/data/negative-words.txt
+wget http://ptrckprry.com/course/ssd/data/positive-words.txt
 \end{lstlistingbash}
 
+Open the files with a text editor and remove the first lines with comments.
 
 Let us use some Twitter data to play with. Unfortunately, Twitter does not allow to share datasets with tweets. It does allow, however, to share lists with tweet ids. Via the Twitter API, anyone can then download the whole tweets and reconstruct the dataset.
 
@@ -1567,8 +1570,8 @@ We already downloaded two of such lists, \texttt{positive.txt} and \texttt{negat
 Luckily, Python makes it very easy to read a text file in which each line should be treated as a single string into a list of strings:
 
 \begin{lstlisting}
-positivelist=open("/home/damian/sentiment/positive.txt").read().splitlines()
-negativelist=open("/home/damian/sentiment/negative.txt").read().splitlines()
+positivelist=open("/home/damian/sentiment/positive-words.txt").read().splitlines()
+negativelist=open("/home/damian/sentiment/negative-words.txt").read().splitlines()
 \end{lstlisting}
 
 Print the lists and check if they look like you would expect them to look like!
@@ -2581,7 +2584,6 @@ Below, you find an example script that combines everything that we discussed in 
 
 \begin{lstlisting}
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 from glob import glob
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import CountVectorizer
