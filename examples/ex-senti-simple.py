@@ -5,7 +5,7 @@ with open("/home/damian/sentiment/sanders.tsv") as fi:
     reader=csv.reader(fi)
     next(reader)
     for row in reader:
-        tweet=row[6]
+        tweet=row[0]
         tweet_processed=tweet.lower().replace("!"," ").replace("."," ").replace("?"," ").replace(u"\u201A"," ").replace("'"," ").replace('"'," ").replace('#'," ").replace(':'," ")
         tweetlist.append(tweet)
         processedlist.append(tweet_processed)
