@@ -39,7 +39,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 \title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis} \\ Week 5 -- Wednesday \\ Automated content analysis with NLP and regular expressions}
 \author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
-\date{6 March 2019}
+\date{4 March 2020}
 \institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
 
 %\maketitle
@@ -551,6 +551,26 @@ UvA LOC
 
 \end{frame}
 
+
+\begin{frame}[fragile]{Example: Lemmatization instead of stemming}
+
+In contrast to stemming, lemmatization actually gives you the words in the form in which you would look them up in a good old dictionary.
+
+\begin{lstlisting}
+import spacy
+nlp = spacy.load('en')
+doc = nlp("I am running while generously greeting my neighbors")
+lemmatized = " ".join([word.lemma_ for word in doc])
+print(lemmatized)
+\end{lstlisting}
+
+returns:
+
+\begin{lstlisting}
+-PRON- be run while generously greet -PRON- neighbor
+\end{lstlisting}  
+
+\end{frame}
 
 
 \begin{frame}{More NLP}
