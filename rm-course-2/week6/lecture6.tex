@@ -2,7 +2,7 @@
 % !TEX encoding = UTF-8 Unicode
 
 \documentclass{beamer}
-% for handouts: \documentclass[handout]{beamer}
+ %\documentclass[handout]{beamer}
 
 %\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=structure.fg!25]
 % or whatever
@@ -34,10 +34,11 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 
 \begin{document}
+	
 
 \title[Big Data  and Automated Content Analysis]{\textbf{Big Data  and Automated Content Analysis I+II} \\ Week 6 -- Wednesday\\ »Web scraping«}
-\author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
-\date{13 March 2019}
+\author[Anne Kroon]{Anne Kroon \\ ~ \\ \footnotesize{a.c.kroon@uva.nl \\@annekroon} \\ }
+\date{11 March 2020}
 \institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
 
 %\maketitle
@@ -55,7 +56,6 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 %\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{process-heel.png}}
 %\end{frame}
 %}
-
 
 \section{A first intro to parsing webpages}
 
@@ -178,7 +178,7 @@ print(comments[:2])
 
 
 
-\section{OK, but this surely can be doe more elegantly? Yes!}
+\section{Scraping}
 \begin{frame}
 OK, but this surely can be doe more elegantly? Yes!
 \end{frame}
@@ -192,21 +192,62 @@ OK, but this surely can be doe more elegantly? Yes!
 \item<3->especially when the structure of the site is more complex 
 \end{itemize}
 \end{block}
-\footnotesize{
-\onslide<4->{The following example is based on \url{http://www.chicagoreader.com/chicago/best-of-chicago-2011-food-drink/BestOf?oid=4106228}.  It uses the module {\tt{lxml}} }}
 \end{frame}
 
+{\setbeamercolor{background canvas}{bg=black}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/html_example.png}}
+\end{frame}
+}
 
+{\setbeamercolor{background canvas}{bg=black}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/tree_1.png}}
+\end{frame}
+}
+
+{\setbeamercolor{background canvas}{bg=black}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/tree_2.png}}
+\end{frame}
+}
+
+{\setbeamercolor{background canvas}{bg=black}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/tree_3.png}}
+\end{frame}
+}
+
+{\setbeamercolor{background canvas}{}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/xpath1.png}}
+XPATH = ``/html/body/div[1]" refers to which element?
+\end{frame}
+}
+
+{\setbeamercolor{background canvas}{}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/xpath2.png}}
+XPATH = ``/html/body/div[1]" refers to which element?
+\end{frame}
+
+}
 
 
 \begin{frame}{What do we need?}
 \begin{itemize}
-\item the URL (of course)
-\item the XPATH of the element we want to scrape (you'll see in a minute what this is)
+\item <1-> the URL (of course)
+\item <2-> the XPATH of the element we want to scrape (you'll see in a minute what this is)
 \end{itemize}
+\footnotesize{
+	\onslide<3->{The following example is based on \url{https://www.kieskeurig.nl/smartphone/product/3518001-samsung-galaxy-a5-2017-goud/reviews}.  It uses the module {\tt{lxml}} }}
 \end{frame}
-
-
 
 
 {\setbeamercolor{background canvas}{bg=black}
@@ -322,7 +363,6 @@ allurls = [baseurl+str(i+1) for i in range(20)]
 
 
 
-
 \begin{frame}[fragile]{But this was on \emph{one} page only, right?}
 	Next step: Repeat for each relevant page.
 	
@@ -333,21 +373,18 @@ allurls = [baseurl+str(i+1) for i in range(20)]
 \end{frame}
 
 
-
 \begin{frame}{Recap}
 \begin{block}{General idea}
 \begin{enumerate}
 \item Identify each element by its XPATH or CSS Selector (look it up in your browser) 
 \item Read the webpage into a (loooooong) string
-\item Use the XPATH  or CSS Selectorto extract the relevant text into a list (with a module like lxml)
+\item Use the XPATH  or CSS Selectors to extract the relevant text into a list (with a module like lxml)
 \item Do something with the list (preprocess, analyze, save)
 \item Repeat
 \end{enumerate}
 \footnotesize{Alternatives: scrapy, beautifulsoup, regular expressions, \ldots}
 \end{block}
 \end{frame}
-
-
 
 
 \begin{frame}{Last remarks}
@@ -373,7 +410,6 @@ allurls = [baseurl+str(i+1) for i in range(20)]
 Next steps
 \end{frame}
 
-
 %
 %
 %\begin{frame}{From now on\ldots}
@@ -384,10 +420,7 @@ Next steps
 
 
 \begin{frame}{Friday}
-Go to Den Haag to protest
-\pause
 
-or
 
 \begin{itemize}
 \item Write a scraper for a website of your choice!
@@ -396,7 +429,7 @@ or
 
 \pause
 
-Scraping can be difficult, but it is also one of the most important data collectionmethods. Chances are very high you'll need it as a part of your final project. Try writing a scraper, and ask questions next week.
+Scraping can be difficult, but it is also one of the most important data collection methods. Chances are very high you'll need it as a part of your final project. Try writing a scraper, and ask questions next week.
 
 \end{frame}
 
