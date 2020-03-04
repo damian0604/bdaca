@@ -41,7 +41,7 @@ Within Python, you can then use `glob` to get a list of all the files you care a
 
 ```
 from glob import glob
-infowarsfiles = glob('*/Infowars/*')
+infowarsfiles = glob('articles/*/Infowars/*')
 infowarsarticles = []
 for filename in infowarsfiles:
     with open(filename) as f:
