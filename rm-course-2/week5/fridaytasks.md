@@ -20,9 +20,12 @@ Try to extract meaningful information from your texts. Depending on your interes
 - use regular expressions to distinguish relevant from irrelevant texts, or to extract substrings
 - use NLP techniques such as Named Entity Recognition to extract entities that occur.
 
+## Dataset
+
+
 You are **very much** encouraged to use your own data for this. Alternatively, you could use the following (huge!) dataset of this year's ICWSM Dataset challenge (see http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=99774&copyownerid=99078)
 
-You can get it like this:
+You can get it like this (on Linux):
 
 ```
 cd DIRECTORY-WHERE-YOU-WANT-YOUR-DATA
@@ -44,3 +47,10 @@ for filename in infowarsfiles:
     with open(filename) as f:
 	    infowarsarticles.append(f.read())
 ```
+
+
+# Alternative exercise regular expression
+
+If you are more interested in using regular expressions to parse semi-structured documents (such as in the LexisNexis-example), you can have a look at this alternative exercise and data:
+
+https://github.com/annekroon/gesis-ml-learning/blob/master/02tuesday/02tuesday-excerise_nexis.md#exercise-parsing-unstructured-text-files
