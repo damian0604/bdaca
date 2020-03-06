@@ -29,7 +29,7 @@ You can get it like this (on Linux):
 
 ```
 cd DIRECTORY-WHERE-YOU-WANT-YOUR-DATA
-wget https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/ULHLCB/MWLJVN -o mydata.tar.gz
+wget "https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/ULHLCB/MWLJVN" -o mydata.tar.gz
 tar -xzf mydata.tar.gz
 ```
 A subfolder called `articles` will be created. Once all looks good, don't forget to delete the archive again:
