@@ -59,7 +59,7 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 \title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis I+II} \\ Week 7 -- Wednesday \\ »Statistics with Python«}
 \author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
-\date{20 March 2019}
+\date{18 March 2019}
 \institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
 
 %\maketitle
@@ -368,9 +368,9 @@ df['is_center'] = df['hood'].map(lambda x: int(x.lower().find('center') > -1))
 
 %%%%% HIER DE DATA WRANGLING SLIDES TOEVOEGEN
 
-\section{Excercise}
+\section{Exercise}
 \begin{frame}{Exercise}
-I'll hand out an excercise. You can do it at home and/or on Friday.
+There is an exercise on Canvas (about airbnb data). You can do it at home and/or on Friday (which -- this year -- means at home as well ;-) ).
 \end{frame}
 
 
@@ -601,11 +601,17 @@ There are example datasets and notebooks on Canvas!
 
 
 \section{Next steps}
-\begin{frame}{Next steps}
+\begin{frame}{}
 \begin{block}{Friday: End of Part I}
-	 All your questions about Web scraping and/or pandas.
+	\begin{itemize}
+	\item Walk through the basic stats in pandas notebook at \url{https://github.com/damian0604/bdaca/blob/master/ipynb/basic\_statistics.ipynb}
+	\item Do the airbnb exercise on Canvas.
+	\item Preferably, also walk through the merging/joining notebooks on canvas
+	\item Ask all your questions about Web scraping and/or pandas.
 	
-	For Part II, I assume that you have basic knowledge about both.
+	For Part II, I assume that you have basic knowledge about both pandas and webscraping.
+	
+	\end{itemize}
 \end{block}
 
 \begin{block}{After the break: Part II}
