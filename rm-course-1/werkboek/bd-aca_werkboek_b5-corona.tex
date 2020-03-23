@@ -1,0 +1,132 @@
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper,10pt]{report}
+\usepackage[natbibapa,nosectionbib,tocbib,numberedbib]{apacite}
+\AtBeginDocument{\renewcommand{\bibname}{Literature}}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{url}
+
+\usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{pifont}
+
+\usepackage{lmodern}
+\usepackage{listings}
+\lstset{
+basicstyle=\scriptsize\ttfamily,
+columns=flexible,
+breaklines=true,
+numbers=left,
+%stepsize=1,
+numberstyle=\tiny,
+backgroundcolor=\color[rgb]{0.85,0.90,1}
+}
+
+
+\let\oldquote\quote
+\let\endoldquote\endquote
+\renewenvironment{quote}{\footnotesize\oldquote}{\endoldquote}
+
+
+
+\title{Big Data and Automated Content Analysis\\(6 ECTS) \\~\\Course Manual}
+\author{dr. Damian Trilling\\~\\Graduate School of Communication\\University of Amsterdam\\~\\d.c.trilling@uva.nl\\@damian0604}
+\date{Academic Year 2019/20\\Semester 2, block 2}
+
+
+\begin{document}
+\maketitle
+
+%\tableofcontents
+
+
+\chapter{About this course}
+
+This course manual contains general information, guidelines, rules and schedules for the Research Master course Big Data \& Automated Content Analysis. Please make sure you read it carefully, as it  contains information regarding assignments, deadlines and grading.
+
+\section{Course description}
+ 
+``Big data'' is a relatively new phenomenon, and refers to data that are more voluminous, but often also more unstructured and dynamic, than traditionally the case. In Communication Science and the Social Sciences more broadly, this in particular concerns research that draws on Internet-based data sources such as social media, large digital archives, and public comments to news and products This emerging field of studies is also called \emph{Computational Social Science} \citep{Lazer2009} or even \emph{Comutational Communication Science} \citep{Shah2015}.
+
+The course will provide insights in the basic concepts, challenges and opportunities associated with data so large that traditional research methods (like manual coding) cannot be applied any more and traditional inferential statistics start to loose their meaning. Participants are introduced to strategies and techniques for capturing and analyzing digital data in communication contexts, through concrete examples and templates than can be shared and modified for the students’ own research projects. We will focus on (a) data harvesting, storage, and preprocessing and (b) computer-aided content analysis, including natural language processing (NLP) and computational social science approaches.
+
+To participate in this course, students are expected to be interested in learning how to write own programs where off-the-shelf software is not available. Some basic understanding of programming languages is helpful, but not necessary to enter the course. Students without such knowledge are encouraged to follow the (free) online course at \url{https://www.codecademy.com/learn/python} to prepare.
+
+\section{Goals}
+Upon completion of this course, the following goals are reached:
+\begin{enumerate}[A]
+\item Students can explain the research designs and methods employed in existing research articles on Big Data and automated content analysis.
+\item Students can on their own and in own words critically discuss the pros and cons of research designs and methods employed in existing research articles on Big Data and automated content analysis; they can, based on this, give a critical evaluation of the methods and, where relevant, give advice to improve the study in question.
+\item Students can identify research methods from computer science and computational linguistics which can be used for research in the domain of communication science; they can explain the principles of these methods and describe the value of these methods for communication science research.
+\item Students can on their own formulate a research question and hypotheses for own empirical research in the domain of Big Data.
+\item Students can on their own chose, execute and report on advanced research methods in the domain of Big Data and automatic content analysis.
+\item Students know how to collect data with scrapers, crawlers and APIs; they know how to analyze these data and to this end, they have basic knowledge of the programming language Python and know how to use Python-modules for communication science research.
+\item Students can critically discuss  strong and weak points of their own research and suggest improvements.
+\item Students participate actively: reading the literature carefully and on time, completing assignments carefully and on time, active participation in discussions, and giving feedback on the work of fellow students give evidence of this.
+\end{enumerate}
+
+\section{Help with practical matters}
+While making your first steps with programming in Python, you will probably have a lot of questions. During the lab sessions, I will help you with questions. 
+Nevertheless, \url{htttp://google.com} and \url{http://stackoverflow.com} should be your first points of contact. After all, that's how we solve our problems as well\ldots
+
+
+\chapter{Rules, assignments, and grading}
+The final grade of this course will be composed of the grade of one mid-term take home exam (30\%) and one individual project (70\%).
+
+\section{Mid-term take-home exam (30\%)}
+In a mid-term take-home exam, students will show their understanding of the literature and prove they have gained new insights during the lectures and lab sessions. They will be asked to critically assess various approaches to Big Data analysis and make own suggestions for research.
+
+\section{Final individual project (70\%)}
+The final individual project typically consists of the following elements:
+\begin{itemize}
+\item introduction including references to relevant (course) literature, an overarching research question plus subquestions and/or hypotheses (1–2 pages);
+\item an overview of the analytic strategy, referring to relevant methods learned in this course;
+\item carefully collected and relevant dataset of non-trivial size;
+\item a set of scripts for collecting, preprocessing, and analyzing the data. The scripts should be well-documented and tailored to the specific needs of the own project;
+\item output files;
+\item a well-substantiated conclusion with an answer to the RQ and directions for future research.
+\end{itemize}
+
+\section{Grading and 2\textsuperscript{nd} try}
+Students have to get a pass (5.5 or higher) for both the mid-term take-home exam and the individual project. If the grade of one of these is lower, an improved version can be handed in within one week after the grade is communicated to the student. If the improved version still is graded lower than 5.5, the course cannot be completed. Improved versions of the final individual project cannot be graded higher than 6.0. 
+
+\section{Presence and participation}
+Attendance is compulsory. Missing more than two of the sixteen meetings – for whatever reason – means the course cannot be completed.
+
+Next to attending the meetings, students are also required to prepare the assigned literature and to continue working on the programming tasks after the lab sessions. To successfully finish the course, attending the lab sessions is not enough, but has to go hand-in-hand with continuos self-study.
+
+\section{Staying informed}
+It is your responsibility to check the means of commonications used for this course (i.e., your email account, but – if applicable – also e-learning platforms or any other tool that the lecturer decides to use) on a regular basis, which in most cases means daily.
+
+\section{Plagiarism \& fraud}
+Plagiarism is a serious academic violation. Cases in which students use material such as online sources or any other sources in their written work and present this material as their own original work without citation/referencing, and thus conduct plagiarism, will be reported to the Examencommissie of the Department of Communication without any further negotiation. If the committee comes to the conclusion that a student has indeed committed plagiarism the course cannot be completed. 
+
+General UvA regulations about fraud and plagiarism apply.
+
+\section{Deadlines and handing in}
+Please send all assignments and papers as a PDF file to ensure that it can be read and is displayed the same way on any device. Hardcopies are not required. Multiple files should be compressed and handed in as one .zip file or .tar.gz file. Anything exceeding a reasonable file size (approximately 5 MB) has to be send via \url{https://filesender.surf.nl/} instead of direct email.
+
+Final papers and take-home exams that are not handed in on time, will be not be graded and receive the grade 1. This rule also applies for any other assignment that might be given. The deadline is only met when the all files are submitted.
+
+
+
+ 
+\chapter{Schedule and Literature}
+
+\input{literature}
+
+\input{schedule-corona}
+
+
+
+\bibliographystyle{apacite}
+\bibliography{../../bdaca}
+
+ 
+ 
+ 
+\end{document}

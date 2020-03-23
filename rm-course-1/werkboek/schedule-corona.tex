@@ -1,0 +1,147 @@
+\section*{Course setup in times of Corona}
+Usually, each week of this follow the following structure: The first meeting is a lecture, the second meeting is a lab session during which students work through the material, do exercises, and a teacher is around for answering questions, helping, and explaining again what has been difficult. The latter is very hard, if not impossible, to do in a non-face-to-face setting, as it centers around walking around, watching students code, etc.
+
+To make it an as useful as possible learning experience for everyone, we will use the following structure this time:
+
+\begin{itemize}
+\item The lectures (usually: Mondays) stay the same and will be delivered through Big Blue Button on Canvas.
+\item The students are expected to work through the chapters and do all associated exercises not during the lab sessions, but before (i.e., on Monday, Tuesday, or Wednesday).
+\item Until the day before the lab session, 15.00 (i.e., usually, Wednesday, 15.00), students can post questions and problems they encounter on a forum on Canvas.
+\item The lab session itself will then be replaced by a lecture in which the teacher will answer the questions that have been posted, prioritzing those questions that cannot easily be found in the study material or similar sources.
+\end{itemize}
+
+
+\section*{Before the course starts: Prepare your computer.}
+\textsc{\ding{52} Chapter 1: Preparing your computer}\\
+Follow all steps as outlined in Chapter 1 \emph{or} install Anaconda as outlined in the Appendix.
+
+
+\section*{Week 1: Introduction}
+\subsection*{Monday, 30--3. Lecture.}
+We discuss what Big Data means, how the concept can be understood, what challenges and opportunities arise, and what the implications are for communication science. 
+
+Mandatory readings (in advance): \cite{boyd2012} and \cite{Kitchin2014}. 
+
+Additional literature, not obligatory to read in advance, but very informative: \cite{Mahrt2013}, \cite{Vis2013}, \cite{Trilling2017a}.
+
+
+
+\subsection*{Thursday, 2--4. Online lab session.}
+
+Prepare and ask questions in advance about:
+\textsc{\ding{52} Chapter 2: The Linux command line}\\
+\textsc{\ding{52} Chapter 3: A language, not a program}\\
+
+Also, make sure that you can a basic program in Python, such as \texttt{print('Hello World')} in multiple environments, such as Jupyer Notebook or Spyder.
+
+
+\section*{Week 2: Getting started with Python}
+
+\subsection*{Monday, 6--4. Lecture.}
+\textsc{\ding{52} Chapter 4: The very, very basics of programming in Python}\\
+You will get a very gentle introduction to computer programming. During the lecture, you are encouraged to follow the examples on your own laptop.
+
+
+\subsection*{Thursday, 9--4. Lab session.}
+Prepare and ask questions in advance about:\\
+\textsc{\ding{52} Appendix A: Exercise 1}\\
+
+
+
+\section*{Week 3: Data harvesting and storage}
+This week is about data sources and their (dis)advantages. 
+
+\subsection*{Monday, 13--4. No meeting (Easter)}
+\subsection*{Tuesday (!!!), 14--4. Lecture}
+A conceptual overview of APIs, scrapers, crawlers, RSS-feeds, databases, and different file formats.
+
+Read the article by \cite{Morstatter2013} in advance. It discusses the quality of data provided by the Twitter API. As a practical example for how ``dirty'' input data (i.e., data that for whatever reason does not come in form of a clean, structured data set like a table) can be parsed and preprocessed, have a look at the method section of the article by \cite{Lewis2013}. 
+
+
+\subsection*{Thursday, 16 April. Lab session}
+Prepare and ask questions in advance about:
+\textsc{\ding{52} Chapter 5.1--5.4: Retrieving and storing data}\\
+
+
+
+
+\section*{Week 4: Sentiment analysis.}
+Up till now, we have mainly talked about available data and how to acquire them. From now on, we will focus on analyzing them and cover one technique per week. By now, you should also have gotten some idea about your final project.
+
+
+\subsection*{Monday, 20---4. Lecture.}
+We start with an overview of different analytical approaches which we will cover in the next weeks, After that, we will focus on the first of these techniques, sentiment analysis.
+
+Mandatory readings (in advance): \cite{GonzalezBailon2015},  \cite{Hutto2014}, and \cite{Vermeer2019}.
+
+Suggestions for additional readings:
+\begin{itemize}
+	\item Examples of (simple) sentiment analyses: \cite{Huang2007,Pestian2012, Mostafa2013}. 
+	\item If you want to have a look under the hood of another popular sentiment analysis algorithm, you can read \cite{Thelwall2012}.
+\end{itemize}
+
+
+
+\subsection*{Take-home exam}
+In week 4, the first midterm take-home exam is distributed after the Monday meeting. The answer sheets and all files have to be handed in no later than the day before the next meeting, i.e. Wednesday evening (22--4, 23.59).
+
+
+
+\subsection*{Thursday, 23--4. Lab session.}
+As you are working on your take-home exam, I do not expect you to prepare questions in this week (even though you \emph{can} ask them if you want). Instead, I will prepare answers to frequently asked questions.\\
+\textsc{\ding{52} Chapter 6: Sentiment analysis}\\
+
+
+
+
+\section*{Week 5: Automated content analysis with NLP and regular expressions.}
+Text as written by humans usually is pretty messy. You will learn how to process text to make it suitable for further analysis by using techniques of Natural Language Processing (NLP), and how to extract meaningful information (discarding the rest) using regular expressions. You will also make a first aquintance with the packages NLTK and spacy.
+
+
+\subsection*{Monday, 27--4. No meeting (Koningsdag)}
+\subsection*{Tuesday (!!!), 28--4. Lecture}
+This lecture will introduce you to techniques and concepts like stemming, stopword removal, n-grams, word counts and word co-occurrances, and regular expressions. We will do some exercises during the lecture.
+
+Preparation: Mandatory reading: \cite{Boumans2016}. 
+
+
+\subsection*{Thursday, 30--4. Lab session.}
+Prepare and ask questions in advance about:
+\textsc{\ding{52} Chapter 7: Automated content analysis}\\
+
+
+
+
+\section*{Week 6: Web scraping and parsing}
+
+\subsection*{Monday, 4--5. No meeting (Dodenherdenking)}
+
+
+\subsection*{Thursday, 7--5. Lecture.}
+\textsc{\ding{52} Chapter 8: Web scraping}\\
+We will explore techniques to download data from web pages and to extract meaningful information like the text (or a photo, or a headline, or the author) from an article on \url{http://nu.nl}, a review (or a price, or a link) from \url{http://kieskeurig.nl}, or similar. 
+
+Try to write a web scraper at home and post questions begore the next leture.
+
+
+
+
+\section*{Week 7: Statistics with Python}
+
+\subsection*{Monday, 11--5. Short lecture plus lab session.}
+\textsc{\ding{52} Section 3.5: Jupyter Notebook}\\
+\textsc{\ding{52} Chapter 12: Statistics with Python}\\
+You have worked hard so far, so we'll do something fun and relaxing (of course, fun might be a relative concept in this course\ldots). You are going to learn how to create visualizations, do conventional statistical tests, manage datasets with Python, save the results together with your code and your own explanations -- and all of this within your browser.
+
+We will learn how to do data wrangling with pandas: converting between wide and long formats (melting and pivoting), aggregating data, joining datasets, and so on.
+
+We will also reserve some time for questions regarding last week.
+
+
+\subsection*{Thursday, 14--5. Lab session}
+Prepare any questions that you may have about any topic that you may have about any topic in this course, especially regarding techniques you need for your final project.
+
+
+
+\subsection*{Final project}
+Deadline for handing in: Wednesday, 29--5, 23.59.
