@@ -522,87 +522,88 @@ Packages for sentiment analysis
 
 
 \subsection{Machine Learning as alternative}
-\begin{frame}{Superivsed ML ($\Rightarrow week 7$)}
-	An alternative state-of-the-art approach:
+\begin{frame}{An alternative state-of-the-art approach}
 	\begin{block}{Use supervised machine learning}
 		\begin{itemize}
 			\item Instead of defining rules, hand-code (``annotate'') the sentiment of some tweets manually and let the computer find out which words or characters (``features'') predict sentiment
 			\item Then use this model to predict sentiment for other tweets
 			\item Essentially the same like what you know since the second year of your Bachelor: regression analysis (but now with DV sentiment and IV's word occurrences)
-			% \item $\Rightarrow$ week 7
 		\end{itemize}
 		\tiny{Gonzalez-Bailon, S., \& Paltoglou, G. (2015). Signals of public opinion in online communication: A comparison of methods and data sources. \emph{The ANNALS of the American Academy of Political and Social Science, 659}(1), 95-–107.}
 	\end{block}
-	
+        
+        \textbf{Since the 6 ECTS course lasts only 7 weeks of teaching, SML is no part of the required curriculum. But SML is explained in detail in the book and you may use it for your final project if you want (the same holds true for UML)}
+         
 \end{frame}
 
 
-%
-%
-%\section[Stopword removal]{NLP-preview: Stopword removal}
-%\begin{frame}
-%Natural Language Processing preview:\\
-%\textbf{Stopword removal} \\
-%\vspace{1cm}
-%\onslide<2>{Why now? --- Because the logic of the algorithm is very much related to the one of our first simple sentiment analysis}
-%\end{frame}
-%
-%\subsection{Natural language processing}
-%\begin{frame}{Stopword removal: What and why?}
-%\begin{block}{Why remove stopwords?}
-%\begin{itemize}
-%\item If we want to identify key terms (e.g., by means of a word count), we are not interested in them
-%\item If we want to calculate document similarity, it might be inflated
-%\item If we want to make a word co-occurance graph, irrelevant information will dominate the picture
-%\end{itemize}
-%\end{block}
-%\end{frame}
-%
-%\subsection{A simple algorithm}
-%\begin{frame}[fragile]{Stopword removal: How}
-%\begin{lstlisting}
-%testo='He gives her a beer and a cigarette.'
-%testonuovo=""
-%stopwords=['and','the','a','or','he','she','him','her']
-%for verbo in testo.split():
-%    if verbo not in stopwords:
-%       testonuovo=testonuovo+verbo+" "
-%\end{lstlisting}
-%What do we get if we do:
-%\begin{lstlisting}
-%print (testonuovo)
-%\end{lstlisting}
-%Can you explain the algorithm?
-%\end{frame}
-%
-%\begin{frame}[fragile]{We get:}
-%\begin{lstlisting}
-%>>> print  (testonuovo)
-%'He gives beer cigarette. '
-%\end{lstlisting}
-%Why is "He" still in there? \\ How can we fix this?
-%\end{frame}
-%
-%\begin{frame}[fragile]{Stopword removal}
-%\begin{lstlisting}
-%testo='He gives her a beer and a cigarette.'
-%testonuovo=""
-%stopwords=['and','the','a','or','he','she','him','her']
-%for verbo in testo.split():
-%    if verbo.lower() not in stopwords:
-%       testonuovo=testonuovo+verbo+" "
-%\end{lstlisting}
-%\end{frame}
-%
-%
-%
+
+
+\section[Stopword removal]{NLP-preview: Stopword removal}
+\begin{frame}
+Natural Language Processing preview:\\
+\textbf{Stopword removal} \\
+\vspace{1cm}
+\onslide<2>{Why now? --- Because the logic of the algorithm is very much related to the one of our first simple sentiment analysis}
+\end{frame}
+
+\subsection{Natural language processing}
+\begin{frame}{Stopword removal: What and why?}
+\begin{block}{Why remove stopwords?}
+\begin{itemize}
+\item If we want to identify key terms (e.g., by means of a word count), we are not interested in them
+\item If we want to calculate document similarity, it might be inflated
+\item If we want to make a word co-occurance graph, irrelevant information will dominate the picture
+\end{itemize}
+\end{block}
+\end{frame}
+
+\subsection{A simple algorithm}
+\begin{frame}[fragile]{Stopword removal: How}
+\begin{lstlisting}
+testo='He gives her a beer and a cigarette.'
+testonuovo=""
+stopwords=['and','the','a','or','he','she','him','her']
+for verbo in testo.split():
+   if verbo not in stopwords:
+      testonuovo=testonuovo+verbo+" "
+\end{lstlisting}
+What do we get if we do:
+\begin{lstlisting}
+print (testonuovo)
+\end{lstlisting}
+Can you explain the algorithm?
+\end{frame}
+
+\begin{frame}[fragile]{We get:}
+\begin{lstlisting}
+>>> print  (testonuovo)
+'He gives beer cigarette. '
+\end{lstlisting}
+Why is "He" still in there? \\ How can we fix this?
+\end{frame}
+
+\begin{frame}[fragile]{Stopword removal}
+\begin{lstlisting}
+testo='He gives her a beer and a cigarette.'
+testonuovo=""
+stopwords=['and','the','a','or','he','she','him','her']
+for verbo in testo.split():
+   if verbo.lower() not in stopwords:
+      testonuovo=testonuovo+verbo+" "
+\end{lstlisting}
+\end{frame}
+
+
+
 
 
 
 
 \section[Next meetings]{Take-home message, next meetings, \& exam}
 \begin{frame}
-Take-home message\\
+  Take-home message\\
+  Final project\\
 Mid-term take-home exam\\
 Next meetings
 \end{frame}
@@ -618,6 +619,24 @@ Next meetings
 \end{itemize}
 \end{block}
 \end{frame}
+
+\begin{frame}{Final project}
+  \begin{block}{Formal criteria}
+See course manual
+    \end{block}
+
+  \begin{block}{Finding a topic}
+    \begin{itemize}
+    \item Think of some data that you can collect and that interest you (via an API or maybe some scraping). 
+    \item Think of interesting analyses.
+    \item Simple data collection: invest more in analysis. Very complex data collection: simpler analysis.
+    \end{itemize}
+
+    E-mail me if you have ideas you want to discuss!
+    \end{block}
+
+\end{frame}
+
 
 
 \begin{frame}{Next meeting}
