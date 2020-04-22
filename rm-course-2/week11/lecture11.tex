@@ -244,8 +244,8 @@ from sklearn.preprocessing import FunctionTransformer
 import matplotlib.pyplot as plt
 %matplotlib inline
 
-autotexts = datasets.fetch_20newsgroups('rec.autos', remove=('headers', 'footers', 'quotes'), subset='train')['data']
-religiontexts = datasets.fetch_20newsgroups('soc.religion.christian', remove=('headers', 'footers', 'quotes'), subset='train')['data']
+autotexts = datasets.fetch_20newsgroups(categories=['rec.autos'], remove=('headers', 'footers', 'quotes'), subset='train')['data']
+religiontexts = datasets.fetch_20newsgroups(categories=['soc.religion.christian'], remove=('headers', 'footers', 'quotes'), subset='train')['data']
 
 texts = autotexts[:20] + religiontexts[:20]
 \end{lstlisting}
