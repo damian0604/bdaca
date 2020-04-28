@@ -136,7 +136,7 @@ Automated content analysis using regular expressions
 \begin{enumerate}
 \item<1-> \lbrack Pp\rbrack ython
 \item<2-> \lbrack A-Z\rbrack +
-\item<3-> RT ?:? @\lbrack a-zA-Z0-9\rbrack *
+\item<3-> RT ?:? @\lbrack a-zA-Z0-9\rbrack +
 \end{enumerate}
 \end{block}
 \end{frame}
@@ -425,11 +425,11 @@ i am run while generous greet my neighbor
 from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
 stemmer=SnowballStemmer("english")
-stopwords = stopwords.words("english")
+mystopwords = stopwords.words("english")
 frase="I am running while generously greeting my neighbors"
 frasenuevo=""
 for palabra in frase.lower().split():
-    if palabra not in stopwords:
+    if palabra not in mystopwords:
         frasenuevo=frasenuevo + stemmer.stem(palabra)  + " "
 \end{lstlisting}
 Now, {\tt{print(frasenuevo)}} returns:
