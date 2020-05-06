@@ -2,7 +2,7 @@
 % !TEX encoding = UTF-8 Unicode
 
 \documentclass{beamer}
-% for handouts: \documentclass[handout]{beamer}
+ %\documentclass[handout]{beamer}
 
 %\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=structure.fg!25]
 % or whatever
@@ -34,10 +34,11 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 
 
 \begin{document}
+	
 
-\title[Big Data  and Automated Content Analysis]{\textbf{Big Data  and Automated Content Analysis} \\ Week 6 -- Wednesday\\ »Web scraping«}
-\author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
-\date{16 May 2018}
+\title[Big Data  and Automated Content Analysis]{\textbf{Big Data  and Automated Content Analysis} \\ Week 6 -- Thursday\\ »Web scraping«}
+\author{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ }
+\date{7 May 2020}
 \institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
 
 %\maketitle
@@ -55,7 +56,6 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 %\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{process-heel.png}}
 %\end{frame}
 %}
-
 
 \section{A first intro to parsing webpages}
 
@@ -120,7 +120,15 @@ And how can we achieve this?
 import requests
 import re
 
-response = requests.get('http://kudtkoekiewet.nl/setcookie.php?t=http://www.geenstijl.nl/mt/archieven/2014/05/das_toch_niet_normaal.html')
+URL = 'http://www.geenstijl.nl/mt/archieven/2014/05/das_toch_niet_normaal.html'
+
+# ugly workaround to circumvent cookie wall, not of interest for today
+client = requests.session()
+r = client.get(URL)
+cookies = client.cookies.items()
+cookies.append(('cpc','10'))
+response = client.get(URL,cookies=dict(cookies))
+# end workaround
 
 tekst=response.text.replace("\n"," ").replace("\t"," ")
 
@@ -170,7 +178,7 @@ print(comments[:2])
 
 
 
-\section{OK, but this surely can be doe more elegantly? Yes!}
+\section{Scraping}
 \begin{frame}
 OK, but this surely can be doe more elegantly? Yes!
 \end{frame}
@@ -184,21 +192,62 @@ OK, but this surely can be doe more elegantly? Yes!
 \item<3->especially when the structure of the site is more complex 
 \end{itemize}
 \end{block}
-\footnotesize{
-\onslide<4->{The following example is based on \url{http://www.chicagoreader.com/chicago/best-of-chicago-2011-food-drink/BestOf?oid=4106228}.  It uses the module {\tt{lxml}} }}
 \end{frame}
 
+{\setbeamercolor{background canvas}{bg=black}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/html_example.png}}
+\end{frame}
+}
 
+{\setbeamercolor{background canvas}{bg=black}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/tree_1.png}}
+\end{frame}
+}
+
+{\setbeamercolor{background canvas}{bg=black}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/tree_2.png}}
+\end{frame}
+}
+
+{\setbeamercolor{background canvas}{bg=black}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/tree_3.png}}
+\end{frame}
+}
+
+{\setbeamercolor{background canvas}{}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/xpath1.png}}
+XPATH = ``/html/body/div[1]" refers to which element?
+\end{frame}
+}
+
+{\setbeamercolor{background canvas}{}
+	\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/xpath2.png}}
+XPATH = ``/html/body/div[1]" refers to which element?
+\end{frame}
+
+}
 
 
 \begin{frame}{What do we need?}
 \begin{itemize}
-\item the URL (of course)
-\item the XPATH of the element we want to scrape (you'll see in a minute what this is)
+\item <1-> the URL (of course)
+\item <2-> the XPATH of the element we want to scrape (you'll see in a minute what this is)
 \end{itemize}
+\footnotesize{
+	\onslide<3->{The following example is based on \url{https://www.kieskeurig.nl/smartphone/product/3518001-samsung-galaxy-a5-2017-goud/reviews}.  It uses the module {\tt{lxml}} }}
 \end{frame}
-
-
 
 
 {\setbeamercolor{background canvas}{bg=black}
@@ -237,23 +286,10 @@ Some things to play around with:
 \end{itemize}
 \end{frame}
 
-%\begin{frame}{The XPATH}
-%\begin{block}{You get something like}<1->
-%{\tt{
-%//*[@id="tabbedReviewsDiv"]/dl[1]/dd
-%//*[@id="tabbedReviewsDiv"]/dl[2]/dd
-%}}
-%\end{block}
-%\onslide<2->{The {\tt{*}} means ``every''. \\ Also, to get the text of the element, the XPATH should end on {\tt{/text()}}. }
-%\begin{block}{We can infer that we (probably) get all comments with}<3->
-%{\tt{//*[@id="tabbedReviewsDiv"]/dl[*]/dd/text()}}
-%\end{block}
-%\end{frame}
-
 
 
 \begin{frame}{Let's test it!}
-	\large{\url{https://www.kieskeurig.nl/smartphone/product/3518003-samsung-galaxy-a5-2017-zwart/reviews}}
+	\large{\url{https://www.kieskeurig.nl/wasmachine/product/2483630-siemens-wmn16t3471/reviews}}
 \end{frame}
 
 
@@ -262,33 +298,39 @@ Some things to play around with:
 from lxml import html
 import requests
 
-htmlsource = requests.get("https://www.kieskeurig.nl/smartphone/product/3518003-samsung-galaxy-a5-2017-zwart/reviews").text
-tree = html.fromstring(htmlsource)        
+response = requests.get('https://www.kieskeurig.nl/wasmachine/product/2483630-siemens-wmn16t3471/reviews')
+tree = html.fromstring(response.text)
 
-reviews = tree.xpath('//*[@class="reviews-single__text"]/text()')
+# we extract all relevant elements using their XPATH
+reviews =  tree.xpath('//div[@class="reviews-single__text"]')
+# alternatively, we can use their CSS selector:
+# reviews =  tree.cssselect("div.reviews-single__text")
 
-# remove empty reviews
-reviews = [r.strip() for r in reviews if r.strip()!=""]
+# but we don't want the elements, we want their text
+review_texts = [e.text_content().strip() for e in reviews]
 
-print (len(reviews),"reviews scraped. Showing the first 60 characters of each:")
+print (len(reviews),"reviews scraped. Showing the first 60 characters:")
 i=0
-for review in reviews:
+for review in review_texts:
     print("Review",i,":",review[:60])
     i+=1
 \end{lstlisting}
+\tiny{If you want to use CSS selectors, you need to \texttt{sudo pip3 install cssselect} first}
 \end{frame}
 
 
 
 \begin{frame}[fragile]{The output -- perfect!}
 \begin{lstlisting}
-61 reviews scraped. Showing the first 60 characters of each:
-Review 0 : Wat een fenomenale smartphone is de nieuwe Samsung Galaxy A5
-Review 1 : Bij het openen van de verpakking valt direct op dat dit toes
-Review 2 : Tijd om deze badboy eens aan de tand te voelen dus direct he
-Review 3 : Na een volle week dit toestel gebruikt te hebben kan ik het 
-Review 4 : ik ben verliefd op de Samsung Galaxy A5 2017!
+20 reviews scraped. Showing the first 60 characters:
+Review 0 : Siemens WMN16T3471 nu 4 maanden in gebruik in massagesalon. 
+Review 1 : Na een eerder positief review kort na aankoop nu een bijgest
+Review 2 : Helaas ben ik teleurgesteld in dit product wegens de navolge
+Review 3 : Ik ben heel blij met mijn nieuwe wasmachine: 
 
+Wat is hij st
+Review 4 : Ik heb de wasmachine nu net een paar dagen in huis en heb al
+Review 5 : Na 25 jaar hebben we afscheid moeten nemen van onze degelijk
 \end{lstlisting}
 \end{frame}
 
@@ -321,24 +363,22 @@ allurls = [baseurl+str(i+1) for i in range(20)]
 
 
 
-
 \begin{frame}[fragile]{But this was on \emph{one} page only, right?}
 	Next step: Repeat for each relevant page.
 	
-	\begin{block}{Possibility 2: Based on XPATHs}
+	\begin{block}{Possibility 2: Based on XPATHs or CSS Selectors}
 	Use XPATH to get the url of the next page (i.e., to get the link that you would click to get the next review)
 	\end{block}
 	
 \end{frame}
 
 
-
 \begin{frame}{Recap}
 \begin{block}{General idea}
 \begin{enumerate}
-\item Identify each element by its XPATH (look it up in your browser) 
+\item Identify each element by its XPATH or CSS Selector (look it up in your browser) 
 \item Read the webpage into a (loooooong) string
-\item Use the XPATH to extract the relevant text into a list (with a module like lxml)
+\item Use the XPATH  or CSS Selectors to extract the relevant text into a list (with a module like lxml)
 \item Do something with the list (preprocess, analyze, save)
 \item Repeat
 \end{enumerate}
@@ -347,14 +387,12 @@ allurls = [baseurl+str(i+1) for i in range(20)]
 \end{frame}
 
 
-
-
 \begin{frame}{Last remarks}
 	\begin{block}{There is often more than one way to specify an XPATH}
 		\begin{enumerate}
 			%\item You can usually leave away the namespace (the \texttt{x:})
 			\item Sometimes, you might want to use a different suggestion to be able to generalize better (e.g., using the \emph{attributes} rather than the \emph{tags})
-			\item in that case, it makes sense to look deeper into the structure of the HTML code, for example with ``Inspect Element'' and use that information to play around with in the XPATH Checker
+			\item in that case, it makes sense to look deeper into the structure of the HTML code, for example with ``Inspect Element'' and use that information to play around with different possibilities
 		\end{enumerate}
 	\end{block}
 \end{frame}
@@ -372,22 +410,27 @@ allurls = [baseurl+str(i+1) for i in range(20)]
 Next steps
 \end{frame}
 
-
-
-
-\begin{frame}{From now on\ldots}
-\ldots focus on individual projects!
-\makebox[\linewidth]{
-\includegraphics[width=\paperwidth,height=.6\paperheight,keepaspectratio]{../../pictures/projectlastminute}}
-\end{frame}
+%
+%
+%\begin{frame}{From now on\ldots}
+%\ldots focus on individual projects!
+%\makebox[\linewidth]{
+%\includegraphics[width=\paperwidth,height=.6\paperheight,keepaspectratio]{../../pictures/projectlastminute}}
+%\end{frame}
 
 
 \begin{frame}{Friday}
+
+
 \begin{itemize}
 \item Write a scraper for a website of your choice!
-\item Prepare a bit, so that you know where to start
-\item Suggestions: Review texts and grades from \url{http://iens.nl}, articles from a news site of your choice, \ldots
+\item Choose an easy site where you do not have to log on and where there is no dynamically generated content (if you need that, look at the Appendix on Selenium)
 \end{itemize}
+
+\pause
+
+Scraping can be difficult, but it is also one of the most important data collection methods. Chances are very high you'll need it as a part of your final project. Try writing a scraper, and ask questions next week.
+
 \end{frame}
 
 
