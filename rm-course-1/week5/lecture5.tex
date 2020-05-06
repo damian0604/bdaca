@@ -37,9 +37,9 @@ backgroundcolor=\color[rgb]{0.85,0.90,1}
 \begin{document}
 
 
-\title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis} \\ Week 5 -- Friday \\ Automated content analysis with NLP and regular expressions}
+\title[Big Data and Automated Content Analysis]{\textbf{Big Data and Automated Content Analysis} \\ Week 5 -- Tuesday \\ Automated content analysis with NLP and regular expressions}
 \author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
-\date{4 May 2018}
+\date{28 April 2020}
 \institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
 
 %\maketitle
@@ -136,7 +136,7 @@ Automated content analysis using regular expressions
 \begin{enumerate}
 \item<1-> \lbrack Pp\rbrack ython
 \item<2-> \lbrack A-Z\rbrack +
-\item<3-> RT ?:? @\lbrack a-zA-Z0-9\rbrack *
+\item<3-> RT ?:? @\lbrack a-zA-Z0-9\rbrack +
 \end{enumerate}
 \end{block}
 \end{frame}
@@ -296,6 +296,8 @@ for line in tekst:
 \huge{\url{http://www.pyregex.com/}}
 \end{frame}
 
+
+
 \section{Natural Language Processing}
 \begin{frame}
 Natural Language Processing
@@ -423,11 +425,11 @@ i am run while generous greet my neighbor
 from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
 stemmer=SnowballStemmer("english")
-stopwords = stopwords.words("english")
+mystopwords = stopwords.words("english")
 frase="I am running while generously greeting my neighbors"
 frasenuevo=""
 for palabra in frase.lower().split():
-    if palabra not in stopwords:
+    if palabra not in mystopwords:
         frasenuevo=frasenuevo + stemmer.stem(palabra)  + " "
 \end{lstlisting}
 Now, {\tt{print(frasenuevo)}} returns:
@@ -493,18 +495,24 @@ And you could get the word type of "morning" with \texttt{tagged[5][1]}!
 
 
 \begin{frame}{More NLP}
-\Huge{Look at \url{http://nltk.org}}
+  \Huge{Look at \url{http://nltk.org}}
+
+  \Huge{Look at \url{http://spacy.io}}
+
+  \Huge{Look at \url{https://stanfordnlp.github.io/stanza/}}
+
+
 
 \end{frame}
 
 
 
-\section{Take-home message \& next steps}
-\begin{frame}
-Take-home message\\
-Take-home exam\\
-Next meetings
-\end{frame}
+
+\section{Next steps}
+
+\begin{frame}[plain]
+\huge Next steps
+  \end{frame}
 
 
 \begin{frame}{Take-home messages}
@@ -518,19 +526,30 @@ Next meetings
 \end{frame}
 
 
-\begin{frame}{Next meetings}
-\begin{block}{TAKE HOME EXAM}
-Deadline: Tuesday, 23.59
+
+
+
+\begin{frame}{Thursday meeting}
+
+  \begin{block}{Exercise}
+    Exercise: 
+    \url{https://github.com/damian0604/bdaca/blob/master/rm-course-1/week5/regexp-exercise.txt}
+
+    \begin{itemize}
+    \item Make some test strings
+    \item Check wether your regex works as expected
+    \end{itemize}
+
+
+  \end{block}
+  
+\begin{block}{Two options for Thursday:}
+\begin{itemize}
+\item If there are many questions on Canvas: We'll discuss them.
+\item If not: I'll already introduce you to statistics in Python (week 7) so that we can do cooler stuff in week 7 (like topic modelling)
+\end{itemize}
 \end{block}
-
-\begin{block}{Wednesday}
-Statistics with pandas and Jupyter Notebook
-\end{block}
-
-
-
 \end{frame}
-
 
 
 
