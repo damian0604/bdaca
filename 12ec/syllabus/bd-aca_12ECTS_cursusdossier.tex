@@ -1,0 +1,341 @@
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper,12pt]{report}
+\usepackage[natbibapa,nosectionbib,tocbib,numberedbib]{apacite}
+\AtBeginDocument{\renewcommand{\bibname}{Literature}}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{url}
+
+\usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{pifont}
+
+\usepackage{lmodern}
+\usepackage{listings}
+\lstset{
+basicstyle=\scriptsize\ttfamily,
+columns=flexible,
+breaklines=true,
+numbers=left,
+%stepsize=1,
+numberstyle=\tiny,
+backgroundcolor=\color[rgb]{0.85,0.90,1}
+}
+
+
+\let\oldquote\quote
+\let\endoldquote\endquote
+\renewenvironment{quote}{\footnotesize\oldquote}{\endoldquote}
+
+
+
+\title{Big Data and Automated Content Analysis\\ Part I+II (12 ECTS)\\~\\Cursusdossier}
+\author{dr. Damian Trilling\\~\\Graduate School of Communication\\University of Amsterdam\\~\\d.c.trilling@uva.nl\\www.damiantrilling.net\\@damian0604\\~\\Office: REC-C, 8\textsuperscript{th} floor}
+\date{Academic Year 2019/20}
+
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+
+\chapter{Short description of the course}
+
+\input{description}
+
+\chapter{Exit qualifications}
+
+
+\emph{(Note: In this chapter``advanced research designs and methods'' in the following refers to techniques of computational communication science as covered in Part I (basic text processing, data retrieval from web sources) and Part II (supervised machine laring, and unsupervised machine learning) of this course).}
+
+
+The course contributes to the following three exit qualifications of the Research Master in Communication Science:
+
+
+\textit{Expertise in empirical research}
+
+
+	3.	Knowledge and Understanding: Have in-depth knowledge and a thorough understanding of advanced research designs and methods
+
+
+	4.	Skills and abilities: Are able, independently and on their own, to set up, conduct, report and interpret advanced academic research.
+
+
+\textit{Academic abilities and attitudes}
+
+
+	6.	Attitude: Accept that scientific knowledge is always 'work in progress' and that arguments must be considered and conclusions drawn on the basis of empirical results and valid criticism.
+
+
+The exit qualifications are elaborated in the following 11 specifications:
+3. Knowledge and Understanding: Have in-depth knowledge and a thorough understanding of advanced research designs and methods. 
+
+
+3.1. Have in-depth knowledge and a thorough understanding of advanced research designs and methods, including their value and limitations.
+
+
+3.2.	Have in-depth knowledge and a thorough understanding of advanced techniques for data analysis.
+
+
+4. Skills and abilities: Are able, independently and on their own, to set up, conduct, report and interpret advanced academic research.
+
+
+4.1	Are able to formulate research questions and hypotheses for advanced empirical studies
+
+
+4.2	Are able to develop a research plan, choose appropriate and suitable research designs and methods for advanced empirical studies, and justify the underlying choices. 
+
+
+4.3	Are able to assess the validity and reliability of advanced empirical research, and to judge the scientific and professional value of findings from advanced empirical research.
+
+
+4.4	Are able to apply advanced empirical research methods.
+
+
+6. Academic attitudes
+
+
+6.1 	Regularly asses their own assumptions, strengths and weaknesses critically.
+
+
+6.2	Accept that scientific knowledge is always 'work in progress' and that something regarded as 'true' may be proven to be false, and vice-versa.
+
+
+6.3 	Are keen to acquire new knowledge, skills and abilities. 
+
+
+6.4 	Are willing to share and discuss arguments, results and conclusions, including submitting one's own work to peer review. 
+
+
+6.5 	Are convinced that academic debates should not be conducted on the basis of rhetorical qualities but that arguments must be considered and conclusions drawn on the basis of empirical results and valid criticism.
+
+
+
+
+
+\chapter{Testable objectives}
+
+{\footnotesize{
+3. Knowledge and Understanding: Have in-depth knowledge and a thorough understanding of advanced research designs and methods. 
+
+
+3.1. Have in-depth knowledge and a thorough understanding of advanced research designs and methods, including their value and limitations.
+
+
+3.2.	Have in-depth knowledge and a thorough understanding of advanced techniques for data analysis.
+
+}}
+
+\begin{enumerate}[A]
+\item Students can explain the research designs and methods employed in existing research articles on Big Data and automated content analysis.
+\item Students can on their own and in own words critically discuss the pros and cons of research designs and methods employed in existing research articles on Big Data and automated content analysis; they can, based on this, give a critical evaluation of the methods and, where relevant, give advice to improve the study in question.
+\item Students can identify research methods from computer science and computer linguistics which can be used for research in the domain of communication science; they can explain the principles of these methods and describe the value of these methods for communication science research.4. Skills and abilities: Are able, independently and on their own, to set up, conduct, report and interpret advanced academic research.
+\end{enumerate}
+
+{\footnotesize{
+4.1	Are able to formulate research questions and hypotheses for advanced empirical studies
+
+
+4.2	Are able to develop a research plan, choose appropriate and suitable research designs and methods for advanced empirical studies, and justify the underlying choices. 
+
+
+4.3	Are able to assess the validity and reliability of advanced empirical research, and to judge the scientific and professional value of findings from advanced empirical research.
+
+
+4.4	Are able to apply advanced empirical research methods.
+
+ }}
+
+\begin{enumerate}[A]
+\setcounter{enumi}{3}
+\item Students can on their own formulate a research question and hypotheses for own empirical research in the domain of Big Data.
+\item Students can on their own chose, execute and report on advanced research methods in the domain of Big Data and automatic content analysis.
+\item Students know how to collect data with scrapers, crawlers and APIs; they know how to analyze these data and to this end, they have basic knowledge of the programming language Python and know how to use Python-modules for communication science research.
+\end{enumerate}
+
+
+{\footnotesize{
+6. Academic attitudes
+
+6.1 	Regularly asses their own assumptions, strengths and weaknesses critically.
+
+
+6.2	Accept that scientific knowledge is always 'work in progress' and that something
+regarded as 'true' may be proven to be false, and vice-versa.
+
+
+6.3 	Are keen to acquire new knowledge, skills and abilities. 
+
+
+6.4 	Are willing to share and discuss arguments, results and conclusions, including submitting one's own work to peer review. 
+
+
+6.5 	Are convinced that academic debates should not be conducted on the basis of rhetorical qualities but that arguments must be considered and conclusions drawn on the basis of empirical results and valid criticism.
+
+ }}
+
+\begin{enumerate}[A]
+\setcounter{enumi}{6}
+\item Students can critically discuss  strong and weak points of their own research and suggest improvements.
+\item Students participate actively: reading the literature carefully and on time, completing assignments carefully and on time, active participation in discussions, and giving feedback on the work of fellow students give evidence of this.
+\end{enumerate}
+
+
+
+\chapter{Planning of testing and teaching}
+
+The seminar consists of 28 meetings, two per week. Each week, in the first meeting, the instructor will give short lectures on the key aspects of the week, followed by seminar-style discussions. Theoretical considerations regarding Big Data and Automated Content Analysis are discussed, and techniques for analyzing Big Data are presented. We also discuss examples from the literature, in which these techniques are applied.
+
+
+The second meetings each week are practicum-meetings, in which the students will apply what the techniques they have learned to own data sets. Here, they can also deepen their understanding of software tools, prepare their projects and get hands-on help. While there are in-class assignments as well as occasional assignments for at home (e.g., completing an online-tutorial to prepare for class), these are not graded.
+
+
+To complete the course, next to active participation, the students have to successfully complete three summative graded assignments: two mid-term take-home exam and an individual project, in which they derive an empirical question from a theoretical starting point, and then do an Automated Content Analysis to answer the question. See Chapter 7 for details.
+
+
+\chapter{Literature}
+
+\input{literature}
+
+
+\chapter{Specific course timetable}
+
+
+\input{schedule}
+
+
+\chapter{Testing}
+An overview of the testing is given in Table \ref{testmatrix}.
+
+\begin{table}[]
+\footnotesize{
+\centering
+\caption{Test matrix}
+\label{testmatrix}
+\begin{tabular}{p{8cm}p{2cm}p{2cm}p{2cm}}
+                                                                                                                                                                                                                                                                                                                                                                                            & In-class assignments, reviewing work of fellow students, active participation  
+& Mid-term take home exams 
+& Final individual project \\
+                                                                                                                                                                                                                                                                                                                                                                                                                   &  (precondition)                                                                                            & ($2 \times 20$\% of final grade)   & (60\% of final grade)    \\
+A. Students can explain the research designs and methods employed in existing research articles on Big Data and automated content analysis.                                                                                                                                                                                                                      & X                                                                                            & X                       &                          \\
+B. Students can on their own and in own words critically discuss the pros and cons of research designs and methods employed in existing research articles on Big Data and automated content analysis; they can, based on this, give a critical evaluation of the methods and, where relevant, give advice to improve the study in question.
+& X                                                                                            & X                       &                          \\
+C. Students can identify research methods from computer science and computer linguistics which can be used for research in the domain of communication science; they can explain the principles of these methods and describe the value of these methods for communication science research.4. Skills and abilities: Are able, independently and on their own, to set up, conduct, report and interpret advanced academic research.
+                                                                & X                                                                                            & X                       & X                        \\
+D. Students can on their own formulate a research question and hypotheses for own empirical research in the domain of Big Data.                                                                                                                                                                                                     &                                                                                              &                         & X                        \\
+E. Students can on their own chose, execute and report on advanced research methods in the domain of Big Data and automatic content analysis.                                                                                                                                                                                             &                                                                                              &                         & X                        \\
+F. Students know how to collect data with scrapers, crawlers and APIs; they know how to analyze these data and to this end, they have basic knowledge of the programming language Python and know how to use Python-modules for communication science research.                                                                         & X                                                                                            & X                       & X                        \\
+G. Students can critically discuss  strong and weak points of their own research and suggest improvements.                                                                                                                                                                                                                                         &                                                                                              &                         & X                        \\
+H. Students participate actively: reading the literature carefully and on time, completing assignments carefully and on time, active participation in discussions, and giving feedback on the work of fellow students give evidence of this.                                                                                                                                      & X                                                                                            &                         &                         
+\end{tabular}
+}
+\end{table}
+
+
+
+
+\section*{Grading}
+
+The final grade of this course will be composed of the grade of two mid-term take home exams ($2 \times 20$\%) and one individual project (60\%).
+
+\subsection*{Mid-term take-home exam ($2 \times 20$\%}
+In two mid-term take-home exam, students will show their understanding of the literature and prove they have gained new insights during the lecture/seminar meetings. They will be asked to critically assess various approaches to Big Data analysis and make own suggestions for research. Additionally, they need to (partly) write the code to accomplish this.
+
+Grading criteria are communicated to the students together with the assignment, but in general are:
+For literature-related tasks in the exam:
+\begin{itemize}
+	\item usage of specific examples from the literature;
+	\item critique of different approaches;
+	\item nameing of pro's, con's, potential pitfalls, and alternatives;
+	\item giving practical advice and guidance.
+\end{itemize}
+For programming-related tasks in the exam:
+\begin{itemize}
+	\item correctness, efficiency, and style of the code
+	\item correctness, completeness, and usefulness of analyses applied.
+\end{itemize}
+For conceptual and planning-related tasks:
+\begin{itemize}
+	\item feasibility
+	\item level of specificity
+	\item explanation and argumentation why a specific approach is chosen
+	\item creativity.
+\end{itemize}
+
+
+\subsection*{Final individual project (60\%)}
+The final individual project typically consists of the following elements, which all contribute to the final grade:
+\begin{itemize}
+\item introduction including references to relevant (course) literature, an overarching research question plus subquestions and/or hypotheses (1–2 pages);
+\item an overview of the analytic strategy, referring to relevant methods learned in this course;
+\item carefully collected and relevant dataset of non-trivial size;
+\item a set of scripts for collecting, preprocessing, and analyzing the data. The scripts should be well-documented and tailored to the specific needs of the own project;
+\item output files;
+\item a well-substantiated conclusion with an answer to the RQ and directions for future research.
+\end{itemize}
+
+Depending on the choosen topic, the student will have to apply multiple, but not all, techniques covered in the course. In particular, the student needs to spend a substantial amount of the project on a technique covered in Part II of this course. Student and teacher discuss the scope of the projects, the requirements that the specific project suggested by the student needs to fulfill, and the extend to which the different methods that the student plans to use will contribute to the final grade.
+
+\subsection*{Grading and 2\textsuperscript{nd} try}
+Students have to get a pass (5.5 or higher) for both mid-term take-home exams and the individual project. If the grade of one of these is lower, an improved version can be handed in within one week after the grade is communicated to the student. If the improved version still is graded lower than 5.5, the course cannot be completed. Improved versions of the final individual project cannot be graded higher than 6.0. 
+
+
+\chapter{Lecturers' team, including division of responsibilities}
+dr. Damian Trilling
+
+
+\chapter{Calculation of students' study load (in hours)}
+\begin{itemize}
+
+\item Elective total: 12 ECTS = 336 hours
+\item Reading: 
+\begin{itemize}
+\item 16 articles, average 20 pages: 320 pages. 6 pages per hour, thus 53 hours for the literature
+\item Reading and doing tutorials: 80 hours for reading tutorials to acquire skills.
+\item Reading book: 20 hours
+\item Reading/preparation total: 153 hours.
+\end{itemize}
+\item Presence: \\28*2 hours: 56 hours.
+\item Mid-term take-home exam, including preparation (2 exams) $2 \times 14$ hours: 28 hours
+\item Final individual project, including data collection, analysis, write up: 90 hours
+\end{itemize}
+
+Total: 337 hours
+
+
+
+\chapter{Calculation of lecturers' teaching load (in hours)}
+\begin{itemize}
+\item Presence: 56 hours (= 28 * 2 hours)
+\item Preparation of weekly lectures, 14 * 4 hours: 56 hours
+\item Preparation of weekly tutorials, 14 * 4 hours: 56 hours
+\item Assisting students with setting up Virtual Machine, individual help: 20 hours
+\item Feedback and grading take-home exams: 25x20 minutes x 2 exams: 17 hours
+\item Feedback and grading final projects, including feedback on proposal and individual counseling: 25* 60 min: 25 hours 
+\item Administration, e-mails, individual appointments: 10 hours
+\end{itemize}
+Total: 240 hours
+
+
+\chapter{History of the course}
+In response to the feedback by the test review committee in 2019, the following changes were applied:
+\begin{itemize}
+\item Empasized in the section ``Exit qualification'' that -- in contrast to the 6 ECTS course -- knowledge of \emph{both} techniques from Part I (basic text processing, data retrieval from web sources) and Part II (supervised machine laring, and unsupervised machine learning) need to be demonstrated in the final project.
+\item Empasized the same in the section ``Grading''
+\item Added specific grading criteria to the section ``Grading''
+\end{itemize}
+
+
+ 
+\bibliographystyle{apacite}
+\bibliography{../../bdaca}
+
+ 
+ 
+ 
+\end{document}

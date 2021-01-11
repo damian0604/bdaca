@@ -1,0 +1,177 @@
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper,10pt,twocolumn]{report}
+\usepackage[natbibapa,nosectionbib,tocbib,numberedbib]{apacite}
+
+% niet elk chapter op nieuwe pagina
+%\let\cleardoublepage\relax \chapter{bar}
+
+\AtBeginDocument{\renewcommand{\bibname}{Literature}}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{url}
+
+% corona boxes
+\usepackage[dvipsnames]{color}
+\usepackage{framed}
+\definecolor{shadecolor}{named}{Melon}
+%\let\corona\shaded
+%\let\endcorona\endshaded
+% zo kan het met sterretje:
+\newenvironment{corona}{%
+	\begin{shaded*}%
+	}{%
+	\end{shaded*}%
+}
+
+
+
+\usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{pifont}
+
+\usepackage{lmodern}
+\usepackage{listings}
+\lstset{
+basicstyle=\scriptsize\ttfamily,
+columns=flexible,
+breaklines=true,
+numbers=left,
+%stepsize=1,
+numberstyle=\tiny,
+backgroundcolor=\color[rgb]{0.85,0.90,1}
+}
+
+
+\let\oldquote\quote
+\let\endoldquote\endquote
+\renewenvironment{quote}{\footnotesize\oldquote}{\endoldquote}
+
+
+
+\title{Big Data and Automated Content Analysis\\ Part I and II (12 ECTS)\\~\\Course Manual}
+%\author{dr. Damian Trilling \& dr.Anne Kroon \\~\\Graduate School of Communication\\University of Amsterdam\\~\\d.c.trilling@uva.nl | a.c.kroon@uva.nl \\www.damiantrilling.net\\@damian0604 | @annekroon \\~\\Office: REC-C, 8\textsuperscript{th} floor}
+\author{dr. Damian Trilling\\~\\Graduate School of Communication\\University of Amsterdam\\~\\d.c.trilling@uva.nl \\www.damiantrilling.net \\@damian0604 \\~\\Office: REC-C, 8\textsuperscript{th} floor}
+
+
+\date{Academic Year 2020/21\\Semester 2, block 1 and 2\\ 
+\begin{corona} Coronavirus-Pandemic Online Edition\end{corona}
+}
+
+
+
+%Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+%\usepackage[Bjornstrup]{fncychap}
+
+
+\begin{document}
+\maketitle
+
+%\tableofcontents
+
+
+\chapter{About this course}
+
+This course manual contains general information, guidelines, rules and schedules for the Research Master course Big Data \& Automated Content Analysis Part I and II (12 ECTS). Please make sure you read it carefully, as it  contains information regarding assignments, deadlines and grading.
+
+\section{Course description}
+
+\input{description}
+
+\section{Goals}
+Upon completion of this course, the following goals are reached:
+\begin{enumerate}[A]
+\item Students can explain the research designs and methods employed in existing research articles on Big Data and automated content analysis.
+\item Students can on their own and in own words critically discuss the pros and cons of research designs and methods employed in existing research articles on Big Data and automated content analysis; they can, based on this, give a critical evaluation of the methods and, where relevant, give advice to improve the study in question.
+\item Students can identify research methods from computer science and computational linguistics which can be used for research in the domain of communication science; they can explain the principles of these methods and describe the value of these methods for communication science research.
+\item Students can on their own formulate a research question and hypotheses for own empirical research in the domain of Big Data.
+\item Students can on their own chose, execute and report on advanced research methods in the domain of Big Data and automatic content analysis.
+\item Students know how to collect data with scrapers, crawlers and APIs; they know how to analyze these data and to this end, they have basic knowledge of the programming language Python and know how to use Python-modules for communication science research.
+\item Students can critically discuss  strong and weak points of their own research and suggest improvements.
+\item Students participate actively: reading the literature carefully and on time, completing assignments carefully and on time, active participation in discussions, and giving feedback on the work of fellow students give evidence of this.
+\end{enumerate}
+
+\section{Help with practical matters}
+While making your first steps with programming in Python, you will probably have a lot of questions.
+Nevertheless, \url{htttp://google.com} and \url{http://stackoverflow.com} should be your first points of contact. After all, that's how we solve our problems as well\ldots
+
+\begin{corona}Note that to compensate for difficulties arising through online teaching a course like this, there will be online office hours especially during the startup phase of the course offered. This is the place for solving technical problems.
+\end{corona}
+
+
+\chapter{Rules, assignments, and grading}
+The final grade of this course will be composed of the grade of two mid-term take home exam ($2 \times 20$\%) and one individual project (60\%).
+
+\section{Mid-term take-home exams ($2 \times 20$\%)}
+In two mid-term take-home exam, students will show their understanding of the literature and prove they have gained new insights during the lectures and lab sessions. They will be asked to critically assess various approaches to Big Data analysis and make own suggestions for research.
+
+\section{Final individual project ($60\%$)}
+The final individual project typically consists of the following elements:
+\begin{itemize}
+\item introduction including references to relevant (course) literature, an overarching research question plus subquestions and/or hypotheses (1--2 pages);
+\item an overview of the analytic strategy, referring to relevant methods learned in this course;
+\item carefully collected and relevant dataset of non-trivial size;
+\item a set of scripts for collecting, preprocessing, and analyzing the data. The scripts should be well-documented and tailored to the specific needs of the own project;
+\item output files;
+\item a well-substantiated conclusion with an answer to the RQ and directions for future research.
+\end{itemize}
+
+\section{Grading and 2\textsuperscript{nd} try}
+Students have to get a pass (5.5 or higher) for both mid-term take-home exams and the individual project. If the grade of one of the mid-term exams is lower, a re-sit will be organized, typically within one week after the grade is communicated to the student.
+If the grade of the final project is lower, an improved version can be handed in within one week after the grade is communicated to the student. If the improved version still is graded lower than 5.5, the course cannot be completed. Improved versions of the final individual project cannot be graded higher than 6.0.
+
+\section{Presence and participation}
+Attendance is compulsory. Missing more than three meetings – for whatever reason – means the course cannot be completed.
+
+Next to attending the meetings, students are also required to prepare the assigned literature and to continue working on the programming tasks after the lab sessions. To successfully finish the course, attending the lab sessions is not enough, but has to go hand-in-hand with continuous self-study.
+
+\section{Staying informed}
+It is your responsibility to check the means of communications used for this course (i.e., your email account, but -- if applicable -- also e-learning platforms or any other tool that the lecturer decides to use) on a regular basis, which in most cases means daily.
+
+\section{Plagiarism \& fraud}
+Plagiarism is a serious academic violation. Cases in which students use material such as online sources or any other sources in their written work and present this material as their own original work without citation/referencing, and thus conduct plagiarism, will be reported to the Examencommissie of the Department of Communication without any further negotiation. If the committee comes to the conclusion that a student has indeed committed plagiarism the course cannot be completed.
+
+General UvA regulations about fraud and plagiarism apply.
+
+\section{Deadlines and handing in}
+Per assignment, the lecturer will specify whether it has to be handed in via Canvas or via Filesender. If no specific instructions are given, or if there is any issue with submitting an assignment through Canvas, use Filesender. Please send all assignments and papers as a PDF file (and do not use formats like .docx) to ensure that it can be read and is displayed the same way on any device. Multiple files should be compressed and handed in as one .zip file or .tar.gz file. Do not email assignments directly but send them via \url{https://filesender.surf.nl/} to my mail-address. This way, you can also transfer huge files.
+
+Final papers and take-home exams that are not handed in on time, will be not be graded and receive the grade 1. This rule also applies for any other assignment that might be given. The deadline is only met when the all files are submitted.
+
+
+\begin{corona}
+\section{Your computer and operating system: your responsibility}	
+Python is a language, not a program, and there are many ways of running Python code. In the past, there were quite some issues as some things work just a little bit different on Windows compared to Linux or MacOS (those two, belong to the UNIX family, are essentially identical for our purposes), which is why we advised students to install a Virtual Machine with Linux, which allows everyone to have the same environment (see the old book at \url{https://github.com/damian0604/bdaca/blob/master/book/bd-aca_book.pdf}). We experimented last year with letting students more freedom in their choice of an environment, and we want to continue to do so.
+
+But because it is really hard to help with stuff related to your computer, your operating system, your keyboard etc., you need to make sure that the following things apply. Otherwise, you need to fix it -- we won't have room for that during the course. So, do this \textbf{before the course starts}.
+
+\begin{itemize}
+	\item You need to have a recent version of a Python interpreter installed, and you need to be able to run Jupyter Notebooks. Chapter 1 of \cite{cssbook} gives instructions (you can skip the part about R, though). You can either use Python natively or use Anaconda (see Chapter 1), or you can also still opt for the Virtual Machine way as outlined in \cite{Trilling2016}. \textbf{It is important that \emph{you} know how to use it on your machine.}
+	\item You need to be able to install third-party packages (see Chapter 1). Test this by checking wither you can install the package \texttt{shifterator} and then load it with \texttt{import shifterator} without getting an error.
+	\item You need to make sure that your keyboard produces straight quotes \texttt{"} rather than typographical ones when typing. Test that by making sure that you can run \texttt{print("hello world)"} in a jupyer notebook
+	\item Create a folder for this course at an easy to remember place, such as \texttt{/home/damian/bdaca} (Linux), \texttt{/Users/damian/bdaca} (MacOS), or \texttt{c://Users//damian//bdaca} (Windows). You could potentially also use \texttt{c://Users//damian//Desktop//bdaca} (Win) or \texttt{/Users/damian/Desktop/bdaca} (Mac) or similar. Make sure that you can locate files in that folder in Jupyter Notebook. And remember/write down it's name! Preferably, don't use spaces (can lead to confusion), and Windows users, replace \texttt{\textbackslash} by either a double \texttt{\textbackslash \textbackslash} or by forward slashes (/)
+\end{itemize}
+If -- even after trying -- you do not succeed in any of these steps, ask your classmates or make an appointment with Vladislav as soon as possible.
+
+
+\end{corona}
+
+
+
+
+\chapter{Schedule and Literature}
+
+\input{literature}
+
+\input{schedule}
+
+\bibliographystyle{apacite}
+\bibliography{../../bdaca}
+
+
+
+
+\end{document}
