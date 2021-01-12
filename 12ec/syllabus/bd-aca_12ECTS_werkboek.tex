@@ -98,7 +98,7 @@ Upon completion of this course, the following goals are reached:
 While making your first steps with programming in Python, you will probably have a lot of questions.
 Nevertheless, \url{htttp://google.com} and \url{http://stackoverflow.com} should be your first points of contact. After all, that's how we solve our problems as well\ldots
 
-\begin{corona}Note that to compensate for difficulties arising through online teaching a course like this, there will be online office hours especially during the startup phase of the course offered. This is the place for solving technical problems.
+\begin{corona}Note that to compensate for difficulties arising through online teaching a course like this, Vladislav Petkevich will offer online office hours especially during the startup phase of the course. This is the place for solving technical problems.
 \end{corona}
 
 
@@ -111,17 +111,21 @@ In two mid-term take-home exam, students will show their understanding of the li
 \section{Final individual project ($60\%$)}
 The final individual project typically consists of the following elements:
 \begin{itemize}
-\item introduction including references to relevant (course) literature, an overarching research question plus subquestions and/or hypotheses (1--2 pages);
-\item an overview of the analytic strategy, referring to relevant methods learned in this course;
-\item carefully collected and relevant dataset of non-trivial size;
+\item a carefully collected and relevant dataset of non-trivial size;
 \item a set of scripts for collecting, preprocessing, and analyzing the data. The scripts should be well-documented and tailored to the specific needs of the own project;
 \item output files;
-\item a well-substantiated conclusion with an answer to the RQ and directions for future research.
+\item a report with
+\begin{itemize}
+	\item introduction including references to relevant (course) literature, an overarching research question plus subquestions and/or hypotheses (1--2 pages);
+	\item an overview of the analytic strategy, referring to relevant methods learned in this course;
+	\item an answer to the RQ;
+	\item a well-substantiated conclusion and directions for future research.
+\end{itemize}
 \end{itemize}
 
 \section{Grading and 2\textsuperscript{nd} try}
-Students have to get a pass (5.5 or higher) for both mid-term take-home exams and the individual project. If the grade of one of the mid-term exams is lower, a re-sit will be organized, typically within one week after the grade is communicated to the student.
-If the grade of the final project is lower, an improved version can be handed in within one week after the grade is communicated to the student. If the improved version still is graded lower than 5.5, the course cannot be completed. Improved versions of the final individual project cannot be graded higher than 6.0.
+Students have to get a pass (5.5 or higher) for both mid-term take-home exams and the individual project. If the grade of one of the mid-term exams is lower, a re-sit will be organized, typically ten days after the grade is communicated to the student.
+If the grade of the final project is lower, an improved version can be handed in within ten days after the grade is communicated to the student. If the improved version still is graded lower than 5.5, the course cannot be completed. Improved versions of the final individual project cannot be graded higher than 6.0.
 
 \section{Presence and participation}
 Attendance is compulsory. Missing more than three meetings – for whatever reason – means the course cannot be completed.
@@ -133,8 +137,13 @@ It is your responsibility to check the means of communications used for this cou
 
 \section{Plagiarism \& fraud}
 Plagiarism is a serious academic violation. Cases in which students use material such as online sources or any other sources in their written work and present this material as their own original work without citation/referencing, and thus conduct plagiarism, will be reported to the Examencommissie of the Department of Communication without any further negotiation. If the committee comes to the conclusion that a student has indeed committed plagiarism the course cannot be completed.
-
 General UvA regulations about fraud and plagiarism apply.
+
+\subsection{Attributing code}
+Plagiarism rules apply to code in the same way as they apply to text. Just like how your writing often builds on other scholars (who you cite), your code often builds on what others have done or are inspired by solutions of others, for instance in communities like Stackoverflow. Analoguous to plagiarism regulations in normal writing, also in your code, it needs to be transparent \emph{what is from you and what is not}. We don't really have something like APA references for code, but you can simply use \texttt{\#comments} for that purpose, such as:
+\texttt{\# The following function is copied from https://stackoverflow.com/XXXXX/XXXXX} for (almost) literal copy-pasting, or \texttt{\# The code in this cell is inspired by https://...; I modified Y and Z}. 
+
+Make sure that there is no doubt about what is yours and what is from someone else!
 
 \section{Deadlines and handing in}
 Per assignment, the lecturer will specify whether it has to be handed in via Canvas or via Filesender. If no specific instructions are given, or if there is any issue with submitting an assignment through Canvas, use Filesender. Please send all assignments and papers as a PDF file (and do not use formats like .docx) to ensure that it can be read and is displayed the same way on any device. Multiple files should be compressed and handed in as one .zip file or .tar.gz file. Do not email assignments directly but send them via \url{https://filesender.surf.nl/} to my mail-address. This way, you can also transfer huge files.
@@ -150,9 +159,9 @@ But because it is really hard to help with stuff related to your computer, your 
 
 \begin{itemize}
 	\item You need to have a recent version of a Python interpreter installed, and you need to be able to run Jupyter Notebooks. Chapter 1 of \cite{cssbook} gives instructions (you can skip the part about R, though). You can either use Python natively or use Anaconda (see Chapter 1), or you can also still opt for the Virtual Machine way as outlined in \cite{Trilling2016}. \textbf{It is important that \emph{you} know how to use it on your machine.}
-	\item You need to be able to install third-party packages (see Chapter 1). Test this by checking wither you can install the package \texttt{shifterator} and then load it with \texttt{import shifterator} without getting an error.
-	\item You need to make sure that your keyboard produces straight quotes \texttt{"} rather than typographical ones when typing. Test that by making sure that you can run \texttt{print("hello world)"} in a jupyer notebook
-	\item Create a folder for this course at an easy to remember place, such as \texttt{/home/damian/bdaca} (Linux), \texttt{/Users/damian/bdaca} (MacOS), or \texttt{c://Users//damian//bdaca} (Windows). You could potentially also use \texttt{c://Users//damian//Desktop//bdaca} (Win) or \texttt{/Users/damian/Desktop/bdaca} (Mac) or similar. Make sure that you can locate files in that folder in Jupyter Notebook. And remember/write down it's name! Preferably, don't use spaces (can lead to confusion), and Windows users, replace \texttt{\textbackslash} by either a double \texttt{\textbackslash \textbackslash} or by forward slashes (/)
+	\item You need to be able to install third-party packages (see Chapter 1). Test this by checking whether you can install the package \texttt{shifterator} and then load it with \texttt{import shifterator} without getting an error.
+	\item You need to make sure that your keyboard produces straight quotes \texttt{"} rather than typographical ones when typing. Test that by making sure that you can run \texttt{print("hello world)"} in a Jupyter notebook.
+	\item Create a folder for this course at an easy to remember place, such as \texttt{/home/damian/bdaca} (Linux), \texttt{/Users/damian/bdaca} (MacOS), or \texttt{c://Users//damian//bdaca} (Windows). You could potentially also use \texttt{c://Users//damian//Desktop//bdaca} (Win) or \texttt{/Users/damian/Desktop/bdaca} (Mac) or similar. Make sure that you can locate files in that folder in Jupyter Notebook. And remember/write down it's name! Preferably, don't use spaces (can lead to confusion), and Windows users, replace \texttt{\textbackslash} by either a double \texttt{\textbackslash \textbackslash} or by forward slashes (/).
 \end{itemize}
 If -- even after trying -- you do not succeed in any of these steps, ask your classmates or make an appointment with Vladislav as soon as possible.
 
