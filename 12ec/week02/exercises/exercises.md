@@ -35,3 +35,4 @@ myresults = defaultdict(list)
 ```
 Loop over the appropriate data. For all the key-value pairs (like "office": "020111111"), do ` myresults[key].append(value)`: This will append the current phone numner (02011111) to the list of "office" numbers. 
 - Do you see why this works only with a defaultdict but not with a "normal" dict? What would happen with a normal dict?
+- Take the function from Exercise 2 that prints how many phone numbers a given person has. Use a defaultdict instead to achieve the same result. What are the pros and cons?
