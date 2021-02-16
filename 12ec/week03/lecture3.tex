@@ -1,0 +1,605 @@
+% !TeX document-id = {f19fb972-db1f-447e-9d78-531139c30778}
+% !BIB program = biber
+\documentclass[compress]{beamer}
+\usepackage[T1]{fontenc}
+\usetheme[block=fill,subsectionpage=progressbar,sectionpage=progressbar]{metropolis} 
+
+\usepackage{wasysym}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+
+\usepackage{threeparttable}
+\usepackage{subcaption}
+
+\usepackage{tikz-qtree}
+\setbeamercovered{still covered={\opaqueness<1->{5}},again covered={\opaqueness<1->{100}}}
+
+
+\usepackage{listings}
+
+\lstset{
+	basicstyle=\scriptsize\ttfamily,
+	columns=flexible,
+	breaklines=true,
+	numbers=left,
+	%stepsize=1,
+	numberstyle=\tiny,
+	backgroundcolor=\color[rgb]{0.85,0.90,1}
+}
+
+ 
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage[style=apa, backend = biber]{biblatex}
+\DeclareLanguageMapping{american}{american-UoN}
+\addbibresource{../../bdaca.bib}
+\renewcommand*{\bibfont}{\tiny}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,matrix}
+\usepackage{multicol}
+
+\usepackage{subcaption}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+
+ 
+\makeatletter
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+  \end{beamercolorbox}
+  \begin{beamercolorbox}{section in head/foot}
+    \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+  \end{beamercolorbox}
+}
+\makeatother
+
+ 
+
+\setbeamercolor{section in head/foot}{fg=normal text.bg, bg=structure.fg}
+
+
+
+\newcommand{\question}[1]{
+	\begin{frame}[plain]
+		\begin{columns}
+			\column{.3\textwidth}
+			\makebox[\columnwidth]{
+				\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../../pictures/mannetje.png}}
+			\column{.7\textwidth}
+			\large
+			\textcolor{orange}{\textbf{\emph{#1}}}
+		\end{columns}
+\end{frame}}
+
+
+
+
+\title[Big Data and Automated Content Analysis]{\textbf{Big Data \& Automated Content Analysis} \\ Week 3 -- Wednesday: »Data Formats«}
+\author[Damian Trilling]{Damian Trilling \\ ~ \\ \footnotesize{d.c.trilling@uva.nl \\@damian0604} \\ \url{www.damiantrilling.net}}
+\date{17 February 2021}
+\institute[UvA]{Afdeling Communicatiewetenschap \\Universiteit van Amsterdam}
+
+\begin{document}
+
+\begin{frame}{}
+\titlepage
+\end{frame}
+
+\begin{frame}{Today}
+\tableofcontents
+\end{frame}
+
+
+\begin{frame}[standout]
+	Thanks for the tips many of you shared on Canvas! Keep on doing that!
+\end{frame}
+
+
+\begin{frame}[standout]
+	Everything clear from last week? Everyone comfortable with data structures, for loops, functions?
+\end{frame}
+
+
+
+
+\section{Data structures and files}
+
+
+\begin{frame}{Some ways of storing data}
+\begin{table}[]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llll@{}}
+\toprule
+use case          & data type       & structure         & typical file format \\ \midrule
+\onslide<+->{(long) texts       & string          & unstructured      & multiple .txt files               \\}
+\onslide<+->{list of messages/words/\ldots       & list of strings  & newline-delimited      & .txt                \\}
+\onslide<+->{hierarchical data & dict                          & (semi-)structured & .json               \\}
+\onslide<+->{table             & nested lists, dict, dataframe & tabular           & .csv (.json)   \\ \bottomrule}
+\end{tabular}%
+}
+\end{table}
+\pause
+\textcolor{red}{\footnotesize{(Of course, there are many, many, many other formats we can use)}}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{string $\leftrightarrow$ file}
+\begin{lstlisting}
+data = "Hi I'm a string."
+with open("mytext.txt", mode="w") as fo:
+    fo.write(data)
+\end{lstlisting}
+$\Rightarrow$ create (or overwrite(!)) file, assign handler name \texttt{fo}, write string to it.
+
+\pause 
+\begin{lstlisting}
+with open("mytext.txt", mode="r") as fi:
+    data = fi.read()
+\end{lstlisting}
+
+$\Rightarrow$ make connection with file for reading, assign handler name \texttt{fi}, read string from it
+
+\pause
+
+%\textcolor{red}{Of course, you can also loop over \emph{multiple]} files: e.g, read all files from a dictionary and put them into a list $\Rightarrow$ just nest these commands in a for loop!}
+\end{frame}
+
+\question{For what can you use this?}
+
+
+\begin{frame}[fragile]{list $\rightarrow$ file}
+\begin{lstlisting}
+data = ["ik", "jij", "je", "hij", "zij", "ze", "wij", "we", "jullie"]
+
+with open("pronouns.txt", mode="w") as fo:
+    for pronoun in data:
+        fo.write(pronoun)
+        fo.write("\n")
+\end{lstlisting}
+$\Rightarrow$ create file, assign handler name \texttt{fo}, write each element from list to \texttt{fo} followed by a line break
+
+Result: a file \texttt{pronouns.txt} with this content:
+\begin{lstlisting}
+ik
+jij
+je
+hij
+zij
+ze
+wij
+we
+jullie
+\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{list $\leftarrow$ file}
+\begin{lstlisting}
+with open("pronouns.txt", mode="r") as fi:
+     data = [line.strip() for line in fi]
+print(data)
+\end{lstlisting}
+$\Rightarrow$ Open file for reading, assign handler name \texttt{fi}, loop over all lines in \texttt{fi}, strip whitespace from end (such as line endings), put in new list.
+
+Output:
+\begin{lstlisting}
+['ik', 'jij', 'je', 'hij', 'zij', 'ze', 'wij', 'we', 'jullie']
+\end{lstlisting}
+\end{frame}
+
+
+\question{For what can you use this?}
+
+
+
+
+
+\begin{frame}[fragile]{dict $\rightarrow$ file}
+\begin{lstlisting}
+import json
+
+data = {'Alice': {'office': '020222', 'mobile': '0666666'},
+    'Bob': {'office': '030111'},
+    'Carol': {'office': '040444', 'mobile': '0644444'},
+    'Daan': "020222222",
+    'Els': ["010111", "06222"]}
+
+with open("phonebook.json", mode="w") as f:
+    json.dump(data, f)
+
+\end{lstlisting}
+$\Rightarrow$ Open file for writing, convert dict to JSON, dump in file.
+
+Creates a file \texttt{phonebook.json} that looks like this:
+\begin{lstlisting}
+{"Alice": {"office": "020222", "mobile": "0666666"}, "Bob": {"office": "030111"}, "Carol": {"office": "040444", "mobile": "0644444"}, "Daan": "020222222", "Els": ["010111", "06222"]}
+\end{lstlisting}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{dict $\leftarrow$ file}
+\begin{lstlisting}
+import json
+
+with open("phonebook.json", mode="r") as f:
+	data = json.load(f)
+	
+\end{lstlisting}
+
+$\Rightarrow$ Reads data from f, converts to dict (or list of dicts\ldots), store in \texttt{data}
+
+\pause
+
+\small
+\begin{alertblock}{JSON lines}
+There is also a dialect in which you write \emph{one JSON object per line instead of per file}. For this, you can use a for loop as in the one-string-per-file example, but convert each string with  \texttt{json.load\textbf{s}} or \texttt{json.dump\textbf{s}} to a dict.
+\end{alertblock}
+
+
+\end{frame}
+
+
+\question{For what can you use this?}
+
+
+
+
+\begin{frame}[fragile]{Tabular data}
+How can we store this data?
+\begin{lstlisting}
+names = ['Alice', 'Bob', 'Carol', 'Daan', 'Els']
+phonenumbers = ['020111111', '020222222', '020333333', '020444444', '020555555']
+\end{lstlisting}
+\pause
+
+1. We could convert to some dict and store as json (not too bad\ldots)
+
+\pause
+2. We can store in a table
+(next slide)
+\end{frame}
+
+\begin{frame}[fragile]{Tabular data}
+\begin{lstlisting}
+import csv
+with open("mytable.csv", mode="w") as f:
+    mywriter = csv.writer(f)
+    for row in zip(names,phonenumbers):
+        mywriter.writerow(row)
+\end{lstlisting}
+	
+Results in a file \texttt{mytable.csv} that looks like this:
+\begin{lstlisting}
+Alice,020111111
+Bob,020222222
+Carol,020333333
+Daan,020444444
+Els,020555555
+\end{lstlisting}
+\pause
+\textcolor{red}{But you don't have to do it like this! There is a more user-friendly way (Pandas, later today).}
+\end{frame}
+
+
+\section{Encodings and dialects}
+
+
+\begin{frame}{Choices to make}
+For all text-based (as opposed to binary) file formats:
+\begin{block}{How to separate data?}
+	\begin{itemize}
+		\item new line = new record?
+		\item Unix-style (\texttt{\textbackslash n}, also known as LF),  or Windows-style (\texttt{\textbackslash r\textbackslash n}, also known as CRLF) line endings?
+		\item some delimiter = new field?
+		\item or new file = new record?
+	\end{itemize}
+\end{block}
+\pause
+\begin{block}{How to convert bytes to characters?}
+	\begin{itemize}
+		\item choose right encoding (e.g., UTF-8)
+		\item (seldom) does the file start with a so-called byte-order-marker (BOM) -- then the encoding is often referred to as sth like UTF-8-BOM
+	\end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Let's look at csv files}
+	\begin{block}{comma-separated values: always a good choice}
+		\begin{itemize}
+			\item \emph{All} programs can read it
+			\item Even human-readable in a simple text editor
+			\item Plain text, with a comma (or a semicolon) denoting column breaks
+			\item No limits regarging the size
+			\item But: several dialects (e.g., \texttt{,} vs. \texttt{;} as delimiter)
+			\item Also: tab-separated files (.csv, .tab, .txt -- no consensus) (delimiter is \texttt{\textbackslash t})
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{A CSV-file with tweets}
+	\begin{itemize}
+		\item delimiter is \texttt{,}
+		\item with  header row
+	\end{itemize}
+	\begin{lstlisting}
+text,to_user_id,from_user,id,from_user_id,iso_language_code,source,profile_image_url,geo_type,geo_coordinates_0,geo_coordinates_1,created_at,time
+:-) #Lectrr #wereldleiders #uitspraken #Wikileaks #klimaattop http://t.co/Udjpk48EIB,,henklbr,407085917011079169,118374840,nl,web,http://pbs.twimg.com/profile_images/378800000673845195/b47785b1595e6a1c63b93e463f3d0ccc_normal.jpeg,,0,0,Sun Dec 01 09:57:00 +0000 2013,1385891820
+Wat zijn de resulaten vd #klimaattop in #Warschau waard? @EP_Environment ontmoet voorzitter klimaattop @MarcinKorolec http://t.co/4Lmiaopf60,,Europarl_NL,406058792573730816,37623918,en,<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>,http://pbs.twimg.com/profile_images/2943831271/b6631b23a86502fae808ca3efde23d0d_normal.png,,0,0,Thu Nov 28 13:55:35 +0000 2013,1385646935
+\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[plain]
+	\makebox[\linewidth]{
+		\includegraphics[width=\columnwidth,height=.8\paperheight,keepaspectratio]{../../pictures/csv-atom-encoding.png}}
+
+Opening a file in a (good) text editor (here: Atom) to check its encoding and line-ending style.
+\end{frame}
+
+
+\begin{frame}{Why encodings are really, really, REALLY important -- and why you shouldn't let Excel mess with them}
+\begin{itemize}
+	\item Unicode is around for decades, but sometimes legacy encodings (ASCII, ANSI, Windows-1252, \ldots) are still used
+	\item Problem 1: They don't support all Unicode symbols (emoticons, different scripts, \ldots)
+	\item Problem 2: What is an \texttt{\"a} in the one encoding may be an \texttt{\o}  in another $\Rightarrow$ big confusion if you use the wrong one
+	\item Some programs (looking at you, Excel!) may use legacy encodings when saving CSV files without telling you!
+\end{itemize}
+\textbf{Make sure to use UTF-8 from beginning to end, unless you know what you are doing!}
+
+\end{frame}
+
+
+
+\section{Dataframes}
+
+
+\begin{frame}{What are dataframes?}
+\texttt{pd.DataFrame}s (from the pandas package) are
+	\begin{itemize}
+		\item objects that store tabular data in rows and columns.
+		\item columns and rows can have names
+		\item they have methods built-in for data wrangling and analysis
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Creating dataframes}
+	\begin{columns}[T]
+		\column{.5\textwidth}
+\textbf{Option 1: transform existing data into a dataframe}
+	
+\texttt{df = pd.DataFrame(list-of-lists, dict, or similar)}
+
+(use \texttt{pd.DataFrame?} for help if necessary)
+
+		\column{.5\textwidth}
+\textbf{Option 2: read from file}
+		\makebox[\columnwidth]{
+	\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../../pictures/pd-read.png}}
+Using tab-completion to see methods to read dataframes from a file)
+	\end{columns}
+\end{frame}
+
+\begin{frame}[plain]
+	\includegraphics[width=\columnwidth,height=\paperheight,keepaspectratio]{../../pictures/pd-read-csv.png}
+\end{frame}
+
+
+
+\question{Can you think of a situation when you would use the for-loop approach to reading or writing tabular data instead of the pandas approach? What are pros and cons?}
+
+
+
+
+
+
+\begin{frame}{When (not) to use dataframes}
+	\footnotesize
+\begin{columns}[T]
+\column{.5\textwidth}
+\begin{exampleblock}{use it!}
+\begin{itemize}
+	\item tabular data
+	\item visual inspection
+	\item data wrangling or statistical analysis
+\end{itemize}
+\end{exampleblock}
+\column{.5\textwidth}
+\begin{alertblock}{don't use it}
+\begin{itemize}
+	\item non-tabular data
+	\item when it does not make sense to consider rows as ``cases'' and columns as ``variables''
+	\item if you only care about one (or maybe two) column anyway
+	\item size of dataset $>$ available RAM 
+	\item long or expensive operations, play safe and write to / read from file line by line*
+\end{itemize}
+\end{alertblock}
+\end{columns}
+
+\tiny{* imagine scraping 10,000 pages for a week and your program crashes at nr. 9,999 just before saving the dataframe\ldots}
+\end{frame}
+
+
+
+
+
+
+
+
+
+\section{Beyond data files}
+\subsection{API's}
+
+\begin{frame}{Beyond files}
+It probably has occured to you by now that
+
+
+\textcolor{red}{\large{\textbf{it's all about the structure}}}:
+\begin{itemize}
+	\item<2-> we can write \textit{anything} to files
+	\item<3-> it doesn't really matter whether sth is called "csv" or whatever -- as long as we know how records are delimited and what the encoding is
+	\item<4-> and $\ldots$ do we then even need files?
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{APIs}
+	{\huge{No.}}
+	Why not just send a JSON object (with a question/request) directly through the internet and get another one (with an answer/response) back?
+	
+	That's what (most) Application Programming Interfaces (APIs) do.
+	
+	\begin{block}{Great if we have a nested data structure}
+		\begin{itemize}
+			\item<2-> Items within news feeds
+			\item<3-> Personal data within authors within books
+			\item<4-> Bio statements within authors within tweets
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{A JSON object containing GoogleBooks data}
+	\begin{lstlisting}
+{'totalItems': 574, 'items': [{'kind': 'books#volume', 'volumeInfo': {'publisher': '"O\'Reilly Media, Inc."', 'description': u'Get a comprehensive, in-depth introduction to the core Python language with this hands-on book. Based on author Mark Lutz\u2019s popular training course, this updated fifth edition will help you quickly write efficient, high-quality code with Python. It\u2019s an ideal way to begin, whether you\u2019re new to programming or a professional developer versed in other languages. Complete with quizzes, exercises, and helpful illustrations, this easy-to-follow, self-paced tutorial gets you started with both Python 2.7 and 3.3\u2014 the
+...
+...
+'kind': 'books#volumes'}
+	\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}{Who offers APIs?}
+	The usual suspects: Twitter, Facebook, Google -- but also Reddit, Youtube, \ldots \\~
+	\begin{block}{If you ever leave your bag on a bus on Chicago}<2->
+		\onslide<3->{
+			\ldots but do have Python on your laptop, watch this: \url{https://www.youtube.com/watch?v=RrPZza_vZ3w}. \\
+			That guy queries the Chicago bus company's API to calculate when \emph{exactly the vehicle} with his bag arrives the next time at the bus stop in front of his office.
+			\\~\\ \tiny{(Yes, he tried calling the help desk before, but they didn't know. He got his bag back.)}
+		}
+	\end{block}
+\end{frame}
+
+\begin{frame}{APIs}
+	\begin{block}{Pro}<1->
+		\begin{itemize}
+			\item Structured data (JSON!)
+			\item Easy to process automatically
+			\item Can be directy embedded in your script
+		\end{itemize}
+	\end{block}
+	\begin{block}{Con}<2->
+		\begin{itemize}
+			\item Often limitations (requests per minute, sampling, \ldots)
+			\item You have to trust the provider that he delivers the right content \parencite{Morstatter2013} 
+			\item {\textbf{Some APIs won't allow you to go back in time!}}
+		\end{itemize}
+	\end{block}
+
+
+$\Rightarrow$ We work with a simple API on Friday.
+
+$\Rightarrow$ More about APIs versus webscraping in Week 7.
+\end{frame}
+
+
+\subsection{Messy data}
+
+\begin{frame}
+	Collecting data:\\
+	Parsing text files
+\end{frame}
+
+\begin{frame}{For messy input data or for semi-structured data}
+	Guiding question: Can we identify some kind of pattern?
+	\begin{block}{Examples}<2->
+		\begin{itemize}
+			\item<3-> LexisNexis gives you a chunk of text (rather than, e.g., a structured JSON object)
+			\item<3-> But as long as you can find any pattern or structure in it, you can try to write a Python script to \emph{parse} the data (and put it in a dict, lists, or a dataframe)
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=black}
+	\begin{frame}[plain]
+		\makebox[\linewidth]{
+			\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/lexisnexistxt.png}
+		}
+	\end{frame}
+	\begin{frame}[plain]
+		\makebox[\linewidth]{
+			\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{../../pictures/lexisnexistxt2.png}
+		}
+	\end{frame}	
+}
+	
+\begin{frame}[plain,fragile]
+	\tiny
+\begin{lstlisting}[basicstyle=\tiny]
+tekst={}
+section={}
+length={}
+...
+...
+with open(bestandsnaam) as f:
+    for line in f:
+        line=line.replace("\r","")
+        if line=="\n":
+            continue
+        matchObj=re.match(r"\s+(\d+) of (\d+) DOCUMENTS",line)
+        if matchObj:
+            artikelnr= int(matchObj.group(1))
+            tekst[artikelnr]=""
+            continue
+        if line.startswith("SECTION"):
+            section[artikelnr]=line.replace("SECTION: ","").rstrip("\n")
+        elif line.startswith("LENGTH"):
+            length[artikelnr]=line.replace("LENGTH: ","").rstrip("\n")
+...
+...
+...
+
+       else:
+           tekst[artikelnr]=tekst[artikelnr]+line
+\end{lstlisting}
+\normalsize
+
+$\Rightarrow$ More about parsing text in week 5.
+
+\end{frame}
+	
+
+
+
+
+
+
+\begin{frame}[standout]
+	Make sure you understood all of today's concepts.
+	
+	Also read Chapter 12.1.
+
+	 I prepared exercises to work on \emph{during} the Friday meeting (alone or in teams):
+	 \large{\url{https://github.com/damian0604/bdaca/blob/master/12ec/week03/exercises/exercises.md}}
+\end{frame}
+
+
+\begin{frame}[plain]
+    \printbibliography
+\end{frame}
+
+\end{document}
