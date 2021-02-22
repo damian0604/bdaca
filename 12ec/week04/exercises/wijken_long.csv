@@ -1,0 +1,491 @@
+,wijk,stadsdeel,code,year,woz-waarde
+0,Burgwallen-Oude Zijde,Centrum,A00,2014,263417.0
+1,Burgwallen-Nieuwe Zijde,Centrum,A01,2014,267895.0
+2,Grachtengordel-West,Centrum,A02,2014,490251.0
+3,Grachtengordel-Zuid,Centrum,A03,2014,469946.0
+4,Nieuwmarkt/Lastage,Centrum,A04,2014,295239.0
+5,Haarlemmerbuurt,Centrum,A05,2014,304924.0
+6,Jordaan,Centrum,A06,2014,270390.0
+7,De Weteringschans,Centrum,A07,2014,344649.0
+8,Weesperbuurt/Plantage,Centrum,A08,2014,307440.0
+9,Oostelijke Eilanden/Kadijken,Centrum,A09,2014,253990.0
+10,Westelijk Havengebied,Westpoort,B10,2014,
+11,Houthavens,West,E12,2014,164263.0
+12,Spaarndammer- en Zeeheldenbuurt,West,E13,2014,207439.0
+13,Staatsliedenbuurt,West,E14,2014,209792.0
+14,Centrale Markt,West,E15,2014,259527.0
+15,Frederik Hendrikbuurt,West,E16,2014,220547.0
+16,Da Costabuurt,West,E17,2014,265643.0
+17,Kinkerbuurt,West,E18,2014,217788.0
+18,Van Lennepbuurt,West,E19,2014,211354.0
+19,Helmersbuurt,West,E20,2014,308715.0
+20,Overtoomse Sluis,West,E21,2014,270056.0
+21,Vondelbuurt,West,E22,2014,564043.0
+22,Sloterdijk,West,E36,2014,306402.0
+23,Landlust,West,E37,2014,176998.0
+24,Erasmuspark,West,E38,2014,172560.0
+25,De Kolenkit,West,E39,2014,173068.0
+26,Geuzenbuurt,West,E40,2014,209517.0
+27,Van Galenbuurt,West,E41,2014,174317.0
+28,Hoofdweg eo,West,E42,2014,176288.0
+29,Westindische Buurt,West,E43,2014,218186.0
+30,Chassébuurt,West,E75,2014,209517.0
+31,Bedrijventerrein Sloterdijk,Nieuw-West,F11,2014,
+32,Slotermeer-Noordoost,Nieuw-West,F76,2014,143152.0
+33,Slotermeer-Zuidwest,Nieuw-West,F77,2014,141387.0
+34,Geuzenveld,Nieuw-West,F78,2014,165329.0
+35,Eendracht,Nieuw-West,F79,2014,230608.0
+36,Lutkemeer/Ookmeer,Nieuw-West,F80,2014,374106.0
+37,Osdorp-Oost,Nieuw-West,F81,2014,166038.0
+38,Osdorp-Midden,Nieuw-West,F82,2014,180221.0
+39,De Punt,Nieuw-West,F83,2014,154635.0
+40,Middelveldsche Akerpolder,Nieuw-West,F84,2014,260400.0
+41,Slotervaart-Noord,Nieuw-West,F85,2014,182114.0
+42,Overtoomse Veld,Nieuw-West,F86,2014,176233.0
+43,Westlandgracht,Nieuw-West,F87,2014,200633.0
+44,Sloter-/Riekerpolder,Nieuw-West,F88,2014,249379.0
+45,Slotervaart-Zuid,Nieuw-West,F89,2014,182114.0
+46,Zuidas,Zuid,K23,2014,
+47,Oude Pijp,Zuid,K24,2014,245656.0
+48,Nieuwe Pijp,Zuid,K25,2014,232579.0
+49,Zuid-Pijp,Zuid,K26,2014,225636.0
+50,Hoofddorppleinbuurt,Zuid,K44,2014,234229.0
+51,Schinkelbuurt,Zuid,K45,2014,240864.0
+52,Willemspark,Zuid,K46,2014,590989.0
+53,Museumkwartier,Zuid,K47,2014,591914.0
+54,Stadionbuurt,Zuid,K48,2014,271540.0
+55,Apollobuurt,Zuid,K49,2014,664230.0
+56,Scheldebuurt,Zuid,K52,2014,304350.0
+57,IJselbuurt,Zuid,K53,2014,239304.0
+58,Rijnbuurt,Zuid,K54,2014,230354.0
+59,Prinses Irenebuurt eo,Zuid,K59,2014,509680.0
+60,Buitenveldert-West,Zuid,K90,2014,254225.0
+61,Buitenveldert-Oost,Zuid,K91,2014,238302.0
+62,Weesperzijde,Oost,M27,2014,271297.0
+63,Oosterparkbuurt,Oost,M28,2014,216927.0
+64,Dapperbuurt,Oost,M29,2014,209223.0
+65,Transvaalbuurt,Oost,M30,2014,207479.0
+66,Indische Buurt-West,Oost,M31,2014,186301.0
+67,Indische Buurt-Oost,Oost,M32,2014,192071.0
+68,Oostelijk Havengebied,Oost,M33,2014,301131.0
+69,Zeeburgereiland/Nieuwe Diep,Oost,M34,2014,104568.0
+70,IJburg-West,Oost,M35,2014,310839.0
+71,IJburg-Zuid,Oost,M51,2014,272471.0
+72,Frankendael,Oost,M55,2014,219418.0
+73,Middenmeer,Oost,M56,2014,273773.0
+74,Betondorp,Oost,M57,2014,184462.0
+75,De Omval/Overamstel,Oost,M58,2014,155634.0
+76,Volewijck,Noord,N60,2014,150516.0
+77,IJplein/Vogelbuurt,Noord,N61,2014,158072.0
+78,Tuindorp Nieuwendam,Noord,N62,2014,173666.0
+79,Tuindorp Buiksloot,Noord,N63,2014,162989.0
+80,Nieuwendammerdijk/Buiksloterdijk,Noord,N64,2014,384397.0
+81,Tuindorp Oostzaan,Noord,N65,2014,170345.0
+82,Oostzanerwerf,Noord,N66,2014,190844.0
+83,Kadoelen,Noord,N67,2014,264759.0
+84,Waterlandpleinbuurt,Noord,N68,2014,160708.0
+85,Buikslotermeer,Noord,N69,2014,170804.0
+86,Banne Buiksloot,Noord,N70,2014,166502.0
+87,Noordelijke IJ-oevers-West,Noord,N71,2014,222297.0
+88,Noordelijke IJ-oevers-Oost,Noord,N72,2014,217582.0
+89,Waterland,Noord,N73,2014,428832.0
+90,Elzenhagen,Noord,N74,2014,
+91,Amstel III/Bullewijk,Zuidoost,T92,2014,
+92,"Bijlmer-Centrum (D,F,H)",Zuidoost,T93,2014,126373.0
+93,"Bijlmer-Oost (E,G,K)",Zuidoost,T94,2014,148048.0
+94,Nellestein,Zuidoost,T95,2014,139614.0
+95,Holendrecht/Reigersbos,Zuidoost,T96,2014,146686.0
+96,Gein,Zuidoost,T97,2014,163287.0
+97,Driemond,Zuidoost,T98,2014,227969.0
+98,Burgwallen-Oude Zijde,Centrum,A00,2015,273525.0
+99,Burgwallen-Nieuwe Zijde,Centrum,A01,2015,281193.0
+100,Grachtengordel-West,Centrum,A02,2015,502230.0
+101,Grachtengordel-Zuid,Centrum,A03,2015,478371.0
+102,Nieuwmarkt/Lastage,Centrum,A04,2015,303500.0
+103,Haarlemmerbuurt,Centrum,A05,2015,311743.0
+104,Jordaan,Centrum,A06,2015,285877.0
+105,De Weteringschans,Centrum,A07,2015,359119.0
+106,Weesperbuurt/Plantage,Centrum,A08,2015,322276.0
+107,Oostelijke Eilanden/Kadijken,Centrum,A09,2015,256421.0
+108,Westelijk Havengebied,Westpoort,B10,2015,189402.0
+109,Houthavens,West,E12,2015,167242.0
+110,Spaarndammer- en Zeeheldenbuurt,West,E13,2015,209713.0
+111,Staatsliedenbuurt,West,E14,2015,222070.0
+112,Centrale Markt,West,E15,2015,266771.0
+113,Frederik Hendrikbuurt,West,E16,2015,229457.0
+114,Da Costabuurt,West,E17,2015,266965.0
+115,Kinkerbuurt,West,E18,2015,225289.0
+116,Van Lennepbuurt,West,E19,2015,211052.0
+117,Helmersbuurt,West,E20,2015,309549.0
+118,Overtoomse Sluis,West,E21,2015,269836.0
+119,Vondelbuurt,West,E22,2015,595181.0
+120,Sloterdijk,West,E36,2015,281944.0
+121,Landlust,West,E37,2015,176092.0
+122,Erasmuspark,West,E38,2015,171532.0
+123,De Kolenkit,West,E39,2015,175916.0
+124,Geuzenbuurt,West,E40,2015,206504.0
+125,Van Galenbuurt,West,E41,2015,174739.0
+126,Hoofdweg eo,West,E42,2015,177259.0
+127,Westindische Buurt,West,E43,2015,219466.0
+128,Chassébuurt,West,E75,2015,214799.0
+129,Bedrijventerrein Sloterdijk,Nieuw-West,F11,2015,
+130,Slotermeer-Noordoost,Nieuw-West,F76,2015,139528.0
+131,Slotermeer-Zuidwest,Nieuw-West,F77,2015,143197.0
+132,Geuzenveld,Nieuw-West,F78,2015,171886.0
+133,Eendracht,Nieuw-West,F79,2015,229317.0
+134,Lutkemeer/Ookmeer,Nieuw-West,F80,2015,368054.0
+135,Osdorp-Oost,Nieuw-West,F81,2015,166307.0
+136,Osdorp-Midden,Nieuw-West,F82,2015,181699.0
+137,De Punt,Nieuw-West,F83,2015,153818.0
+138,Middelveldsche Akerpolder,Nieuw-West,F84,2015,263399.0
+139,Slotervaart-Noord,Nieuw-West,F85,2015,185123.0
+140,Overtoomse Veld,Nieuw-West,F86,2015,176446.0
+141,Westlandgracht,Nieuw-West,F87,2015,191464.0
+142,Sloter-/Riekerpolder,Nieuw-West,F88,2015,251111.0
+143,Slotervaart-Zuid,Nieuw-West,F89,2015,179043.0
+144,Zuidas,Zuid,K23,2015,466043.0
+145,Oude Pijp,Zuid,K24,2015,254036.0
+146,Nieuwe Pijp,Zuid,K25,2015,238217.0
+147,Zuid-Pijp,Zuid,K26,2015,228441.0
+148,Hoofddorppleinbuurt,Zuid,K44,2015,232791.0
+149,Schinkelbuurt,Zuid,K45,2015,248310.0
+150,Willemspark,Zuid,K46,2015,609908.0
+151,Museumkwartier,Zuid,K47,2015,567512.0
+152,Stadionbuurt,Zuid,K48,2015,271460.0
+153,Apollobuurt,Zuid,K49,2015,664514.0
+154,Scheldebuurt,Zuid,K52,2015,310248.0
+155,IJselbuurt,Zuid,K53,2015,235385.0
+156,Rijnbuurt,Zuid,K54,2015,229718.0
+157,Prinses Irenebuurt eo,Zuid,K59,2015,506697.0
+158,Buitenveldert-West,Zuid,K90,2015,249529.0
+159,Buitenveldert-Oost,Zuid,K91,2015,231585.0
+160,Weesperzijde,Oost,M27,2015,275509.0
+161,Oosterparkbuurt,Oost,M28,2015,215454.0
+162,Dapperbuurt,Oost,M29,2015,216466.0
+163,Transvaalbuurt,Oost,M30,2015,204797.0
+164,Indische Buurt-West,Oost,M31,2015,188495.0
+165,Indische Buurt-Oost,Oost,M32,2015,192657.0
+166,Oostelijk Havengebied,Oost,M33,2015,315297.0
+167,Zeeburgereiland/Nieuwe Diep,Oost,M34,2015,123993.0
+168,IJburg-West,Oost,M35,2015,319688.0
+169,IJburg-Zuid,Oost,M51,2015,293659.0
+170,Frankendael,Oost,M55,2015,219283.0
+171,Middenmeer,Oost,M56,2015,275728.0
+172,Betondorp,Oost,M57,2015,185883.0
+173,De Omval/Overamstel,Oost,M58,2015,173995.0
+174,Volewijck,Noord,N60,2015,157332.0
+175,IJplein/Vogelbuurt,Noord,N61,2015,156395.0
+176,Tuindorp Nieuwendam,Noord,N62,2015,175622.0
+177,Tuindorp Buiksloot,Noord,N63,2015,169285.0
+178,Nieuwendammerdijk/Buiksloterdijk,Noord,N64,2015,387460.0
+179,Tuindorp Oostzaan,Noord,N65,2015,172054.0
+180,Oostzanerwerf,Noord,N66,2015,192289.0
+181,Kadoelen,Noord,N67,2015,267617.0
+182,Waterlandpleinbuurt,Noord,N68,2015,163369.0
+183,Buikslotermeer,Noord,N69,2015,150413.0
+184,Banne Buiksloot,Noord,N70,2015,168651.0
+185,Noordelijke IJ-oevers-West,Noord,N71,2015,246760.0
+186,Noordelijke IJ-oevers-Oost,Noord,N72,2015,211602.0
+187,Waterland,Noord,N73,2015,437326.0
+188,Elzenhagen,Noord,N74,2015,280083.0
+189,Amstel III/Bullewijk,Zuidoost,T92,2015,
+190,"Bijlmer-Centrum (D,F,H)",Zuidoost,T93,2015,123214.0
+191,"Bijlmer-Oost (E,G,K)",Zuidoost,T94,2015,143943.0
+192,Nellestein,Zuidoost,T95,2015,137902.0
+193,Holendrecht/Reigersbos,Zuidoost,T96,2015,143554.0
+194,Gein,Zuidoost,T97,2015,161513.0
+195,Driemond,Zuidoost,T98,2015,224884.0
+196,Burgwallen-Oude Zijde,Centrum,A00,2016,289984.0
+197,Burgwallen-Nieuwe Zijde,Centrum,A01,2016,296762.0
+198,Grachtengordel-West,Centrum,A02,2016,560841.0
+199,Grachtengordel-Zuid,Centrum,A03,2016,531225.0
+200,Nieuwmarkt/Lastage,Centrum,A04,2016,340364.0
+201,Haarlemmerbuurt,Centrum,A05,2016,345189.0
+202,Jordaan,Centrum,A06,2016,307344.0
+203,De Weteringschans,Centrum,A07,2016,399942.0
+204,Weesperbuurt/Plantage,Centrum,A08,2016,353628.0
+205,Oostelijke Eilanden/Kadijken,Centrum,A09,2016,276481.0
+206,Westelijk Havengebied,Westpoort,B10,2016,224491.0
+207,Houthavens,West,E12,2016,188360.0
+208,Spaarndammer- en Zeeheldenbuurt,West,E13,2016,222371.0
+209,Staatsliedenbuurt,West,E14,2016,241366.0
+210,Centrale Markt,West,E15,2016,291913.0
+211,Frederik Hendrikbuurt,West,E16,2016,248089.0
+212,Da Costabuurt,West,E17,2016,297765.0
+213,Kinkerbuurt,West,E18,2016,248384.0
+214,Van Lennepbuurt,West,E19,2016,234660.0
+215,Helmersbuurt,West,E20,2016,346461.0
+216,Overtoomse Sluis,West,E21,2016,298880.0
+217,Vondelbuurt,West,E22,2016,630566.0
+218,Sloterdijk,West,E36,2016,296372.0
+219,Landlust,West,E37,2016,188962.0
+220,Erasmuspark,West,E38,2016,194418.0
+221,De Kolenkit,West,E39,2016,182309.0
+222,Geuzenbuurt,West,E40,2016,229124.0
+223,Van Galenbuurt,West,E41,2016,196805.0
+224,Hoofdweg eo,West,E42,2016,193554.0
+225,Westindische Buurt,West,E43,2016,247949.0
+226,Chassébuurt,West,E75,2016,241280.0
+227,Bedrijventerrein Sloterdijk,Nieuw-West,F11,2016,
+228,Slotermeer-Noordoost,Nieuw-West,F76,2016,139872.0
+229,Slotermeer-Zuidwest,Nieuw-West,F77,2016,143594.0
+230,Geuzenveld,Nieuw-West,F78,2016,171341.0
+231,Eendracht,Nieuw-West,F79,2016,240299.0
+232,Lutkemeer/Ookmeer,Nieuw-West,F80,2016,388082.0
+233,Osdorp-Oost,Nieuw-West,F81,2016,169012.0
+234,Osdorp-Midden,Nieuw-West,F82,2016,187561.0
+235,De Punt,Nieuw-West,F83,2016,158564.0
+236,Middelveldsche Akerpolder,Nieuw-West,F84,2016,279607.0
+237,Slotervaart-Noord,Nieuw-West,F85,2016,191417.0
+238,Overtoomse Veld,Nieuw-West,F86,2016,183992.0
+239,Westlandgracht,Nieuw-West,F87,2016,207142.0
+240,Sloter-/Riekerpolder,Nieuw-West,F88,2016,266544.0
+241,Slotervaart-Zuid,Nieuw-West,F89,2016,185007.0
+242,Zuidas,Zuid,K23,2016,265945.0
+243,Oude Pijp,Zuid,K24,2016,277590.0
+244,Nieuwe Pijp,Zuid,K25,2016,261891.0
+245,Zuid-Pijp,Zuid,K26,2016,262840.0
+246,Hoofddorppleinbuurt,Zuid,K44,2016,263192.0
+247,Schinkelbuurt,Zuid,K45,2016,260700.0
+248,Willemspark,Zuid,K46,2016,648801.0
+249,Museumkwartier,Zuid,K47,2016,618389.0
+250,Stadionbuurt,Zuid,K48,2016,297906.0
+251,Apollobuurt,Zuid,K49,2016,677933.0
+252,Scheldebuurt,Zuid,K52,2016,333869.0
+253,IJselbuurt,Zuid,K53,2016,260950.0
+254,Rijnbuurt,Zuid,K54,2016,251698.0
+255,Prinses Irenebuurt eo,Zuid,K59,2016,509568.0
+256,Buitenveldert-West,Zuid,K90,2016,261931.0
+257,Buitenveldert-Oost,Zuid,K91,2016,241511.0
+258,Weesperzijde,Oost,M27,2016,306506.0
+259,Oosterparkbuurt,Oost,M28,2016,237609.0
+260,Dapperbuurt,Oost,M29,2016,244155.0
+261,Transvaalbuurt,Oost,M30,2016,233221.0
+262,Indische Buurt-West,Oost,M31,2016,200048.0
+263,Indische Buurt-Oost,Oost,M32,2016,213074.0
+264,Oostelijk Havengebied,Oost,M33,2016,341516.0
+265,Zeeburgereiland/Nieuwe Diep,Oost,M34,2016,145825.0
+266,IJburg-West,Oost,M35,2016,335210.0
+267,IJburg-Zuid,Oost,M51,2016,301349.0
+268,Frankendael,Oost,M55,2016,228093.0
+269,Middenmeer,Oost,M56,2016,293793.0
+270,Betondorp,Oost,M57,2016,190501.0
+271,De Omval/Overamstel,Oost,M58,2016,153618.0
+272,Volewijck,Noord,N60,2016,159440.0
+273,IJplein/Vogelbuurt,Noord,N61,2016,170429.0
+274,Tuindorp Nieuwendam,Noord,N62,2016,184874.0
+275,Tuindorp Buiksloot,Noord,N63,2016,174508.0
+276,Nieuwendammerdijk/Buiksloterdijk,Noord,N64,2016,395063.0
+277,Tuindorp Oostzaan,Noord,N65,2016,179297.0
+278,Oostzanerwerf,Noord,N66,2016,195648.0
+279,Kadoelen,Noord,N67,2016,275296.0
+280,Waterlandpleinbuurt,Noord,N68,2016,173333.0
+281,Buikslotermeer,Noord,N69,2016,154881.0
+282,Banne Buiksloot,Noord,N70,2016,177431.0
+283,Noordelijke IJ-oevers-West,Noord,N71,2016,251052.0
+284,Noordelijke IJ-oevers-Oost,Noord,N72,2016,223900.0
+285,Waterland,Noord,N73,2016,442483.0
+286,Elzenhagen,Noord,N74,2016,287122.0
+287,Amstel III/Bullewijk,Zuidoost,T92,2016,
+288,"Bijlmer-Centrum (D,F,H)",Zuidoost,T93,2016,121273.0
+289,"Bijlmer-Oost (E,G,K)",Zuidoost,T94,2016,148343.0
+290,Nellestein,Zuidoost,T95,2016,134903.0
+291,Holendrecht/Reigersbos,Zuidoost,T96,2016,147751.0
+292,Gein,Zuidoost,T97,2016,165247.0
+293,Driemond,Zuidoost,T98,2016,234149.0
+294,Burgwallen-Oude Zijde,Centrum,A00,2017,339548.0
+295,Burgwallen-Nieuwe Zijde,Centrum,A01,2017,351214.0
+296,Grachtengordel-West,Centrum,A02,2017,674610.0
+297,Grachtengordel-Zuid,Centrum,A03,2017,627625.0
+298,Nieuwmarkt/Lastage,Centrum,A04,2017,386716.0
+299,Haarlemmerbuurt,Centrum,A05,2017,403267.0
+300,Jordaan,Centrum,A06,2017,347740.0
+301,De Weteringschans,Centrum,A07,2017,458010.0
+302,Weesperbuurt/Plantage,Centrum,A08,2017,413388.0
+303,Oostelijke Eilanden/Kadijken,Centrum,A09,2017,316261.0
+304,Westelijk Havengebied,Westpoort,B10,2017,
+305,Houthavens,West,E12,2017,349525.0
+306,Spaarndammer- en Zeeheldenbuurt,West,E13,2017,256300.0
+307,Staatsliedenbuurt,West,E14,2017,277214.0
+308,Centrale Markt,West,E15,2017,328441.0
+309,Frederik Hendrikbuurt,West,E16,2017,282776.0
+310,Da Costabuurt,West,E17,2017,339699.0
+311,Kinkerbuurt,West,E18,2017,291110.0
+312,Van Lennepbuurt,West,E19,2017,272741.0
+313,Helmersbuurt,West,E20,2017,401695.0
+314,Overtoomse Sluis,West,E21,2017,344820.0
+315,Vondelbuurt,West,E22,2017,754544.0
+316,Sloterdijk,West,E36,2017,369842.0
+317,Landlust,West,E37,2017,228885.0
+318,Erasmuspark,West,E38,2017,233754.0
+319,De Kolenkit,West,E39,2017,219773.0
+320,Geuzenbuurt,West,E40,2017,272308.0
+321,Van Galenbuurt,West,E41,2017,232976.0
+322,Hoofdweg eo,West,E42,2017,232847.0
+323,Westindische Buurt,West,E43,2017,295618.0
+324,Chassébuurt,West,E75,2017,288036.0
+325,Bedrijventerrein Sloterdijk,Nieuw-West,F11,2017,
+326,Slotermeer-Noordoost,Nieuw-West,F76,2017,157018.0
+327,Slotermeer-Zuidwest,Nieuw-West,F77,2017,158871.0
+328,Geuzenveld,Nieuw-West,F78,2017,185583.0
+329,Eendracht,Nieuw-West,F79,2017,237948.0
+330,Lutkemeer/Ookmeer,Nieuw-West,F80,2017,430190.0
+331,Osdorp-Oost,Nieuw-West,F81,2017,183051.0
+332,Osdorp-Midden,Nieuw-West,F82,2017,197667.0
+333,De Punt,Nieuw-West,F83,2017,167009.0
+334,Middelveldsche Akerpolder,Nieuw-West,F84,2017,297287.0
+335,Slotervaart-Noord,Nieuw-West,F85,2017,220699.0
+336,Overtoomse Veld,Nieuw-West,F86,2017,208991.0
+337,Westlandgracht,Nieuw-West,F87,2017,218208.0
+338,Sloter-/Riekerpolder,Nieuw-West,F88,2017,290169.0
+339,Slotervaart-Zuid,Nieuw-West,F89,2017,198941.0
+340,Zuidas,Zuid,K23,2017,303047.0
+341,Oude Pijp,Zuid,K24,2017,334147.0
+342,Nieuwe Pijp,Zuid,K25,2017,305668.0
+343,Zuid-Pijp,Zuid,K26,2017,299994.0
+344,Hoofddorppleinbuurt,Zuid,K44,2017,308149.0
+345,Schinkelbuurt,Zuid,K45,2017,313400.0
+346,Willemspark,Zuid,K46,2017,808360.0
+347,Museumkwartier,Zuid,K47,2017,755109.0
+348,Stadionbuurt,Zuid,K48,2017,345993.0
+349,Apollobuurt,Zuid,K49,2017,839342.0
+350,Scheldebuurt,Zuid,K52,2017,403802.0
+351,IJselbuurt,Zuid,K53,2017,310993.0
+352,Rijnbuurt,Zuid,K54,2017,301239.0
+353,Prinses Irenebuurt eo,Zuid,K59,2017,625081.0
+354,Buitenveldert-West,Zuid,K90,2017,296458.0
+355,Buitenveldert-Oost,Zuid,K91,2017,266394.0
+356,Weesperzijde,Oost,M27,2017,367507.0
+357,Oosterparkbuurt,Oost,M28,2017,296108.0
+358,Dapperbuurt,Oost,M29,2017,289299.0
+359,Transvaalbuurt,Oost,M30,2017,283449.0
+360,Indische Buurt-West,Oost,M31,2017,253664.0
+361,Indische Buurt-Oost,Oost,M32,2017,251413.0
+362,Oostelijk Havengebied,Oost,M33,2017,377085.0
+363,Zeeburgereiland/Nieuwe Diep,Oost,M34,2017,150175.0
+364,IJburg-West,Oost,M35,2017,366179.0
+365,IJburg-Zuid,Oost,M51,2017,352869.0
+366,Frankendael,Oost,M55,2017,274148.0
+367,Middenmeer,Oost,M56,2017,356020.0
+368,Betondorp,Oost,M57,2017,230751.0
+369,De Omval/Overamstel,Oost,M58,2017,186082.0
+370,Volewijck,Noord,N60,2017,184154.0
+371,IJplein/Vogelbuurt,Noord,N61,2017,197581.0
+372,Tuindorp Nieuwendam,Noord,N62,2017,204509.0
+373,Tuindorp Buiksloot,Noord,N63,2017,194104.0
+374,Nieuwendammerdijk/Buiksloterdijk,Noord,N64,2017,439019.0
+375,Tuindorp Oostzaan,Noord,N65,2017,202216.0
+376,Oostzanerwerf,Noord,N66,2017,213785.0
+377,Kadoelen,Noord,N67,2017,299298.0
+378,Waterlandpleinbuurt,Noord,N68,2017,191231.0
+379,Buikslotermeer,Noord,N69,2017,177380.0
+380,Banne Buiksloot,Noord,N70,2017,191675.0
+381,Noordelijke IJ-oevers-West,Noord,N71,2017,243183.0
+382,Noordelijke IJ-oevers-Oost,Noord,N72,2017,168528.0
+383,Waterland,Noord,N73,2017,480514.0
+384,Elzenhagen,Noord,N74,2017,322014.0
+385,Amstel III/Bullewijk,Zuidoost,T92,2017,78137.0
+386,"Bijlmer-Centrum (D,F,H)",Zuidoost,T93,2017,135944.0
+387,"Bijlmer-Oost (E,G,K)",Zuidoost,T94,2017,156291.0
+388,Nellestein,Zuidoost,T95,2017,140373.0
+389,Holendrecht/Reigersbos,Zuidoost,T96,2017,153254.0
+390,Gein,Zuidoost,T97,2017,176573.0
+391,Driemond,Zuidoost,T98,2017,251670.0
+392,Burgwallen-Oude Zijde,Centrum,A00,2018,400010.0
+393,Burgwallen-Nieuwe Zijde,Centrum,A01,2018,391011.0
+394,Grachtengordel-West,Centrum,A02,2018,755091.0
+395,Grachtengordel-Zuid,Centrum,A03,2018,697576.0
+396,Nieuwmarkt/Lastage,Centrum,A04,2018,438942.0
+397,Haarlemmerbuurt,Centrum,A05,2018,458522.0
+398,Jordaan,Centrum,A06,2018,402186.0
+399,De Weteringschans,Centrum,A07,2018,515192.0
+400,Weesperbuurt/Plantage,Centrum,A08,2018,473643.0
+401,Oostelijke Eilanden/Kadijken,Centrum,A09,2018,381774.0
+402,Westelijk Havengebied,Westpoort,B10,2018,
+403,Houthavens,West,E12,2018,483318.0
+404,Spaarndammer- en Zeeheldenbuurt,West,E13,2018,322981.0
+405,Staatsliedenbuurt,West,E14,2018,325787.0
+406,Centrale Markt,West,E15,2018,396012.0
+407,Frederik Hendrikbuurt,West,E16,2018,338110.0
+408,Da Costabuurt,West,E17,2018,400998.0
+409,Kinkerbuurt,West,E18,2018,346255.0
+410,Van Lennepbuurt,West,E19,2018,322065.0
+411,Helmersbuurt,West,E20,2018,473981.0
+412,Overtoomse Sluis,West,E21,2018,409990.0
+413,Vondelbuurt,West,E22,2018,844347.0
+414,Sloterdijk,West,E36,2018,448161.0
+415,Landlust,West,E37,2018,277961.0
+416,Erasmuspark,West,E38,2018,283329.0
+417,De Kolenkit,West,E39,2018,269738.0
+418,Geuzenbuurt,West,E40,2018,333029.0
+419,Van Galenbuurt,West,E41,2018,283882.0
+420,Hoofdweg eo,West,E42,2018,287465.0
+421,Westindische Buurt,West,E43,2018,358346.0
+422,Chassébuurt,West,E75,2018,346607.0
+423,Bedrijventerrein Sloterdijk,Nieuw-West,F11,2018,93104.0
+424,Slotermeer-Noordoost,Nieuw-West,F76,2018,192389.0
+425,Slotermeer-Zuidwest,Nieuw-West,F77,2018,191064.0
+426,Geuzenveld,Nieuw-West,F78,2018,220329.0
+427,Eendracht,Nieuw-West,F79,2018,270374.0
+428,Lutkemeer/Ookmeer,Nieuw-West,F80,2018,483447.0
+429,Osdorp-Oost,Nieuw-West,F81,2018,207884.0
+430,Osdorp-Midden,Nieuw-West,F82,2018,224934.0
+431,De Punt,Nieuw-West,F83,2018,188823.0
+432,Middelveldsche Akerpolder,Nieuw-West,F84,2018,332670.0
+433,Slotervaart-Noord,Nieuw-West,F85,2018,256603.0
+434,Overtoomse Veld,Nieuw-West,F86,2018,228524.0
+435,Westlandgracht,Nieuw-West,F87,2018,224161.0
+436,Sloter-/Riekerpolder,Nieuw-West,F88,2018,330616.0
+437,Slotervaart-Zuid,Nieuw-West,F89,2018,246413.0
+438,Zuidas,Zuid,K23,2018,358804.0
+439,Oude Pijp,Zuid,K24,2018,382467.0
+440,Nieuwe Pijp,Zuid,K25,2018,360267.0
+441,Zuid-Pijp,Zuid,K26,2018,355106.0
+442,Hoofddorppleinbuurt,Zuid,K44,2018,355686.0
+443,Schinkelbuurt,Zuid,K45,2018,359277.0
+444,Willemspark,Zuid,K46,2018,914295.0
+445,Museumkwartier,Zuid,K47,2018,860067.0
+446,Stadionbuurt,Zuid,K48,2018,409450.0
+447,Apollobuurt,Zuid,K49,2018,1003743.0
+448,Scheldebuurt,Zuid,K52,2018,477590.0
+449,IJselbuurt,Zuid,K53,2018,369276.0
+450,Rijnbuurt,Zuid,K54,2018,350936.0
+451,Prinses Irenebuurt eo,Zuid,K59,2018,745698.0
+452,Buitenveldert-West,Zuid,K90,2018,373445.0
+453,Buitenveldert-Oost,Zuid,K91,2018,330366.0
+454,Weesperzijde,Oost,M27,2018,429196.0
+455,Oosterparkbuurt,Oost,M28,2018,351823.0
+456,Dapperbuurt,Oost,M29,2018,343221.0
+457,Transvaalbuurt,Oost,M30,2018,333393.0
+458,Indische Buurt-West,Oost,M31,2018,306433.0
+459,Indische Buurt-Oost,Oost,M32,2018,312058.0
+460,Oostelijk Havengebied,Oost,M33,2018,441577.0
+461,Zeeburgereiland/Nieuwe Diep,Oost,M34,2018,177096.0
+462,IJburg-West,Oost,M35,2018,402230.0
+463,IJburg-Zuid,Oost,M51,2018,394988.0
+464,Frankendael,Oost,M55,2018,318477.0
+465,Middenmeer,Oost,M56,2018,417857.0
+466,Betondorp,Oost,M57,2018,266711.0
+467,De Omval/Overamstel,Oost,M58,2018,218509.0
+468,Volewijck,Noord,N60,2018,212209.0
+469,IJplein/Vogelbuurt,Noord,N61,2018,235667.0
+470,Tuindorp Nieuwendam,Noord,N62,2018,231180.0
+471,Tuindorp Buiksloot,Noord,N63,2018,231942.0
+472,Nieuwendammerdijk/Buiksloterdijk,Noord,N64,2018,533710.0
+473,Tuindorp Oostzaan,Noord,N65,2018,241357.0
+474,Oostzanerwerf,Noord,N66,2018,251646.0
+475,Kadoelen,Noord,N67,2018,306344.0
+476,Waterlandpleinbuurt,Noord,N68,2018,226409.0
+477,Buikslotermeer,Noord,N69,2018,215792.0
+478,Banne Buiksloot,Noord,N70,2018,235716.0
+479,Noordelijke IJ-oevers-West,Noord,N71,2018,295055.0
+480,Noordelijke IJ-oevers-Oost,Noord,N72,2018,196081.0
+481,Waterland,Noord,N73,2018,565361.0
+482,Elzenhagen,Noord,N74,2018,387474.0
+483,Amstel III/Bullewijk,Zuidoost,T92,2018,81201.0
+484,"Bijlmer-Centrum (D,F,H)",Zuidoost,T93,2018,152427.0
+485,"Bijlmer-Oost (E,G,K)",Zuidoost,T94,2018,182291.0
+486,Nellestein,Zuidoost,T95,2018,170441.0
+487,Holendrecht/Reigersbos,Zuidoost,T96,2018,181189.0
+488,Gein,Zuidoost,T97,2018,199542.0
+489,Driemond,Zuidoost,T98,2018,267328.0
