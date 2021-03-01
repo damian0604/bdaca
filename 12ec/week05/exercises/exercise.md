@@ -11,19 +11,19 @@ https://dx.doi.org/10.7910/DVN/ULHLCB
 ### 1. Inspect the structure of the dataset. 
 What information do the following elements give you?
 
-- Folder (directory) names
-- Folder structure/hierachy
-- File names
-- File contents
+- folder (directory) names
+- folder structure/hierachy
+- file names
+- file contents
 
 ### 2. Discuss strategies for working with this dataset!
 
 - Which questions could you answer?
 - How could you deal with it, given the size and the structure?
-- How much memory[^1] (RAM) does your computer have? How large is the complete dataset? What does that mean?
+- How much memory<sup>1</sup> (RAM) does your computer have? How large is the complete dataset? What does that mean?
 - Make a sketch (e.g., with pen&paper), how you could handle your workflow and your data to answer your question.
 
-[^1] *memory* (RAM), not *storage* (harddisk)!
+<sup>1</sup> *memory* (RAM), not *storage* (harddisk)!
 
 ### 3. Read some (or all?) data
 
@@ -45,3 +45,13 @@ for filename in infowarsfiles:
 
 - Perform some first analyses on the data using string methods and regular expressions!
 
+
+
+### BONUS: Inceasing efficiency + reusability
+The approach under (3) gets you very far. 
+But for those of you who want to go the extra mile, here are some suggestions for further improvements in handling such a large dataset, consisting of thousands of files, and for deeper thinking about data handling:
+
+- Consider writing a function to read the data. Let your function take three parameters as input, `basepath` (where is `articles located?`), `month` and `outlet`, and return the articles that match this criterion.
+- Even better, make it a *generator* that yields the articles instead of returning a whole list.
+- Think of the most memory-efficient way to get an overview of how often a given regular expression R is mentioned per outlet!
+- Under which circumstances would you consider having your function for reading the data return a pandas dataframe?
