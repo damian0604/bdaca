@@ -51,7 +51,7 @@ for filename in infowarsfiles:
 The approach under (3) gets you very far. 
 But for those of you who want to go the extra mile, here are some suggestions for further improvements in handling such a large dataset, consisting of thousands of files, and for deeper thinking about data handling:
 
-- Consider writing a function to read the data. Let your function take three parameters as input, `basepath` (where is `articles located?`), `month` and `outlet`, and return the articles that match this criterion.
+- Consider writing a function to read the data. Let your function take three parameters as input, `basepath` (where is the folder with articles located?), `month` and `outlet`, and return the articles that match this criterion.
 - Even better, make it a *generator* that yields the articles instead of returning a whole list.
 - Think of the most memory-efficient way to get an overview of how often a given regular expression R is mentioned per outlet!
 - Under which circumstances would you consider having your function for reading the data return a pandas dataframe?
