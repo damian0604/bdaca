@@ -53,5 +53,6 @@ But for those of you who want to go the extra mile, here are some suggestions fo
 
 - Consider writing a function to read the data. Let your function take three parameters as input, `basepath` (where is the folder with articles located?), `month` and `outlet`, and return the articles that match this criterion.
 - Even better, make it a *generator* that yields the articles instead of returning a whole list.
+- Consider yielding a dict (with date, outlet, and the article itself) instead of yielding only the article text.
 - Think of the most memory-efficient way to get an overview of how often a given regular expression R is mentioned per outlet!
 - Under which circumstances would you consider having your function for reading the data return a pandas dataframe?
