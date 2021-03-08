@@ -115,9 +115,13 @@
 	\end{frame}
 	
 	
-	\begin{frame}[standout]
-		How did the exam go?
-		
+\begin{frame}[standout]	
+	How did it go? And some first feedback on the exam.
+\end{frame}
+	
+	
+	
+	\begin{frame}[standout]	
 		Everything clear from last week?
 	\end{frame}
 	
@@ -440,10 +444,61 @@ lemmatized_tokens = [[token.lemma_  for token in nlp(doc)] for doc in docs]
 
 
 
+\section{The order of preprocessing steps}
+
+\begin{frame}{Option 1}
+\begin{block}{Preprocessing only through Vectorizer}
+``Just use CountVectorizer or Tfidfvectorizer with the appropriate options.''	
+\begin{itemize}
+	\item pro: No double work, efficient if your main goal is a sparse matrix (for ML?) anyway
+	\item con: you cannot ``see'' the preprocessed texts
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Option 2}
+	\begin{block}{Extensive preprocessing without Vectorizer}
+``Remove stopwords, punctuation etc. and store in a string with spaces''
+
+\begin{lstlisting}
+cleaneddocs = [" ".join(re.findall(r"\w\w+", d)).lower() for d in docs]
+cleaneddocswithoutstopwords = [" ".join([w for w in d.split() if w not in mystopwords]) for d in cleaneddocs]
+\end{lstlisting}
+\begin{lstlistingoutputtiny}
+['this is text', 'haven seen john derring do second sentence']
+['text', 'seen john derring second sentence']	
+\end{lstlistingoutputtiny}
+{\tiny{Yes, this list comprehension looks scary -- you can make a more elaborate for loop instead}}
+	
+\begin{itemize}
+	\item pro: you can read (and store!) the preprocessed docs
+	\item pro: even the most stupid vectorizer (or wordcloud tool) can split the resulting string later on
+	\item con: potentially double work (for you \emph{and} the computer)
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\question{How would you do it?}
+
+\begin{frame}[plain]
+I tend to go for Option 2 because
+\begin{itemize}
+	\item I like to inspect a sample of the documents
+	\item I can re-use the cleaned docs irrespective of the Vectorizer
+\end{itemize}
+
+But sometimes, I opt of Option 1 instead because
+\begin{itemize}
+	\item I want to systematically compare the effect of different choices in a machine learning pipeline (then I can simply vary the vectorizer instead of the data)
+	\item I want to use techniques that are geared towards little or no preprocessing (deep learning)
+\end{itemize}
+
+\end{frame}
+
 
 \section{How further?}
 
-% POS AND NER
 
 \begin{frame}{Main takeaway}
 
@@ -461,21 +516,39 @@ lemmatized_tokens = [[token.lemma_  for token in nlp(doc)] for doc in docs]
 
 
 \begin{frame}{More NLP}
-I \textbf{really} recommend looking into spacy (\url{https://spacy.io}). It allows you to do cool advanced natural language processing, such as part-of-speech-tagging and named entity recogntion.
+\begin{description}
+	\item[$n$-grams] Consider using $n$-grams instead of unigrams
+	\item[collocations]  $n$grams that appear more frequently than expected
+	\item[POS-tagging] grammatical function (``part-of-speach'') of tokens
+	\item[NER] named entity recognition (persons, organizations, locations)
+\end{description}
+\end{frame}
 
-E.g., get all persons or organizations from texts (NER), or only nouns or verbs (POS).
-
+\begin{frame}{More NLP}
+I \textbf{really} recommend looking into spacy (\url{https://spacy.io}) for advanced natural language processing, such as part-of-speech-tagging and named entity recogntion.
 \end{frame}
 
 
 \begin{frame}{Friday}
-TODO TODO TODO
+\begin{block}{Based on today's lecture and Chapter 10\ldots}
+Try to take some of the data from last week and
+\begin{itemize}
+	\item preprocess them (in different ways)
+	\item vectorize them
+	\item give a (tabular and/or graphical) overview of tokens (unigrams, bigrams, collocations).
+\end{itemize}
+Then,
+\begin{itemize}
+	\item compare that bottom-up approach with a top-down (keyword or regular-expression based) approach
+\end{itemize}
+
+\end{block}
 \end{frame}
 
 
-\begin{frame}[plain]
-	\printbibliography
-\end{frame}
+%\begin{frame}[plain]
+%	\printbibliography
+%\end{frame}
 
 
 
