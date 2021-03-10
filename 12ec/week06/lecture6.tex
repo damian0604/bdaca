@@ -289,6 +289,7 @@ tokens = [TreebankWordTokenizer().tokenize(d) for d in docs]
 \begin{lstlistingoutputtiny}
 [['This', 'is', 'a', 'text'],  ['I', 'have', "n't", 'seen', 'John', "'s", 'derring-do.', 'Second', 'sentence', '!']]
 \end{lstlistingoutputtiny}
+\tiny{Notice the failure to split the \texttt{.} at the end of the first sentence in the second doc. That's because TreebankWordTokenizer expects \emph{sentences} as input. See book for a solution.\\}
 \end{frame}
 
 
@@ -297,16 +298,20 @@ OK, so we can tokenize with a list comprehension (and that's often a good idea!)
 \end{frame}
 
 
-\begin{frame}{OK, good enough, perfect?}
+\begin{frame}[fragile]{OK, good enough, perfect?}
 	\begin{block}{scikit-learn's CountVectorizer (default settings)}
 		\begin{itemize}
 			\item applies lowercasing
 			\item deals with punctuation etc. itself
-			\item minimum word length == 1
+			\item minimum word length $>1$
 			\item more technically, tokenizes using this regular expression: \texttt{r"(?u)\textbackslash b\textbackslash w\textbackslash w+\textbackslash b"} \footnote{?u = support unicode, \textbackslash b = word boundary}
 		\end{itemize}
 	\end{block}
-
+\begin{lstlisting}
+from sklearn.feature_extraction.text import CountVectorizer
+cv = CountVectorizer()
+dtm_sparse = cv.fit_transform(docs)
+\end{lstlisting}
 \end{frame}
 
 
