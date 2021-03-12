@@ -24,7 +24,7 @@ class MyTokenizer:
             tokens = TreebankWordTokenizer().tokenize(sent)
             tokens = [t for t in tokens if regex.search(word, t)]
             result += tokens 
-            return result			
+        return result			
 ```
 
 **and** that you create an "instantiate" of this class with the following command:
