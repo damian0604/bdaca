@@ -219,11 +219,13 @@ Let us assume you have a list of lists of words (!) called \texttt{texts}:
 
 \begin{lstlisting}
 articles=['The tax deficit is higher than expected. This said xxx ...', 'Germany won the World Cup. After a']
-texts=[art.split() for art in articles]
+texts=[[token for token in re.split(r"\W", art) if len(token)>0] for art in articles]
+
+
 \end{lstlisting}
 which looks like this:
 \begin{lstlisting}
-[['The', 'tax', 'deficit', 'is', 'higher', 'than', 'expected.', 'This', 'said', 'xxx', '...'], ['Germany', 'won', 'the', 'World', 'Cup.', 'After', 'a']]
+[['The', 'tax', 'deficit', 'is', 'higher', 'than', 'expected', 'This', 'said', 'xxx'], ['Germany', 'won', 'the', 'World', 'Cup', 'After', 'a']]
 \end{lstlisting}
 
 \tiny{{\v R}eh{\r u}{\v r}ek, R., \& Sojka, P. (2010). Software framework for topic modelling with large corpora. \emph{Proceedings of the LREC 2010 Workshop on New Challenges for NLP Frameworks}, pp. 45–50. Valletta, Malta: ELRA. }
@@ -292,9 +294,9 @@ fo.write("\n")
 \begin{frame}[fragile]{Visualization with pyldavis}
 \begin{lstlisting}
 import pyLDAvis
-import pyLDAvis.gensim
+import pyLDAvis.gensim_models as gensimvis
 # first estiate gensim model, then:
-vis_data = pyLDAvis.gensim.prepare(mylda,mm,id2word)
+vis_data = gensimvis.prepare(mylda,mm,id2word)
 pyLDAvis.display(vis_data)
 \end{lstlisting}
 \makebox[\linewidth]{
@@ -456,7 +458,7 @@ Example:
     \footnotesize
   \begin{itemize}
   \item Work through the example notebook on LDA: \url{https://github.com/damian0604/bdaca/blob/master/12ec/week11/lda.ipynb}
-  \item Use a dataset of your choice. Try to compare multiple approaches (e.g., clustering vs LDA). Possible inspiration: \url{https://github.com/annekroon/gesis-ml-learning/blob/master/03wednesday/livecoding.ipynb}
+  \item But most importantly: \textbf{Use a dataset of your choice} and find a suitable topic model. You can also try to compare multiple approaches (e.g., clustering vs LDA). Possible inspiration: \url{https://github.com/annekroon/gesis-ml-learning/blob/master/03wednesday/livecoding.ipynb}
     \end{itemize}
 \end{block}
 
@@ -471,7 +473,9 @@ Models that learn that `teacher' and `instructor' are more similar than `teacher
 
 \end{frame}
 
-
+\begin{frame}[standout]
+Good luck with the take-home exam!
+\end{frame}
 
 
 \end{document}
