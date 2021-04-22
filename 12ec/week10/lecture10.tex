@@ -352,7 +352,7 @@ $$
 \underset{\boldsymbol{\beta}}{\arg \min }\left[\color{blue} \sum_{i=1}^{n}\left(Y_{i}-\beta_{0}-\sum_{j=1}^{p} \beta_{j} X_{j i}\right)^{2}\color{orange} +\lambda \sum_{j=1}^{p}\left|\beta_{j}\right|^{q} \color{black} \right]
 $$
 
-\color{blue}Logistic regression estimates $\beta$-coefficients by minimizing the ``cost'' that occurs when the prediction is wrong.
+\color{blue}We estimate the $\beta$-coefficients of a model by optimizing a so-called loss function, i.e minimizing the ``cost'' that occurs when the prediction is wrong.
 
 \color{orange} \emph{If we simply add the sum of the $\beta$ coefficients} to the model, we ``punish'' large coefficients.
 \color{black}
@@ -369,8 +369,8 @@ If $\lambda$ is larger, we punish more.
 \begin{itemize}[<+->]
 	\item scikit-learn uses regularization by default
 	\item (that's why the coefficients of a logistic regression classifier will differ from a ``tradtional'' logistic regression with the statsmodels module)
-	\item Remember that we are \textit{not} interested in a substantive interpretation of the  $\beta$-coefficients but in a good prediction (which is why ``punishing'')
-	\item The penalty will shring the coefficients towards zero, \emph{which is very useful to avoid overfitting!}
+	\item Remember that we are \textit{not} interested in a substantive interpretation of the  $\beta$-coefficients but in a good prediction (which is why ``punishing'' large coefficients and hence biasing the coeffients is not a problem at all!)
+	\item The penalty will shrink the coefficients towards zero, \emph{which is very useful to avoid overfitting!}
 	\item As always, there is a lot of extra info on the scikit-learn website
 \end{itemize}
 \end{frame}
